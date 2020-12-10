@@ -1,5 +1,5 @@
 package sg.edu.iss.team8ca.service;
 
-public class BrandServiceImpl {
+public interface InventoryInterface {
 
 }
