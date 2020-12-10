@@ -1,8 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
-public class LoginServiceImpl {
+public class LoginImpl {
 
-	public LoginServiceImpl() {
+	public LoginImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
