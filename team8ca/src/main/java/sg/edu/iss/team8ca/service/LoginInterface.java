@@ -1,5 +1,5 @@
 package sg.edu.iss.team8ca.service;
 
-public interface LoginService {
+public interface LoginInterface {
 
 }

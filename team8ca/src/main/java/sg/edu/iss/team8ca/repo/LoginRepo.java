@@ -1,9 +1,9 @@
 package sg.edu.iss.team8ca.repo;
 
-public class LoginRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-	public LoginRepo() {
-		// TODO Auto-generated constructor stub
-	}
+import sg.edu.iss.team8ca.model.Login;
 
+public interface LoginRepo extends JpaRepository<Login, String> {
+	
 }
