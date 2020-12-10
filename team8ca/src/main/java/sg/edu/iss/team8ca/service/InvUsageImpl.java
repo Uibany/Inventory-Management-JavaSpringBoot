@@ -1,8 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
-public class InvUsageImpl implements InvUsageInterface {
+//public class InvUsageImpl implements InvUsageInterface {
 
-	@Autowired
+//	@Autowired
 	
 	
-}
+//}
