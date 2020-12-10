@@ -1,27 +1,29 @@
 package sg.edu.iss.team8ca.model;
-
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Data
-@NoArgsConstructor
 @Entity
 public class Inventory {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String productId;
+	private String name;
+	private String description;
+	private double originalPrice;
+	private double wholesalePrice;
+	private double retailPrice;
+	private double partnerPrice;
+	private int stockQty;
+	private int reorderLevel;
+	private int minimumOrder;
+	private String colour;
+	private String dimension;
 	
-	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	private long id;
+	@ManyToOne
+	private Subcategory subcategory;
 	
-	@OneToMany (mappedBy = "inventory")
-	private List<UsageDetails> usagedetails;
-
+	@ManyToOne
+	private Brand brand;
 }
