@@ -1,5 +1,18 @@
 package sg.edu.iss.team8ca.model;
 
-public class Brand {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
+@Entity
+public class Brand {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String brandId;
+	private String brandName;
+	private String manufacturerName;
+	
+	@ManyToOne
+	private Supplier supplier;
 }
