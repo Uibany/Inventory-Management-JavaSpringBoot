@@ -1,4 +1,6 @@
 package sg.edu.iss.team8ca.model;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,5 +14,5 @@ public class Category {
 	private String categoryName;
 	
 	@OneToMany(mappedBy="category")
-	private Subcategory subcategory;
+	private List<Subcategory> subcategory;
 }
