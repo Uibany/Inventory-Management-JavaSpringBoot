@@ -11,6 +11,7 @@ import org.jboss.jandex.TypeTarget.Usage;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @Entity

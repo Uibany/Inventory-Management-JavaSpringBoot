@@ -12,9 +12,11 @@ import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @Entity
+
 public class InvUsage {
 	
 	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
