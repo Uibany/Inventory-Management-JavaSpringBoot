@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/usageform")
 public class UsageFormController {
 	
-	@Autowired
-	public void 
 	
 	
 	
