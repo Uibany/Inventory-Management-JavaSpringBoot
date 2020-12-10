@@ -3,6 +3,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Supplier {
@@ -13,4 +14,7 @@ public class Supplier {
 	private String email;
 	private String address;
 	private int postalCode;
+	
+	@OneToMany(mappedBy="supplier")
+	private Brand brand;
 }
