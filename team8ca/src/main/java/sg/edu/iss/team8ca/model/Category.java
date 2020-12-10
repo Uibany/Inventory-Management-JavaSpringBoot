@@ -1,5 +1,5 @@
 package sg.edu.iss.team8ca.model;
 
-public class SubcategoryModel {
+public class Category {
 
 }
