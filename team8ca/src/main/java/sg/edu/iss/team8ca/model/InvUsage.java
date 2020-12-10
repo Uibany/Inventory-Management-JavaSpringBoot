@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class InvUsage {
 	
-	public InvUsage(Date usageDate) {
+	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;
@@ -32,8 +32,4 @@ public class InvUsage {
 	@OneToMany(mappedBy = "invUsage")
 	private List<UsageDetails> usageDetails;
 
-
-	
-	
-	
 }
