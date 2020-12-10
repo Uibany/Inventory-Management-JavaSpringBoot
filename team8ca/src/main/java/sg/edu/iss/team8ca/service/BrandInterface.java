@@ -1,5 +1,5 @@
 package sg.edu.iss.team8ca.service;
 
-public class SupplierServiceImpl {
+public interface BrandInterface {
 
 }

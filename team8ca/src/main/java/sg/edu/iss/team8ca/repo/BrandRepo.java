@@ -1,5 +1,9 @@
 package sg.edu.iss.team8ca.repo;
 
-public class BrandRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import sg.edu.iss.team8ca.model.Brand;
+
+public interface BrandRepo extends JpaRepository<Brand, String> {
 
 }

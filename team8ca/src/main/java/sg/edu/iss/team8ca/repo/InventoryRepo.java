@@ -1,5 +1,8 @@
 package sg.edu.iss.team8ca.repo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class InventoryRepo {
+import sg.edu.iss.team8ca.model.Inventory;
+
+public interface InventoryRepo extends JpaRepository<Inventory, String> {
 
 }
