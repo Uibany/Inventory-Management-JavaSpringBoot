@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private String categoryId;
 	private String categoryName;
 	

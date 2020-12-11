@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sg.edu.iss.team8ca.model.Inventory;
 
-public interface InventoryRepo extends JpaRepository<Inventory, String> {
+public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 }
