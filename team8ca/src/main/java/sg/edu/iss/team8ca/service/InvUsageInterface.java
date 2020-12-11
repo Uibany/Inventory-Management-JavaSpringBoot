@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.iss.team8ca.model.InvUsage;
+import sg.edu.iss.team8ca.model.UsageDetails;
 
 public interface InvUsageInterface {
 	
@@ -11,6 +12,9 @@ public interface InvUsageInterface {
 	public void deleteInvUsage(long id);
 	public List<InvUsage> listInvUsageById(String productId);
 	public List<InvUsage> listInvUsageByDate(String productId, Date startDate, Date endDate);
+	public void saveUsage(InvUsage invUsage);
+	public void saveUsageDetails (UsageDetails usageDetails);
+	
 	
 
 }

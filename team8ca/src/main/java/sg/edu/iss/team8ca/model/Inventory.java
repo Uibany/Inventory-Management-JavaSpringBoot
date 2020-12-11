@@ -1,9 +1,12 @@
 package sg.edu.iss.team8ca.model;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Inventory {
@@ -26,4 +29,12 @@ public class Inventory {
 	
 	@ManyToOne
 	private Brand brand;
+	
+	@OneToMany (mappedBy ="inventory")
+	private List<UsageDetails> usageDetails;
+	
+	@OneToMany (mappedBy = "transHistory")
+	private List<TransHistory> transHistory;
+	
+
 }
