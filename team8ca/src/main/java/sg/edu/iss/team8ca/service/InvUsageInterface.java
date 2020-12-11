@@ -3,10 +3,18 @@ package sg.edu.iss.team8ca.service;
 import java.util.Date;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import sg.edu.iss.team8ca.model.InvUsage;
+
+
+>>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 public interface InvUsageInterface {
-	public void addInvUsage(InvUsageInterface invUsage);
-	public List<InvUsageInterface> listInvUsageById(Integer id);
-	public List<InvUsageInterface> listInvUsageByDate(Integer id, Date startDate, Date endDate);
-	public InvUsageInterface findInvUsage(Integer id);
+	
+	public InvUsage findInvUsage(long id);
+	public void deleteInvUsage(long id);
+	public List<InvUsage> listInvUsageById(String productId);
+	public List<InvUsage> listInvUsageByDate(String productId, Date startDate, Date endDate);
+	
 
 }
