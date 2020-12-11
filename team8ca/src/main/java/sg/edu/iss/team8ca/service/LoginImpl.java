@@ -20,7 +20,6 @@ public class LoginImpl implements LoginInterface {
 	@Override
 	public void createLogin(Login login) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
