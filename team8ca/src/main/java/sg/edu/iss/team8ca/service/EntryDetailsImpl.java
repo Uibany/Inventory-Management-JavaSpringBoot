@@ -17,7 +17,7 @@ public class EntryDetailsImpl {
 	SubcategoryRepo sRepo;
 	SupplierRepo supplierRepo;
 	
-	public void save(Inventory inventory) {
+	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
 	public void createProduct(Inventory inventory) {
