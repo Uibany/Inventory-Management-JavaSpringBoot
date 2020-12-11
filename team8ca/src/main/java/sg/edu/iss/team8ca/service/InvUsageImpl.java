@@ -16,9 +16,6 @@ import sg.edu.iss.team8ca.repo.InvUsageRepo;
 @Transactional
 public class InvUsageImpl implements InvUsageInterface {
 
-<<<<<<< HEAD
-
-=======
 	@Autowired
 	InvUsageRepo InvUrepo;
 
@@ -45,7 +42,7 @@ public class InvUsageImpl implements InvUsageInterface {
 		// TODO Auto-generated method stub
 		
 	}
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
+
 	
 	
 }

@@ -3,12 +3,8 @@ package sg.edu.iss.team8ca.service;
 import java.util.Date;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import sg.edu.iss.team8ca.model.InvUsage;
 
-
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 public interface InvUsageInterface {
 	
 	public InvUsage findInvUsage(long id);
