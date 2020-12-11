@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sg.edu.iss.team8ca.model.Brand;
 
-public interface BrandRepo extends JpaRepository<Brand, String> {
+public interface BrandRepo extends JpaRepository<Brand, Long> {
 
 }

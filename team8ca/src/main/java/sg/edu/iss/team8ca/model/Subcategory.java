@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Subcategory {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private String subcategoryId;
 	private String subcategoryName;
 	private String subcategoryType;
