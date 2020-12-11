@@ -1,4 +1,6 @@
+
 package sg.edu.iss.team8ca.model;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,7 +12,9 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Inventory {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String productId;
 	private String name;
 	private String description;
@@ -23,18 +27,17 @@ public class Inventory {
 	private int minimumOrder;
 	private String colour;
 	private String dimension;
-	
+
 	@ManyToOne
 	private Subcategory subcategory;
-	
+
 	@ManyToOne
 	private Brand brand;
-	
-	@OneToMany (mappedBy ="inventory")
+
+	@OneToMany(mappedBy = "inventory")
 	private List<UsageDetails> usageDetails;
-	
-	@OneToMany (mappedBy = "transHistory")
+
+	@OneToMany(mappedBy = "transHistory")
 	private List<TransHistory> transHistory;
-	
 
 }

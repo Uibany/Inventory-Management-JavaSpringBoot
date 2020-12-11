@@ -1,3 +1,4 @@
+
 package sg.edu.iss.team8ca.model;
 
 import javax.persistence.Entity;
@@ -10,13 +11,14 @@ import javax.persistence.ManyToOne;
 public class TransHistory {
 
 	@Id
+
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private TransType transType;
-	
+
 	@ManyToOne
 	private Inventory inventory;
-	
+
 	@ManyToOne
 	private Users users;
 
@@ -26,6 +28,5 @@ public class TransHistory {
 		this.inventory = inventory;
 		this.users = users;
 	}
-	
-	
+
 }

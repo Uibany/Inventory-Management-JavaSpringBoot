@@ -1,3 +1,4 @@
+
 package sg.edu.iss.team8ca.model;
 
 import java.util.Date;
@@ -12,23 +13,20 @@ import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @Entity
-
 public class InvUsage {
-	
+
 	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;
-	}	
+	}
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
 	private Date usageDate;
 
 	@OneToMany(mappedBy = "invUsage")

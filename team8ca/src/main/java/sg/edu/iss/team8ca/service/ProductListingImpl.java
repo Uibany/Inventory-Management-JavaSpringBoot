@@ -1,3 +1,4 @@
+
 package sg.edu.iss.team8ca.service;
 
 import java.util.List;
@@ -9,18 +10,17 @@ import sg.edu.iss.team8ca.repo.InventoryRepo;
 
 public class ProductListingImpl implements ProductListingInterface {
 
-	
-	@Autowired 
+	@Autowired
 	InventoryRepo irepo;
-	
+
 	@Override
 	public void save(Inventory inventory) {
 		irepo.save(inventory);
-		
+
 	}
 
 	@Override
- 	public List<Inventory> list() {
+	public List<Inventory> list() {
 		return irepo.findAll();
 	}
 }
