@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,7 +23,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "User_ID")
-    private int id;
+    private long id;
     @Column(name = "Username")
     @Length(min = 5, message = "*Your user name must have at least 5 characters")
     @NotEmpty(message = "*Please enter your username")
@@ -35,5 +37,9 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "Users_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
     private Set<Role> roles;
+    
+    @OneToMany(mappedBy = "user")
+	private List<TransHistory> transHistory;
 
 }
+

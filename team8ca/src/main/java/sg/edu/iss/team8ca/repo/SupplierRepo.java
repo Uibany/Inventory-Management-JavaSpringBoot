@@ -3,6 +3,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import sg.edu.iss.team8ca.model.Supplier;
 
-public interface SupplierRepo extends JpaRepository<Supplier, String> {
+public interface SupplierRepo extends JpaRepository<Supplier, Long> {
 
 }

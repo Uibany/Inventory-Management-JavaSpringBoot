@@ -45,3 +45,4 @@ public class AppUserDetailsService implements UserDetailsService {
                 user.getActive(), true, true, true, authorities);
     }
 }
+

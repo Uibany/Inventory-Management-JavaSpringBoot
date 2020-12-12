@@ -9,8 +9,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Supplier {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String supplierId;
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private long supplierId;
 	private String companyName;
 	private String contactNo;
 	private String email;

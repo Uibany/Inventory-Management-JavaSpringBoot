@@ -9,8 +9,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String categoryId;
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private long categoryId;
 	private String categoryName;
 	
 	@OneToMany(mappedBy="category")
