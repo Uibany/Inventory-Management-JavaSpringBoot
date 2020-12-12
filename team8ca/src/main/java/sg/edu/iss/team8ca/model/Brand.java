@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 @Entity
 public class Brand {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private String brandId;
+	private long brandId;
 	private String brandName;
 	private String manufacturerName;
 	

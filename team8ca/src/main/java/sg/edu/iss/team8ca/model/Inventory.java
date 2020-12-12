@@ -22,7 +22,7 @@ public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String productId;
+	private long productId;
 	@NotNull
 	@Size(min=2, max=100)
 	private String productName;
