@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 
 @Entity
 public class Brand {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String brandId;
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private long brandId;
 	private String brandName;
 	private String manufacturerName;
 	

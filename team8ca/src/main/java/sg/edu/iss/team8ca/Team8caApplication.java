@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Team8caApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Team8caApplication.class, args);
-		System.out.println("test from hq");
-		
+		SpringApplication.run(Team8caApplication.class, args);		
 		
 	}
 
