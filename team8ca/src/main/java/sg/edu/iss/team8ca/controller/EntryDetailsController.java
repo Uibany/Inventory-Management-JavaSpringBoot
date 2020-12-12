@@ -15,7 +15,7 @@ import sg.edu.iss.team8ca.service.EntryDetailsInterface;
 @RequestMapping("/enterdetails")
 public class EntryDetailsController {
 
-    @Autowired(required=true)
+    @Autowired
     private EntryDetailsInterface edService;
 
 	@Autowired
