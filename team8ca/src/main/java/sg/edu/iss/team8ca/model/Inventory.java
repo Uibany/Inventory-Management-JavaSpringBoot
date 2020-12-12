@@ -22,9 +22,8 @@ public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long productId;
+	private long id;
 	@NotNull
-	@Size(min=2, max=100)
 	private String productName;
 	private String description;
 	private double originalPrice;
@@ -46,7 +45,37 @@ public class Inventory {
 	@OneToMany(mappedBy = "inventory")
 	private List<UsageDetails> usageDetails;
 
-//	@OneToMany(mappedBy = "transHistory")
-//	private List<TransHistory> transHistory;
+	@OneToMany(mappedBy = "inventory")
+	private List<TransHistory> transHistory;
+
+	public Inventory(@NotNull String productName, String description, double originalPrice, double wholesalePrice,
+			double retailPrice, double partnerPrice, int stockQty, int reorderLevel, int minimumOrder, String colour,
+			String dimension, Subcategory subcategory, Brand brand, List<UsageDetails> usageDetails,
+			List<TransHistory> transHistory) {
+		super();
+		this.productName = productName;
+		this.description = description;
+		this.originalPrice = originalPrice;
+		this.wholesalePrice = wholesalePrice;
+		this.retailPrice = retailPrice;
+		this.partnerPrice = partnerPrice;
+		this.stockQty = stockQty;
+		this.reorderLevel = reorderLevel;
+		this.minimumOrder = minimumOrder;
+		this.colour = colour;
+		this.dimension = dimension;
+		this.subcategory = subcategory;
+		this.brand = brand;
+		this.usageDetails = usageDetails;
+		this.transHistory = transHistory;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

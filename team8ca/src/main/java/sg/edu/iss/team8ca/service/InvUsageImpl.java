@@ -36,14 +36,17 @@ public class InvUsageImpl implements InvUsageInterface {
 
 	@Override
 	@Transactional(readOnly = true) 
-	public List<InvUsage> listInvUsageById(long productId) { 
+	public List<InvUsage> listInvUsageById(long id) { 
+
 		// TODO Auto-generated method stub 
 		return null; 
 	}
 	
 	@Override
 	@Transactional(readOnly = true) 
-	public List<InvUsage>listInvUsageByDate(long productId, Date startDate, Date endDate) { 
+
+	public List<InvUsage>listInvUsageByDate(long id, Date startDate, Date endDate) { 
+
 		// TODO Auto-generated method stub 
 		return null; 
 	}

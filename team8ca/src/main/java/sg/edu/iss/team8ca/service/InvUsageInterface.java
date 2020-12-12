@@ -13,9 +13,9 @@ public interface InvUsageInterface {
 
 	public void deleteInvUsage(long id);
 
-	public List<InvUsage> listInvUsageById(long productId);
+	public List<InvUsage> listInvUsageById(long id);
 
-	public List<InvUsage> listInvUsageByDate(long productId, Date startDate, Date endDate);
+	public List<InvUsage> listInvUsageByDate(long id, Date startDate, Date endDate);
 
 	public void saveUsage(InvUsage invUsage);
 
