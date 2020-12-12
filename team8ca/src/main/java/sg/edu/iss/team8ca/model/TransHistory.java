@@ -7,11 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 @Entity
 public class TransHistory {
 
 	@Id
-
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private TransType transType;
@@ -20,13 +24,13 @@ public class TransHistory {
 	private Inventory inventory;
 
 	@ManyToOne
-	private Users users;
+	private User user;
 
-	public TransHistory(TransType transType, Inventory inventory, Users users) {
+	public TransHistory(TransType transType, Inventory inventory, User user) {
 		super();
 		this.transType = transType;
 		this.inventory = inventory;
-		this.users = users;
+		this.user = user;
 	}
 
 }

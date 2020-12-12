@@ -1,4 +1,7 @@
+
 package sg.edu.iss.team8ca.service;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +11,9 @@ import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
-import sg.edu.iss.team8ca.repo.SupplierRepo;
 
 @Service
-public class EntryDetailsImpl {
+public class EntryDetailsImpl implements EntryDetailsInterface {
 	@Autowired
 	BrandRepo brepo;
 	@Autowired
@@ -21,7 +23,6 @@ public class EntryDetailsImpl {
 	@Autowired
 	SubcategoryRepo sRepo;
 	
-	
 	public EntryDetailsImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo sRepo) {
 		super();
 		this.brepo = brepo;
@@ -29,11 +30,13 @@ public class EntryDetailsImpl {
 		this.irepo = irepo;
 		this.sRepo = sRepo;
 	}
-	public void createProduct(Inventory inventory) {
+	@Override
+	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
-	public void updateProduct(Inventory inventory) {
-		irepo.save(inventory);
+	
+	@Override
+	public List<Inventory> list() {
+		return irepo.findAll();
 	}
-
 }

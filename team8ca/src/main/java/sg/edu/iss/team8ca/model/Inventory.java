@@ -46,7 +46,7 @@ public class Inventory {
 	@OneToMany(mappedBy = "inventory")
 	private List<UsageDetails> usageDetails;
 
-	@OneToMany(mappedBy = "transHistory")
-	private List<TransHistory> transHistory;
+//	@OneToMany(mappedBy = "transHistory")
+//	private List<TransHistory> transHistory;
 
 }
