@@ -29,11 +29,10 @@ public class InvUsageImpl implements InvUsageInterface {
 
 	@Override
 	@Transactional(readOnly = true)
-	public InvUsage findInvUsage(long id) { 
+	public InvUsage findInvUsage(long id) {  
 		//  TODO Auto-generated method stub 
 		return null;
 	}
-
 
 	@Override
 	@Transactional(readOnly = true) 

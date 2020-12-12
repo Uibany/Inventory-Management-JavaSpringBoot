@@ -23,7 +23,6 @@ public class EntryDetailsImpl implements EntryDetailsInterface {
 	@Autowired
 	SubcategoryRepo sRepo;
 	
-	
 	public EntryDetailsImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo sRepo) {
 		super();
 		this.brepo = brepo;
@@ -35,6 +34,7 @@ public class EntryDetailsImpl implements EntryDetailsInterface {
 	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
+	
 	@Override
 	public List<Inventory> list() {
 		return irepo.findAll();

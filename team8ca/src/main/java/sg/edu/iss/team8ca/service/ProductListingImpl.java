@@ -15,12 +15,13 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public void save(Inventory inventory) {
 		irepo.save(inventory);
-
 	}
 
 	@Override
 	public List<Inventory> list() {
 		return irepo.findAll();
 	}
+	
+	
 }
 
