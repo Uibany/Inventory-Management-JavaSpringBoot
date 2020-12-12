@@ -1,4 +1,3 @@
-
 package sg.edu.iss.team8ca.service;
 
 import java.util.List;
@@ -24,3 +23,4 @@ public class ProductListingImpl implements ProductListingInterface {
 		return irepo.findAll();
 	}
 }
+
