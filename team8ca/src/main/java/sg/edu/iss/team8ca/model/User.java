@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Users")
+@Table(name = "User")
 public class User {
 
     @Id
@@ -43,16 +43,16 @@ public class User {
     @Length(min = 8, message = "*Your password must have at least 8 characters")
     @NotEmpty(message = "*Please enter your password")
     private String password;
-    @Column(name = "active")
+    @Column(name = "Active")
     private Boolean active;
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "Users_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
+    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
     private Set<Role> roles;
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "User")
 	private List<TransHistory> transHistory;
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "User")
     private List<InvUsage> invUsage;
     
     
