@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Supplier {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private String supplierId;
+	private long supplierId;
 	private String companyName;
 	private String contactNo;
 	private String email;
