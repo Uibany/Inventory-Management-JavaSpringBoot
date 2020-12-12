@@ -28,26 +28,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "User_ID")
+	@Column(name = "user_id")
 	private long id;
-	@Column(name = "Username")
+	@Column(name = "username")
 	@Length(min = 5, message = "*Your user name must have at least 5 characters")
 	@NotEmpty(message = "*Please enter your username")
 	private String userName;
-	@Column(name = "Password")
+	@Column(name = "password")
 	@Length(min = 8, message = "*Your password must have at least 8 characters")
 	@NotEmpty(message = "*Please enter your password")
 	private String password;
-	@Column(name = "Active")
+	@Column(name = "active")
 	private Boolean active;
 	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+	
+	public User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
 
 	@OneToMany(mappedBy = "user")
 	private List<TransHistory> transHistory;
