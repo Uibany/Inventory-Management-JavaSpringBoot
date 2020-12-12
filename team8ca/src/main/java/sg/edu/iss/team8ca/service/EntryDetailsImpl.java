@@ -31,12 +31,8 @@ public class EntryDetailsImpl implements EntryDetailsInterface {
 		this.sRepo = sRepo;
 	}
 	@Override
-	public void createProduct(Inventory inventory) {
+	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
-	}
-	@Override
-	public void updateProduct(Inventory inventory) {
-		irepo.save(inventory); //going to work on this
 	}
 	@Override
 	public List<Inventory> list() {

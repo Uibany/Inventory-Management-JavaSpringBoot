@@ -31,16 +31,11 @@ public class EntryDetailsController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
-		edService.createProduct(inventory);
+	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
+		edService.saveProduct(inventory);
 		return "inventory";
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
-		edService.updateProduct(inventory);
-		return "inventory";
-	}
 	@RequestMapping(value = "/inventorylist")
 	public String list(Model model) {
 		List<Inventory> ilist = edService.list();
