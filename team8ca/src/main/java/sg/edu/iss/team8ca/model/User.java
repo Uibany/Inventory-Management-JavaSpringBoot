@@ -31,31 +31,28 @@ import lombok.NoArgsConstructor;
 @Table(name = "User")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "User_ID")
-    private long id;
-    @Column(name = "Username")
-    @Length(min = 5, message = "*Your user name must have at least 5 characters")
-    @NotEmpty(message = "*Please enter your username")
-    private String userName;
-    @Column(name = "Password")
-    @Length(min = 8, message = "*Your password must have at least 8 characters")
-    @NotEmpty(message = "*Please enter your password")
-    private String password;
-    @Column(name = "Active")
-    private Boolean active;
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
-    private Set<Role> roles;
-    
-    @OneToMany(mappedBy = "User")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "User_ID")
+	private long id;
+	@Column(name = "Username")
+	@Length(min = 5, message = "*Your user name must have at least 5 characters")
+	@NotEmpty(message = "*Please enter your username")
+	private String userName;
+	@Column(name = "Password")
+	@Length(min = 8, message = "*Your password must have at least 8 characters")
+	@NotEmpty(message = "*Please enter your password")
+	private String password;
+	@Column(name = "Active")
+	private Boolean active;
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
+	private Set<Role> roles;
+
+	@OneToMany(mappedBy = "user")
 	private List<TransHistory> transHistory;
-    
-    @OneToMany(mappedBy = "User")
-    private List<InvUsage> invUsage;
-    
-    
+
+	@OneToMany(mappedBy = "user")
+	private List<InvUsage> invUsage;
 
 }
-
