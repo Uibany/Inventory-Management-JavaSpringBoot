@@ -18,12 +18,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class InvUsage {
 
-	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
-		super();
-		this.usageDate = usageDate;
-		this.usageDetails = usageDetails;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -31,5 +25,11 @@ public class InvUsage {
 
 	@OneToMany(mappedBy = "invUsage")
 	private List<UsageDetails> usageDetails;
+	
+	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
+		super();
+		this.usageDate = usageDate;
+		this.usageDetails = usageDetails;
+	}
 
 }
