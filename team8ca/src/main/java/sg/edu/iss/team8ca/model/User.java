@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -35,6 +37,9 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "Users_Role", joinColumns = @JoinColumn(name = "User_ID"), inverseJoinColumns = @JoinColumn(name = "Role_ID"))
     private Set<Role> roles;
+    
+    @OneToMany(mappedBy = "user")
+	private List<TransHistory> transHistory;
 
 }
 

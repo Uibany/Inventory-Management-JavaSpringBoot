@@ -24,13 +24,13 @@ public class TransHistory {
 	private Inventory inventory;
 
 	@ManyToOne
-	private Users users;
+	private User user;
 
-	public TransHistory(TransType transType, Inventory inventory, Users users) {
+	public TransHistory(TransType transType, Inventory inventory, User user) {
 		super();
 		this.transType = transType;
 		this.inventory = inventory;
-		this.users = users;
+		this.user = user;
 	}
 
 }
