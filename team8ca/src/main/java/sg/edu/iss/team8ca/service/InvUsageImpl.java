@@ -93,19 +93,26 @@ public class InvUsageImpl implements InvUsageInterface {
 //		to edit
 	};
 	
+	@Override
+	@Transactional (readOnly = true)
 	public List<Inventory> listAllInventory(){
 		return irepo.findAll();
 	};
 	
+	@Override
+	@Transactional (readOnly = true)
 	public List<Inventory> listMatchingInventory(String keyword){
 		return null;
 //		to edit
 	};
 	
 //	update record
+	@Transactional
 	public void updateUsageDetails(UsageDetails usageDetails) {
 		
 	};
+	
+	@Transactional
 	public void reduceInventory(int quantity) {
 		
 	};
