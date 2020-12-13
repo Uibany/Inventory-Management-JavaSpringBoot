@@ -1,7 +1,6 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +79,12 @@ public class InvUsageImpl implements InvUsageInterface {
 	
 	@Override
 	@Transactional (readOnly = true)
+	public InvUsage findUsageById(Long id){
+		return iurepo.findById(id).get();
+	};	
+	
+	@Override
+	@Transactional (readOnly = true)
 	public List<UsageDetails> listDetailsForUdId(Long id){
 		return udrepo.findUdById(id);
 	};
@@ -102,6 +107,14 @@ public class InvUsageImpl implements InvUsageInterface {
 		return null;
 //		to edit
 	};
+	
+	@Override
+	@Transactional (readOnly = true)
+	public Inventory findInvById(Long id){
+		return irepo.findById(id).get();
+	};	
+	
+
 	
 //	update record
 	@Transactional
