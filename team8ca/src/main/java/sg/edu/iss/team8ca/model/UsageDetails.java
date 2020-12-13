@@ -32,4 +32,8 @@ public class UsageDetails {
 
 	@ManyToOne
 	private InvUsage invUsage;
+	
+	
+	
+	
 }

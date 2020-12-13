@@ -1,11 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Enter product details</title>
+
 </head>
 <body>
-
+<form action="" th:object="${inventory}" th:action="@{/inventory/save}"
+		method="POST" class="form-horizontal">
+		<fieldset>
+			<input type="hidden" th:field="*{productid}" />
+		</fieldset>
+		<fieldset>
+			Name: <input type="text" th:field="*{productName}">
+		</fieldset>
+		<fieldset>
+			Description: <input type="text" th:field="*{description}">
+		</fieldset>
+		<fieldset>
+			Original Price: <input type="text" th:field="*{originalPrice}">
+		</fieldset>
+		<fieldset>
+			Wholesale Price: <input type="text" th:field="*{wholesalePrice}">
+		</fieldset>
+		<fieldset>
+			Retail Price: <input type="text" th:field="*{retailPrice}">
+		</fieldset>
+		<fieldset>
+			Partner Price: <input type="text" th:field="*{partnerPrice}">
+		</fieldset>
+		<fieldset>
+			Stock Qty: <input type="text" th:field="*{stockQty}">
+		</fieldset>
+		<fieldset>
+			Reorder Level: <input type="text" th:field="*{reorderLevel}">
+		</fieldset>
+		<fieldset>
+			Minumum Order: <input type="text" th:field="*{minimumOrder}">
+		</fieldset>
+		<fieldset>
+			Colour: <input type="text" th:field="*{colour}">
+		</fieldset>
+		<fieldset>
+			Dimensions: <input type="text" th:field="*{dimension}">
+		</fieldset>
+		<fieldset>
+			Subcategory: <input type="text" th:field="*{subcategory}">
+		</fieldset>
+		<fieldset>
+			Brand: <input type="text" th:field="*{usageDetails}">
+		</fieldset>
+		<fieldset>
+			Trans History: <input type="text" th:field="*{transHistory}">
+		</fieldset>
+		<fieldset>
+			<button type="submit">Save</button>
+		</fieldset>
+	</form>
 </body>
-
 </html>
