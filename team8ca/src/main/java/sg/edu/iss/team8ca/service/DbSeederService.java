@@ -25,4 +25,5 @@ public class DbSeederService implements CommandLineRunner {
 		}
 		System.out.println(userRepo.count());
 	}
+	
 }

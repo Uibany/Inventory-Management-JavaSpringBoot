@@ -28,6 +28,8 @@ public interface InvUsageInterface {
 	public List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate);
 	public List<Inventory> listAllInventory();
 	public List<Inventory> listMatchingInventory(String keyword);
+	public Inventory findInvById(Long id);
+	public InvUsage findUsageById(Long id);
 	
 //	update record
 	public void updateUsageDetails(UsageDetails usageDetails);

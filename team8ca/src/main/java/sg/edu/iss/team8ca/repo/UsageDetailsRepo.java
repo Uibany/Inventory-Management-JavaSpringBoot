@@ -16,7 +16,7 @@ public interface UsageDetailsRepo extends JpaRepository<UsageDetails, Long> {
 	List<UsageDetails> findUdById(@Param("id") Long id);
 	
 //	@Query("Select usage from TransHistory)
-	List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate);
+//	List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate);
 	
 	
 
