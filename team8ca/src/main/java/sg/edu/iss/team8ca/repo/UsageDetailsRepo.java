@@ -1,4 +1,3 @@
-
 package sg.edu.iss.team8ca.repo;
 
 import java.time.LocalDate;
@@ -12,12 +11,10 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 
 public interface UsageDetailsRepo extends JpaRepository<UsageDetails, Long> {
 	
-	@Query("Select ud from UsageDetails ud where ud.id =: id")
-	List<UsageDetails> findUdById(@Param("id") Long id);
+	@Query("Select ud from UsageDetails ud where ud.id = :id")
+	public List<UsageDetails> findUdById(@Param("id") Long id);
 	
-//	@Query("Select usage from TransHistory)
-	List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate);
+	@Query("Select ud from UsageDetails ud where ud.inventory.id = :id AND (ud.invUsage.date BETWEEN :startDate AND :endDate)")
+	public List<UsageDetails> listUsageForInvId(@Param("id")Long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 	
-	
-
 }

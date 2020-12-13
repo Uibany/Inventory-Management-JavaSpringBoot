@@ -86,10 +86,8 @@ public class InvUsageImpl implements InvUsageInterface {
 	
 	@Override
 	@Transactional (readOnly = true)
-	public List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate){
-	
-		return null;
-//		to edit
+	public List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate){	
+		return udrepo.listUsageForInvId(id, startDate, endDate);
 	};
 	
 	@Override
