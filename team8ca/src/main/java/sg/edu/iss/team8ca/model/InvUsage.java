@@ -34,7 +34,7 @@ public class InvUsage {
 	@ManyToOne
 	private User user;
 	
-	public InvUsage(Date usageDate, List<UsageDetails> usageDetails) {
+	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;

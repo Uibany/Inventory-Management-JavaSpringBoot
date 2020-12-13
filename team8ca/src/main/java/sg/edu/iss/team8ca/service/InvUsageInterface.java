@@ -31,8 +31,6 @@ public interface InvUsageInterface {
 	
 //	update record
 	public void updateUsageDetails(UsageDetails usageDetails);
-	public void reduceInventory(int quantity);
-//	inventory.setStockQty(inventory.getStockQty() - quantity);
-
+	public void reduceInventory(int quantity, Inventory inventory);
 
 }
