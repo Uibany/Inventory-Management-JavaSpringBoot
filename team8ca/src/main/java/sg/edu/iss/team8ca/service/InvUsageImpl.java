@@ -1,4 +1,3 @@
-
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
@@ -38,6 +37,7 @@ public class InvUsageImpl implements InvUsageInterface {
 	@Transactional
 	public void addUsage (InvUsage invUsage) {
 		iurepo.save(invUsage);
+
 	}
 	
 	@Override
