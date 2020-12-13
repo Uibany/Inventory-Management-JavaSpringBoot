@@ -118,53 +118,5 @@ public class InvUsageImpl implements InvUsageInterface {
 	};
 	
 //	inventory.setStockQty(inventory.getStockQty() - quantity);
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	@Transactional(readOnly = true)
-	public InvUsage findInvUsage(long id) {  
-		//  TODO Auto-generated method stub 
-		return null;
-	}
-
-	@Override
-	@Transactional(readOnly = true) 
-	public List<InvUsage> listInvUsageById(long id) { 
-		// TODO Auto-generated method stub 
-		return null; 
-	}
-	
-	@Override
-	@Transactional(readOnly = true) 
-	public List<InvUsage>listInvUsageByDate(long id, Date startDate, Date endDate) { 
-		// TODO Auto-generated method stub 
-		return null; 
-	}
-
-	@Override
-	@Transactional 
-	public void deleteInvUsage(long id) { 
-		// TODO Auto-generated method stub 
-	}
-
-	@Override
-	@Transactional
-	public void saveUsage(InvUsage invUsage) {
-		invUsageRepo.save(invUsage);
-	}
-
-	@Override
-	@Transactional
-	public void saveUsageDetails(UsageDetails usageDetails) {
-		usageDetailsRepo.save(usageDetails);
-	}
 
 }
