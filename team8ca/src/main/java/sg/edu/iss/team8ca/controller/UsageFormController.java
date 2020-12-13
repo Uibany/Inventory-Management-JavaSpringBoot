@@ -58,11 +58,9 @@ public class UsageFormController {
 	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.POST)
 	public String addListingInv (@PathVariable("id1")Long usageid,@PathVariable("id2") Long invid, Model model) {
 		Inventory inv = iuservice.findInvById(invid);
-		UsageDetails ud = new UsageDetails(inv, findUsageById(usageid), )
-		
+		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
+		return "UsageReport";		
 	}
-	
-	
 	
 	
 	
