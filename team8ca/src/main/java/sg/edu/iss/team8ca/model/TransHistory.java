@@ -19,16 +19,16 @@ public class TransHistory {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private TransType transType;
-
 	@ManyToOne
 	private Inventory inventory;
-
+	private int quantity;
 	@ManyToOne
 	private User user;
 
-	public TransHistory(TransType transType, Inventory inventory, User user) {
+	public TransHistory(TransType transType, Integer quantity, Inventory inventory, User user) {
 		super();
 		this.transType = transType;
+		this.quantity = quantity;
 		this.inventory = inventory;
 		this.user = user;
 	}

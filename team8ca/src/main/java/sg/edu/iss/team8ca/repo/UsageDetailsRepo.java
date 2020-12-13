@@ -15,6 +15,5 @@ public interface UsageDetailsRepo extends JpaRepository<UsageDetails, Long> {
 	public List<UsageDetails> findUdById(@Param("id") Long id);
 	
 	@Query("Select ud from UsageDetails ud where ud.inventory.id = :id AND (ud.invUsage.usageDate BETWEEN :startDate AND :endDate)")
-	public List<UsageDetails> listUsageForInvId(@Param("id")Long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-	
+	public List<UsageDetails> listUsageForInvId(@Param("id")Long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);	
 }
