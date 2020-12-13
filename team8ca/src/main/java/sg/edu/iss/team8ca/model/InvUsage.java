@@ -1,6 +1,7 @@
 
 package sg.edu.iss.team8ca.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +25,8 @@ public class InvUsage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private Date usageDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate usageDate;
 
 	@OneToMany(mappedBy = "invUsage")
 	private List<UsageDetails> usageDetails;
