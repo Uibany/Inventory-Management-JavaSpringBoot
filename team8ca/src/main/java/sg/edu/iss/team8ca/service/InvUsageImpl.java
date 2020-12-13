@@ -112,10 +112,7 @@ public class InvUsageImpl implements InvUsageInterface {
 	};
 	
 	@Transactional
-	public void reduceInventory(int quantity) {
-		
+	public void reduceInventory(int quantity, Inventory inventory) {
+		inventory.setStockQty(inventory.getStockQty() - quantity);
 	};
-	
-//	inventory.setStockQty(inventory.getStockQty() - quantity);
-
 }
