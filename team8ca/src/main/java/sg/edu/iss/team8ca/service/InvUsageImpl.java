@@ -19,7 +19,6 @@ import sg.edu.iss.team8ca.repo.TransHistoryRepo;
 import sg.edu.iss.team8ca.repo.UsageDetailsRepo;
 
 @Service
-@Transactional
 public class InvUsageImpl implements InvUsageInterface {
 
 	@Autowired

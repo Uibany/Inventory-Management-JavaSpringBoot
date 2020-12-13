@@ -34,24 +34,5 @@ public interface InvUsageInterface {
 	public void reduceInventory(int quantity);
 //	inventory.setStockQty(inventory.getStockQty() - quantity);
 
-	
-	
-	
-	
-	
-	
-	
-	
-	public InvUsage findInvUsage(long id);
-
-	public void deleteInvUsage(long id);
-
-	public List<InvUsage> listInvUsageById(long id);
-
-	public List<InvUsage> listInvUsageByDate(long id, Date startDate, Date endDate);
-
-	public void saveUsage(InvUsage invUsage);
-
-	public void saveUsageDetails(UsageDetails usageDetails);
 
 }
