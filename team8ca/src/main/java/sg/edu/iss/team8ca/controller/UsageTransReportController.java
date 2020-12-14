@@ -13,17 +13,23 @@ import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.TransHistoryImpl;
 
 @Controller
-@RequestMapping("/usagetransreport")
+@RequestMapping("/UsageReport")
 public class UsageTransReportController {
 	@Autowired
-	private InvUsageImpl iuservice; 
+	private TransHistoryImpl thservice; 
 	
-	@RequestMapping(value = "/showusagetrans", method = RequestMethod.GET)
-	public String showListing (Model model) {
-		model.addAttribute("test", "hello from controller");
-		return "testing";
+	@Autowired
+	public void setUsageReport(TransHistoryImpl usageReport) {
+		this.thservice = usageReport;
+	}
+	
+	@RequestMapping(value ="/generate", method = RequestMethod.POST)
+	public String generateReport (Model model) {
+		model.addAttribute("testing", "Hello");
+		return "usage-trans-form";
 	}
 	
 
