@@ -13,5 +13,5 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 
 public interface TransHistoryRepo extends JpaRepository<TransHistory, Long> {
 	@Query("Select th from TransHistory th where th.inventory.id = :id AND (th.date BETWEEN :startDate AND :endDate)")
-	public List<UsageDetails> listTransHisForInvId(@Param("id")Long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	public List<TransHistory> listTransHisForInvId(@Param("id")Long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

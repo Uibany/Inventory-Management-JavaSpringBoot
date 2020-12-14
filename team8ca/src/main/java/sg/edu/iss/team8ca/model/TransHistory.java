@@ -28,7 +28,7 @@ public class TransHistory {
 	@ManyToOne
 	private User user;
 
-	public TransHistory(TransType transType, Integer quantity, Inventory inventory, User user) {
+	public TransHistory(TransType transType, LocalDate date, Integer quantity, Inventory inventory, User user) {
 		super();
 		this.transType = transType;
 		this.quantity = quantity;
