@@ -31,6 +31,7 @@ public class TransHistory {
 	public TransHistory(TransType transType, LocalDate date, Integer quantity, Inventory inventory, User user) {
 		super();
 		this.transType = transType;
+		this.date = date;
 		this.quantity = quantity;
 		this.inventory = inventory;
 		this.user = user;
