@@ -39,13 +39,14 @@ public class UsageFormController {
 		InvUsage invUsage = new InvUsage();
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(invUsage.getId());
+		model.addAttribute("invUsage", invUsage);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
 		return "UsageReport";
 	}
 	
 //	Update inventory details
-	@RequestMapping(value = "/usagereport/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/usagereport/{id}", method = RequestMethod.GET)
 	public String mapInvInvUsage (@PathVariable("id") Long id, Model model) {
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
@@ -55,39 +56,18 @@ public class UsageFormController {
 	}
 	
 //	Adding inventory items to the usage listing
-	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.POST)
+	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.GET)
 	public String addListingInv (@PathVariable("id1")Long usageid,@PathVariable("id2") Long invid, Model model) {
 		Inventory inv = iuservice.findInvById(invid);
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
 		return "UsageReport";		
 	}
 	
+	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
+	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
+		asda
+	}
 	
-	
-//	
-//	
-//	@RequestMapping(value = "/save", method = RequestMethod.POST)
-//	public String save(@ModelAttribute("invUsage") InvUsage invUsage, @ModelAttribute("usageDetails") UsageDetails usageDetails, @ModelAttribute("transHistory") TransHistory transHistory,
-//			BindingResult bindingResult, Model model) {
-//		iuservice.addUsage(invUsage);
-//		iuservice.addUsageDetails(usageDetails);
-//		return "forward:/usageform/uilisting";
-//	}
-//	
-//	public void createTransHist(Integer qty, Inventory inv, User user) {
-//		TransHistory trans = new TransHistory(TransType.USED, qty, inv, user);
-//		iuservice.addTransHistory(trans);
-//	}	
-//	
-//	public void reduceStock() {
-//		Inventory inv = new Inventory();
-//		
-//	}
-//	
-//	
-//	
-//	@RequestMapping(value = "/update", method = RequestMethod.POST)
-//	public String 
 	
 
 	
