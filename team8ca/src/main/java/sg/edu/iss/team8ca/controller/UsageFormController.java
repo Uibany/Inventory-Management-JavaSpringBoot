@@ -46,7 +46,7 @@ public class UsageFormController {
 	}
 	
 //	Update inventory details
-	@RequestMapping(value = "/usagereport/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/usagereport/{id}", method = RequestMethod.GET)
 	public String mapInvInvUsage (@PathVariable("id") Long id, Model model) {
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
@@ -56,7 +56,7 @@ public class UsageFormController {
 	}
 	
 //	Adding inventory items to the usage listing
-	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.POST)
+	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.GET)
 	public String addListingInv (@PathVariable("id1")Long usageid,@PathVariable("id2") Long invid, Model model) {
 		Inventory inv = iuservice.findInvById(invid);
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
