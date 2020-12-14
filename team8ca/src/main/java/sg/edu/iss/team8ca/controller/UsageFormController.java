@@ -63,6 +63,11 @@ public class UsageFormController {
 		return "UsageReport";		
 	}
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
+>>>>>>> refs/heads/main
 	
 //	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
 //	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
