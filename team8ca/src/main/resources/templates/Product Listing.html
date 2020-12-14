@@ -7,55 +7,44 @@
 </head>
 <body>
 <p> Current stock on <span th:text= ${today}>1 January 2020</p>
-	<header th:insert="fragments/layout.html :: header"> </header>
-	<div th:replace="fragments/layout.html :: menu"></div>
-
-	<h1>Inventory Listing</h1>
-	<!-- Add Hyperlink -->
-	<a href="EntryForm.html" th:href="@{/inventory/add}">Add Inventory</a>
-
-	<h2 th:if="${not #lists.isEmpty(inventory)}">Inventory List</h2>
-	<table th:if="${not #lists.isEmpty(inventory)}" >
-		<tr >
-			<th >Inventory Id</th>
-			<th >Name</th>
-			<th >Description</th>
-			<th >Original Price</th>
-			<th >Wholesale Price</th>
-			<th >retail Price</th>
-			<th >Partner Price</th>
-			<th >Stock Quantity</th>
-			<th >Reorder Level</th>
-			<th >Minimum Order</th>
-			<th >Color</th>
-			<th >Dimensions</th>
-			<th >SubCategory</th>
-			<th >Brand</th>
-			<th >Trans History</th>
-		</tr>
-		<tr th:each="inventory:${inventory}" class="table-row">
-			<td th:text=${inventory.memberId}>Id</td>
-			<td th:text=${inventory.name}>Name</td>
-			<td th:text=${inventory.description}>Description</td>
-			<td th:text=${inventory.originalPrice}>Original Price</td>
-			<td th:text=${inventory.wholesalePrice}>Wholesale Price</td>
-			<td th:text=${inventory.retailPrice}>retail Price</td>
-			<td th:text=${inventory.partnerprice}>Partner Price</td>
-			<td th:text=${inventory.stockQty}>Stock Quantity</td>
-			<td th:text=${inventory.reorderLevel}>Reorder Level</td>
-			<td th:text=${inventory.minimumOrder}>Minimum Order</td>
-			<td th:text=${inventory.color}>Color</td>
-			<td th:text=${inventory.dimensions}>Dimensions</td>
-			<td th:text=${inventory.subcategory}>SubCategory</td>
-			<td th:text=${inventory.brand}>Brand</td>
-			<td th:text=${inventory.transHistory}>Trans History</td>
-			<td><a href="EntryForm.html"
-				th:href="@{/inventory/edit/}+${inventory.id}">Edit</a></td>
-			<td><a href="DeleteMember.html"
-				th:href="@{/inventory/delete/}+${inventory.id}">Delete</a></td>
-		</tr>
-	</table>
-    <br/>
-	<div th:replace="fragments/layout.html :: footer"></div>
+<form action="" th:object="${inventory}">
+<table>
+ <tr>
+   <th>ID</th>
+   <th>Name</th>
+   <th>Description</th>
+   <th>Original Price</th>
+   <th>Wholesale Price</th>
+   <th>Retail Price</th>
+   <th>Partner Price</th>
+   <th>Stock Qty</th>
+   <th>Reorder Level</th>
+   <th>Minimum Order</th>
+   <th>Colour</th>
+   <th>Dimension</th>
+   <th>Subcategory</th>
+   <th>Usage Details</th>
+   <th>Trans History</th>
+ </tr>
+ <tr th:each="*{productid}">
+   <td th:text="*{productName}">ID</td> 
+   <td th:text="*{description}">Name</td>
+   <td th:text="*{originalPrice}">Description</td>
+   <td th:text="*{originalPrice - 10%}">Original Price</td>
+   <td th:text="*{originalPrice - 20%}">Wholesale Price</td>
+   <td th:text="*{originalPrice - 30%}">Retail Price</td>
+   <td th:text="*{stockQty}">Stock Qty</td>
+   <td th:text="*{reorderLevel}">Reorder Level</td>
+   <td th:text="*{minimumOrder}">Minimum Order</td>
+   <td th:text="*{colour}">Colour</td>
+   <td th:text="*{dimension}">Dimension</td>
+   <td th:text="*{reorderLevel}">Reorder level</td>
+   <td th:text="*{minimumOrder}">Min Order</td>
+   <td th:text="*{subcategory}">Subcategory</td>
+   <td th:text="*{usageDetails}">Usage Details</td>
+   <td th:text="*{transHistory}">Trans History</td>
+ </tr>
+</table>
+</form>
 </body>
 </html>

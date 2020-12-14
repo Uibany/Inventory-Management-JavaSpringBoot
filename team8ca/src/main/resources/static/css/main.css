@@ -475,6 +475,10 @@ ul.list-justify > li {
 .input-group-addon {
   border: 1px solid #eaeaea; }
 
+.inputData label{
+	position: absolute;
+}
+
 /* fancy checkbox and radio button */
 .fancy-checkbox {
   display: block;
@@ -707,7 +711,8 @@ fieldset[disabled] .btn {
   transition: all 0.2s ease-out; }
 
 .label {
-  font-weight: normal; }
+  font-weight: normal;
+  position: absolute; }
 
 .metric {
   -webkit-border-radius: 3px;
