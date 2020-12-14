@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.UsageDetails;
-import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.service.InvUsageImpl;
 
 @Controller
-@RequestMapping("/usageform")
+@RequestMapping("/invusage")
 public class UsageFormController {
 	
 	@Autowired
@@ -35,43 +34,36 @@ public class UsageFormController {
 	}
 	
 //	New usage report
-	@RequestMapping(value ="/addusagereport", method = RequestMethod.POST)
+	@RequestMapping(value ="/addforms", method = RequestMethod.GET)
 	public String addUsageReport(Model model) {
 		InvUsage invUsage = new InvUsage();
+		iuservice.addUsage(invUsage);
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(invUsage.getId());
 		model.addAttribute("invUsage", invUsage);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
-		return "UsageReport";
+		return "usage-details";
 	}
 	
 //	Update inventory details
-	@RequestMapping(value = "/usagereport/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/usageforms/{id}", method = RequestMethod.GET)
 	public String mapInvInvUsage (@PathVariable("id") Long id, Model model) {
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
 		model.addAttribute("udList", udList);
 		model.addAttribute("invList", invList);
-		return "UsageReport";
+		return "usage-details";
 	}
 	
 //	Adding inventory items to the usage listing
-	@RequestMapping (value = "/usagereport/{id1}/addinvtolist/{id2}", method = RequestMethod.GET)
+	@RequestMapping (value = "/usageforms/{id1}/addinvtoform/{id2}", method = RequestMethod.GET)
 	public String addListingInv (@PathVariable("id1")Long usageid,@PathVariable("id2") Long invid, Model model) {
 		Inventory inv = iuservice.findInvById(invid);
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
-		return "UsageReport";		
+		return "usage-details";		
 	}
-<<<<<<< HEAD
-=======
 
-	
-//	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
-//	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
-//		asda
-//	}
->>>>>>> refs/heads/sean's_branch
 	
 
 }

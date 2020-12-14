@@ -2,6 +2,7 @@
 package sg.edu.iss.team8ca.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,18 +30,14 @@ public class TransHistory {
 	private int quantity;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transDate;
-	
+
 	@ManyToOne
 	private User user;
 
-<<<<<<< HEAD
-	public TransHistory(TransType transType, LocalDate date, Integer quantity, Inventory inventory, User user) {
-=======
+
 	public TransHistory(TransType transType, Integer quantity, Inventory inventory, LocalDate transDate, User user) {
->>>>>>> refs/heads/sean's_branch
 		super();
 		this.transType = transType;
-		this.date = date;
 		this.quantity = quantity;
 		this.inventory = inventory;
 		this.transDate = transDate;
