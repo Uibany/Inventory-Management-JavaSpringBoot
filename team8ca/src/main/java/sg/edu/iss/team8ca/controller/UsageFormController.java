@@ -62,4 +62,20 @@ public class UsageFormController {
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
 		return "UsageReport";		
 	}
+<<<<<<< HEAD
+
+	
+	
+	
+//	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
+//	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
+//		asda
+//	}
+	
+	
+
+	
+
+=======
+>>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 }
