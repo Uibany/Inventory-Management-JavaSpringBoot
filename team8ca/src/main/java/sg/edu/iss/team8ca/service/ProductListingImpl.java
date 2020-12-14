@@ -25,5 +25,17 @@ public class ProductListingImpl implements ProductListingInterface {
 	public List<Inventory> list() {
 		return irepo.findAll();
 	}
+	
+	@Override
+	public void deleteInventory(Inventory inventory) {
+		irepo.delete(inventory);
+		
+	}
+
+	@Override
+	public Inventory findInventoryById(Long id) {
+		return irepo.findById(id).get();
+		
+	}
 
 }
