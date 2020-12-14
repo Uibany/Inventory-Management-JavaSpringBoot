@@ -2,6 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<style>
+    label {
+        display: inline-block;
+        width: 200px;
+        margin: 5px;
+        text-align: left;
+    }
+    input{
+        display: inline-block;
+        width: 200px;
+    }
+    button {
+        padding: 5px;
+        margin: 10px;
+    }
+</style>
 <script>
 	function mult(original){
 		var wholesale, retail, partner;
@@ -9,61 +25,61 @@
 		retail = original * 1.40;
 		partner = original * 1.30;
 		
-		document.getElementById('wholesale').value = wholesale;
-		document.getElementById('retail').value = retail;
-		document.getElementById('partner').value = partner;
+		document.getElementById('wholesalePrice').value = wholesale;
+		document.getElementById('retailPrice').value = retail;
+		document.getElementById('partnerPrice').value = partner;
 	}
 </script>
     
 <title>Enter product details</title>
 </head>
 <body>
-<form action="" th:action="${entryform}" th:object="${inventory}" method="POST">
+<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
 		<label>
 		<input type="hidden" th:field="*{productid}" />
-		</label>
+		</label><br />
 		<label>
 			Name: <input type="text" th:field="*{productName}">
-		</label>
+		</label><br />
 		<label>
 			Description: <input type="text" th:field="*{description}">
-		</label>
+		</label><br />
 		<label>
-			Original Price: <input type="number" th:field="*{originalPrice}" name="originalPrice">
-		</label>
+			Original Price: <input type="text" th:field="*{originalPrice}" name="originalPrice">
+		</label><br />
 		<label>
-			Wholesale Price: <input type="number" th:field="*{wholesalePrice}" id="wholesale">
-		</label>
+			Wholesale Price: <input type="text" th:field="*{wholesalePrice}" readonly>
+		</label><br />
 		<label>
-			Retail Price: <input type="number" th:field="*{retailPrice}" id="retail">
-		</label>
+			Retail Price: <input type="text" th:field="*{retailPrice}" readonly>
+		</label><br />
 		<label>
-			Partner Price: <input type="number" th:field="*{partnerPrice}" id="partner">
-		</label>
+			Partner Price: <input type="text" th:field="*{partnerPrice}" readonly>
+		</label><br />
 		<label>
 			Stock Qty: <input type="number" th:field="*{stockQty}">
-		</label>
+		</label><br />
 		<label>
 			Reorder Level: <input type="number" th:field="*{reorderLevel}">
-		</label>
+		</label><br />
 		<label>
 			Minumum Order: <input type="number" th:field="*{minimumOrder}">
-		</label>
+		</label><br />
 		<label>
 			Colour: <input type="text" th:field="*{colour}">
-		</label>
+		</label><br />
 		<label>
 			Dimensions: <input type="text" th:field="*{dimension}">
-		</label>
+		</label><br />
 		<label>
 			Subcategory: <input type="text" th:field="*{subcategory}">
-		</label>
+		</label><br />
 		<label>
 			Brand: <input type="text" th:field="*{usageDetails}">
-		</label>
+		</label><br />
 		<label>
 			Trans History: <input type="text" th:field="*{transHistory}">
-		</label>
+		</label><br />
 	<button type="submit">Save</button>
 	</form>
 </body>
