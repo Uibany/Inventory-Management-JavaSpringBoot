@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+    <link th:rel="stylesheet" th:href="@{/libs/bootstrap/css/bootstrap.css}" />
+    <link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
 <style>
     label {
         display: inline-block;
@@ -34,6 +36,46 @@
 <title>Enter product details</title>
 </head>
 <body>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid navbar-menu">
+				<div class="brand">
+					<a href="index.html"><img src="../static/images/logo.png" alt="Logo"
+							class="img-responsive logo"></a>
+				</div>
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span>Hi, Username.</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div th:fragment="sidebar" id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+						<li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+						<li><a href="#.html" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
+						<li><a href="#.html" class=""><i class="lnr lnr-file-add"></i> <span>Stock Entry
+									Forms</span></a></li>
+						<li><a href="#.html" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a>
+						</li>
+						<li><a href="#" class="active"><i class="lnr lnr-chart-bars"></i> <span>Usage Report</span></a>
+						</li>
+						<li><a href="#.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+						<li><a href="#.html" class=""><i class="lnr lnr-dice"></i> <span>Reorder</span></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="content">
 <form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
 		<label>
 		<input type="hidden" th:field="*{productid}" />
@@ -82,5 +124,6 @@
 		</label><br />
 	<button type="submit">Save</button>
 	</form>
+	</div>
 </body>
 </html>
