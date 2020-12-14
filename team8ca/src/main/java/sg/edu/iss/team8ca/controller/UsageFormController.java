@@ -39,6 +39,7 @@ public class UsageFormController {
 		InvUsage invUsage = new InvUsage();
 		List<Inventory> invList = iuservice.listAllInventory();
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(invUsage.getId());
+		model.addAttribute("invUsage", invUsage);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
 		return "UsageReport";
@@ -62,32 +63,11 @@ public class UsageFormController {
 		return "UsageReport";		
 	}
 	
+	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
+	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
+		asda
+	}
 	
-	
-//	
-//	
-//	@RequestMapping(value = "/save", method = RequestMethod.POST)
-//	public String save(@ModelAttribute("invUsage") InvUsage invUsage, @ModelAttribute("usageDetails") UsageDetails usageDetails, @ModelAttribute("transHistory") TransHistory transHistory,
-//			BindingResult bindingResult, Model model) {
-//		iuservice.addUsage(invUsage);
-//		iuservice.addUsageDetails(usageDetails);
-//		return "forward:/usageform/uilisting";
-//	}
-//	
-//	public void createTransHist(Integer qty, Inventory inv, User user) {
-//		TransHistory trans = new TransHistory(TransType.USED, qty, inv, user);
-//		iuservice.addTransHistory(trans);
-//	}	
-//	
-//	public void reduceStock() {
-//		Inventory inv = new Inventory();
-//		
-//	}
-//	
-//	
-//	
-//	@RequestMapping(value = "/update", method = RequestMethod.POST)
-//	public String 
 	
 
 	
