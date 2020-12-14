@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.jboss.jandex.TypeTarget.Usage;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

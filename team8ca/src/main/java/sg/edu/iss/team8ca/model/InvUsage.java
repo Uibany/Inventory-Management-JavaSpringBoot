@@ -27,6 +27,7 @@ public class InvUsage {
 	private long id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate usageDate;
+	private UsageReportStatus usageReportStatus;
 
 	@OneToMany(mappedBy = "invUsage")
 	private List<UsageDetails> usageDetails;
@@ -34,10 +35,19 @@ public class InvUsage {
 	@ManyToOne
 	private User user;
 	
-	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails) {
+	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, User user) {
+		super();
+		this.usageDate = usageDate;
+		this.usageReportStatus = usageReportStatus;
+		this.user = user;
+	}
+	
+	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, User user) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;
+		this.usageReportStatus = usageReportStatus;
+		this.user = user;
 	}
 
 }

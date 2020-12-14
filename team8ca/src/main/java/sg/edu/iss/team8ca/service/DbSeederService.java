@@ -1,11 +1,14 @@
 package sg.edu.iss.team8ca.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import sg.edu.iss.team8ca.model.Role;
+import sg.edu.iss.team8ca.model.InvUsage;
+import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.repo.RoleRepo;
 import sg.edu.iss.team8ca.repo.UserRepo;
@@ -33,4 +36,12 @@ public class DbSeederService implements CommandLineRunner {
 		}
 		System.out.println(userRepo.count());
 	}
+	
+	private void loadIU() {
+		User user1 = userRepo.findByUserName("admin");
+		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.IN_PROGRESS, user1);
+	}
+	
+	
+	
 }

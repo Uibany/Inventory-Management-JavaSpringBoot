@@ -1,4 +1,4 @@
-package sg.edu.iss.team8ca.model;
+ package sg.edu.iss.team8ca.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
