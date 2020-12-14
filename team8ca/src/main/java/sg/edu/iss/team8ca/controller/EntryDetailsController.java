@@ -13,7 +13,7 @@ import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.service.EntryDetailsInterface;
 
 @Controller
-@RequestMapping("/enterdetails")
+@RequestMapping("/entryform")
 public class EntryDetailsController {
 
     @Autowired
@@ -24,20 +24,13 @@ public class EntryDetailsController {
 		this.edService = edService;
 	}
 	
-	@RequestMapping(value = "/entryform", method = RequestMethod.GET)
-	public String showForm(Model model) {
-		Inventory inventory = new Inventory();
-		model.addAttribute("inventory", inventory);
-		return "entryform";
-	}
-	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/createproduct", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
 		edService.saveProduct(inventory);
 		return "inventory";
 	}
 	
-	@RequestMapping(value = "/inventorylist")
+	@RequestMapping(value = "/inventory")
 	public String list(Model model) {
 		List<Inventory> ilist = edService.list();
 		model.addAttribute("ilist", ilist);
