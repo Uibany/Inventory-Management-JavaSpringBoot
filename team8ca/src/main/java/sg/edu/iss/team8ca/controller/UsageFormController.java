@@ -64,10 +64,5 @@ public class UsageFormController {
 		return "UsageReport";		
 	}
 	
-//	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
-//	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
-//		asda
-//	}
-	
 
 }
