@@ -14,28 +14,25 @@ import sg.edu.iss.team8ca.service.ProductListingInterface;
 @Controller
 @RequestMapping("/ProductListing")
 
-public class ProductListingController {  
-	
+public class ProductListingController {
+
 	@GetMapping("/entrydetails")
 	public String showEntryDetailsForm(Model model) {
 		Inventory inventory = new Inventory();
-		model.addAttribute("inventory", inventory);    		
+		model.addAttribute("inventory", inventory);
 		return "entrydetails";
 	}
-	
-	
+
 	@Autowired
 	private ProductListingInterface plservice;
-	
-	
-	@Autowired
-	InventoryRepo irepo; 
- 	
 
-	@RequestMapping(value = "/list")
-	public String list(Model model) {
-		List<Inventory> plist = plservice.list();
-		model.addAttribute("plist", plist);
-		return "productlisting";
-	}
+	@Autowired
+	InventoryRepo irepo;
+
+	/*
+	 * @RequestMapping(value = "/list") public String list(Model model) {
+	 * List<Inventory> plist = plservice.list(); model.addAttribute("plist", plist);
+	 * return "productlisting"; }
+	 */
+
 }
