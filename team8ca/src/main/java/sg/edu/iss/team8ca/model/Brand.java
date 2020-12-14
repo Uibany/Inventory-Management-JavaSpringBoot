@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class Brand {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@NotNull
 	private long id;
 	private String brandName;
 	private String manufacturerName;
