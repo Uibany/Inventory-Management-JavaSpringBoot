@@ -62,6 +62,7 @@ public class UsageFormController {
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
 		return "UsageReport";		
 	}
+<<<<<<< HEAD
 
 	
 	
@@ -75,4 +76,6 @@ public class UsageFormController {
 
 	
 
+=======
+>>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 }
