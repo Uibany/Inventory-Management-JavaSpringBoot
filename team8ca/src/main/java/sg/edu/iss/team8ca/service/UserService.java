@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class UserService {
     private RoleRepo roleRepo;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
+
+	@Autowired
     public UserService(UserRepo userRepo, RoleRepo roleRepo, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
