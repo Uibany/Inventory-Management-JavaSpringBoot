@@ -36,5 +36,4 @@ public class TransHistory {
 		this.inventory = inventory;
 		this.user = user;
 	}
-
 }
