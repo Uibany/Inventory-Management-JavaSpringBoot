@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Usage Report ID</th>
+			<th>Usage Report Date</th>
+			<th>Usage Report Status</th>
+			<th>Creator Username</th>
+		</tr>
+		<tr th:each="usage:${usageList}">
+			<td th:text=${usage.id}>id</td>
+			<td th:text=${usage.usageDate}>date</td>
+			<td th:text=${usage.usageReportStatus}>status</td>
+			<td th:text=${usage.user}>user</td>
+			<td><a href="usage-details.html"
+				th:href="@(/usagereport/)+${usage.id}">Edit</a></td>
+		</tr>
+	</table>
+</body>
+</html>
