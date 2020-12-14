@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.UsageDetails;
+import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.service.InvUsageImpl;
 
 @Controller
@@ -62,7 +63,6 @@ public class UsageFormController {
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid));
 		return "UsageReport";		
 	}
-
 	
 
 }
