@@ -24,7 +24,7 @@ public class TransHistory {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private TransType transType;
-	private LocalDate date;
+
 	@ManyToOne
 	private Inventory inventory;
 	private int quantity;

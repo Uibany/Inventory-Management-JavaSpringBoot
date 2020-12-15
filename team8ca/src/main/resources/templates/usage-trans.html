@@ -33,7 +33,7 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid navbar-menu">
 				<div class="brand">
-					<a href="index.html"><img src="../static/images/logo.png" alt="Logo"
+					<a href="index.html"><img src="../static/images/logo.png" th:src="@{/images/logo.png}" alt="Logo"
 							class="img-responsive logo"></a>
 				</div>
 				<div id="navbar-menu">
@@ -105,8 +105,8 @@
 
 					<div class="panel shadow" id="report">
 						<div class="panel-heading">
-							<h3>Usage History: <span>Product Name</span></h3>
-							<h3>From: <span id="startDate"></span> To: <span id="endDate"></span></h3>
+							<h3>Usage History: &nbsp;&nbsp;<span th:text="${product.productName}" class="text-primary">Product Name</span></h3>
+							<h3>From:&nbsp;<span id="startDate" th:text="${start}" class="text-primary"></span> &nbsp; &nbsp;To:&nbsp;<span id="endDate" th:text="${end}" class="text-primary"></span></h3>
 						</div>
 						<div class="panel-body no-padding">
 							<table class="table table-striped">
@@ -122,23 +122,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><a href="#">111</a></td>
-										<td>1</td>
-										<td>mechanic1</td>
-										<td>2020-12-11</td>
-										<td>1</td>
+									<tr th:each = "trans:${transHistory}">
+										<td th:text = "${trans.id}">111</td>
+										<td th:text = "${trans.user.id}">1</td>
+										<td th:text = "${trans.user.userName}">mechanic1</td>
+										<td th:text = "${trans.transDate}">2020-12-11</td>
+										<td th:text = "${trans.quantity}">1</td>
 										<td><span class="label label-success">USED</span></td>
-										<td>100</td>
-									</tr>
-									<tr>
-										<td><a href="#">222</a></td>
-										<td>2</td>
-										<td>mechanic2</td>
-										<td>2020-12-12</td>
-										<td>2</td>
-										<td><span class="label label-success">USED</span></td>
-										<td>98</td>
+										<td th:text = "${trans.inventory.stockQty}">100</td>
 									</tr>
 								</tbody>
 							</table>
@@ -147,7 +138,7 @@
 							<div class="row">
 								<div class="text-right">
 									<a href="#" class="btn btn-primary">Print report</a>
-									<a href="#" class="btn btn-success">Generate new report</a>
+									<a href="#" th:href="@{/report/form}" class="btn btn-success">Generate new report</a>
 								</div>
 							</div>
 						</div>
