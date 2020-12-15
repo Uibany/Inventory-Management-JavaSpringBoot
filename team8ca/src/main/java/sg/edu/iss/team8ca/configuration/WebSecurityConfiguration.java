@@ -35,28 +35,32 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .passwordEncoder(bCryptPasswordEncoder);
     }
 
-	
-	  @Override protected void configure(HttpSecurity http) throws Exception {
-	  
-	  http. authorizeRequests() 
-	  .antMatchers("/*").permitAll()
-	  //.antMatchers("/").permitAll() 
-	  //.antMatchers("/login").permitAll()
-	  //.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-	  //.authenticated().and().csrf().disable().formLogin()
-	  //.loginPage("/login").failureUrl("/login?error=true")
-	  //.defaultSuccessUrl("/")
-	  //.usernameParameter("Username") 
-	  //.passwordParameter("Password") 
-	  //.and().logout()
-	  //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	  //.logoutSuccessUrl("/login").and().exceptionHandling()
-	  //.accessDeniedPage("/access-denied")
-	  ; }
-	  
-	  @Override public void configure(WebSecurity web) throws Exception { web
-	  .ignoring() .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**",
-	  "/images/**"); }
-	 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.
+                authorizeRequests()
+                .antMatchers("/*").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .authenticated().and().csrf().disable().formLogin()
+                .loginPage("/login").failureUrl("/login?error=true")
+                //.defaultSuccessUrl("/admin/home")
+                .defaultSuccessUrl("/")
+                .usernameParameter("Username")
+                .passwordParameter("Password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login").and().exceptionHandling()
+                .accessDeniedPage("/access-denied");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+    }
 
 }
