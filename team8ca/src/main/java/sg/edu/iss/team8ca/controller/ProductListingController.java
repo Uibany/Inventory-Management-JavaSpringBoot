@@ -1,5 +1,6 @@
 package sg.edu.iss.team8ca.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
+import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ProductListingInterface;
 
 @Controller
@@ -22,24 +24,39 @@ import sg.edu.iss.team8ca.service.ProductListingInterface;
 public class ProductListingController {  
 	
 	@Autowired
-	private ProductListingInterface plService;
+	private ProductListingImpl plService;
 
 	@Autowired
-	public void setProductListing(ProductListingInterface inventory) {
+	public void setProductListing(ProductListingImpl inventory) {
 		this.plService = inventory;
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		List<Inventory> plist = plService.list();
+		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
+		model.addAttribute("today", today.toString());
 		return "product-listing";
 	}
 	
-	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
+	public String addProduct(Model model) {
+		Inventory inventory = new Inventory();
+		List<Brand> brands = plService.listBrand();
+		List<Category> cats = plService.listCategory();
+		List<Subcategory> subcats = plService.listSubcategory();
+		model.addAttribute("inventory", inventory);
+		model.addAttribute("brands", brands);
+		model.addAttribute("cats", cats);
+		model.addAttribute("subcats", subcats);
+		return "entry-form";
+	}
+	
+	@RequestMapping(value = "/saveproduct", method = RequestMethod.GET)
 	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
 		plService.saveProduct(inventory);
-		return "entry-form";
+		return "forward:/inventory/list";
 	}
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)

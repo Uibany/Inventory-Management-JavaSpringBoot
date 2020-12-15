@@ -20,9 +20,13 @@ public interface ProductListingInterface {
 	public void editProduct(Inventory inventory);
 
 	public void addBrand(Brand brand);
-	
 	public void addCategory(Category category);
-	
 	public void addSubcategory(Subcategory subcategory);
+	
+	public List<Brand> listBrand();
+	public List<Category> listCategory();
+	public List<Subcategory> listSubcategory();
+	
+	
 }
 

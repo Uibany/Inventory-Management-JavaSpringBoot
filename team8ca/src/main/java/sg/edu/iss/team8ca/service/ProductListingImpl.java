@@ -76,4 +76,25 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 	}
 
+
+	@Override
+	public List<Brand> listBrand() {
+
+		return brepo.findAll();
+	}
+
+	@Override
+	public List<Category> listCategory() {
+
+		return crepo.findAll();
+	}
+
+	@Override
+	public List<Subcategory> listSubcategory() {
+
+		return srepo.findAll();
+	}
+
+	
+
 }
