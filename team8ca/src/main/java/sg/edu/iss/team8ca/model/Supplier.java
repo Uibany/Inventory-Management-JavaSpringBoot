@@ -38,6 +38,15 @@ public class Supplier {
 		this.brand = brand;
 	}
 	
+	public Supplier(String companyName, String contactNo, String email, String address, int postalCode) {
+		super();
+		this.companyName = companyName;
+		this.contactNo = contactNo;
+		this.email = email;
+		this.address = address;
+		this.postalCode = postalCode;
+	}
+	
 	
 	
 	
