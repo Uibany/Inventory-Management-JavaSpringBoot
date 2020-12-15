@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.team8ca.model.Brand;
+import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
+import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
@@ -21,14 +24,14 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Autowired
 	InventoryRepo irepo;
 	@Autowired
-	SubcategoryRepo sRepo;
+	SubcategoryRepo srepo;
 
-	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo sRepo) {
+	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo srepo) {
 		super();
 		this.brepo = brepo;
 		this.crepo = crepo;
 		this.irepo = irepo;
-		this.sRepo = sRepo;
+		this.srepo = srepo;
 	}
 	
 	@Override
@@ -57,7 +60,21 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 		
 	}
-	
-	
+
+	@Override
+	public void addBrand(Brand brand) {
+		brepo.save(brand);
+	}
+
+	@Override
+	public void addCategory(Category category) {
+		crepo.save(category);
+	}
+
+	@Override
+	public void addSubcategory(Subcategory subcategory) {
+		srepo.save(subcategory);
+		
+	}
 
 }
