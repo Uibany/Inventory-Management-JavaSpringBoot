@@ -81,6 +81,7 @@
 		</div>
 	<div id="wrapper">
 		<nav class="main">
+
 			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
 				<input type="hidden" th:field="*{productid}" />
 			<label>
@@ -124,8 +125,10 @@
 			</label><br />
 			<input type="hidden" th:field="*{transHistory}">
 		<button type="submit" class="btn btn-primary">Save</button>
+
 	</form>
 	</nav>
+	</div>
 	</div>
 	</div>
 </body>

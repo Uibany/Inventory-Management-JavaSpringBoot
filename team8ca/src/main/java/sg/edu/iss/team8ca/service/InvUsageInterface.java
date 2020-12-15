@@ -30,6 +30,7 @@ public interface InvUsageInterface {
 	public List<Inventory> listMatchingInventory(String keyword);
 	public Inventory findInvById(Long id);
 	public InvUsage findUsageById(Long id);
+	public UsageDetails findUsageDetailsById(Long id);
 	
 //	update record
 	public void updateUsageDetails(UsageDetails usageDetails);
