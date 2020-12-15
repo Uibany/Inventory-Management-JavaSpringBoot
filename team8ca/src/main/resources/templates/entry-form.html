@@ -41,8 +41,8 @@
 <body>
 	<div id="wrapper">
 		<nav class="main">
-			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
-				<input type="hidden" th:value="*{productid}" />
+			<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="post">
+<!-- 				<input type="hidden" th:value="*{productid}" /> -->
 			<label>
 				Name: <input type="text" th:value="*{productName}" class="form-control mb-4 col-4">
 			</label><br />
@@ -76,20 +76,24 @@
 			<label>
 				Dimensions: <input type="text" th:value="*{dimension}" class="form-control mb-4 col-4">
 			</label><br />
-			<label>
-				Subcategory: <input type="text" th:value="*{subcategory}" class="form-control mb-4 col-4">	
-			</label><br />
-			<label>
-				Brand: 
-				<select th:object="${inventory}" name="brand">
-            		<option th:each="brand : *{brand}" th:value="${brand}"></option>
-        		</select>
-			</label><br />
-			<input type="hidden" th:value="*{transHistory}">
+<!-- 			<label> -->
+<!-- 				Subcategory:  -->
+<!-- 				<select th:object="${inventory.subcategory}" name="subcategory"> -->
+<!--             		<option th:each="subcat : ${subcats}" th:value="${subcat.subcategoryName}" th:text="${subcat.subcategoryName}"></option> -->
+<!--         		</select> -->
+<!-- 			</label><br /> -->
+
+<!-- 			<label> -->
+<!-- 				Brand:  -->
+<!-- 				<select th:object="${inventory.brand}" name="brand"> -->
+<!--             		<option th:each="brand : ${brands}" th:value="${brand.subcategoryName}" th:text="${brand.brandName}"></option> -->
+<!--         		</select> -->
+<!-- 			</label><br /> -->
+<!-- 			<input type="hidden" th:value="*{transHistory}"> -->
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>
 	</div>
-	</div>
+
 </body>
 </html>
