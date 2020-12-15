@@ -15,7 +15,7 @@
         width: 200px;
     }
     button {
-        width: 200px;
+        width: 5px;
         margin: 10px;
         text-align: center;
         display: block;
@@ -74,20 +74,19 @@
 			<div class="custom-select">
 				Subcategory: <br />
 				<select th:object="${inventory.subcategory}" name="subcategory">
-            		<option th:each="subcat : *{subcats}" th:value="${subcat.subcategoryName}" th:text="${subcat.subcategoryName}"></option> -->
+            		<option th:each="subcat : *{subcats}" th:value="${subcat.subcategoryName}" th:text="${subcat.subcategoryName}"></option>
         		</select>
 			</div><br />
 			<div class="custom-select">
 				Brand: <br />
 	<select th:object="${inventory.brand}" name="brand"> 
-	<option th:each="brand : ${brands}" th:value="${brand.subcategoryName}" th:text="${brand.brandName}"></option> -->
+	<option th:each="brand : ${brands}" th:value="${brand.subcategoryName}" th:text="${brand.brandName}"></option> 
 	</select>
 			</div><br />
 			<input type="hidden" th:value="*{transHistory}">
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>
-	</div>
 	</div>
 </body>
 </html>
