@@ -22,8 +22,7 @@ public class UserService implements UserInterface{
     private RoleRepo roleRepo;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-	@Autowired
+    @Autowired
     public UserService(UserRepo userRepo, RoleRepo roleRepo, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
