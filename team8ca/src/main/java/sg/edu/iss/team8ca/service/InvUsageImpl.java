@@ -77,10 +77,20 @@ public class InvUsageImpl implements InvUsageInterface {
 		return iurepo.findAll();
 	};
 	
+	public List<UsageDetails> listAllUsageDetails(){
+		return udrepo.findAll();
+	};	
+	
 	@Override
 	@Transactional (readOnly = true)
 	public InvUsage findUsageById(Long id){
 		return iurepo.findById(id).get();
+	};	
+	
+	@Override
+	@Transactional (readOnly = true)
+	public UsageDetails findUsageDetailsById(Long id){
+		return udrepo.findById(id).get();
 	};	
 	
 	@Override
@@ -112,9 +122,7 @@ public class InvUsageImpl implements InvUsageInterface {
 	@Transactional (readOnly = true)
 	public Inventory findInvById(Long id){
 		return irepo.findById(id).get();
-	};	
-	
-
+	};
 	
 //	update record
 	@Transactional

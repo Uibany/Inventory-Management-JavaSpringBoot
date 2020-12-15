@@ -18,18 +18,22 @@
     button {
         padding: 5px;
         margin: 10px;
+        text-align: center;
+        display: block;
     }
 </style>
 <script>
-	function mult(original){
-		var wholesale, retail, partner;
-		wholesale = original * 1.20;
-		retail = original * 1.40;
-		partner = original * 1.30;
+	function mult(value){
+		var w = value * 1.20;
+		var r = value * 1.40;
+		var p = value * 1.30;
+		var wholesale = w.toFixed(2)
+		var retail = r.toFixed(2)
+		var partner = p.toFixed(2)
 		
-		document.getElementById('wholesalePrice').value = wholesale;
-		document.getElementById('retailPrice').value = retail;
-		document.getElementById('partnerPrice').value = partner;
+		document.getElementById('wholesale').value = wholesale;
+		document.getElementById('retail').value = retail;
+		document.getElementById('partner').value = partner;
 	}
 </script>
     
@@ -75,55 +79,54 @@
 				</nav>
 			</div>
 		</div>
-		<div class="content">
-<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
-		<label>
-		<input type="hidden" th:field="*{productid}" />
-		</label><br />
-		<label>
-			Name: <input type="text" th:field="*{productName}">
-		</label><br />
-		<label>
-			Description: <input type="text" th:field="*{description}">
-		</label><br />
-		<label>
-			Original Price: <input type="text" th:field="*{originalPrice}" name="originalPrice">
-		</label><br />
-		<label>
-			Wholesale Price: <input type="text" th:field="*{wholesalePrice}" readonly>
-		</label><br />
-		<label>
-			Retail Price: <input type="text" th:field="*{retailPrice}" readonly>
-		</label><br />
-		<label>
-			Partner Price: <input type="text" th:field="*{partnerPrice}" readonly>
-		</label><br />
-		<label>
-			Stock Qty: <input type="number" th:field="*{stockQty}">
-		</label><br />
-		<label>
-			Reorder Level: <input type="number" th:field="*{reorderLevel}">
-		</label><br />
-		<label>
-			Minumum Order: <input type="number" th:field="*{minimumOrder}">
-		</label><br />
-		<label>
-			Colour: <input type="text" th:field="*{colour}">
-		</label><br />
-		<label>
-			Dimensions: <input type="text" th:field="*{dimension}">
-		</label><br />
-		<label>
-			Subcategory: <input type="text" th:field="*{subcategory}">
-		</label><br />
-		<label>
-			Brand: <input type="text" th:field="*{usageDetails}">
-		</label><br />
-		<label>
-			Trans History: <input type="text" th:field="*{transHistory}">
-		</label><br />
-	<button type="submit">Save</button>
+	<div id="wrapper">
+		<nav class="main">
+			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
+				<input type="hidden" th:field="*{productid}" />
+			<label>
+				Name: <input type="text" th:field="*{productName}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Description: <input type="text" th:field="*{description}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Original Price: <input type="text" th:field="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
+			</label><br />
+			<label>
+				Wholesale Price: <input type="text" th:field="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
+			</label><br />
+			<label>
+				Retail Price: <input type="text" th:field="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
+			</label><br />
+			<label>
+				Partner Price: <input type="text" th:field="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
+			</label><br />
+			<label>
+				Stock Qty: <input type="number" th:field="*{stockQty}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Reorder Level: <input type="number" th:field="*{reorderLevel}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Minumum Order: <input type="number" th:field="*{minimumOrder}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Colour: <input type="text" th:field="*{colour}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Dimensions: <input type="text" th:field="*{dimension}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Subcategory: <input type="text" th:field="*{subcategory}" class="form-control mb-4 col-4">
+			</label><br />
+			<label>
+				Brand: <input type="text" th:field="*{usageDetails}" class="form-control mb-4 col-4">
+			</label><br />
+			<input type="hidden" th:field="*{transHistory}">
+		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
+	</nav>
+	</div>
 	</div>
 </body>
 </html>
