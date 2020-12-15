@@ -13,6 +13,7 @@ import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
+import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.repo.BrandRepo;
@@ -22,6 +23,7 @@ import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.RoleRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
 import sg.edu.iss.team8ca.repo.SupplierRepo;
+import sg.edu.iss.team8ca.repo.UsageDetailsRepo;
 import sg.edu.iss.team8ca.repo.UserRepo;
 
 @Component
@@ -50,6 +52,9 @@ public class DbSeederService implements CommandLineRunner {
 	
 	@Autowired
 	InventoryRepo invRepo;
+	
+	@Autowired
+	UsageDetailsRepo udRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -76,8 +81,21 @@ public class DbSeederService implements CommandLineRunner {
 		User user1 = userRepo.findByUserName("admin");
 		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
 		iuRepo.save(invUsage);
+		Subcategory subcat2 = subcatRepo.findBySubcategoryName("loose parts");
+		Brand brand2 = brandRepo.findByBrandName("TonyHawk");
+		Inventory inv1 = new Inventory("200 screws", "100 pieces of screws", 10.00,11.00,12.00,13.00,1000,500,200,"Orange","5mm x 1mm",subcat2,brand2);
+		invRepo.save(inv1);
+		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud);
+		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud1);
+		UsageDetails ud2 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud2);
+		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud3);		
 	}
 	
+	//category -> subcategory
 	private void loadSubCategory() {
 		Category cat1 = new Category("Accessories");
 		catRepo.save(cat1);
@@ -85,6 +103,7 @@ public class DbSeederService implements CommandLineRunner {
 		subcatRepo.save(subcat1);
 	}
 	
+	//supplier -> brand
 	private void loadBrand() {
 		Supplier supplier = new Supplier("Tan Tiong Suppliers", "91232456", "tts@gmail.com", "Tan Tion Avenue" ,312456);
 		supRepo.save(supplier);
@@ -92,6 +111,7 @@ public class DbSeederService implements CommandLineRunner {
 		brandRepo.save(brand);
 	}
 	
+	//brand + subcategory -> inventory
 	private void loadInv() {
 		Subcategory subcat2 = subcatRepo.findBySubcategoryName("loose parts");
 		Brand brand2 = brandRepo.findByBrandName("TonyHawk");
