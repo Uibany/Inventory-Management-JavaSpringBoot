@@ -69,7 +69,24 @@ public class Inventory {
 		this.transHistory = transHistory;
 	}
 	
-	
+	public Inventory(@NotNull String productName, String description, double originalPrice, double wholesalePrice,
+			double retailPrice, double partnerPrice, int stockQty, int reorderLevel, int minimumOrder, String colour,
+			String dimension, Subcategory subcategory, Brand brand) {
+		super();
+		this.productName = productName;
+		this.description = description;
+		this.originalPrice = originalPrice;
+		this.wholesalePrice = wholesalePrice;
+		this.retailPrice = retailPrice;
+		this.partnerPrice = partnerPrice;
+		this.stockQty = stockQty;
+		this.reorderLevel = reorderLevel;
+		this.minimumOrder = minimumOrder;
+		this.colour = colour;
+		this.dimension = dimension;
+		this.subcategory = subcategory;
+		this.brand = brand;
+	}
 	
 	
 	

@@ -24,16 +24,16 @@ public class EntryDetailsController {
 		this.edService = edService;
 	}
 	
-	@RequestMapping(value = "/createproduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
 		edService.saveProduct(inventory);
-		return "inventory";
+		return "ProductListing";
 	}
 	
-	@RequestMapping(value = "/inventory")
-	public String list(Model model) {
+	@RequestMapping(value = "/")
+	public String viewInventory(Model model) {
 		List<Inventory> ilist = edService.list();
 		model.addAttribute("ilist", ilist);
-		return "inventory";
+		return "ProductListing";
 	}
 }
