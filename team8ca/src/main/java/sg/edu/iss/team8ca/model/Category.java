@@ -31,4 +31,9 @@ public class Category {
 		this.subcategory = subcategory;
 	}
 	
+	public Category(String categoryName) {
+		super();
+		this.categoryName = categoryName;
+	}
+	
 }

@@ -23,7 +23,7 @@
 		<td th:text=${usage.id}>id</td>
 		<td th:text=${usage.usageDate}>Usage Date</td>
 		<td th:text=${usage.usageReportStatus}>Usage report status</td>
-		<td th:text=${usage.user.userName}>User</td>
+		<td th:text=${usage.user.id}>Creator</td>
 		<td><a href="EditUsage.html"
 				th:href="@{/invusage/usageforms/}+${usage.id}">Edit</a></td>	
 		</tr>
