@@ -2,9 +2,9 @@ package sg.edu.iss.team8ca.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team8ca.model.Role;
 import sg.edu.iss.team8ca.model.User;
@@ -13,9 +13,10 @@ import sg.edu.iss.team8ca.repo.UserRepo;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserInterface{
 
     private UserRepo userRepo;
     private RoleRepo roleRepo;
@@ -40,6 +41,22 @@ public class UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepo.save(user);
     }
+
+	@Transactional
+	public void deleteUser(User user) {
+		userRepo.delete(user);
+
+	}
+
+	@Transactional
+	public List<User> findAllUser() {
+		return userRepo.findAll();
+	}
+
+	@Transactional
+	public User findUserById(Long id) {
+		return userRepo.findById(id).get();
+	}
 
 }
 

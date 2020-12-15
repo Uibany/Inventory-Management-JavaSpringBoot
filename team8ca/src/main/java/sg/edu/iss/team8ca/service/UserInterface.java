@@ -4,12 +4,12 @@ import java.util.List;
 
 import sg.edu.iss.team8ca.model.*;
 
-public interface CRUDInterface {
+public interface UserInterface {
 	
-	public void createUser(User user);
 	public void deleteUser(User user);
 	public List<User> findAllUser();
 	public User findUserById(Long id);
+	public User saveUser(User user);
 	
 }
 

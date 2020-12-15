@@ -33,11 +33,7 @@ public class TransHistory {
 	@ManyToOne
 	private User user;
 
-<<<<<<< HEAD
-	public TransHistory(TransType transType, LocalDate date, Integer quantity, Inventory inventory, User user) {
-=======
 	public TransHistory(TransType transType, Integer quantity, Inventory inventory, LocalDate transDate, User user) {
->>>>>>> refs/heads/sean's_branch
 		super();
 		this.transType = transType;
 		this.date = date;

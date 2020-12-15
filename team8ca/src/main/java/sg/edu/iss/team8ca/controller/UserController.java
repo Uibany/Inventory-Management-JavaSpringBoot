@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import sg.edu.iss.team8ca.model.User;
-import sg.edu.iss.team8ca.service.CRUDInterface;
-import sg.edu.iss.team8ca.service.UserCrudService;
+import sg.edu.iss.team8ca.service.UserInterface;
+import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
-	private CRUDInterface crudint;
+	private UserInterface crudint;
 	
 	@Autowired
-	public void setUserService(UserCrudService crudservice) {
+	public void setUserService(UserService crudservice) {
 		this.crudint = crudservice;
 	}
     
@@ -48,7 +48,7 @@ public class UserController {
 		if (bindingResult.hasErrors()) {
 			return "user-form";
 		}
-		crudint.createUser(user);
+		crudint.saveUser(user);
 		return "forward:/user/list";
 	}
 	@RequestMapping(value = "/delete/{id}")
