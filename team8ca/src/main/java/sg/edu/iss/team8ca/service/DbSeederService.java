@@ -13,7 +13,12 @@ import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
+
+import sg.edu.iss.team8ca.model.TransHistory;
+import sg.edu.iss.team8ca.model.TransType;
+
 import sg.edu.iss.team8ca.model.UsageDetails;
+
 import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.repo.BrandRepo;
@@ -23,7 +28,10 @@ import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.RoleRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
 import sg.edu.iss.team8ca.repo.SupplierRepo;
+
+import sg.edu.iss.team8ca.repo.TransHistoryRepo;
 import sg.edu.iss.team8ca.repo.UsageDetailsRepo;
+
 import sg.edu.iss.team8ca.repo.UserRepo;
 
 @Component
@@ -54,7 +62,11 @@ public class DbSeederService implements CommandLineRunner {
 	InventoryRepo invRepo;
 	
 	@Autowired
+	TransHistoryRepo thRepo;
+  
+  @Autowired
 	UsageDetailsRepo udRepo;
+
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -63,6 +75,7 @@ public class DbSeederService implements CommandLineRunner {
 		loadBrand();
 		loadInv();		
 		loadInvUsage();
+		loadTrans();
 	}
 
 	private void loadUserData() {
@@ -117,6 +130,13 @@ public class DbSeederService implements CommandLineRunner {
 		Brand brand2 = brandRepo.findByBrandName("TonyHawk");
 		Inventory inv = new Inventory("100 screws", "100 pieces of screws", 10.00,11.00,12.00,13.00,1000,500,200,"Orange","5mm x 1mm",subcat2,brand2);
 		invRepo.save(inv);
+	}
+	
+	private void loadTrans() {
+		User user1 = userRepo.findByUserName("admin");
+		Inventory inv = invRepo.findInvByName("100 screws");
+		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.now(),user1);
+		thRepo.save(trans);
 	}
 	
 }
