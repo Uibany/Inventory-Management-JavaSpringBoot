@@ -26,6 +26,8 @@
    <th>Subcategory</th>
    <th>Usage Details</th>
    <th>Trans History</th>
+   <th>Edit</th>
+   <th>Delete</th>
  </tr>
  <tr th:each="*{productid}">
    <td th:text="*{productName}">ID</td> 
@@ -44,7 +46,10 @@
    <td th:text="*{subcategory}">Subcategory</td>
    <td th:text="*{usageDetails}">Usage Details</td>
    <td th:text="*{transHistory}">Trans History</td>
+   <th>Edit</th>
+   <th>Delete</th>
  </tr>
+ <tr> Create</tr>
 </table>
 </form>
 </body>
