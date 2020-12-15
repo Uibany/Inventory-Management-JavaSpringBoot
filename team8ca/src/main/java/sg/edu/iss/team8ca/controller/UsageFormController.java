@@ -52,11 +52,11 @@ public class UsageFormController {
 //		User user = uservice.findUserByUserName(currentUserName);
 //		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
 		User user1 = uservice.findUserByUserName("admin");
-		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
-		iuservice.addUsage(invUsage);
+		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		iuservice.addUsage(usageform);
 		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(invUsage.getId());
-		model.addAttribute("invUsage", invUsage);
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageform.getId());
+		model.addAttribute("usageform", usageform);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
 		return "usage-details";
@@ -87,9 +87,9 @@ public class UsageFormController {
 	@RequestMapping(value = "/delete/usageforms/{id1}/ud/{id2}", method = RequestMethod.GET)
 	public String deleteUd (@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,Model model) {
 		UsageDetails ud = iuservice.findUsageDetailsById(id2);
-		Inventory inventory = pservice.findInventoryById(ud.getInventory().getId());
+		Inventory inventory = pservice.findProductById(ud.getInventory().getId());
 		inventory.setStockQty(inventory.getStockQty()+Math.toIntExact(ud.getQuantity()));
-		pservice.save(inventory);
+		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
 		return "forward:/invusage/usageforms/"+id1;
 	}
@@ -100,7 +100,7 @@ public class UsageFormController {
 			UsageDetails ud = iuservice.findUsageDetailsById(id2);
 			long udQuantity = ud.getQuantity();
 			long newUdQuantity = udQuantity+quantity;
-			Inventory inventory = pservice.findInventoryById(ud.getInventory().getId());
+			Inventory inventory = pservice.findProductById(ud.getInventory().getId());
 			int invQuantity = inventory.getStockQty();
 			int newQuantity = invQuantity - Math.toIntExact(quantity);
 			
@@ -111,7 +111,7 @@ public class UsageFormController {
 				iuservice.addUsageDetails(ud);
 
 				inventory.setStockQty(newQuantity);
-				pservice.save(inventory);
+				pservice.saveProduct(inventory);
 				return "forward:/invusage/usageforms/"+id1;					
 			}
 			else
