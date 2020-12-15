@@ -29,45 +29,45 @@ public class ProductListingController {
 		this.plService = inventory;
 	}
 	
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		List<Inventory> plist = plService.list();
 		model.addAttribute("plist", plist);
 		return "product-listing";
 	}
 	
-	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
 		plService.saveProduct(inventory);
 		return "entry-form";
 	}
 	
-	@RequestMapping(value = "/editProduct/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
 		Inventory inventory = plService.findProductById(id);
 		model.addAttribute("inventory", inventory);
 		return "product-listing";	
 	}
 	
-	@RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteproduct", method = RequestMethod.GET)
 	public String deleteProduct(@ModelAttribute("inventory") Inventory inventory) {
 		plService.deleteProduct(inventory);
 		return "product-listing";
 	}
 	
-	@RequestMapping(value = "/addBrand", method = RequestMethod.GET)
+	@RequestMapping(value = "/addbrand", method = RequestMethod.GET)
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
 		return "entry-form";	
 	}
 	
-	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/addcategory", method = RequestMethod.GET)
 	public String addCategory(@ModelAttribute("category") Category category) {
 		plService.addCategory(category);
 		return "entry-form";	
 	}
 	
-	@RequestMapping(value = "/addBrand", method = RequestMethod.GET)
+	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
 		return "entry-form";	

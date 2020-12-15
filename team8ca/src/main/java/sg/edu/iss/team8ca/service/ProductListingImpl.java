@@ -58,7 +58,6 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public void editProduct(Inventory inventory) {
 		
-		
 	}
 
 	@Override

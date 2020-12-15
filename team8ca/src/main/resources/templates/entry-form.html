@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-    <link th:rel="stylesheet" th:href="@{/libs/bootstrap/css/bootstrap.css}" />
     <link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
 <style>
     label {
@@ -41,91 +40,52 @@
 </head>
 <body>
 	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid navbar-menu">
-				<div class="brand">
-					<a href="index.html"><img src="../static/images/logo.png" alt="Logo"
-							class="img-responsive logo"></a>
-				</div>
-				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<span>Hi, Username.</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div th:fragment="sidebar" id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-				<nav>
-					<ul class="nav">
-						<li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-						<li><a href="#.html" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-						<li><a href="#.html" class=""><i class="lnr lnr-file-add"></i> <span>Stock Entry
-									Forms</span></a></li>
-						<li><a href="#.html" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a>
-						</li>
-						<li><a href="#" class="active"><i class="lnr lnr-chart-bars"></i> <span>Usage Report</span></a>
-						</li>
-						<li><a href="#.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
-						<li><a href="#.html" class=""><i class="lnr lnr-dice"></i> <span>Reorder</span></a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	<div id="wrapper">
 		<nav class="main">
 			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
-				<input type="hidden" th:text="*{productid}" />
+				<input type="hidden" th:value="*{productid}" />
 			<label>
-				Name: <input type="text" th:text="*{productName}" class="form-control mb-4 col-4">
+				Name: <input type="text" th:value="*{productName}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Description: <input type="text" th:text="*{description}" class="form-control mb-4 col-4">
+				Description: <input type="text" th:value="*{description}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Original Price: <input type="text" th:text="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
+				Original Price: <input type="text" th:value="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
 			</label><br />
 			<label>
-				Wholesale Price: <input type="text" th:text="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
+				Wholesale Price: <input type="text" th:value="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
 			</label><br />
 			<label>
-				Retail Price: <input type="text" th:text="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
+				Retail Price: <input type="text" th:value="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
 			</label><br />
 			<label>
-				Partner Price: <input type="text" th:text="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
+				Partner Price: <input type="text" th:value="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
 			</label><br />
 			<label>
-				Stock Qty: <input type="number" th:text="*{stockQty}" class="form-control mb-4 col-4">
+				Stock Qty: <input type="number" th:value="*{stockQty}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Reorder Level: <input type="number" th:text="*{reorderLevel}" class="form-control mb-4 col-4">
+				Reorder Level: <input type="number" th:value="*{reorderLevel}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Minumum Order: <input type="number" th:text="*{minimumOrder}" class="form-control mb-4 col-4">
+				Minumum Order: <input type="number" th:value="*{minimumOrder}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Colour: <input type="text" th:text="*{colour}" class="form-control mb-4 col-4">
+				Colour: <input type="text" th:value="*{colour}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Dimensions: <input type="text" th:text="*{dimension}" class="form-control mb-4 col-4">
+				Dimensions: <input type="text" th:value="*{dimension}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Subcategory: <input type="text" th:text="*{subcategory}" class="form-control mb-4 col-4">	
+				Subcategory: <input type="text" th:value="*{subcategory}" class="form-control mb-4 col-4">	
 			</label><br />
 			<label>
 				Brand: 
-				<select th:field="${inventory}" name="brand">
-            		<option th:each="brand : *{brand}" th:text="${brand}"></option>
+				<select th:object="${inventory}" name="brand">
+            		<option th:each="brand : *{brand}" th:value="${brand}"></option>
         		</select>
 			</label><br />
-			<input type="hidden" th:field="*{transHistory}">
+			<input type="hidden" th:value="*{transHistory}">
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>
