@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +27,8 @@ public class UsageTransReportController {
 		this.thservice = usageReport;
 	}
 	
-	@RequestMapping(value ="/generate", method = RequestMethod.POST)
-	public String generateReport (Model model) {
-		model.addAttribute("testing", "Hello");
+	@GetMapping(value ="/filter")
+	public String generateReport () {
 		return "usage-trans-form";
 	}
 	
