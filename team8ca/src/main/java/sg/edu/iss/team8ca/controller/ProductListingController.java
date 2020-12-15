@@ -51,6 +51,4 @@ public class ProductListingController {
 		plService.deleteProduct(inventory);
 		return "inventory";
 	}
-	
-
 }
