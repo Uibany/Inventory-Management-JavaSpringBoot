@@ -75,7 +75,8 @@
 				</nav>
 			</div>
 		</div>
-		<div class="content">
+	<div id="wrapper">
+		<nav class="main">
 <form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
 		<label>
 		<input type="hidden" th:field="*{productid}" />
@@ -124,6 +125,7 @@
 		</label><br />
 	<button type="submit">Save</button>
 	</form>
+	</div>
 	</div>
 </body>
 </html>

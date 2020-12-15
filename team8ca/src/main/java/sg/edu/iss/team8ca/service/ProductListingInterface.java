@@ -10,7 +10,7 @@ public interface ProductListingInterface {
 
 	public List<Inventory> list();
 
-	public void deleteInventory(Inventory inv);
+	public void deleteInventory(Inventory inventory);
 	
 	public Inventory findInventoryById(Long id);
 
