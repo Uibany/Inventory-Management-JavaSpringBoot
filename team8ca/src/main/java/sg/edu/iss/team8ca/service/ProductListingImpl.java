@@ -33,7 +33,7 @@ public class ProductListingImpl implements ProductListingInterface {
 	
 	@Override
 	@Transactional
-	public void save(Inventory inventory) {
+	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
 
@@ -43,15 +43,21 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 	
 	@Override
-	public void deleteInventory(Inventory inventory) {
+	public void deleteProduct(Inventory inventory) {
 		irepo.delete(inventory);
-		
 	}
 
 	@Override
-	public Inventory findInventoryById(Long id) {
+	public Inventory findProductById(Long id) {
 		return irepo.findById(id).get();
+	}
+
+	@Override
+	public void editProduct(Inventory inventory) {
+		
 		
 	}
+	
+	
 
 }
