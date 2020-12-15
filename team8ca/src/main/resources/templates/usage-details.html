@@ -35,27 +35,6 @@
 			<td th:text=${ud.quantity}>0</td>
 			<td th:text=${ud.date}>date</td>
 			<td>
-<!--			<form action="" th:object="${usageDetails}"
-					th:action="@{/invusage/usage/ud/}+${ud.id}" method="post">
-					<fieldset>
-						<input type="hidden" th:field="*{id}">
-					</fieldset>
-					<fieldset>
-						<input type="hidden" th:field="*{inventory}">
-					</fieldset>
-					<fieldset>
-						<input type="hidden" th:field="*{invUsage}">
-					</fieldset>
-					<fieldset>
-						Date of usage <input type="text" th:field="*{date}">
-					</fieldset>
-					<fieldset>
-						Quantity <input type="text" th:field="*{quantity}">
-					</fieldset>
-					<fieldset>
-						<input type="submit" value="Save" />
-					</fieldset>
-				</form>  -->
 				<form name = "updateQuantity" th:action="@{/invusage/usage/}+${usageform.id}+@{/ud/}+${ud.id}" method = "get">
 				<label>Quantity used:</label> <input type = 'text' name = 'ud_quantity' value="0"/>
 				<label>&nbsp;</label> <input type="submit" value="Update" class="btn">
@@ -99,8 +78,6 @@
 			<td><a href="AddUd.html"
 				th:href="@{/invusage/usageforms/}+${inv.id}+@{/addinvtoform/}+${usageform.id}">Add
 					to Form</a></td>
-
-
 		</tr>
 	</table>
 
