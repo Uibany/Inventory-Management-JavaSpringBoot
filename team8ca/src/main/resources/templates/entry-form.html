@@ -41,7 +41,7 @@
 <body>
 	<div id="wrapper">
 		<nav class="main">
-			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
+			<form action="" th:action="@{/inventory/saveProduct}" th:object="${inventory}" method="POST">
 				<input type="hidden" th:value="*{productid}" />
 					Name: <br />
 				<input type="text" th:value="*{productName}" class="form-control mb-4 col-4"><br />
@@ -73,15 +73,15 @@
         	</div><br />
 			<div class="custom-select">
 				Subcategory: <br />
-				<select th:object="${subcategory}" name="subcategory">
-            		<option th:each="subcategory : *{subcategory}" th:value="${subcategory}"></option>
+				<select th:object="${inventory.subcategory}" name="subcategory">
+            		<option th:each="subcat : *{subcats}" th:value="${subcat.subcategoryName}" th:text="${subcat.subcategoryName}"></option> -->
         		</select>
 			</div><br />
 			<div class="custom-select">
 				Brand: <br />
-				<select th:object="${inventory}" name="brand">
-            		<option th:each="brand : *{brand}" th:value="${brand}"></option>
-        		</select>
+	<select th:object="${inventory.brand}" name="brand"> 
+	<option th:each="brand : ${brands}" th:value="${brand.subcategoryName}" th:text="${brand.brandName}"></option> -->
+	</select>
 			</div><br />
 			<input type="hidden" th:value="*{transHistory}">
 		<button type="submit" class="btn btn-primary">Save</button>
