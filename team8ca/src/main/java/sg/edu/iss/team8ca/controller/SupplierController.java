@@ -10,51 +10,52 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import sg.edu.iss.team8ca.model.User;
-import sg.edu.iss.team8ca.service.UserInterface;
-import sg.edu.iss.team8ca.service.UserService;
+import sg.edu.iss.team8ca.model.Supplier;
+import sg.edu.iss.team8ca.service.SupplierInterface;
+import sg.edu.iss.team8ca.service.SupplierService;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/supplier")
+public class SupplierController {
 	
 	@Autowired
-	private UserInterface crudint;
+	private SupplierInterface supint;
 	
 	@Autowired
-	public void setUserService(UserService crudservice) {
-		this.crudint = crudservice;
+	public void setMemberService(SupplierService supservice) {
+		this.supint = supservice;
 	}
     
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
-		model.addAttribute("users", crudint.findAllUser());
-		return "users";
+		model.addAttribute("supplier", supint.findAllSupplier());
+		return "supplier";
 	}
 	@RequestMapping(value = "/add")
 	public String addForm(Model model) {
-		model.addAttribute("user", new User());
-		return "user-form";
+		model.addAttribute("supplier", new Supplier());
+		return "SupplierForm";
 	}
 	@RequestMapping(value = "/edit/{id}")
 	public String editForm(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("user", crudint.findUserById(id));
-		return "user-form";
+		model.addAttribute("supplier", supint.findSupplierById(id));
+		return "SupplierForm";
 	}
 	@RequestMapping(value = "/save")
-	public String saveUser(@ModelAttribute("user") @Valid User user, 
+	public String saveSupplier(@ModelAttribute("supplier") @Valid Supplier supplier, 
 			BindingResult bindingResult,  Model model) {
 		if (bindingResult.hasErrors()) {
-			return "user-form";
+			return "SupplierForm";
 		}
-		crudint.saveUser(user);
-		return "forward:/user/list";
+		supint.saveSupplier(supplier);
+		return "forward:/supplier/list";
 	}
 	@RequestMapping(value = "/delete/{id}")
-	public String deleteUser(@PathVariable("id") Long id) {
-		crudint.deleteUser(crudint.findUserById(id));
-		return "forward:/user/list";
+	public String deleteSupplier(@PathVariable("id") Long id) {
+		supint.deleteSupplier(supint.findSupplierById(id));
+		return "forward:/supplier/list";
 	}
 
 }
+
+

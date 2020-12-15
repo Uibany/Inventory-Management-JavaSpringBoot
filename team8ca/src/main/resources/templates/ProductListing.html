@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+	<link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+<title>Product Listing</title>
+</head>
+<body>
+<p> Current stock on <span th:text= ${today}>1 January 2020</p>
+
+<form action="" th:object="${inventory}">
+<table>
+ <tr>
+   <th>ID</th>
+   <th>Name</th>
+   <th>Description</th>
+   <th>Original Price</th>
+   <th>Wholesale Price</th>
+   <th>Retail Price</th>
+   <th>Partner Price</th>
+   <th>Stock Qty</th>
+   <th>Reorder Level</th>
+   <th>Minimum Order</th>
+   <th>Colour</th>
+   <th>Dimension</th>
+   <th>Subcategory</th>
+   <th>Usage Details</th>
+   <th>Trans History</th>
+ </tr>
+ <tr th:each="*{productid}">
+   <td th:text="*{productName}">ID</td> 
+   <td th:text="*{description}">Name</td>
+   <td th:text="*{originalPrice}">Description</td>
+   <td th:text="*{originalPrice - 10%}">Original Price</td>
+   <td th:text="*{originalPrice - 20%}">Wholesale Price</td>
+   <td th:text="*{originalPrice - 30%}">Retail Price</td>
+   <td th:text="*{stockQty}">Stock Qty</td>
+   <td th:text="*{reorderLevel}">Reorder Level</td>
+   <td th:text="*{minimumOrder}">Minimum Order</td>
+   <td th:text="*{colour}">Colour</td>
+   <td th:text="*{dimension}">Dimension</td>
+   <td th:text="*{reorderLevel}">Reorder level</td>
+   <td th:text="*{minimumOrder}">Min Order</td>
+   <td th:text="*{subcategory}">Subcategory</td>
+   <td th:text="*{usageDetails}">Usage Details</td>
+   <td th:text="*{transHistory}">Trans History</td>
+ </tr>
+</table>
+</form>
+</body>
+</html>
