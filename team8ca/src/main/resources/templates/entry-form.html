@@ -15,7 +15,7 @@
         width: 200px;
     }
     button {
-        padding: 5px;
+        width: 200px;
         margin: 10px;
         text-align: center;
         display: block;
@@ -43,48 +43,46 @@
 		<nav class="main">
 			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
 				<input type="hidden" th:value="*{productid}" />
-			<label>
-				Name: <input type="text" th:value="*{productName}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Description: <input type="text" th:value="*{description}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Original Price: <input type="text" th:value="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
-			</label><br />
-			<label>
-				Wholesale Price: <input type="text" th:value="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
-			</label><br />
-			<label>
-				Retail Price: <input type="text" th:value="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
-			</label><br />
-			<label>
-				Partner Price: <input type="text" th:value="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
-			</label><br />
-			<label>
-				Stock Qty: <input type="number" th:value="*{stockQty}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Reorder Level: <input type="number" th:value="*{reorderLevel}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Minumum Order: <input type="number" th:value="*{minimumOrder}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Colour: <input type="text" th:value="*{colour}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Dimensions: <input type="text" th:value="*{dimension}" class="form-control mb-4 col-4">
-			</label><br />
-			<label>
-				Subcategory: <input type="text" th:value="*{subcategory}" class="form-control mb-4 col-4">	
-			</label><br />
-			<label>
-				Brand: 
+					Name: <br />
+				<input type="text" th:value="*{productName}" class="form-control mb-4 col-4"><br />
+					Description: <br />
+				<input type="text" th:value="*{description}" class="form-control mb-4 col-4"><br />
+					Original Price: <br />
+				<input type="text" th:value="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)"><br />
+					Wholesale Price: <br />
+				<input type="text" th:value="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly><br />
+					Retail Price: <br />
+				<input type="text" th:value="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly><br />
+					Partner Price: <br />
+				<input type="text" th:value="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly><br />
+					Stock Qty: <br />
+				<input type="number" th:value="*{stockQty}" class="form-control mb-4 col-4"><br />
+					Reorder Level: <br />
+				<input type="number" th:value="*{reorderLevel}" class="form-control mb-4 col-4"><br />
+					Minumum Order: <br />
+				<input type="number" th:value="*{minimumOrder}" class="form-control mb-4 col-4"><br />
+					Colour: <br />
+				<input type="text" th:value="*{colour}" class="form-control mb-4 col-4"><br />
+					Dimensions: <br />
+				<input type="text" th:value="*{dimension}" class="form-control mb-4 col-4"><br />
+			<div class="custom-select">
+					Category: <br />
+				<select th:object="${category}" name="category">
+            		<option th:each="category : *{category}" th:value="${category}"></option>
+        		</select>
+        	</div><br />
+			<div class="custom-select">
+				Subcategory: <br />
+				<select th:object="${subcategory}" name="subcategory">
+            		<option th:each="subcategory : *{subcategory}" th:value="${subcategory}"></option>
+        		</select>
+			</div><br />
+			<div class="custom-select">
+				Brand: <br />
 				<select th:object="${inventory}" name="brand">
             		<option th:each="brand : *{brand}" th:value="${brand}"></option>
         		</select>
-			</label><br />
+			</div><br />
 			<input type="hidden" th:value="*{transHistory}">
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
