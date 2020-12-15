@@ -6,13 +6,15 @@ import sg.edu.iss.team8ca.model.Inventory;
 
 public interface ProductListingInterface {
 
-	public void save(Inventory inventory);
+	public void saveProduct(Inventory inventory);
 
 	public List<Inventory> list();
 
-	public void deleteInventory(Inventory inv);
+	public void deleteProduct(Inventory inventory);
 	
-	public Inventory findInventoryById(Long id);
+	public Inventory findProductById(Long id);
+	
+	public void editProduct(Inventory inventory);
 
 }
 
