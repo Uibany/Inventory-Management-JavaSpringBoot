@@ -11,7 +11,7 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 
 public interface UsageDetailsRepo extends JpaRepository<UsageDetails, Long> {
 	
-	@Query("Select ud from UsageDetails ud where ud.id = :id")
+	@Query("Select ud from UsageDetails ud where ud.invUsage.id = :id")
 	public List<UsageDetails> findUdById(@Param("id") Long id);
 	
 	@Query("Select ud from UsageDetails ud where ud.inventory.id = :id AND (ud.invUsage.usageDate BETWEEN :startDate AND :endDate)")

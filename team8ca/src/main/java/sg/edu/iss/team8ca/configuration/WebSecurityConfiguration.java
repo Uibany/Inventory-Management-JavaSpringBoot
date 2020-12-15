@@ -41,19 +41,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/*").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
+                //.antMatchers("/").permitAll()
+                //.antMatchers("/login").permitAll()
+                //.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                //.authenticated().and().csrf().disable().formLogin()
+                //.loginPage("/login").failureUrl("/login?error=true")
                 //.defaultSuccessUrl("/admin/home")
-                .defaultSuccessUrl("/")
-                .usernameParameter("Username")
-                .passwordParameter("Password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").and().exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                //.defaultSuccessUrl("/")
+                //.usernameParameter("Username")
+                //.passwordParameter("Password")
+                //.and().logout()
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                //.logoutSuccessUrl("/login").and().exceptionHandling()
+                //.accessDeniedPage("/access-denied")
+                ;
     }
 
     @Override
