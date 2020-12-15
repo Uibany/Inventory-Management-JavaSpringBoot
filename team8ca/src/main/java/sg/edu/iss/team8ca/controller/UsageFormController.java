@@ -75,4 +75,10 @@ public class UsageFormController {
 		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(usageid), LocalDate.now(), 0);
 		return "usage-details";		
 	}
+
+//	@RequestMapping (value = "/usagereport/{id}/updateusage/{id2}/", method = RequestMethod.GET)
+//	public String updateInvUsage (@RequestParam("qty"), @PathVariable("id1") Long usageid,@PathVariable("id2") Long invid, Model model) {
+//		asda
+//	}
+	
 }
