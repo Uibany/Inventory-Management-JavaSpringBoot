@@ -49,5 +49,4 @@ public class InvUsage {
 		this.usageReportStatus = usageReportStatus;
 		this.user = user;
 	}
-
 }

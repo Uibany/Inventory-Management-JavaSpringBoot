@@ -8,6 +8,10 @@
 </head>
 <body>
 	<table>
+	<tr>
+	<td><a href="AddUsageForms.html"
+				th:href="@{/invusage/addforms}">New Form</a></td>
+	</tr>
 		<tr>
 			<th>Usage Report ID</th>
 			<th>Usage Report Date</th>
@@ -19,9 +23,9 @@
 		<td th:text=${usage.id}>id</td>
 		<td th:text=${usage.usageDate}>Usage Date</td>
 		<td th:text=${usage.usageReportStatus}>Usage report status</td>
-		<td th:text=${usage.user.userName}>User</td>
+		<td th:text=${usage.user.id}>Creator</td>
 		<td><a href="EditUsage.html"
-				th:href="@{/usageform/usagereport/}+${usage.id}">Edit</a></td>	
+				th:href="@{/invusage/usageforms/}+${usage.id}">Edit</a></td>	
 		</tr>
 	</table>
 </body>
