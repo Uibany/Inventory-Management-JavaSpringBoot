@@ -17,7 +17,6 @@ import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
-import sg.edu.iss.team8ca.service.ProductListingInterface;
 
 @Controller
 @RequestMapping("/inventory")
@@ -43,18 +42,19 @@ public class ProductListingController {
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
 	public String addProduct(Model model) {
 		Inventory inventory = new Inventory();
+//		model.addAttribute("inventory", inventory);
+		plService.addProduct(inventory);
+		List<Inventory> plist = plService.list();
 		List<Brand> brands = plService.listBrand();
-		List<Category> cats = plService.listCategory();
 		List<Subcategory> subcats = plService.listSubcategory();
-		model.addAttribute("inventory", inventory);
+		model.addAttribute("plist", plist);
 		model.addAttribute("brands", brands);
-		model.addAttribute("cats", cats);
 		model.addAttribute("subcats", subcats);
-		return "entry-form";
+		return "redirect:/entry-form";
 	}
 	
-	@RequestMapping(value = "/saveproduct", method = RequestMethod.GET)
-	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
+	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("inventory") Inventory inventory) {
 		plService.saveProduct(inventory);
 		return "forward:/inventory/list";
 	}
@@ -75,18 +75,12 @@ public class ProductListingController {
 	@RequestMapping(value = "/addbrand", method = RequestMethod.GET)
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
-		return "entry-form";	
-	}
-	
-	@RequestMapping(value = "/addcategory", method = RequestMethod.GET)
-	public String addCategory(@ModelAttribute("category") Category category) {
-		plService.addCategory(category);
-		return "entry-form";	
+		return "add-brand";	
 	}
 	
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
-		return "entry-form";	
+		return "add-subcategory";	
 	}
 }
