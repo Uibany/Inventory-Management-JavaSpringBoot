@@ -24,6 +24,9 @@ public interface ProductListingInterface {
 	public List<Brand> listBrand();
 	public List<Category> listCategory();
 	public List<Subcategory> listSubcategory();
+
+
+	void editProductQuantity(Long id, int newQty);
 	
 	
 }

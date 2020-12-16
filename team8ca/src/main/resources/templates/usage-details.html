@@ -35,18 +35,32 @@
 			<td th:text=${ud.quantity}>0</td>
 			<td th:text=${ud.date}>date</td>
 			<td>
-				<form name = "updateQuantity" th:action="@{/invusage/usage/}+${usageform.id}+@{/ud/}+${ud.id}" method = "get">
-				<label>Quantity used:</label> <input type = 'text' name = 'ud_quantity' value="0"/>
-				<label>&nbsp;</label> <input type="submit" value="Update" class="btn">
+				<form name="updateQuantity"
+					th:action="@{/invusage/usage/}+${usageform.id}+@{/ud/}+${ud.id}"
+					method="get">
+					<label>Quantity used:</label> <input type='text' name='ud_quantity'
+						value="0" /> <label>&nbsp;</label> <input type="submit"
+						value="Update" class="btn">
 				</form>
 			</td>
 			<td><a href="DeleteUd.html"
 				th:href="@{/invusage/delete/usageforms/}+${usageform.id}+@{/ud/}+${ud.id}">Delete</a>
-				
+
 			</td>
 		</tr>
 	</table>
-
+	<br />
+	<table>
+		<tr>
+		<td>
+			<form name="invSearch"
+				th:action="@{/invusage/usageforms/search/}+${usageform.id}">
+				Search:<input type="text" name="keyword" value="" /> &nbsp; <input
+					type="submit" value="Search" />
+			</form>
+			</td>
+		</tr>
+	</table>
 	<table>
 		<tr>
 			<th>Inventory ID</th>
@@ -80,8 +94,5 @@
 					to Form</a></td>
 		</tr>
 	</table>
-
-
-
 </body>
 </html>

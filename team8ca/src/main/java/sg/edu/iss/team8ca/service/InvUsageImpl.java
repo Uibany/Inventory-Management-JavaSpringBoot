@@ -36,7 +36,6 @@ public class InvUsageImpl implements InvUsageInterface {
 	@Transactional
 	public void addUsage (InvUsage invUsage) {
 		iurepo.save(invUsage);
-
 	}
 	
 	@Override
@@ -113,9 +112,8 @@ public class InvUsageImpl implements InvUsageInterface {
 	
 	@Override
 	@Transactional (readOnly = true)
-	public List<Inventory> listMatchingInventory(String keyword){
-		return null;
-//		to edit
+	public List<Inventory> invSearch(String keyword){
+		return irepo.invSearch(keyword);
 	};
 	
 	@Override
@@ -123,6 +121,7 @@ public class InvUsageImpl implements InvUsageInterface {
 	public Inventory findInvById(Long id){
 		return irepo.findById(id).get();
 	};
+	
 	
 //	update record
 	@Transactional

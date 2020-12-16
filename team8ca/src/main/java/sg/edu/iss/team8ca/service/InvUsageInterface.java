@@ -27,7 +27,7 @@ public interface InvUsageInterface {
 	public List<UsageDetails> listDetailsForUdId(Long id);
 	public List<UsageDetails> listUsageForInvId(Long id, LocalDate startDate, LocalDate endDate);
 	public List<Inventory> listAllInventory();
-	public List<Inventory> listMatchingInventory(String keyword);
+	public List<Inventory> invSearch(String keyword);
 	public Inventory findInvById(Long id);
 	public InvUsage findUsageById(Long id);
 	public UsageDetails findUsageDetailsById(Long id);

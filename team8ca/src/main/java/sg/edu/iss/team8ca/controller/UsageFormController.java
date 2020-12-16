@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +65,20 @@ public class UsageFormController {
 	
 //	Update inventory details
 	@RequestMapping(value = "/usageforms/{id}", method = RequestMethod.GET)
-	public String mapInvInvUsage (@PathVariable("id") Long id, Model model) {
+	public String mapInvInvUsage (@PathVariable("id") Long id, String keyword, Model model) {	
 		List<Inventory> invList = iuservice.listAllInventory();
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
+		InvUsage iu = iuservice.findUsageById(id);
+		model.addAttribute("usageform", iu);
+		model.addAttribute("udList", udList);
+		model.addAttribute("invList", invList);
+		return "usage-details";
+	}
+	
+//	Update inventory details
+	@RequestMapping(value = "/usageforms/search/{id}", method = RequestMethod.GET)
+	public String invSearch (@PathVariable("id") Long id, @Param("keyword") String keyword, Model model) {	
+		List<Inventory> invList = iuservice.invSearch(keyword);
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
 		InvUsage iu = iuservice.findUsageById(id);
 		model.addAttribute("usageform", iu);
@@ -118,10 +131,6 @@ public class UsageFormController {
 			{
 				return "forward:/invusage/usageforms/"+id1;					
 			}
-			
-			
-			
-	
 	}
 
 }

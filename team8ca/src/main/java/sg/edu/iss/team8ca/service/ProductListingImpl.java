@@ -95,7 +95,11 @@ public class ProductListingImpl implements ProductListingInterface {
 		return srepo.findAll();
 	}
 
+	@Override
+	public void editProductQuantity(Long id, int newQty) {
 
+		
+	}
 
 	
 
