@@ -12,10 +12,10 @@ import sg.edu.iss.team8ca.model.Inventory;
 
 public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 	
-	@Query("Select inv from Inventory inv where inv.id = :id")
+	@Query("SELECT inv FROM Inventory inv WHERE inv.id = :id")
 	public Inventory findInvById(@Param("id") long id);
 	
-	@Query("Select inv from Inventory inv where inv.productName = :name")
+	@Query("SELECT inv FROM Inventory inv WHERE inv.productName = :name")
 	public Inventory findInvByName(@Param("name") String name);
 	
 	@Query("SELECT i FROM Inventory i WHERE i.productName LIKE %?1%"
@@ -25,6 +25,4 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")
 	public List<Inventory> invSearch(String keyword);
-	
-	
 }
