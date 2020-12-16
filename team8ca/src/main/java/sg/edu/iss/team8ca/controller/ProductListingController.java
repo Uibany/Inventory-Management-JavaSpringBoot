@@ -17,7 +17,6 @@ import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
-import sg.edu.iss.team8ca.service.ProductListingInterface;
 
 @Controller
 @RequestMapping("/inventory")
@@ -81,12 +80,11 @@ public class ProductListingController {
 	@RequestMapping(value = "/addbrand", method = RequestMethod.GET)
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
-		return "entry-form";	
-	}
-	
+		return "add-brand"; 
+		
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
-		return "entry-form";	
+		return "add-subcategory";	
 	}
 }
