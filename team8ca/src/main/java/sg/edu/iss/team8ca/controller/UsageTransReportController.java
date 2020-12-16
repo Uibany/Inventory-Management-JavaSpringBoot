@@ -47,10 +47,6 @@ public class UsageTransReportController {
 		ModelAndView modelAndView = new ModelAndView();
 		String id= request.getParameter("productId");
 		long productId = Long.parseLong(id);
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-		LocalDate start = LocalDate.parse(startDate); 
-		LocalDate end = LocalDate.parse(endDate); 
 		Inventory product = thservice.findInvById(productId);
 		//if product not found
 		if(product == null) 
@@ -58,8 +54,22 @@ public class UsageTransReportController {
 			modelAndView.addObject("error", "invalid");
 			modelAndView.setViewName("usage-trans-form");
 	        return modelAndView;
+		}	
+		//if no date range provided
+		if(request.getParameter("startDate").isBlank()) 
+		{
+			List<TransHistory> alltransHistory = thservice.listTransHisForId(productId);
+			modelAndView.addObject("transHistory", alltransHistory);
+			modelAndView.setViewName("usage-trans-form");
+			modelAndView.addObject("product", product);
+	        return modelAndView;	
 		}
-		List<TransHistory> transHistory = thservice.listTransHisForInvId(productId, start, end);
+		
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		LocalDate start = LocalDate.parse(startDate); 
+		LocalDate end = LocalDate.parse(endDate); 
+		List<TransHistory> transHistory = thservice.listTransHisForDate(productId, start, end);
 		//if no inventory found for selected dates
 		if(transHistory.size()== 0) 
 		{
@@ -67,13 +77,16 @@ public class UsageTransReportController {
 			modelAndView.setViewName("usage-trans-form");
 	        return modelAndView;
 		}
+		
 		modelAndView.addObject("transHistory", transHistory);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("start", start);
 		modelAndView.addObject("end", end);	
-		modelAndView.setViewName("usage-trans");
+		modelAndView.setViewName("usage-trans-form");
         return modelAndView;
     }
+	
+	
 		
 
 }
