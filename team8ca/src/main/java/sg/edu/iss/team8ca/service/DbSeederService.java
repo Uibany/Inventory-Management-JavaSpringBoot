@@ -77,17 +77,25 @@ public class DbSeederService implements CommandLineRunner {
 		loadInvUsage();
 		loadTrans();
 	}
-
-	private void loadUserData() {
-		String password = "password";
+	
+	private String passwordEncoder(String password) {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = bCryptPasswordEncoder.encode(password);
+		return encodedPassword;
+	}
 
+	private void loadUserData() {
+		
 		if (userRepo.count() == 0) {
-			User user1 = new User("admin", encodedPassword);
+			User user1 = new User("admin", passwordEncoder("password"));
 			userRepo.save(user1);
+			User user2 = new User("sankalp", passwordEncoder("sankalp"));
+			userRepo.save(user2);
+			User user3 = new User("team8ca", passwordEncoder("team8ca"));
+			userRepo.save(user3);
+			User user4 = new User("asdfg", passwordEncoder("asdfasdf"));
+			userRepo.save(user4);
 		}
-		System.out.println(userRepo.count());
 	}
 	
 	private void loadInvUsage() {
