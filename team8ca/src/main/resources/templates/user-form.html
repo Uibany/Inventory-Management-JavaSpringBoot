@@ -7,8 +7,8 @@
 	href="../../css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
-	<header th:insert="fragments/layout.html :: header"> </header>
-	<div th:replace="fragments/layout.html :: menu"></div>
+	
+	<div th:replace="fragments/layout.html :: navbar"></div>
 
 	<h1>User Form</h1>
 	<form action="" th:object="${user}" th:action="@{/user/save}"
@@ -28,6 +28,6 @@
 
 	</form>
 	<br />
-	<div th:replace="fragments/layout.html :: footer"></div>
+
 </body>
 </html>
