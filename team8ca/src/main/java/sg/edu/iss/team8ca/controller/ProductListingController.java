@@ -37,7 +37,7 @@ public class ProductListingController {
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
-		return "product-listing";
+		return "productlisting";
 	}
 	
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
@@ -66,10 +66,10 @@ public class ProductListingController {
 		return "product-listing";	
 	}
 	
-	@RequestMapping(value = "/deleteproduct", method = RequestMethod.GET)
-	public String deleteProduct(@ModelAttribute("inventory") Inventory inventory) {
-		plService.deleteProduct(inventory);
-		return "product-listing";
+	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
+		public String deleteProduct(@PathVariable Long id) {
+			plService.deleteProduct(plService.findProductById(id));
+		return "redirect:/inventory/list";
 	}
 	
 	@RequestMapping(value = "/addbrand", method = RequestMethod.GET)
