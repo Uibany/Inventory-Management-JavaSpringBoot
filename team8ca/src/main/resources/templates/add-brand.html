@@ -5,7 +5,17 @@
 <title>Add new Brand</title>
 </head>
 <body>
-<table>
+<div id="wrapper">
+		<nav class="main">
+			<form action="" th:action="@{/inventory/saveBrand}" th:object="${brand}" method="get">
+Brand Name: <input type="text" th:field="*{brandName}" class="form-control mb-4 col-4"> <br />
+Manufacturer name: <input type="text" th:field="*{manufacturerName}" class="form-control mb-4 col-4"> <br />
+Supplier: <input type="text" th:field="*{supplier.companyName}" class="form-control mb-4 col-4"> <br />
+<button type="submit" class="btn btn-primary">Save</button>
+		</form>
+	</nav>
+</div>
+<!--<table>
  <tr>
    <th>ID</th>
    <th>Brand Name</th>
@@ -19,6 +29,6 @@
    <td th:text="${brands.manufacturerName}">Manufacturer Name</td>
    <td th:text="${brands.supplier}">Supplier</td>
    </tr>
-   </table>
+   </table> -->
 </body>
 </html>
