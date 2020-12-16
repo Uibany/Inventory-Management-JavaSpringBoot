@@ -40,8 +40,12 @@
 </head>
 <body>
 	<div id="wrapper">
+<<<<<<< HEAD
+		<nav class="main">
+=======
 		<nav class="main">
 <<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
 			<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
  <!--  			<input type="hidden" th:field="*{productid}" />-->	
 			<label>
@@ -90,6 +94,9 @@
              		<option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option> 
         		</select> 
  			</label><br /> -->
+<<<<<<< HEAD
+			<!--	<input type="hidden" th:field="*{transHistory}"> -->
+=======
 			<!--	<input type="hidden" th:field="*{transHistory}"> -->
 =======
 			<form action="" th:action="@{/inventory/saveProduct}" th:object="${inventory}" method="POST">
@@ -130,6 +137,7 @@
 			</div><a href="add-brand" th:href = "@{/addbrand}">Add new</a><br />
 			<input type="hidden" th:field="*{transHistory}">
 >>>>>>> branch 'jaxine_branch' of https://github.com/seano188/javaTeam8CA
+>>>>>>> refs/remotes/origin/main
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>

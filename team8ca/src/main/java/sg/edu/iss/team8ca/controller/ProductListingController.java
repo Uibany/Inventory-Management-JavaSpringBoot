@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.iss.team8ca.model.Brand;
-import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
@@ -81,8 +80,8 @@ public class ProductListingController {
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
 		return "add-brand"; 
-		}
-		
+	}
+	
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
