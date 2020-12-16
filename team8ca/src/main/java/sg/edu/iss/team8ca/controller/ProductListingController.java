@@ -81,6 +81,7 @@ public class ProductListingController {
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
 		return "add-brand"; 
+		}
 		
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
