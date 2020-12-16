@@ -1,6 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -87,13 +89,13 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadUserData() {
 		
 		if (userRepo.count() == 0) {
-			User user1 = new User("admin", passwordEncoder("password"));
+			User user1 = new User("admin", passwordEncoder("password"), "Admin", "User", "admin@gmail.com", "123456", "Jurong East");
 			userRepo.save(user1);
-			User user2 = new User("sankalp", passwordEncoder("sankalp"));
+			User user2 = new User("sankalp", passwordEncoder("sankalp"), "Sankalp", "  ", "sankalp@gmail.com", "123456", "Jurong West");
 			userRepo.save(user2);
-			User user3 = new User("team8ca", passwordEncoder("team8ca"));
+			User user3 = new User("team8ca", passwordEncoder("team8ca"), "Team", "JavaCA", "team8@gmail.com", "123456", "Clementi");
 			userRepo.save(user3);
-			User user4 = new User("asdfg", passwordEncoder("asdfasdf"));
+			User user4 = new User("Esther", passwordEncoder("asdfasdf"), "Esther", "Tan", "esther@gmail.com", "123456", "Bedok");
 			userRepo.save(user4);
 		}
 	}
@@ -149,7 +151,7 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadTrans() {
 		User user1 = userRepo.findByUserName("admin");
 		Inventory inv = invRepo.findInvByName("100 screws");
-		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.now(),user1);
+		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.of(2020,11,10), LocalTime.of(21, 30), user1);
 		thRepo.save(trans);
 	}
 	
