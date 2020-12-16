@@ -40,11 +40,7 @@ public class ProductListingController {
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
 	public String addProduct(Model model) {
 		Inventory inventory = new Inventory();
-//		List<Brand> brands = plService.listBrand();
-//		List<Subcategory> subcats = plService.listSubcategory();
 		model.addAttribute("inventory", inventory);
-//		model.addAttribute("brands", brands);
-//		model.addAttribute("subcats", subcats);
 		return "entry-form";
 	}
 	
@@ -53,11 +49,11 @@ public class ProductListingController {
 		plService.saveProduct(inventory);
 //		List<Inventory> plist = plService.list();
 //		model.addAttribute("plist", plist);
-		List<Brand> brands = plService.listBrand();
-		List<Subcategory> subcats = plService.listSubcategory();
+//		List<Brand> brands = plService.listBrand();
+//		List<Subcategory> subcats = plService.listSubcategory();
 //		model.addAttribute("inventory", inventory);
-		model.addAttribute("brands", brands);
-		model.addAttribute("subcats", subcats);
+//		model.addAttribute("brands", brands);
+//		model.addAttribute("subcats", subcats);
 		return "forward:/inventory/list";
 	}
 	
