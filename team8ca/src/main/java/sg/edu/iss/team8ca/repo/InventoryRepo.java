@@ -25,3 +25,5 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")
 	public List<Inventory> invSearch(String keyword);
+	
+}
