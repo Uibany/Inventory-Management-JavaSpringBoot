@@ -39,10 +39,10 @@ public class ProductListingImpl implements ProductListingInterface {
 	public void saveProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
-
+	
 	@Override
-	public List<Inventory> list() {
-		return irepo.findAll();
+	public void addProduct(Inventory inventory) {
+		irepo.save(inventory);
 	}
 	
 	@Override
@@ -66,14 +66,31 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
-	public void addCategory(Category category) {
-		crepo.save(category);
+	public void addSubcategory(Subcategory subcategory) {
+		srepo.save(subcategory);	
+	}
+	
+	@Override
+	public List<Inventory> list() {
+		return irepo.findAll();
 	}
 
 	@Override
-	public void addSubcategory(Subcategory subcategory) {
-		srepo.save(subcategory);
+	public List<Brand> listBrand() {
+		return brepo.findAll();
+	}
+
+	@Override
+	public List<Subcategory> listSubcategory() {
+		return srepo.findAll();
+	}
+
+	@Override
+	public void editProductQuantity(Long id, int newQty) {
+
 		
 	}
+
+	
 
 }

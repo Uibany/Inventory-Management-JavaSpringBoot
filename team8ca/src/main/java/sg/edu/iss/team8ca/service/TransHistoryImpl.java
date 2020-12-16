@@ -28,7 +28,7 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	
 	@Override
 	@Transactional (readOnly = true)
-	public List<TransHistory> listTransHisForInvId(long id, LocalDate startDate, LocalDate endDate) {
+	public List<TransHistory> listTransHisForDate(long id, LocalDate startDate, LocalDate endDate) {
 		return threpo.listTransHisForInvId(id, startDate, endDate);
 	}
 
@@ -39,13 +39,20 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	}
 
 	@Override
-	public List<TransHistory> listTransHis(long id) {
+  @Transactional (readOnly = true)
+	public List<TransHistory> listTransHisForId(long id) {
 		return threpo.listTransHis(id);
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public List<TransHistory> listAllTransHis() {
 		return threpo.findAll();
+	}
+	
+	@Override
+	public void saveTrans(TransHistory transHistory) {
+		threpo.save(transHistory);
 	}
 	
 	

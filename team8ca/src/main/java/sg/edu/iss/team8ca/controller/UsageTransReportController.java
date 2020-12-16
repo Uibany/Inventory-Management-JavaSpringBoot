@@ -1,4 +1,4 @@
-package sg.edu.iss.team8ca.controller;
+ package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,52 +44,49 @@ public class UsageTransReportController {
 	
 	@RequestMapping(value ="/generate", method=RequestMethod.POST)
 	public ModelAndView generateReport(WebRequest request){
+		ModelAndView modelAndView = new ModelAndView();
 		String id= request.getParameter("productId");
 		long productId = Long.parseLong(id);
+		Inventory product = thservice.findInvById(productId);
+		//if product not found
+		if(product == null) 
+		{
+			modelAndView.addObject("error", "invalid");
+			modelAndView.setViewName("usage-trans-form");
+	        return modelAndView;
+		}	
+		//if no date range provided
+		if(request.getParameter("startDate").isBlank()) 
+		{
+			List<TransHistory> alltransHistory = thservice.listTransHisForId(productId);
+			modelAndView.addObject("transHistory", alltransHistory);
+			modelAndView.setViewName("usage-trans-form");
+			modelAndView.addObject("product", product);
+	        return modelAndView;	
+		}
+		
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		LocalDate start = LocalDate.parse(startDate); 
 		LocalDate end = LocalDate.parse(endDate); 
+		List<TransHistory> transHistory = thservice.listTransHisForDate(productId, start, end);
+		//if no inventory found for selected dates
+		if(transHistory.size()== 0) 
+		{
+			modelAndView.addObject("error", "invalid-date");
+			modelAndView.setViewName("usage-trans-form");
+	        return modelAndView;
+		}
 		
-		List<TransHistory> transHistory = thservice.listTransHisForInvId(productId, start, end);
-		Inventory product = thservice.findInvById(productId);
-		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("transHistory", transHistory);
 		modelAndView.addObject("product", product);
 		modelAndView.addObject("start", start);
 		modelAndView.addObject("end", end);	
-		modelAndView.setViewName("usage-trans");
+		modelAndView.setViewName("usage-trans-form");
         return modelAndView;
     }
 	
 	
-	
-//	@RequestMapping(value="/list", method = RequestMethod.GET)
-//	public String listReport(@Param("productId") Long productId, @Param("startDate") String startDate, @Param("endDate") String endDate, Model model) 
-//	{
-//		LocalDate start = LocalDate.parse(startDate); 
-//		LocalDate end = LocalDate.parse(startDate); 
-//		List<TransHistory> transHistory = thservice.listTransHisForInvId(productId, start, end);
-//		Inventory product = thservice.findInvById(productId);
-//		model.addAttribute("transHistory", transHistory);
-//		model.addAttribute("product",product);
-//		model.addAttribute("start",start);
-//		model.addAttribute("end",end);
-//		return "usage-trans";	
-//	}
-//	
-	
-//	@RequestMapping(value="/list", method = RequestMethod.GET)
-//	public String listReport(Model model) 
-//	{
-//		List<TransHistory> transHistory = thservice.listAllTransHis();
-////		Inventory product = thservice.findInvById(productId);
-//		model.addAttribute("transHistory", transHistory);
-////		model.addAttribute("product",product);
-////		model.addAttribute("start",start);
-////		model.addAttribute("end",end);
-//		return "usage-trans";	
-//	}
-	
+		
 
 }

@@ -15,7 +15,7 @@
         width: 200px;
     }
     button {
-        padding: 5px;
+        width: 5px;
         margin: 10px;
         text-align: center;
         display: block;
@@ -40,56 +40,107 @@
 </head>
 <body>
 	<div id="wrapper">
+<<<<<<< HEAD
 		<nav class="main">
-			<form action="" th:action="@{/saveProduct}" th:object="${inventory}" method="POST">
-				<input type="hidden" th:value="*{productid}" />
+=======
+		<nav class="main">
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
+			<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
+ <!--  			<input type="hidden" th:field="*{productid}" />-->	
 			<label>
-				Name: <input type="text" th:value="*{productName}" class="form-control mb-4 col-4">
+				Name: <input type="text" th:field="*{productName}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Description: <input type="text" th:value="*{description}" class="form-control mb-4 col-4">
+				Description: <input type="text" th:field="*{description}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Original Price: <input type="text" th:value="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
+				Original Price: <input type="text" th:field="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)">
 			</label><br />
 			<label>
-				Wholesale Price: <input type="text" th:value="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
+				Wholesale Price: <input type="text" th:field="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly>
 			</label><br />
 			<label>
-				Retail Price: <input type="text" th:value="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
+				Retail Price: <input type="text" th:field="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly>
 			</label><br />
 			<label>
-				Partner Price: <input type="text" th:value="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
+				Partner Price: <input type="text" th:field="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly>
 			</label><br />
 			<label>
-				Stock Qty: <input type="number" th:value="*{stockQty}" class="form-control mb-4 col-4">
+				Stock Qty: <input type="number" th:field="*{stockQty}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Reorder Level: <input type="number" th:value="*{reorderLevel}" class="form-control mb-4 col-4">
+				Reorder Level: <input type="number" th:field="*{reorderLevel}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Minumum Order: <input type="number" th:value="*{minimumOrder}" class="form-control mb-4 col-4">
+				Minumum Order: <input type="number" th:field="*{minimumOrder}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Colour: <input type="text" th:value="*{colour}" class="form-control mb-4 col-4">
+				Colour: <input type="text" th:field="*{colour}" class="form-control mb-4 col-4">
 			</label><br />
 			<label>
-				Dimensions: <input type="text" th:value="*{dimension}" class="form-control mb-4 col-4">
+				Dimensions: <input type="text" th:field="*{dimension}" class="form-control mb-4 col-4">
 			</label><br />
-			<label>
-				Subcategory: <input type="text" th:value="*{subcategory}" class="form-control mb-4 col-4">	
-			</label><br />
-			<label>
-				Brand: 
-				<select th:object="${inventory}" name="brand">
-            		<option th:each="brand : *{brand}" th:value="${brand}"></option>
+			<label> 
+ 				Subcategory:  
+  				<select th:field="*{subcategory}" name="subcategory"> 
+             		<option th:each="subcat : ${subcats}" th:value="${subcat}" th:text="${subcat}"></option> 
+        		</select> 
+ 			</label><br /> 
+
+ 			<label> 
+ 				Brand:  
+ 				<select th:field="*{brand}" name="brand"> 
+             		<option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option> 
+        		</select> 
+ 			</label><br /> -->
+<<<<<<< HEAD
+			<!--	<input type="hidden" th:field="*{transHistory}"> -->
+=======
+			<!--	<input type="hidden" th:field="*{transHistory}"> -->
+=======
+			<form action="" th:action="@{/inventory/saveProduct}" th:object="${inventory}" method="POST">
+				<input type="hidden" th:field="*{productid}" />
+					Name: <br />
+				<input type="text" th:field="*{productName}" class="form-control mb-4 col-4"><br />
+					Description: <br />
+				<input type="text" th:field="*{description}" class="form-control mb-4 col-4"><br />
+					Original Price: <br />
+				<input type="text" th:field="*{originalPrice}" name="originalPrice" class="form-control mb-4 col-4" onkeyup="mult(this.value)"><br />
+					Wholesale Price: <br />
+				<input type="text" th:field="*{wholesalePrice}" class="form-control mb-4 col-4" id="wholesale" readonly><br />
+					Retail Price: <br />
+				<input type="text" th:field="*{retailPrice}" class="form-control mb-4 col-4" id="retail" readonly><br />
+					Partner Price: <br />
+				<input type="text" th:field="*{partnerPrice}" class="form-control mb-4 col-4" id="partner" readonly><br />
+					Stock Qty: <br />
+				<input type="number" th:field="*{stockQty}" class="form-control mb-4 col-4"><br />
+					Reorder Level: <br />
+				<input type="number" th:field="*{reorderLevel}" class="form-control mb-4 col-4"><br />
+					Minumum Order: <br />
+				<input type="number" th:field="*{minimumOrder}" class="form-control mb-4 col-4"><br />
+					Colour: <br />
+				<input type="text" th:field="*{colour}" class="form-control mb-4 col-4"><br />
+					Dimensions: <br />
+				<input type="text" th:field="*{dimension}" class="form-control mb-4 col-4"><br />
+			<div class="custom-select">
+				Subcategory: <br />
+				<select th:object="${inventory.subcategory}" name="subcategory">
+            		<option th:each="subcats : *{subcats}" th:value="${subcat.subcategoryName}" th:text="${subcat.subcategoryName}"></option>
         		</select>
-			</label><br />
-			<input type="hidden" th:value="*{transHistory}">
+			</div><a href="add-subcategory" th:href = "@{/addsubcategory}">Add new</a><br />
+			<div class="custom-select">
+				Brand: <br />
+				<select th:field="${inventory.brand}" name="brand"> 
+					<option th:each="brand : ${brands}" th:value="${brand.subcategoryName}" th:text="${brand.brandName}"></option> 
+				</select>
+			</div><a href="add-brand" th:href = "@{/addbrand}">Add new</a><br />
+			<input type="hidden" th:field="*{transHistory}">
+>>>>>>> branch 'jaxine_branch' of https://github.com/seano188/javaTeam8CA
+>>>>>>> refs/remotes/origin/main
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>
-	</div>
 	</div>
 </body>
 </html>
