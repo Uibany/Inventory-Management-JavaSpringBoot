@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Add new subcategory</title>
 </head>
 <body>
-
+<div id="wrapper">
+		<nav class="main">
+			<form action="" th:action="@{/inventory/saveSubcategory}" th:object="${subcategory}" method="get">
+Subcategory Name: <input type="text" th:field="*{subcategoryName}" class="form-control mb-4 col-4"> <br />
+Subcategory Type: <input type="text" th:field="*{subcategoryType}" class="form-control mb-4 col-4"> <br />
+Category: <input type="text" th:field="*{category.categoryName}" class="form-control mb-4 col-4"> <br />
+<button type="submit" class="btn btn-primary">Save</button>
+		</form>
+	</nav>
+</div>
 </body>
 </html>

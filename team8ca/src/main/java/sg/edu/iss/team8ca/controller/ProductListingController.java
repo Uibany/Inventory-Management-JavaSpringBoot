@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;	
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,9 +81,26 @@ public class ProductListingController {
 		return "add-brand"; 
 	}
 	
+	@RequestMapping(value = "/savebrand", method = RequestMethod.GET)
+	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
+		plService.addBrand(brand);
+		Inventory inventory = new Inventory();
+		model.addAttribute("inventory", inventory);
+		return "redirect:/inventory/entry-form"; 
+	}
+	
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
 		return "add-subcategory";	
 	}
+	
+	@RequestMapping(value = "/savesubcat", method = RequestMethod.GET)
+	public String saveSubcat(@ModelAttribute("subcategory") Subcategory subcategory, Model model) {
+		plService.addSubcategory(subcategory);
+		Inventory inventory = new Inventory();
+		model.addAttribute("inventory", inventory);
+		return "redirect:/inventory/entry-form"; 
+	}
+	
 }
