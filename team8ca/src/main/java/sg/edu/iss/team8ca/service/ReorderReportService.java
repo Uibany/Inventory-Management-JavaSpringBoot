@@ -13,6 +13,7 @@ public class ReorderReportService implements ReorderReportInterface {
 	private InventoryRepo invrepo;
 	
 	public List<Inventory> reoderReport(long id) {
-		return invrepo.reorderreport(id);
+//		return invrepo.reorderreport(id);
+		return null;
 	}
 }
