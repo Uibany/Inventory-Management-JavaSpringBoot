@@ -10,7 +10,7 @@
 			<form action="" th:action="@{/inventory/saveSubcategory}" th:object="${subcategory}" method="get">
 Subcategory Name: <input type="text" th:field="*{subcategoryName}" class="form-control mb-4 col-4"> <br />
 Subcategory Type: <input type="text" th:field="*{subcategoryType}" class="form-control mb-4 col-4"> <br />
-Category: <input type="text" th:field="*{category}" class="form-control mb-4 col-4"> <br />
+Category: <input type="text" th:field="*{category.categoryName}" class="form-control mb-4 col-4"> <br />
 <button type="submit" class="btn btn-primary">Save</button>
 		</form>
 	</nav>

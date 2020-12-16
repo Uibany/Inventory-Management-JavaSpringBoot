@@ -10,7 +10,7 @@
 			<form action="" th:action="@{/inventory/saveBrand}" th:object="${brand}" method="get">
 Brand Name: <input type="text" th:field="*{brandName}" class="form-control mb-4 col-4"> <br />
 Manufacturer name: <input type="text" th:field="*{manufacturerName}" class="form-control mb-4 col-4"> <br />
-Supplier: <input type="text" th:field="*{supplier}" class="form-control mb-4 col-4"> <br />
+Supplier: <input type="text" th:field="*{supplier.companyName}" class="form-control mb-4 col-4"> <br />
 <button type="submit" class="btn btn-primary">Save</button>
 		</form>
 	</nav>
