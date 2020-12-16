@@ -109,11 +109,17 @@ public class UsageFormController {
 //	Delete usage details
 	@RequestMapping(value = "/delete/usageforms/{id1}/ud/{id2}", method = RequestMethod.GET)
 	public String deleteUd (@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,Model model) {
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);	
+		User user1 = uservice.findUserByUserName("admin");
 		UsageDetails ud = iuservice.findUsageDetailsById(id2);
 		Inventory inventory = pservice.findProductById(ud.getInventory().getId());
 		inventory.setStockQty(inventory.getStockQty()+Math.toIntExact(ud.getQuantity()));
 		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
+		TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), user1);
+		thservice.saveTrans(trans);		
 		return "forward:/invusage/usageforms/"+id1;
 	}
 	
@@ -139,7 +145,7 @@ public class UsageFormController {
 
 				inventory.setStockQty(newQuantity);
 				pservice.saveProduct(inventory);
-				TransHistory trans = new TransHistory(TransType.Usage, Math.toIntExact(quantity), inventory, LocalDate.now(), user1);
+				TransHistory trans = new TransHistory(TransType.Usage, -Math.toIntExact(quantity), inventory, LocalDate.now(), user1);
 				thservice.saveTrans(trans);
 				if(inventory.getStockQty()<inventory.getReorderLevel()) {
 					String id = String.valueOf(inventory.getId());
