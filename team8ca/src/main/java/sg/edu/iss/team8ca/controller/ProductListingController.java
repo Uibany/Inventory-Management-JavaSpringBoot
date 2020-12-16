@@ -35,7 +35,7 @@ public class ProductListingController {
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
-		return "productlisting";
+		return "product-listing";
 	}
 	
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
