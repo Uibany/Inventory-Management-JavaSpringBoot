@@ -10,8 +10,8 @@
 
 	<div th:replace="fragments/layout.html :: navbar"></div>
 
-	<h1>Supplier Listing</h1>
-	<!-- Add Hyperlink -->
+	<h1>Manage Supplier</h1>
+
 	<a href="Addsupplier.html" th:href="@{/supplier/add}">Add Supplier</a>
 
 	<h2 th:if="${not #lists.isEmpty(supplier)}">Supplier List</h2>
