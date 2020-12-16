@@ -9,7 +9,7 @@
 <body>
 	<div th:replace="fragments/layout.html :: navbar"></div>
 
-	<h1>Member Form</h1>
+	<h1>Supplier Form</h1>
 	<form action="" th:object="${supplier}" th:action="@{/supplier/save}"
 		method="post">
 		<fieldset>
@@ -21,7 +21,6 @@
 		<fieldset>
 			Contact No <input type="text" th:field="*{contactNo}">
 		</fieldset>
-
 		<fieldset>
 			Address <input type="text" th:field="*{address}">
 		</fieldset>

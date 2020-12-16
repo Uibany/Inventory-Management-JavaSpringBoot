@@ -26,6 +26,8 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.manufacturerName LIKE %?1%")
 	public List<Inventory> invSearch(String keyword);
 
-	public List<Inventory> reorderreport(long id);
-	
+	@Query("Select i.id, i.originalPrice, i.stockQty, i.reorderLevel,"
+			+ "i.minimumOrder from Inventory i where i.brand.supplier.id = :id")
+	public List<Inventory> reorderreport(@Param("id") long id);
+
 }
