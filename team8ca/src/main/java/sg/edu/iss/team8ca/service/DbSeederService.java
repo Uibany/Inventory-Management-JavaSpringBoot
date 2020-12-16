@@ -1,6 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -149,7 +151,7 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadTrans() {
 		User user1 = userRepo.findByUserName("admin");
 		Inventory inv = invRepo.findInvByName("100 screws");
-		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.now(),user1);
+		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.of(2020,11,10), LocalTime.of(21, 30), user1);
 		thRepo.save(trans);
 	}
 	
