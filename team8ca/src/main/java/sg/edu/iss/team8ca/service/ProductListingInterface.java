@@ -2,7 +2,10 @@ package sg.edu.iss.team8ca.service;
 
 import java.util.List;
 
+import sg.edu.iss.team8ca.model.Brand;
+import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
+import sg.edu.iss.team8ca.model.Subcategory;
 
 public interface ProductListingInterface {
 
@@ -16,5 +19,10 @@ public interface ProductListingInterface {
 	
 	public void editProduct(Inventory inventory);
 
+	public void addBrand(Brand brand);
+	
+	public void addCategory(Category category);
+	
+	public void addSubcategory(Subcategory subcategory);
 }
 
