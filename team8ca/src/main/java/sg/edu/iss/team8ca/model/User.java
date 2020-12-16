@@ -50,6 +50,9 @@ public class User {
 	private Set<Role> roles;
 	private String firstName;
 	private String lastName;
+	private String email;
+	private String contactNo;
+	private String address;
 	
 	public User(String userName, String password) {
 		super();
@@ -66,14 +69,31 @@ public class User {
 	public User(long id,
 			@Length(min = 5, message = "*Your user name must have at least 5 characters") @NotEmpty(message = "*Please enter your username") String userName,
 			@Length(min = 8, message = "*Your password must have at least 8 characters") @NotEmpty(message = "*Please enter your password") String password,
-			Boolean active, String firstName, String lastName) {
+			String firstName, String lastName, String email, String contactNo, String address) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
-		this.active = active;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.address = address;
 	}
+
+	public User(
+			@Length(min = 5, message = "*Your user name must have at least 5 characters") @NotEmpty(message = "*Please enter your username") String userName,
+			@Length(min = 8, message = "*Your password must have at least 8 characters") @NotEmpty(message = "*Please enter your password") String password,
+			String firstName, String lastName, String email, String contactNo, String address) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.address = address;
+	}
+
 
 }
