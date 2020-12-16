@@ -70,10 +70,10 @@ public class ProductListingController {
 		return "product-listing";	
 	}
 	
-	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)
-		public String deleteProduct(@PathVariable("id") Long id) {
-			plService.deleteProduct(plService.findProductById(id));
 
+	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
+		public String deleteProduct(@PathVariable Long id) {
+			plService.deleteProduct(plService.findProductById(id));
 		return "redirect:/inventory/list";
 	}
 	
