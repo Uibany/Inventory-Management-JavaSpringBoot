@@ -34,7 +34,7 @@ public class Inventory {
 	private int minimumOrder;
 	private String colour;
 	private String dimension;
-
+	
 	@ManyToOne
 	private Subcategory subcategory;
 
