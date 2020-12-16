@@ -118,10 +118,6 @@ public class UsageFormController {
 			{
 				return "forward:/invusage/usageforms/"+id1;					
 			}
-			
-			
-			
-	
 	}
 
 }
