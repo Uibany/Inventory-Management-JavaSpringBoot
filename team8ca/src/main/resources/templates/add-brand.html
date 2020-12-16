@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add new Brand</title>
+</head>
+<body>
+<table>
+ <tr>
+   <th>ID</th>
+   <th>Brand Name</th>
+   <th>Manufacturer Name</th>
+   <th>Supplier</th>
+
+ </tr>
+ <tr th:each="brand:${brands}">
+   <td th:text="${brands.id}">ID</td> 
+   <td th:text="${brands.brandName}">Brand Name</td>
+   <td th:text="${brands.manufacturerName}">Manufacturer Name</td>
+   <td th:text="${brands.supplier}">Supplier</td>
+   </tr>
+   </table>
+</body>
+</html>

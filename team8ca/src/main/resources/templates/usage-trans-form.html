@@ -55,14 +55,14 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="#" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
-						<li><a href="/inventory/list" class=""><i class="lnr lnr-car"></i> <span>View
+						<li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
+						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View
 									Products</span></a></li>
-						<li><a href="inventory/addproduct" class=""><i class="lnr lnr-file-add"></i> <span>Stock Entry
+						<li><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i> <span>Stock Entry
 									Forms</span></a></li>
-						<li><a href="invusage/showlisting" class=""><i class="lnr lnr-list"></i> <span>Stock Usage
+						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage
 									Forms</span></a></li>
-						<li><a href="report/form" class="active"><i class="lnr lnr-chart-bars"></i> <span>Transaction
+						<li><a th:href="@{~/report/form}" class="active"><i class="lnr lnr-chart-bars"></i> <span>Transaction
 									Report</span></a></li>
 						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
 						</li>
@@ -97,14 +97,14 @@
 									</div>
 									<div class=" col-md-2 col-lg-2 margin-left-20">
 										<input type="number" class="form-control" name="productId"
-											th:value="${productId}" required>
+											th:value="${product==null} ? '' : ${product.id}" required>
 									</div>
 									<div class="col-md-3 col-lg-2 panel-content">
 										<h4 class="text-left">Please select date range: </h4>
 									</div>
 									<div class="col-md-3 col-lg-3">
 										<input type="text" class="form-control" name="daterange" id="daterange"
-											style="width: 200;" value="Select dates" required>
+											style="width: 200;" value="Select dates">
 									</div>
 
 									<input type="hidden" name="startDate" th:value="${startDate}" id="start">
@@ -117,46 +117,49 @@
 						</div>
 					</div>
 
-					<!-- 					<div class="panel shadow" id="report"> -->
-					<!-- 						<div class="panel-heading"> -->
-					<!-- 							<h3>Usage History: <span th:text="${product.productName}">Product Name</span></h3> -->
-					<!-- 							<h3>From: <span id="startDate" th:text="${start}"></span> To: <span id="endDate" th:text="${end}"></span></h3> -->
-					<!-- 						</div> -->
-					<!-- 						<div class="panel-body no-padding"> -->
-					<!-- 							<table class="table table-striped"> -->
-					<!-- 								<thead> -->
-					<!-- 									<tr> -->
-					<!-- 										<th>Transaction ID</th> -->
-					<!-- 										<th>UserID</th> -->
-					<!-- 										<th>Username</th> -->
-					<!-- 										<th>Date</th> -->
-					<!-- 										<th>Quantity</th> -->
-					<!-- 										<th>Transaction Type</th> -->
-					<!-- 										<th>Remaining Stock</th> -->
-					<!-- 									</tr> -->
-					<!-- 								</thead> -->
-					<!-- 								<tbody> -->
-					<!-- 									<tr th:each = "trans:${transHistory}"> -->
-					<!-- 										<td th:text = "${trans.id}">111</td> -->
-					<!-- 										<td th:text = "${trans.user.id}">1</td> -->
-					<!-- 										<td th:text = "${trans.user.userName}">mechanic1</td> -->
-					<!-- 										<td th:text = "${trans.transDate}">2020-12-11</td> -->
-					<!-- 										<td th:text = "${trans.quantity}">1</td> -->
-					<!-- 										<td><span class="label label-success">USED</span></td> -->
-					<!-- 										<td th:text = "${trans.inventory.stockQty}">100</td> -->
-					<!-- 									</tr> -->
-					<!-- 								</tbody> -->
-					<!-- 							</table> -->
-					<!-- 						</div> -->
-					<!-- 						<div class="panel-footer"> -->
-					<!-- 							<div class="row"> -->
-					<!-- 								<div class="text-right"> -->
-					<!-- 									<a href="#" class="btn btn-primary">Print report</a> -->
-					<!-- 									<a href="#" class="btn btn-success">Generate new report</a> -->
-					<!-- 								</div> -->
-					<!-- 							</div> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
+					<div class="panel shadow" id="report" th:if="${product!=null}">
+						<div class="panel-heading" id="report-heading">
+							<h3>Transaction History: &nbsp;&nbsp;<span th:text="${product.productName}" class="text-primary">Product Name</span></h3>
+							<h3 th:if="${start==null}">All transactions</h3>
+							<h3 th:if="${start!=null}">From:&nbsp;<span id="startDate" th:text="${start}" class="text-primary"></span> &nbsp; &nbsp;To:&nbsp;<span id="endDate" th:text="${end}" class="text-primary"></span></h3>
+						</div>
+						<div class="panel-body no-padding" id="report-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Transaction ID</th>
+										<th>UserID</th>
+										<th>Username</th>
+										<th>Date</th>
+										<th>Quantity</th>
+										<th>Transaction Type</th>
+										<th>Remaining Stock</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each = "trans:${transHistory}">
+										<td th:text = "${trans.id}">111</td>
+										<td th:text = "${trans.user.id}">1</td>
+										<td th:text = "${trans.user.userName}">mechanic1</td>
+										<td th:text = "${trans.transDate}">2020-12-11</td>
+										<td th:text = "${trans.quantity}">1</td>
+										<td><span class="label label-success">USED</span></td>
+										<td th:text = "${trans.inventory.stockQty}">100</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="text-right">
+									<a href="#" class="btn btn-primary" onclick="window.printReport()">Print report</a>
+									<a href="#" th:href="@{/report/form}" class="btn btn-success">Generate new report</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					
 
 				</div>
 			</div>
@@ -199,12 +202,25 @@
 			$(this).val('');
 		});
 
+		function printReport()
+		{
+			var mywindow = window.open('', 'PRINT');
 
+			mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+			mywindow.document.write('</head><body >');
+			mywindow.document.write('<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>')
+			mywindow.document.write('<h1>' + document.title  + '</h1>');
+			mywindow.document.write(document.getElementById("report-heading").innerHTML);
+			mywindow.document.write(document.getElementById("report-body").innerHTML);
+			mywindow.document.write('</body></html>');
 
-		var endDate = document.getElementById("endDate");
-		var end = document.getElementById("end");
-		function submitFunction() {
-			endDate.innerHTML = end.value;
+			mywindow.document.close(); // necessary for IE >= 10
+			mywindow.focus(); // necessary for IE >= 10*/
+
+			mywindow.print();
+			mywindow.close();
+
+			return true;
 		}
 
 	</script>

@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.iss.team8ca.model.Brand;
-import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
-import sg.edu.iss.team8ca.service.ProductListingInterface;
 
 @Controller
 @RequestMapping("/inventory")
@@ -43,19 +41,24 @@ public class ProductListingController {
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
 	public String addProduct(Model model) {
 		Inventory inventory = new Inventory();
-		List<Brand> brands = plService.listBrand();
-		List<Category> cats = plService.listCategory();
-		List<Subcategory> subcats = plService.listSubcategory();
+//		List<Brand> brands = plService.listBrand();
+//		List<Subcategory> subcats = plService.listSubcategory();
 		model.addAttribute("inventory", inventory);
-		model.addAttribute("brands", brands);
-		model.addAttribute("cats", cats);
-		model.addAttribute("subcats", subcats);
+//		model.addAttribute("brands", brands);
+//		model.addAttribute("subcats", subcats);
 		return "entry-form";
 	}
 	
-	@RequestMapping(value = "/saveproduct", method = RequestMethod.GET)
-	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, BindingResult bindingResult, Model model) {
+	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
+	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, Model model) {
 		plService.saveProduct(inventory);
+//		List<Inventory> plist = plService.list();
+//		model.addAttribute("plist", plist);
+		List<Brand> brands = plService.listBrand();
+		List<Subcategory> subcats = plService.listSubcategory();
+//		model.addAttribute("inventory", inventory);
+		model.addAttribute("brands", brands);
+		model.addAttribute("subcats", subcats);
 		return "forward:/inventory/list";
 	}
 	
@@ -66,27 +69,22 @@ public class ProductListingController {
 		return "product-listing";	
 	}
 	
-	@RequestMapping(value = "/deleteproduct", method = RequestMethod.GET)
-	public String deleteProduct(@ModelAttribute("inventory") Inventory inventory) {
-		plService.deleteProduct(inventory);
-		return "product-listing";
+
+	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
+		public String deleteProduct(@PathVariable Long id) {
+			plService.deleteProduct(plService.findProductById(id));
+		return "redirect:/inventory/list";
 	}
 	
 	@RequestMapping(value = "/addbrand", method = RequestMethod.GET)
 	public String addBrand(@ModelAttribute("brand") Brand brand) {
 		plService.addBrand(brand);
-		return "entry-form";	
-	}
-	
-	@RequestMapping(value = "/addcategory", method = RequestMethod.GET)
-	public String addCategory(@ModelAttribute("category") Category category) {
-		plService.addCategory(category);
-		return "entry-form";	
+		return "add-brand"; 
 	}
 	
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
-		return "entry-form";	
+		return "add-subcategory";	
 	}
 }
