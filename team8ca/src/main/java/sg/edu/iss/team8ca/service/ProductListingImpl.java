@@ -1,5 +1,7 @@
 package sg.edu.iss.team8ca.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
 
 @Service
+@Transactional
 public class ProductListingImpl implements ProductListingInterface {
 	@Autowired
 	BrandRepo brepo;
@@ -91,6 +94,37 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 	}
 
-	
+	@Override
+	public ArrayList<String> findAllBrandNames() {
+		List<Brand> brands = brepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Brand> iterator = brands.iterator(); iterator.hasNext();) {
+			Brand brand = (Brand) iterator.next();
+			names.add(brand.getBrandName());
+		}
+		return names;
+	}
+
+	@Override
+	public ArrayList<String> findAllSubcatNames() {
+		List<Subcategory> subcats = srepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Subcategory> iterator = subcats.iterator(); iterator.hasNext();) {
+			Subcategory subcat = (Subcategory) iterator.next();
+			names.add(subcat.getSubcategoryName());
+		}
+		return names;
+	}
+
+	@Override
+	public Brand findBrandByName(String name) {
+		return brepo.findBrandByName(name).get(0);
+	}
+
+	@Override
+	public Subcategory findSubcatByName(String name) {
+		return srepo.findSubcatByName(name).get(0);
+	}
+
 
 }

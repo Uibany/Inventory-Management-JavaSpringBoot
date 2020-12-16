@@ -60,15 +60,15 @@
 			</label><br />
 			<label> 
  				Subcategory:  
-  				<select th:field="*{subcategory}" name="subcategory"> 
-             		<option th:each="subcat : ${subcats}" th:value="${subcat}" th:text="${subcat}"></option> 
+  				<select th:field="*{subcategory.subcategoryName}" name="subcategory"> 
+             		<option th:each="sname : ${snames}" th:value="${sname}" th:text="${sname}"></option> 
         		</select> 
         		<a href="add-subcategory.html" th:href="@{/inventory/addsubcategory/}">Add New</a>
  			</label><br /> 
  			<label> 
  				Brand:  
- 				<select th:field="*{brand}" name="brand"> 
-             		<option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option> 
+ 				<select th:field="*{brand.brandName}" name="brand"> 
+             		<option th:each="bname : ${bnames}" th:value="${bname}" th:text="${bname}"></option> 
         		</select> 
         		<a href="add-brand.html" th:href="@{/inventory/addbrand/}">Add New</a>
  			</label><br /> 

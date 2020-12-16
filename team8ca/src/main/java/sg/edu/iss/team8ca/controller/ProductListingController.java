@@ -1,11 +1,15 @@
 package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;	
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,27 +41,29 @@ public class ProductListingController {
 		return "product-listing";
 	}
 	
-	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
+	@RequestMapping(value = "/addproduct")
 	public String addProduct(Model model) {
 		Inventory inventory = new Inventory();
-//		List<Brand> brands = plService.listBrand();
-//		List<Subcategory> subcats = plService.listSubcategory();
+		ArrayList<String> blist = plService.findAllBrandNames();
+		ArrayList<String> slist = plService.findAllSubcatNames();
 		model.addAttribute("inventory", inventory);
-//		model.addAttribute("brands", brands);
-//		model.addAttribute("subcats", subcats);
+		model.addAttribute("bnames", blist);
+		model.addAttribute("snames", slist);
 		return "entry-form";
 	}
 	
-	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, Model model) {
-		plService.saveProduct(inventory);
-//		List<Inventory> plist = plService.list();
-//		model.addAttribute("plist", plist);
-		List<Brand> brands = plService.listBrand();
-		List<Subcategory> subcats = plService.listSubcategory();
-//		model.addAttribute("inventory", inventory);
-		model.addAttribute("brands", brands);
-		model.addAttribute("subcats", subcats);
+	@RequestMapping(value = "/saveproduct")
+	public String saveProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
+			BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "entry-form";
+		}
+		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
+		inventory.setBrand(brand);
+		inventory.setSubcategory(subcategory);
+		plService.addProduct(inventory);
 		return "forward:/inventory/list";
 	}
 	
