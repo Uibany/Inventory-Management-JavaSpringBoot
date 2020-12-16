@@ -59,6 +59,12 @@ public class UsageTransReportController {
 		if(request.getParameter("startDate").isBlank()) 
 		{
 			List<TransHistory> alltransHistory = thservice.listTransHisForId(productId);
+			if(alltransHistory.size()== 0) 
+			{
+				modelAndView.addObject("error", "invalid-date");
+				modelAndView.setViewName("usage-trans-form");
+		        return modelAndView;
+			}
 			modelAndView.addObject("transHistory", alltransHistory);
 			modelAndView.setViewName("usage-trans-form");
 			modelAndView.addObject("product", product);
