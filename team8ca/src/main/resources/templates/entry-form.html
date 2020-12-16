@@ -81,13 +81,15 @@
   				<select th:field="*{subcategory}" name="subcategory"> 
              		<option th:each="subcat : ${subcats}" th:value="${subcat}" th:text="${subcat}"></option> 
         		</select> 
+        		<a href="add-subcategory.html" th:href="@{/inventory/addsubcategory/}">Add New</a>
  			</label><br /> 
  			<label> 
  				Brand:  
  				<select th:field="*{brand}" name="brand"> 
              		<option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option> 
         		</select> 
- 			</label><br /> -->
+        		<a href="add-brand.html" th:href="@{/inventory/addbrand/}">Add New</a>
+ 			</label><br /> 
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 	</nav>

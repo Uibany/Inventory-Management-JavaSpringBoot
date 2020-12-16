@@ -35,7 +35,7 @@ public class ProductListingController {
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
-		return "productlisting";
+		return "product-listing";
 	}
 	
 	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
@@ -82,9 +82,22 @@ public class ProductListingController {
 		return "add-brand"; 
 	}
 	
+	@RequestMapping(value = "/savebrand", method = RequestMethod.GET)
+	public String saveBrand(@ModelAttribute("brand") Brand brand) {
+		plService.addBrand(brand);
+		return "redirect:/inventory/entry-form"; 
+	}
+	
 	@RequestMapping(value = "/addsubcategory", method = RequestMethod.GET)
 	public String addSubcategory(@ModelAttribute("subcategory") Subcategory subcategory) {
 		plService.addSubcategory(subcategory);
 		return "add-subcategory";	
 	}
+	
+	@RequestMapping(value = "/savesubcat", method = RequestMethod.GET)
+	public String saveSubcat(@ModelAttribute("subcategory") Subcategory subcategory) {
+		plService.addSubcategory(subcategory);
+		return "redirect:/inventory/entry-form"; 
+	}
+	
 }
