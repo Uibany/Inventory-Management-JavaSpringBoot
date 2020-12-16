@@ -39,13 +39,20 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	}
 
 	@Override
+  @Transactional (readOnly = true)
 	public List<TransHistory> listTransHisForId(long id) {
 		return threpo.listTransHis(id);
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public List<TransHistory> listAllTransHis() {
 		return threpo.findAll();
+	}
+	
+	@Override
+	public void saveTrans(TransHistory transHistory) {
+		threpo.save(transHistory);
 	}
 	
 	

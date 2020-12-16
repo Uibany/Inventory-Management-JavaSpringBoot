@@ -12,5 +12,6 @@ public interface TransHistoryInterface {
 	public List<TransHistory> listTransHisForId(long id);
 	public List<TransHistory> listTransHisForDate(long id, LocalDate startDate, LocalDate endDate);
 	public Inventory findInvById(long id);
+	public void saveTrans(TransHistory transHistory);
 	
 }
