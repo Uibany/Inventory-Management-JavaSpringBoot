@@ -2,7 +2,6 @@
 package sg.edu.iss.team8ca.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -35,18 +34,22 @@ public class InvUsage {
 	@ManyToOne
 	private User user;
 	
-	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, User user) {
+	private String tasks;
+	
+	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, User user, String tasks) {
 		super();
 		this.usageDate = usageDate;
 		this.usageReportStatus = usageReportStatus;
 		this.user = user;
+		this.tasks = tasks;
 	}
 	
-	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, User user) {
+	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, User user, String tasks) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;
 		this.usageReportStatus = usageReportStatus;
 		this.user = user;
+		this.tasks = tasks;
 	}
 }
