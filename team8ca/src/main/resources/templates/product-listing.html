@@ -75,9 +75,12 @@
             </div>
             <div class="panel-body">
 
-              <div class="input-group" style="width:310px">
-                <input type="text" value="" class="form-control" name="keyword" id="keyword" th:value="${keyword}"  placeholder="Search inventory...">
-                <span class="input-group-btn"><button type="button" class="btn btn-primary">Search</button></span>
+              <div class="input-group" style="width:310px" th:action="@{/inventory/search}">
+                <form name="search" th:action="@{/inventory/search}">
+					<input type="text" name="keyword" size="50" th:value="${keyword}" required />
+					&nbsp;
+					<input type="submit" value="Search" />
+				</form>
               </div>
               <br>
 

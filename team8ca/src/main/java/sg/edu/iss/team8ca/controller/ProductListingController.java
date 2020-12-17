@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +50,7 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
-		List<Inventory> plist = plService.list();
+		List<Inventory> plist = plService.list(null);
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
@@ -171,6 +172,15 @@ public class ProductListingController {
 		
 	}
 	
+	@RequestMapping("/search")
+	public String search(Model model, @Param("keyword") String keyword) {
+		List<Inventory> plist = plService.list(keyword);
+		LocalDate today = LocalDate.now();
+		model.addAttribute("plist", plist);
+		model.addAttribute("today", today.toString());
+		model.addAttribute("keyword", keyword);
+		return "product-listing";
+	}
 	
 	
 }

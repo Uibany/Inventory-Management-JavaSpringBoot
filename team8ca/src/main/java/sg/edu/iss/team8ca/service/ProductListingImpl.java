@@ -79,11 +79,10 @@ public class ProductListingImpl implements ProductListingInterface {
 	
 	@Override
 	public List<Inventory> list(String keyword) {
-		if (keyword != null) {
-			return irepo.invSearch(keyword);
+		if (keyword == null) {
+			return irepo.findAll();
 		}
-		
-		return irepo.findAll();
+		return irepo.invSearch(keyword);
 	}
 
 	@Override
