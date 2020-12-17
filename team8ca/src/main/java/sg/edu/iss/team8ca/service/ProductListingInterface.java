@@ -23,7 +23,7 @@ public interface ProductListingInterface {
 	public void addCategory(Category category);
 	public void addSupplier(Supplier supplier);
 	
-	public List<Inventory> list();
+	public List<Inventory> list(String keyword);
 	public List<Brand> listBrand();
 	public List<Subcategory> listSubcategory();
 	public ArrayList<String> findAllBrandNames();
