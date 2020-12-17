@@ -29,6 +29,7 @@ public interface ProductListingInterface {
 	public Subcategory findSubcatByName(String name);
 
 	public void editProductQuantity(Long id, int newQty);
+
 	
 	
 }

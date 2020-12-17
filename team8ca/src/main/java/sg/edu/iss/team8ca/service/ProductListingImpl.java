@@ -60,9 +60,8 @@ public class ProductListingImpl implements ProductListingInterface {
 
 	@Override
 	public void editProduct(Inventory inventory) {
-		
-	}
-
+	
+	}	
 	@Override
 	public void addBrand(Brand brand) {
 		brepo.save(brand);

@@ -119,7 +119,8 @@
                   <td th:text="${product.dimension}">Dimension</td>
                   <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
                   <td th:text="${product.brand.brandName}">Brand</td>
-                  <td><a class="btn btn-success">Edit</a></td>
+                  <td><a href="edit-form.html" th:href="@{/inventory/editproduct/}+${product.id}"
+                  		class="btn btn-success">Edit</a></td>
                   <td><a href="DeleteProduct.html" th:href="@{/inventory/deleteproduct/}+${product.id}"
                       class="btn btn-danger">Delete</a></td>
                 </tr>
