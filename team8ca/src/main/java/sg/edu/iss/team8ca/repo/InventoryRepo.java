@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
 
 
@@ -24,5 +25,9 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.dimension LIKE %?1%"
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")
+	
 	public List<Inventory> invSearch(String keyword);
+	@Query("Select i.id, i.originalPrice, i.stockQty, i.reorderLevel,"
+			+ "i.minimumOrder from Inventory i where i.brand.supplier.id = :id")
+	public List<Inventory> reorderreport(@Param("id") long id);
 }

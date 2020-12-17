@@ -1,6 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -77,25 +79,33 @@ public class DbSeederService implements CommandLineRunner {
 		loadInvUsage();
 		loadTrans();
 	}
-
-	private void loadUserData() {
-		String password = "password";
+	
+	private String passwordEncoder(String password) {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = bCryptPasswordEncoder.encode(password);
+		return encodedPassword;
+	}
 
+	private void loadUserData() {
+		
 		if (userRepo.count() == 0) {
-			User user1 = new User("admin", encodedPassword);
+			User user1 = new User("admin", passwordEncoder("password"), "Admin", "User", "admin@gmail.com", "123456", "Jurong East");
 			userRepo.save(user1);
+			User user2 = new User("sankalp", passwordEncoder("sankalp"), "Sankalp", "  ", "sankalp@gmail.com", "123456", "Jurong West");
+			userRepo.save(user2);
+			User user3 = new User("team8ca", passwordEncoder("team8ca"), "Team", "JavaCA", "team8@gmail.com", "123456", "Clementi");
+			userRepo.save(user3);
+			User user4 = new User("Esther", passwordEncoder("asdfasdf"), "Esther", "Tan", "esther@gmail.com", "123456", "Bedok");
+			userRepo.save(user4);
 		}
-		System.out.println(userRepo.count());
 	}
 	
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
-		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
-		Subcategory subcat2 = subcatRepo.findBySubcategoryName("loose parts");
-		Brand brand2 = brandRepo.findByBrandName("TonyHawk");
+		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
+		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
 		Inventory inv1 = new Inventory("200 screws", "100 pieces of screws", 10.00,11.00,12.00,13.00,1000,500,200,"Orange","5mm x 1mm",subcat2,brand2);
 		Inventory inv2 = new Inventory("Bumper", "attached at front and rear end", 50.00,15.00,60.00,65.00,20,5,1,"Blue","200cm x 40cm",subcat2,brand2);
 		Inventory inv3 = new Inventory("Tires", "rubber parts of wheel", 5.00,5.50,6.00,6.50,100,20,4,"Black","26rad",subcat2,brand2);
@@ -132,8 +142,8 @@ public class DbSeederService implements CommandLineRunner {
 	
 	//brand + subcategory -> inventory
 	private void loadInv() {
-		Subcategory subcat2 = subcatRepo.findBySubcategoryName("loose parts");
-		Brand brand2 = brandRepo.findByBrandName("TonyHawk");
+		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
+		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
 		Inventory inv = new Inventory("100 screws", "100 pieces of screws", 10.00,11.00,12.00,13.00,1000,500,200,"Orange","5mm x 1mm",subcat2,brand2);
 		invRepo.save(inv);
 	}
@@ -141,7 +151,7 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadTrans() {
 		User user1 = userRepo.findByUserName("admin");
 		Inventory inv = invRepo.findInvByName("100 screws");
-		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.now(),user1);
+		TransHistory trans = new TransHistory(TransType.Usage,1,inv,LocalDate.of(2020,11,10), LocalTime.of(21, 30), user1);
 		thRepo.save(trans);
 	}
 	

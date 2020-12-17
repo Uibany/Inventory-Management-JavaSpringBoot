@@ -1,5 +1,7 @@
 package sg.edu.iss.team8ca.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,15 @@ import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
+import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
+import sg.edu.iss.team8ca.repo.SupplierRepo;
 
 @Service
+@Transactional
 public class ProductListingImpl implements ProductListingInterface {
 	@Autowired
 	BrandRepo brepo;
@@ -25,13 +30,16 @@ public class ProductListingImpl implements ProductListingInterface {
 	InventoryRepo irepo;
 	@Autowired
 	SubcategoryRepo srepo;
+	@Autowired
+	SupplierRepo suprepo;
 
-	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo srepo) {
+	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo srepo, SupplierRepo suprepo) {
 		super();
 		this.brepo = brepo;
 		this.crepo = crepo;
 		this.irepo = irepo;
 		this.srepo = srepo;
+		this.suprepo = suprepo;
 	}
 	
 	@Override
@@ -91,6 +99,90 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 	}
 
-	
+	@Override
+	public ArrayList<String> findAllBrandNames() {
+		List<Brand> brands = brepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Brand> iterator = brands.iterator(); iterator.hasNext();) {
+			Brand brand = (Brand) iterator.next();
+			names.add(brand.getBrandName());
+		}
+		return names;
+	}
+
+	@Override
+	public ArrayList<String> findAllSubcatNames() {
+		List<Subcategory> subcats = srepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Subcategory> iterator = subcats.iterator(); iterator.hasNext();) {
+			Subcategory subcat = (Subcategory) iterator.next();
+			names.add(subcat.getSubcategoryName());
+		}
+		return names;
+	}
+
+	@Override
+	public Brand findBrandByName(String name) {
+		return brepo.findBrandByName(name).get(0);
+	}
+
+	@Override
+	public Subcategory findSubcatByName(String name) {
+		return srepo.findSubcatByName(name).get(0);
+	}
+
+	@Override
+	public List<Category> listCategory() {
+		return crepo.findAll();
+	}
+
+	@Override
+	public ArrayList<String> findAllCategoryNames() {
+		List<Category> categories = crepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Category> iterator = categories.iterator(); iterator.hasNext();) {
+			Category category = (Category) iterator.next();
+			names.add(category.getCategoryName());
+			}
+		return names;
+	}
+
+	@Override
+	public Category findCatByName(String name) {
+		return crepo.findCatByName(name).get(0);
+	}
+
+	@Override
+	public List<Supplier> listSupplier() {
+		return suprepo.findAll();
+	}
+
+	@Override
+	public ArrayList<String> findAllSupplierNames() {
+		List<Supplier> suppliers = suprepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for (Iterator<Supplier> iterator = suppliers.iterator(); iterator.hasNext();) {
+			Supplier supplier = (Supplier) iterator.next();
+			names.add(supplier.getCompanyName());
+			}
+		return names;
+	}
+
+	@Override
+	public Supplier findSupplierByName(String name) {
+		return suprepo.findSupplierByName(name).get(0);
+	}
+
+	@Override
+	public void addCategory(Category category) {
+		crepo.save(category);
+		
+	}
+
+	@Override
+	public void addSupplier(Supplier supplier) {
+		suprepo.save(supplier);		
+	}
+
 
 }

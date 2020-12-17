@@ -1,6 +1,8 @@
 package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,22 +53,27 @@ public class UsageFormController {
 	
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
 	public String showListing (Model model) {
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
+		User user = uservice.findUserByUserName("admin");
+		model.addAttribute("user", user);
 		List<InvUsage> usageList = iuservice.listAllUsageRecord();
 		model.addAttribute("usageList", usageList);
 		return "iulisting";
 	}
 	
 //	New usage report
-	@RequestMapping(value ="/addforms", method = RequestMethod.GET)
-	public String addUsageReport(Model model) {
+	@RequestMapping(value ="/addforms/{id}", method = RequestMethod.GET)
+	public String addUsageReport(Model model,@PathVariable("id") Long id, @RequestParam("tasks") String tasks) {
 //		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 //		User user = uservice.findUserByUserName(currentUserName);
 //		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
-		User user1 = uservice.findUserByUserName("admin");
-		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		User user = uservice.findUserByUserName("admin");
+		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user, tasks);
 		iuservice.addUsage(usageform);
 		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageform.getId());
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
 		model.addAttribute("usageform", usageform);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
@@ -109,11 +116,17 @@ public class UsageFormController {
 //	Delete usage details
 	@RequestMapping(value = "/delete/usageforms/{id1}/ud/{id2}", method = RequestMethod.GET)
 	public String deleteUd (@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,Model model) {
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);	
+		User user = uservice.findUserByUserName("admin");
 		UsageDetails ud = iuservice.findUsageDetailsById(id2);
 		Inventory inventory = pservice.findProductById(ud.getInventory().getId());
 		inventory.setStockQty(inventory.getStockQty()+Math.toIntExact(ud.getQuantity()));
 		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
+		TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+		thservice.saveTrans(trans);		
 		return "forward:/invusage/usageforms/"+id1;
 	}
 	
@@ -122,8 +135,8 @@ public class UsageFormController {
 	public String usageQuantity(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, @RequestParam("ud_quantity") Long quantity) {
 //			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 //			User user = uservice.findUserByUserName(currentUserName);
-//			InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
-			User user1 = uservice.findUserByUserName("admin");
+//			InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+			User user = uservice.findUserByUserName("admin");
 			UsageDetails ud = iuservice.findUsageDetailsById(id2);
 			long udQuantity = ud.getQuantity();
 			long newUdQuantity = udQuantity+quantity;
@@ -139,8 +152,10 @@ public class UsageFormController {
 
 				inventory.setStockQty(newQuantity);
 				pservice.saveProduct(inventory);
-				TransHistory trans = new TransHistory(TransType.Usage, Math.toIntExact(quantity), inventory, LocalDate.now(), user1);
+				
+				TransHistory trans = new TransHistory(TransType.Usage,-Math.toIntExact(quantity), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 				thservice.saveTrans(trans);
+				
 				if(inventory.getStockQty()<inventory.getReorderLevel()) {
 					String id = String.valueOf(inventory.getId());
 					String name = inventory.getProductName();
