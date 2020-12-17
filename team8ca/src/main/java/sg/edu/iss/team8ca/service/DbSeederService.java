@@ -102,7 +102,7 @@ public class DbSeederService implements CommandLineRunner {
 	
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
-		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
 		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
 		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
