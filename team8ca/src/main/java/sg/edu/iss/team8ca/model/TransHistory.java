@@ -28,6 +28,7 @@ public class TransHistory {
 	@ManyToOne
 	private Inventory inventory;
 	private int quantity;
+	private int remainingStock;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate transDate;
 	@DateTimeFormat(pattern = "HH:mm")
@@ -44,5 +45,6 @@ public class TransHistory {
 		this.transDate = transDate;
 		this.transTime = transTime;
 		this.user = user;
+		this.remainingStock = this.inventory.getStockQty();
 	}
 }
