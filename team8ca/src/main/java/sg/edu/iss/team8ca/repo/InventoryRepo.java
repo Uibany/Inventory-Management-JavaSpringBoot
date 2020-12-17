@@ -30,10 +30,4 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 	@Query("Select i.id, i.originalPrice, i.stockQty, i.reorderLevel,"
 			+ "i.minimumOrder from Inventory i where i.brand.supplier.id = :id")
 	public List<Inventory> reorderreport(@Param("id") long id);
-<<<<<<< HEAD
-
 }
-=======
-	
-}
->>>>>>> refs/remotes/origin/main
