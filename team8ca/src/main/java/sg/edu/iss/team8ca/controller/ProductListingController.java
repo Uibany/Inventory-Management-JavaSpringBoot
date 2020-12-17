@@ -87,15 +87,43 @@ public class ProductListingController {
 		User user1 = uservice.findUserByUserName("admin");
 		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
-		return "forward:/inventory/list";
+		return "redirect:/inventory/list";
+
 	}
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
-		Inventory inventory = plService.findProductById(id);
-		model.addAttribute("inventory", inventory);
-		return "product-listing";	
+		ArrayList<String> blist = plService.findAllBrandNames();
+		ArrayList<String> slist = plService.findAllSubcatNames();
+		model.addAttribute("inventory", plService.findProductById(id));
+		model.addAttribute("bnames", blist);
+		model.addAttribute("snames", slist);
+		return "edit-form";	
+		}
+
+	@RequestMapping(value = "/saveeditproduct")
+	public String saveeditProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
+			BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "edit-form";
+		}
+		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
+		inventory.setBrand(brand);
+		inventory.setSubcategory(subcategory);
+		plService.addProduct(inventory);
+		
+//		//Add to transHistory	
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		User user1 = uservice.findUserByUserName("admin");
+		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+		thservice.saveTrans(trans);
+		return "redirect:/inventory/list";
 	}
+		
 	
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
@@ -145,4 +173,5 @@ public class ProductListingController {
 		
 	}
 	
+
 }
