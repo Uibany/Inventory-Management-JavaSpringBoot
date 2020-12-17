@@ -1,11 +1,17 @@
 package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;	
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
+import sg.edu.iss.team8ca.model.TransHistory;
+import sg.edu.iss.team8ca.model.TransType;
+import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
 @RequestMapping("/inventory")
@@ -22,6 +33,12 @@ public class ProductListingController {
 	
 	@Autowired
 	private ProductListingImpl plService;
+	
+	@Autowired
+	private UserService uservice;
+	
+	@Autowired
+	private TransHistoryImpl thservice;
 
 	@Autowired
 	public void setProductListing(ProductListingImpl inventory) {
@@ -37,27 +54,37 @@ public class ProductListingController {
 		return "product-listing";
 	}
 	
-	@RequestMapping(value = "/addproduct", method = RequestMethod.GET)
+	@RequestMapping(value = "/addproduct")
 	public String addProduct(Model model) {
 		Inventory inventory = new Inventory();
-//		List<Brand> brands = plService.listBrand();
-//		List<Subcategory> subcats = plService.listSubcategory();
+		ArrayList<String> blist = plService.findAllBrandNames();
+		ArrayList<String> slist = plService.findAllSubcatNames();
 		model.addAttribute("inventory", inventory);
-//		model.addAttribute("brands", brands);
-//		model.addAttribute("subcats", subcats);
+		model.addAttribute("bnames", blist);
+		model.addAttribute("snames", slist);
 		return "entry-form";
 	}
 	
-	@RequestMapping(value = "/saveproduct", method = RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("inventory") Inventory inventory, Model model) {
-		plService.saveProduct(inventory);
-//		List<Inventory> plist = plService.list();
-//		model.addAttribute("plist", plist);
-		List<Brand> brands = plService.listBrand();
-		List<Subcategory> subcats = plService.listSubcategory();
-//		model.addAttribute("inventory", inventory);
-		model.addAttribute("brands", brands);
-		model.addAttribute("subcats", subcats);
+	@RequestMapping(value = "/saveproduct")
+	public String saveProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
+			BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "entry-form";
+		}
+		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
+		inventory.setBrand(brand);
+		inventory.setSubcategory(subcategory);
+		plService.addProduct(inventory);
+		
+//		//Add to transHistory	
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		User user1 = uservice.findUserByUserName("admin");
+		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+		thservice.saveTrans(trans);
 		return "forward:/inventory/list";
 	}
 	
