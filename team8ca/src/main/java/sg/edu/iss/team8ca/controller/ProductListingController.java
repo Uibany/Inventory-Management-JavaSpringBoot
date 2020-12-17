@@ -1,6 +1,8 @@
 package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
+import sg.edu.iss.team8ca.model.TransHistory;
+import sg.edu.iss.team8ca.model.TransType;
+import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
 @RequestMapping("/inventory")
@@ -26,6 +33,12 @@ public class ProductListingController {
 	
 	@Autowired
 	private ProductListingImpl plService;
+	
+	@Autowired
+	private UserService uservice;
+	
+	@Autowired
+	private TransHistoryImpl thservice;
 
 	@Autowired
 	public void setProductListing(ProductListingImpl inventory) {
@@ -64,6 +77,14 @@ public class ProductListingController {
 		inventory.setBrand(brand);
 		inventory.setSubcategory(subcategory);
 		plService.addProduct(inventory);
+		
+//		//Add to transHistory	
+//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		User user = uservice.findUserByUserName(currentUserName);
+//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+		User user1 = uservice.findUserByUserName("admin");
+		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+		thservice.saveTrans(trans);
 		return "forward:/inventory/list";
 	}
 	
