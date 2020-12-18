@@ -27,6 +27,7 @@ import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
 
@@ -39,6 +40,9 @@ public class ProductListingController {
 	
 	@Autowired
 	private UserService uservice;
+	
+	@Autowired
+	private SupplierService supservice;
 	
 	@Autowired
 	private TransHistoryImpl thservice;
@@ -136,7 +140,7 @@ public class ProductListingController {
 	@RequestMapping(value = "/addbrand")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
-		ArrayList<String> suplist = plService.findAllSupplierNames();
+		ArrayList<String> suplist = supservice.findAllSupplierNames();
 		model.addAttribute("brand", brand);
 		model.addAttribute("supnames", suplist);
 		return "add-brand";
@@ -144,7 +148,7 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/savebrand")
 	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = plService.findSupplierByName(brand.getSupplier().getCompanyName());
+		Supplier supplier = supservice.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
 		return "forward:/inventory/addproduct"; 
