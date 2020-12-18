@@ -61,9 +61,8 @@ public class ProductListingImpl implements ProductListingInterface {
 
 	@Override
 	public void editProduct(Inventory inventory) {
-		
-	}
-
+	
+	}	
 	@Override
 	public void editProductQuantity(Long id, int newQty) {
 
@@ -71,8 +70,11 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
-	public List<Inventory> list() {
-		return irepo.findAll();
+	public List<Inventory> list(String keyword) {
+		if (keyword == null) {
+			return irepo.findAll();
+		}
+		return irepo.invSearch(keyword);
 	}
 
 	@Override
@@ -186,4 +188,5 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 
+	
 }

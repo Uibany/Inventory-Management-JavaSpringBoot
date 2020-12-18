@@ -25,7 +25,9 @@ public interface ProductListingInterface {
 	public ArrayList<String> findAllBrandNames();
 	public Brand findBrandByName(String name);
 	public Brand findBrandById(Long id);
-	
+	public List<Inventory> list(String keyword);
+	public List<Brand> listBrand();
+  
 	public List<Subcategory> listSubcategory();
 	public void addSubcategory(Subcategory subcategory);
 	public void deleteSubcategory(Subcategory subcategory);
@@ -39,6 +41,8 @@ public interface ProductListingInterface {
 	public ArrayList<String> findAllCategoryNames();
 	public Category findCatByName(String name);
 	public Category findCategoryById(Long id);
+	
+	public void editProductQuantity(Long id, int newQty);
 
 }
 
