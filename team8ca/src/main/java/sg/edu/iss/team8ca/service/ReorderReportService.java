@@ -15,7 +15,7 @@ import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 
 @Service
-public class ReorderReportService {
+public class ReorderReportService implements ReorderReportInterface {
 
 	@Autowired
 	private InventoryRepo invrepo;
