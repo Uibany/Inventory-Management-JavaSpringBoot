@@ -56,18 +56,18 @@ footer {
       position: relative !important; } 
       
 .content {
-  max-width: 500px;
+ï¿½ï¿½max-width: 500px;
   margin: auto;}}
 
 /********************
  * LAYOUT
  ********************/
 #wrapper .sidebar {
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+/*   -webkit-transition: all 0.3s ease-in-out; */
+/*   -moz-transition: all 0.3s ease-in-out; */
+/*   -ms-transition: all 0.3s ease-in-out; */
+/*   -o-transition: all 0.3s ease-in-out; */
+/*   transition: all 0.3s ease-in-out; */
   width: 200px;
   height: 100%;
   float: left;
@@ -76,11 +76,11 @@ footer {
   left: 0; }
 
 #wrapper .main {
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+/*   -webkit-transition: all 0.3s ease-in-out; */
+/*   -moz-transition: all 0.3s ease-in-out; */
+/*   -ms-transition: all 0.3s ease-in-out; */
+/*   -o-transition: all 0.3s ease-in-out; */
+/*   transition: all 0.3s ease-in-out; */
   width: calc(100% - 200px);
   left: 0;
   position: relative;
