@@ -89,7 +89,7 @@ public class ProductListingController {
 		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
-
+  }
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
@@ -124,13 +124,14 @@ public class ProductListingController {
 		return "redirect:/inventory/list";
 	}
 		
-	
+
 
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
 			plService.deleteProduct(plService.findProductById(id));
 		return "redirect:/inventory/list";
 	}
+
 	
 	@RequestMapping(value = "/addbrand")
 	public String addBrand(Model model) {
@@ -174,6 +175,7 @@ public class ProductListingController {
 		
 	}
 	
+
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
 		List<Inventory> plist = plService.list(keyword);
@@ -183,6 +185,5 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	
 
 }

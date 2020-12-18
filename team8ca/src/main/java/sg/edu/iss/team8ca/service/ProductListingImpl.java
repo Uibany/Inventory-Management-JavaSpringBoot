@@ -12,7 +12,6 @@ import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
-import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
@@ -30,16 +29,13 @@ public class ProductListingImpl implements ProductListingInterface {
 	InventoryRepo irepo;
 	@Autowired
 	SubcategoryRepo srepo;
-	@Autowired
-	SupplierRepo suprepo;
 
-	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo srepo, SupplierRepo suprepo) {
+	public ProductListingImpl(BrandRepo brepo, CategoryRepo crepo, InventoryRepo irepo, SubcategoryRepo srepo) {
 		super();
 		this.brepo = brepo;
 		this.crepo = crepo;
 		this.irepo = irepo;
 		this.srepo = srepo;
-		this.suprepo = suprepo;
 	}
 	
 	@Override
@@ -68,15 +64,11 @@ public class ProductListingImpl implements ProductListingInterface {
 	
 	}	
 	@Override
-	public void addBrand(Brand brand) {
-		brepo.save(brand);
+	public void editProductQuantity(Long id, int newQty) {
+
+		
 	}
 
-	@Override
-	public void addSubcategory(Subcategory subcategory) {
-		srepo.save(subcategory);	
-	}
-	
 	@Override
 	public List<Inventory> list(String keyword) {
 		if (keyword == null) {
@@ -89,18 +81,18 @@ public class ProductListingImpl implements ProductListingInterface {
 	public List<Brand> listBrand() {
 		return brepo.findAll();
 	}
-
+	
 	@Override
-	public List<Subcategory> listSubcategory() {
-		return srepo.findAll();
+	public void addBrand(Brand brand) {
+		brepo.save(brand);
 	}
 
 	@Override
-	public void editProductQuantity(Long id, int newQty) {
-
+	public void deleteBrand(Brand brand) {
+		brepo.delete(brand);
 		
 	}
-
+	
 	@Override
 	public ArrayList<String> findAllBrandNames() {
 		List<Brand> brands = brepo.findAll();
@@ -110,6 +102,26 @@ public class ProductListingImpl implements ProductListingInterface {
 			names.add(brand.getBrandName());
 		}
 		return names;
+	}
+	
+	@Override
+	public Brand findBrandByName(String name) {
+		return brepo.findBrandByName(name).get(0);
+	}
+
+	@Override
+	public List<Subcategory> listSubcategory() {
+		return srepo.findAll();
+	}
+	
+	@Override
+	public void addSubcategory(Subcategory subcategory) {
+		srepo.save(subcategory);	
+	}
+	
+	@Override
+	public void deleteSubcategory(Subcategory subcategory) {
+		srepo.delete(subcategory);
 	}
 
 	@Override
@@ -121,11 +133,6 @@ public class ProductListingImpl implements ProductListingInterface {
 			names.add(subcat.getSubcategoryName());
 		}
 		return names;
-	}
-
-	@Override
-	public Brand findBrandByName(String name) {
-		return brepo.findBrandByName(name).get(0);
 	}
 
 	@Override
@@ -155,35 +162,33 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
-	public List<Supplier> listSupplier() {
-		return suprepo.findAll();
-	}
-
-	@Override
-	public ArrayList<String> findAllSupplierNames() {
-		List<Supplier> suppliers = suprepo.findAll();
-		ArrayList<String> names = new ArrayList<String>();
-		for (Iterator<Supplier> iterator = suppliers.iterator(); iterator.hasNext();) {
-			Supplier supplier = (Supplier) iterator.next();
-			names.add(supplier.getCompanyName());
-			}
-		return names;
-	}
-
-	@Override
-	public Supplier findSupplierByName(String name) {
-		return suprepo.findSupplierByName(name).get(0);
-	}
-
-	@Override
 	public void addCategory(Category category) {
 		crepo.save(category);
-		
+	}
+	
+	@Override
+	public void deleteCategory(Category category) {
+		crepo.delete(category);
 	}
 
 	@Override
-	public void addSupplier(Supplier supplier) {
-		suprepo.save(supplier);		
+	public Brand findBrandById(Long id) {
+		return brepo.findById(id).get();
+	}
+
+	@Override
+	public Subcategory findSubcatById(Long id) {
+		return srepo.findById(id).get();
+	}
+
+	@Override
+	public Category findCategoryById(Long id) {
+		return crepo.findById(id).get();
+	}
+
+	@Override
+	public List<Inventory> list() {
+		return irepo.findAll();
 	}
 
 
