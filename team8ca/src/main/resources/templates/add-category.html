@@ -67,22 +67,24 @@
 				<button type="submit" class="btn btn-primary">Save</button>
 			</form>
 	
- <table class="table table-striped">
- <tr>
-   <th>ID</th>
-   <th>Category Name</th>
-   <th>Delete</th>
-
- </tr>
- <tr th:each="category:${clist}">
-   <td th:text="${category.id}">ID</td> 
-   <td th:text="${category.categoryName}">Category Name</td>
-   <td><a href="DeleteCategory.html" th:href="@{/category/delete}+${category.id}"
-       	class="btn btn-danger">Delete</a></td>
-   </tr>
-   </table> 
-   	</div>
+ 		<table class="table table-striped">
+ 			<tr>
+   				<th>ID</th>
+   				<th>Category Name</th>
+   				<th>Delete</th>
+			 </tr>
+		<br />
+ 		<br />
+ 		<tr th:each="category:${clist}">
+   			<td th:text="${category.id}">ID</td> 
+   			<td th:text="${category.categoryName}">Category Name</td>
+   			<td><a href="DeleteCategory.html" th:href="@{/category/delete/}+${category.id}"
+       				class="btn btn-danger">Delete</a></td>
+   		</tr>
+   		</table> 
+   		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>
