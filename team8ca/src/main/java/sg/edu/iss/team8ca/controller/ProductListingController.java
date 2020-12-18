@@ -46,6 +46,9 @@ public class ProductListingController {
 	
 	@Autowired
 	private TransHistoryImpl thservice;
+	
+	@Autowired
+	private SupplierService spservice;
 
 	@Autowired
 	public void setProductListing(ProductListingImpl inventory) {
@@ -123,7 +126,7 @@ public class ProductListingController {
 //		User user = uservice.findUserByUserName(currentUserName);
 //		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
 		User user1 = uservice.findUserByUserName("admin");
-		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+		TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
 	}
@@ -140,7 +143,7 @@ public class ProductListingController {
 	@RequestMapping(value = "/addbrand")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
-		ArrayList<String> suplist = supservice.findAllSupplierNames();
+		ArrayList<String> suplist = spservice.findAllSupplierNames();
 		model.addAttribute("brand", brand);
 		model.addAttribute("supnames", suplist);
 		return "add-brand";
@@ -148,7 +151,7 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/savebrand")
 	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = supservice.findSupplierByName(brand.getSupplier().getCompanyName());
+		Supplier supplier = spservice.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
 		return "forward:/inventory/addproduct"; 
