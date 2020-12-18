@@ -42,6 +42,9 @@ public class ProductListingController {
 	private UserService uservice;
 	
 	@Autowired
+	private SupplierService supservice;
+	
+	@Autowired
 	private TransHistoryImpl thservice;
 	
 	@Autowired

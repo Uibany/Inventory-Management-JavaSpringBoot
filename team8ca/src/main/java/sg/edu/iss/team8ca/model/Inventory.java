@@ -87,11 +87,11 @@ public class Inventory {
 		this.subcategory = subcategory;
 		this.brand = brand;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Inventory [id=" + id + ", originalPrice=" + originalPrice + ", stockQty=" + stockQty + ", reorderLevel="
+				+ reorderLevel + ", minimumOrder=" + minimumOrder + "]";
+	}
 
 }

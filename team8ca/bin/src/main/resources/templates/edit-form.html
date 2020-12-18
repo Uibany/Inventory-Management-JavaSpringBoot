@@ -59,12 +59,18 @@
 				<nav>
 					<ul class="nav">
 						<li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
-						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-						<li><a th:href="@{~/inventory/addproduct}" class="active"><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
-						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
-						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
-						<li><a th:href="@{~user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View
+									Products</span></a></li>
+						<li><a th:href="@{~/inventory/addproduct}" class="active"><i class="lnr lnr-file-add"></i>
+								<span>Stock Entry
+									Forms</span></a></li>
+						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock
+									Usage
+									Forms</span></a></li>
+						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
+									Report</span></a></li>
+						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -76,7 +82,7 @@
 
 					<div class="panel shadow">
 						<div class="panel-body">
-							<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
+							<form action="" th:action="@{/inventory/saveeditproduct}" th:object="${inventory}" method="get">
 								<div class="row">
 									<div class="col-lg-5">
 
@@ -120,8 +126,8 @@
 														th:text="${sname}">
 													</option>
 												</select></div>
-											
-											<a href="add-subcategory.html" th:href="@{/subcategory/add}"
+											<div class="col-lg-5 col-md-6"></div>
+											<a href="add-subcategory.html" th:href="@{/inventory/addsubcategory/}"
 												class="btn btn-success">Add New</a>
 										</div>
 										<br>
@@ -135,7 +141,7 @@
 													</option>
 												</select></div>
 											<div class="col-lg-5 col-md-6"></div>
-											<a href="add-brand.html" th:href="@{/brand/add}"
+											<a href="add-brand.html" th:href="@{/inventory/addbrand/}"
 												class="btn btn-success">Add New</a>
 										</div>
 										<br>
@@ -154,10 +160,13 @@
 
 										<h3 class="panel-title">Dimensions:</h3> <input type="text"
 											th:field="*{dimension}" class="form-control">
-										<br><br>
+										<br>
+											<h3 class="panel-title">Id:</h3> <input type="text"
+											th:field="*{id}" class="form-control" id="id" readonly>
+											<br>
 										<div>
-											<button type="submit" class="btn btn-primary" style="width:300px">Save New
-												Entry</button>
+											<button type="submit" class="btn btn-primary" style="width:300px">Save Entry</button>
+	
 										</div>
 									</div>
 								</div>
