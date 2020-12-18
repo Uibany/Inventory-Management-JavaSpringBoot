@@ -45,7 +45,7 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "redirect:/product/addproduct"; 
+		return "redirect:/inventory/addproduct"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
