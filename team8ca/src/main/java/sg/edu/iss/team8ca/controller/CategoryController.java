@@ -23,7 +23,7 @@ public class CategoryController {
 	public String list(Model model) {
 		List<Category> clist = plService.listCategory();
 		model.addAttribute("clist", clist);
-		return "redirect/category/list";
+		return "add-category";
 	}
 	
 	@RequestMapping(value = "/add")
@@ -37,7 +37,7 @@ public class CategoryController {
 	@RequestMapping(value = "/save")
 	public String saveCategory(@ModelAttribute("category") Category category, Model model) {
 		plService.addCategory(category);
-		return "redirect:/category/list"; 
+		return "redirect:/subcategory/add"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
