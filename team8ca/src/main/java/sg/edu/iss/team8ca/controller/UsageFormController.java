@@ -46,11 +46,6 @@ public class UsageFormController {
 	@Autowired
 	private TransHistoryImpl thservice;
 	
-	@Autowired
-	public void setUsageForm(InvUsageImpl usageform) {
-		this.iuservice = usageform;
-	}
-	
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
 	public String showListing (Model model) {
 //		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -95,12 +90,18 @@ public class UsageFormController {
 //	Update inventory details with search parameters
 	@RequestMapping(value = "/usageforms/search/{id}", method = RequestMethod.GET)
 	public String invSearch (@PathVariable("id") Long id, @Param("keyword") String keyword, Model model) {	
-		List<Inventory> invList = iuservice.invSearch(keyword);
 		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
 		InvUsage iu = iuservice.findUsageById(id);
 		model.addAttribute("usageform", iu);
 		model.addAttribute("udList", udList);
-		model.addAttribute("invList", invList);
+		if (keyword != null) {
+			model.addAttribute("invList", iuservice.invSearch(keyword));			
+		}
+		else
+		{
+			model.addAttribute("invList", iuservice.listAllInventory());
+		}
+
 		return "usage-details";
 	}
 	
