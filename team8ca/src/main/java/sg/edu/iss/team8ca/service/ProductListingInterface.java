@@ -38,6 +38,7 @@ public interface ProductListingInterface {
 	public Supplier findSupplierByName(String name);
 	
 	public void editProductQuantity(Long id, int newQty);
+	public Inventory getProduct(long id);
 	
 	
 }

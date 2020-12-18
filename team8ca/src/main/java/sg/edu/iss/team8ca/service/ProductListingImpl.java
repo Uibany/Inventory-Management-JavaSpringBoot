@@ -184,5 +184,10 @@ public class ProductListingImpl implements ProductListingInterface {
 		suprepo.save(supplier);		
 	}
 
+	@Override
+	public Inventory getProduct(long id) {
+		return irepo.findInvById(id);
+	}
+
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
@@ -29,7 +30,7 @@ import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
 
-@Controller
+@RestController
 @RequestMapping("/inventory")
 public class ProductListingController {  
 	
