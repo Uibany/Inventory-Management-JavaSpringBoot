@@ -36,6 +36,9 @@ import sg.edu.iss.team8ca.service.UserService;
 public class ProductListingController {  
 	
 	@Autowired
+	private SupplierService spservice;
+	
+	@Autowired
 	private ProductListingImpl plService;
 	
 	@Autowired
@@ -137,7 +140,7 @@ public class ProductListingController {
 	@RequestMapping(value = "/addbrand")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
-		ArrayList<String> suplist = supservice.findAllSupplierNames();
+		ArrayList<String> suplist = spservice.findAllSupplierNames();
 		model.addAttribute("brand", brand);
 		model.addAttribute("supnames", suplist);
 		return "add-brand";
@@ -145,7 +148,7 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/savebrand")
 	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = supservice.findSupplierByName(brand.getSupplier().getCompanyName());
+		Supplier supplier = spservice.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
 		return "forward:/inventory/addproduct"; 
