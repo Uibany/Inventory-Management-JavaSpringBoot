@@ -89,10 +89,6 @@ public class ProductListingController {
 		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/Lincoln_branch
 	}
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
@@ -128,10 +124,7 @@ public class ProductListingController {
 		return "redirect:/inventory/list";
 	}
 		
-<<<<<<< HEAD
-=======
-	
->>>>>>> refs/remotes/origin/Lincoln_branch
+
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
 			plService.deleteProduct(plService.findProductById(id));
@@ -180,7 +173,7 @@ public class ProductListingController {
 		
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
 		List<Inventory> plist = plService.list(keyword);
@@ -191,8 +184,4 @@ public class ProductListingController {
 		return "product-listing";
 	}
 	
-	
-=======
-
->>>>>>> refs/remotes/origin/Lincoln_branch
 }
