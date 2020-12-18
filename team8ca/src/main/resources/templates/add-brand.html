@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="ISO-8859-1">
 	<link type="text/css" media="all" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
@@ -69,38 +70,37 @@
 					<h3 class="panel-title"> Manufacturer name: </h3>
 						<input type="text" th:field="*{manufacturerName}" class="form-control"> <br />
 						
-					<h3 class="panel-title"> Supplier: </h3>
-					<div class="col-lg-7 col-md-6">
-						<select th:field="*{supplier.companyName}" name="supplier" class="form-control">
-						<option th:each="supname : ${supnames}" th:value="${supname}"
-									th:text="${supname}">
-						</option>
-					</select> 
-					</div>					
-					<a href="SupplierForm.html" th:href="@{/supplier/add}"
-							class="btn btn-success">Add New</a><br />
-				<button type="submit" class="btn btn-primary">Save</button>
-			</form>
-<table>
- <tr>
-   <th>ID</th>
-   <th>Brand Name</th>
-   <th>Manufacturer Name</th>
-   <th>Supplier</th>
-   <th>Delete</th>
-
- </tr>
- <tr th:each="brand:${blist}">
-   <td th:text="${brand.id}">ID</td> 
-   <td th:text="${brand.brandName}">Brand Name</td>
-   <td th:text="${brand.manufacturerName}">Manufacturer Name</td>
-   <td th:text="${brand.supplier.companyName}">Supplier</td>
-   <td><a href="DeleteBrand.html" th:href="@{/brand/delete}+${brand.id}"
-       	class="btn btn-danger">Delete</a></td>
-   </tr>
-   </table> 
-   	</div>
-</div>
-</div>
+											<h3 class="panel-title"> Supplier: </h3>
+						<div class="col-lg-7 col-md-6">
+							<select th:field="*{supplier.companyName}" name="supplier" class="form-control">
+								<option th:each="supname : ${supnames}" th:value="${supname}" th:text="${supname}">
+								</option>
+							</select>
+						</div>
+						<a href="SupplierForm.html" th:href="@{/supplier/add}" class="btn btn-success">Add New Supplier</a>
+						<br /><br />
+						<button type="submit" class="btn btn-primary">Save Brand</button>
+					</form>
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>Brand Name</th>
+							<th>Manufacturer Name</th>
+							<th>Supplier</th>
+							<th>Delete</th>
+						</tr>
+							<br />
+ 							<br />
+						<tr th:each="brand:${blist}">
+							<td th:text="${brand.id}">ID</td>
+							<td th:text="${brand.brandName}">Brand Name</td>
+							<td th:text="${brand.manufacturerName}">Manufacturer Name</td>
+							<td th:text="${brand.supplier.companyName}">Supplier</td>
+							<td><a href="DeleteBrand.html" th:href="@{/brand/delete/}+${brand.id}" class="btn btn-danger">Delete</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

@@ -22,19 +22,14 @@ public class SubcategoryController {
 	@Autowired
 	private ProductListingImpl plService;
 	
-	@RequestMapping(value = "/list")
-	public String list(Model model) {
-		List<Subcategory> slist = plService.listSubcategory();
-		model.addAttribute("slist", slist);
-		return "redirect:/subcategory/add";
-	}
-	
 	@RequestMapping(value = "/add")
 	public String addSubcategory(Model model) {
 		Subcategory subcategory = new Subcategory();
+		List<Subcategory> slist = plService.listSubcategory();
 		ArrayList<String> clist = plService.findAllCategoryNames();
 		model.addAttribute("subcategory", subcategory);
 		model.addAttribute("cnames", clist); 
+		model.addAttribute("slist", slist); 
 		return "add-subcategory";	
 }
 
@@ -43,12 +38,12 @@ public class SubcategoryController {
 		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
 		subcategory.setCategory(category);
 		plService.addSubcategory(subcategory);
-		return "redirect:/inventory/addproduct"; 
+		return "redirect:/subcategory/add"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
 	public String deleteSubcategory(@PathVariable Long id) {
 		plService.deleteSubcategory(plService.findSubcatById(id));
-	return "redirect:/subcategory/list";
+	return "redirect:/subcategory/add";
 	}
 }
