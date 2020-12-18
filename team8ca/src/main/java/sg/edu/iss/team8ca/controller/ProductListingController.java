@@ -27,6 +27,7 @@ import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
 
@@ -42,6 +43,9 @@ public class ProductListingController {
 	
 	@Autowired
 	private TransHistoryImpl thservice;
+	
+	@Autowired
+	private SupplierService spservice;
 
 	@Autowired
 	public void setProductListing(ProductListingImpl inventory) {
@@ -90,6 +94,8 @@ public class ProductListingController {
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
 	}
+
+
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
@@ -119,23 +125,24 @@ public class ProductListingController {
 //		User user = uservice.findUserByUserName(currentUserName);
 //		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
 		User user1 = uservice.findUserByUserName("admin");
-		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+		TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
 	}
 		
-	
+
 
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
 			plService.deleteProduct(plService.findProductById(id));
 		return "redirect:/inventory/list";
 	}
+
 	
 	@RequestMapping(value = "/addbrand")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
-		ArrayList<String> suplist = plService.findAllSupplierNames();
+		ArrayList<String> suplist = spservice.findAllSupplierNames();
 		model.addAttribute("brand", brand);
 		model.addAttribute("supnames", suplist);
 		return "add-brand";
@@ -143,7 +150,7 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/savebrand")
 	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = plService.findSupplierByName(brand.getSupplier().getCompanyName());
+		Supplier supplier = spservice.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
 		return "forward:/inventory/addproduct"; 
@@ -174,6 +181,7 @@ public class ProductListingController {
 		
 	}
 	
+
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
 		List<Inventory> plist = plService.list(keyword);
@@ -183,6 +191,5 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	
 
 }
