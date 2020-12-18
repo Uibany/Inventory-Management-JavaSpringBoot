@@ -73,7 +73,7 @@ public class UsageFormController {
 		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user, tasks);
 		iuservice.addUsage(usageform);
 		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageform.getId());
 		model.addAttribute("usageform", usageform);
 		model.addAttribute("udList", udList);	
 		model.addAttribute("invList", invList);
