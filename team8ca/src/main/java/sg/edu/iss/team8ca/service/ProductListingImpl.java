@@ -169,7 +169,6 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public void deleteCategory(Category category) {
 		crepo.delete(category);
-		
 	}
 
 	@Override
@@ -185,6 +184,11 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public Category findCategoryById(Long id) {
 		return crepo.findById(id).get();
+	}
+
+	@Override
+	public List<Inventory> list() {
+		return irepo.findAll();
 	}
 
 

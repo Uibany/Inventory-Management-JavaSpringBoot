@@ -28,7 +28,7 @@ public class BrandController {
 	public String list(Model model) {
 		List<Brand> blist = plService.listBrand();
 		model.addAttribute("blist", blist);
-		return "redirect:/brand/add";
+		return "add-brand";
 	}
 	
 	@RequestMapping(value = "/add")
@@ -45,7 +45,7 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "redirect:/brand/list"; 
+		return "redirect:/product/addproduct"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		

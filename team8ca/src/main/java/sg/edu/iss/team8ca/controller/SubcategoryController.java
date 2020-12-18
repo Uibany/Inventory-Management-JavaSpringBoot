@@ -43,7 +43,7 @@ public class SubcategoryController {
 		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
 		subcategory.setCategory(category);
 		plService.addSubcategory(subcategory);
-		return "redirect:/subcategory/list"; 
+		return "redirect:/inventory/addproduct"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
