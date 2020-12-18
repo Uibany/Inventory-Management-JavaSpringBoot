@@ -22,9 +22,10 @@ public class CategoryController {
 	@RequestMapping(value = "/add")
 	public String addCategory(Model model) {
 		Category category = new Category();
+		List<Category> clist = plService.listCategory();
 		model.addAttribute("category", category);
+		model.addAttribute("clist", clist);
 		return "add-category";
-		
 	}
 	
 	@RequestMapping(value = "/save")

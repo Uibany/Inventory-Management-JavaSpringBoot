@@ -25,9 +25,11 @@ public class SubcategoryController {
 	@RequestMapping(value = "/add")
 	public String addSubcategory(Model model) {
 		Subcategory subcategory = new Subcategory();
+		List<Subcategory> slist = plService.listSubcategory();
 		ArrayList<String> clist = plService.findAllCategoryNames();
 		model.addAttribute("subcategory", subcategory);
 		model.addAttribute("cnames", clist); 
+		model.addAttribute("slist", slist); 
 		return "add-subcategory";	
 }
 
