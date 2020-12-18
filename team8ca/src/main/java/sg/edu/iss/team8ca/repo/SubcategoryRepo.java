@@ -11,5 +11,8 @@ public interface SubcategoryRepo extends JpaRepository<Subcategory, Long> {
 		
 	@Query("Select s from Subcategory s where s.subcategoryName = :name")
 	 List<Subcategory> findSubcatByName(@Param("name") String name);
+	
+	@Query("Select s from Subcategory s where s.id = :id")
+	 List<Subcategory> findSubcatById(@Param("id") Long id);
 
 }
