@@ -12,4 +12,5 @@ public interface SupplierInterface {
 	public List<Supplier> findAllSupplier();
 	public Supplier findSupplierById(long id);
 	public ArrayList<String> findAllSupplierNames();
+	public Supplier findSupplierByName(String name);
 }

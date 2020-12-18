@@ -130,49 +130,6 @@ public class ProductListingController {
 			plService.deleteProduct(plService.findProductById(id));
 		return "redirect:/inventory/list";
 	}
-	
-	@RequestMapping(value = "/addbrand")
-	public String addBrand(Model model) {
-		Brand brand = new Brand();
-		ArrayList<String> suplist = plService.findAllSupplierNames();
-		model.addAttribute("brand", brand);
-		model.addAttribute("supnames", suplist);
-		return "add-brand";
-	}
-	
-	@RequestMapping(value = "/savebrand")
-	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = plService.findSupplierByName(brand.getSupplier().getCompanyName());
-		brand.setSupplier(supplier);
-		plService.addBrand(brand);
-		return "forward:/inventory/addproduct"; 
-	}
-		
-	@RequestMapping(value = "/addsubcategory")
-	public String addSubcategory(Model model) {
-		Subcategory subcategory = new Subcategory();
-		ArrayList<String> clist = plService.findAllCategoryNames();
-		model.addAttribute("subcategory", subcategory);
-		model.addAttribute("cnames", clist); 
-		return "add-subcategory";	
-	}
-	
-	@RequestMapping(value = "/savesubcat")
-	public String saveSubcat(@ModelAttribute("subcategory") Subcategory subcategory, Model model) {
-		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
-		subcategory.setCategory(category);
-		plService.addSubcategory(subcategory);
-		return "forward:/inventory/addproduct"; 
-	}
-	
-	@RequestMapping(value = "/addcategory")
-	public String addCategory(Model model) {
-		Category category = new Category();
-		model.addAttribute("category", category);
-		return "add-category";
-		
-	}
-	
 
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
@@ -183,5 +140,4 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	
 }

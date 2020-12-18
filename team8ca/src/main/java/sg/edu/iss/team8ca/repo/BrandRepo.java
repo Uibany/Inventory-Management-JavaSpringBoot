@@ -11,4 +11,7 @@ import sg.edu.iss.team8ca.model.Brand;
 public interface BrandRepo extends JpaRepository<Brand, Long> {
 	@Query("Select b from Brand b where b.brandName = :name")
 	 List<Brand> findBrandByName(@Param("name") String name);
+	
+	@Query("Select b from Brand b where b.id = :id")
+	 List<Brand> findBrandById(@Param("id") Long id);
 }
