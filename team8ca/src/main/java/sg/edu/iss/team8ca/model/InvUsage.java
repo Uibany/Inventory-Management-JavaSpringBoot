@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class InvUsage {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate usageDate;

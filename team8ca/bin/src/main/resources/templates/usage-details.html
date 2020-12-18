@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Bookings List</title>
-<link rel="stylesheet" type="text/css" media="all"
-	href="../../css/style.css" th:href="@{/css/style.css}" />
+	<meta charset="ISO-8859-1">
+	<title>Bookings List</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../../css/style.css" th:href="@{/css/style.css}" />
 </head>
+
 <body>
+<h2>Usage form for task: </h2>
+<h2 th:text=${usageform.tasks}>Tasks</h2>
+	
 	<table>
 		<tr>
 			<th>Usage Details ID</th>
@@ -35,29 +39,26 @@
 			<td th:text=${ud.quantity}>0</td>
 			<td th:text=${ud.date}>date</td>
 			<td>
-				<form name="updateQuantity"
-					th:action="@{/invusage/usage/}+${usageform.id}+@{/ud/}+${ud.id}"
+				<form name="updateQuantity" th:action="@{/invusage/usage/}+${usageform.id}+@{/ud/}+${ud.id}"
 					method="get">
-					<label>Quantity used:</label> <input type='text' name='ud_quantity'
-						value="0" /> <label>&nbsp;</label> <input type="submit"
-						value="Update" class="btn">
+					<label>Quantity used:</label> <input type='text' name='ud_quantity' value="0" />
+					<label>&nbsp;</label> <input type="submit" value="Update" class="btn">
 				</form>
 			</td>
 			<td><a href="DeleteUd.html"
-				th:href="@{/invusage/delete/usageforms/}+${usageform.id}+@{/ud/}+${ud.id}">Delete</a>
+					th:href="@{/invusage/delete/usageforms/}+${usageform.id}+@{/ud/}+${ud.id}">Delete</a>
 
 			</td>
 		</tr>
 	</table>
 	<br />
+	<br />
 	<table>
 		<tr>
-		<td>
-			<form name="invSearch"
-				th:action="@{/invusage/usageforms/search/}+${usageform.id}">
-				Search:<input type="text" name="keyword" value="" /> &nbsp; <input
-					type="submit" value="Search" />
-			</form>
+			<td>
+				<form name="invSearch" th:action="@{/invusage/usageforms/search/}+${usageform.id}">
+					Search:<input type="text" name="keyword" value="" /> &nbsp; <input type="submit" value="Search" />
+				</form>
 			</td>
 		</tr>
 	</table>
@@ -88,11 +89,17 @@
 				category</td>
 			<td th:text=${inv.subcategory.subcategoryName}>part sub category</td>
 			<td th:text=${inv.stockQty}>remaining quantity</td>
-			<td>transaction history</td>
-			<td><a href="AddUd.html"
-				th:href="@{/invusage/usageforms/}+${inv.id}+@{/addinvtoform/}+${usageform.id}">Add
+			<td>
+				<form th:action="@{/report/generate}" method="POST">
+					<input type="hidden" name="productId" th:value="${inv.id}">
+					<input type="hidden" name="startDate" th:value="${null}">
+					<button type="submit">Transaction history</button>
+				</form>
+			</td>
+			<td><a href="AddUd.html" th:href="@{/invusage/usageforms/}+${inv.id}+@{/addinvtoform/}+${usageform.id}">Add
 					to Form</a></td>
 		</tr>
 	</table>
 </body>
+
 </html>

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class UsageDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@ManyToOne

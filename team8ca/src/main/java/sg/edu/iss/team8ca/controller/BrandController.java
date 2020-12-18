@@ -24,14 +24,31 @@ public class BrandController {
 	@Autowired
 	private SupplierService supService;
 	
+<<<<<<< HEAD
+=======
+	@RequestMapping(value = "/list", method=RequestMethod.GET)
+	public String list(Model model) {
+		List<Brand> blist = plService.listBrand();
+		model.addAttribute("blist", blist);
+		return "add-brand";
+	}
+	
+>>>>>>> refs/remotes/origin/main
 	@RequestMapping(value = "/add")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
 		List<Brand> blist = plService.listBrand();
 		ArrayList<String> suplist = supService.findAllSupplierNames();
 		model.addAttribute("brand", brand);
+<<<<<<< HEAD
 		model.addAttribute("blist", blist);
 		model.addAttribute("suplist", suplist);
+=======
+		model.addAttribute("supnames", suplist);
+		
+		List<Brand> blist = plService.listBrand();
+		model.addAttribute("blist", blist);
+>>>>>>> refs/remotes/origin/main
 		return "add-brand";
 	}
 	
