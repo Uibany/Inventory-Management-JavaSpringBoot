@@ -24,7 +24,7 @@ public class BrandController {
 	@Autowired
 	private SupplierService supService;
 	
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/list", method=RequestMethod.GET)
 	public String list(Model model) {
 		List<Brand> blist = plService.listBrand();
 		model.addAttribute("blist", blist);
@@ -37,6 +37,9 @@ public class BrandController {
 		ArrayList<String> suplist = supService.findAllSupplierNames();
 		model.addAttribute("brand", brand);
 		model.addAttribute("supnames", suplist);
+		
+		List<Brand> blist = plService.listBrand();
+		model.addAttribute("blist", blist);
 		return "add-brand";
 	}
 	
