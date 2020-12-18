@@ -90,8 +90,8 @@ public class Inventory {
 
 	@Override
 	public String toString() {
-		return "Inventory [id=" + id + ", originalPrice=" + originalPrice + ", stockQty=" + stockQty + ", reorderLevel="
-				+ reorderLevel + ", minimumOrder=" + minimumOrder + "]";
+		return id + "\t" + originalPrice + "\t" + stockQty + "\t"
+				+ reorderLevel + "\t" + minimumOrder + minimumOrder + (originalPrice*minimumOrder);
 	}
 
 }

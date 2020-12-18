@@ -20,7 +20,7 @@ public class ReorderReportController {
 
 	@RequestMapping(value = "/reorder")
 	public String list(Model model) {
-		reorser.printDatFile(reorser.reoderReport());
+		reorser.printDatFile();
 		return "Reorder-Report";
 	}
 }

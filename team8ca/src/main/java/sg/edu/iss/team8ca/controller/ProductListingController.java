@@ -27,6 +27,7 @@ import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.ReorderReportService;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
@@ -35,6 +36,9 @@ import sg.edu.iss.team8ca.service.UserService;
 @RequestMapping("/inventory")
 public class ProductListingController {  
 	
+	@Autowired
+	ReorderReportService reorser;
+
 	@Autowired
 	private SupplierService spservice;
 	
@@ -179,7 +183,6 @@ public class ProductListingController {
 		
 	}
 	
-
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
 		List<Inventory> plist = plService.list(keyword);
@@ -189,5 +192,9 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-
+	@RequestMapping("/report")
+	public String reorderReport() {
+		reorser.printDatFile();
+		return "redirect:/inventory/list";
+	}
 }

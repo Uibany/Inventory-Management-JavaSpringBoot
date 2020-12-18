@@ -12,21 +12,42 @@
 	<h1>Reorder</h1>
 	<h2>Inventory Reorder Report for products</h2>
 	<table>
-		<tr >
-			<th >Part No</th>
-			<th >Unit Price</th>
-			<th >Quantity</th>
-			<th >Reorder Quantity</th>
-			<th >Minimum Order Quantity</th>
-		</tr>
-		<tr th:each="invnetory:${inventory}" class="table-row">
-			<td th:text=${inventory.id}>Part No</td>
-			<td th:text=${inventory.originalPrice}>Unit Price</td>
-			<td th:text=${inventory.stockQty}>Quantity</td>
-			<td th:text=${inventory.reorderLevel}>Reorder Quantity</td>
-			<td th:text=${inventory.minimumOrder}>Minimum Order Quantity</td>
-		</tr>
+		<tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Original Price</th>
+                  <th>Wholesale Price</th>
+                  <th>Retail Price</th>
+                  <th>Partner Price</th>
+                  <th>Stock Quantity</th>
+                  <th>Reorder Level</th>
+                  <th>Minimum Order</th>
+                  <th>Colour</th>
+                  <th>Dimension</th>
+                  <th>Subcategory</th>
+                  <th>Brand</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+                <tr th:each="product:${plist}">
+                  <td th:text="${product.id}">ID</td>
+                  <td th:text="${product.productName}">Name</td>
+                  <td th:text="${product.description}">Description</td>
+                  <td th:text="${product.originalPrice}">Original Price</td>
+                  <td th:text="${product.wholesalePrice}">Wholesale Price</td>
+                  <td th:text="${product.retailPrice}">Retail Price</td>
+                  <td th:text="${product.partnerPrice}">Partner Price</td>
+                  <td th:text="${product.stockQty}">Stock Quantity</td>
+                  <td th:text="${product.reorderLevel}">Reorder Level</td>
+                  <td th:text="${product.minimumOrder}">Minimum Order</td>
+                  <td th:text="${product.colour}">Colour</td>
+                  <td th:text="${product.dimension}">Dimension</td>
+                  <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
+                  <td th:text="${product.brand.brandName}">Brand</td>       
+			</tr>
 	</table>
+	<a href="generatereport.html" th:href="@{/report/reorder}" class="btn btn-primary">Generate Report</a>
     <br/>
 
 	
