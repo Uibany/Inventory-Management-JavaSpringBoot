@@ -77,6 +77,10 @@ public class ProductListingController {
 		model.addAttribute("bnames", blist);
 		model.addAttribute("snames", slist);
 		model.addAttribute("spnames", splist);
+		model.addAttribute("new-brand", "false");
+		model.addAttribute("new-supplier", "false");
+		model.addAttribute("new-category", "false");
+		model.addAttribute("new-subcat", "false");
 		return "entry-form";
 	}
 	
@@ -88,18 +92,35 @@ public class ProductListingController {
 			return "entry-form";
 		}
 		
-		if(request.getParameter("manufacturerName").isBlank()) {
+		if(model.getAttribute("new-brand")=="false") {
 			Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
 			inventory.setBrand(brand);
 		}else 
 		{
 			String newBrandName = request.getParameter("newBrandName");
 			String newBrandManu = request.getParameter("manufacturerName");
-			Supplier supplier = spservice.findSupplierByName(request.getParameter("companyName"));
-			Brand brand = new Brand(newBrandName,newBrandManu,supplier);
+
+			if(model.getAttribute("new-supplier")=="false") 
+			{
+				Supplier supplier = spservice.findSupplierByName(request.getParameter("companyName"));
+				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
+				plService.addBrand(brand);
+				inventory.setBrand(brand);
+				
+			}else{
+				String newCompanyName = request.getParameter("newCompanyName");
+				String contactNo = request.getParameter("contactNo");
+				String address = request.getParameter("address");
+				String email = request.getParameter("email");
+				int postalCode = Integer.parseInt(request.getParameter("postalCode"));
+				Supplier supplier = new Supplier(newCompanyName,contactNo,address,email,postalCode);
+				spservice.saveSupplier(supplier);
+				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
+				plService.addBrand(brand);
+				inventory.setBrand(brand);
+				
+			}
 			
-			inventory.setBrand(brand);
-			plService.addBrand(brand);
 		}
 		
 		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());

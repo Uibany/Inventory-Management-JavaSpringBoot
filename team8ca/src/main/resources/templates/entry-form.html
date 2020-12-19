@@ -168,6 +168,7 @@
 										</div>
 										<!-- add new brand -->
 										<div id="new-brand-div">
+										<input type="hidden" th:field="${new-brand}" name="new-brand" id="new-brand-bool">
 											<h3 class="panel-title">Brand Name:</h3>
 											<div class="row">
 												<div class="col-lg-7 col-md-6">
@@ -188,8 +189,7 @@
 												<h3 class="panel-title">Supplier:</h3>
 												<div class="row">
 													<div class="col-lg-7 col-md-6">
-														<select 
-															name="companyName" class="form-control" id="sup-list">
+														<select name="companyName" class="form-control" id="sup-list">
 															<option th:each="spname : ${spnames}" th:value="${spname}"
 																th:text="${spname}">
 															</option>
@@ -203,26 +203,27 @@
 
 
 											<div id="new-sup-div">
+											<input type="hidden" th:field="${new-supplier}" name="new-supplier" id="new-supplier-bool">
 												<div class="row">
 													<div class="col-lg-7 col-md-6">
 														<h3 class="panel-title">Supplier Company Name:</h3>
-														<input type="text" th:field="*{brand.supplier.companyName}"
+														<input type="text" name="newCompanyName"
 															class="form-control">
 														<br>
 														<h3 class="panel-title">Contact No:</h3>
-														<input type="text" th:field="*{brand.supplier.contactNo}"
+														<input type="text" name="contactNo"
 															class="form-control">
 														<br>
 														<h3 class="panel-title">Address:</h3>
-														<input type="text" th:field="*{brand.supplier.address}"
+														<input type="text" name="address"
 															class="form-control">
 														<br>
 														<h3 class="panel-title">Email:</h3>
-														<input type="text" th:field="*{brand.supplier.email}"
+														<input type="text" name="email"
 															class="form-control">
 														<br>
 														<h3 class="panel-title">Postal Code:</h3>
-														<input type="text" th:field="*{brand.supplier.postalCode}"
+														<input type="text" name="postalCode"
 															class="form-control">
 														<br>
 													</div>
@@ -254,21 +255,25 @@
 		$("#new-brand").on("click", function () {
 			$("#new-brand-div").show();
 			$("#brand-list").hide();
+			$("#new-brand-bool").val("true");
 		
 		});
 		$("#old-brand").on("click", function () {
 			$("#new-brand-div").hide();
 			$("#brand-list").show();
+			$("#new-brand-bool").val("false");
 			
 		});
 
 		$("#new-sup").on("click", function () {
 			$("#new-sup-div").show();
 			$("#sup-list").hide();
+			$("#new-supplier-bool").val("true");
 		});
 		$("#old-sup").on("click", function () {
 			$("#new-sup-div").hide();
 			$("#sup-list").show();
+			$("#new-supplier-bool").val("false");
 		});
 	});
 
