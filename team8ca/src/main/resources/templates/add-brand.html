@@ -53,6 +53,8 @@
 									Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
 									Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage
+									Suppliers</span></a></li>
 						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
 						</li>
 					</ul>
@@ -62,12 +64,12 @@
 <div class="main">
 	<div class="main-content">
 		<div class="container-fluid">		
-				<form action="" th:action="@{/brand/save}" th:object="${brand}" method="get">
+				<form action="" th:action="@{/brand/save}" th:object="${brand}"  method="get">
 					<h3 class="panel-title"> Brand Name: </h3>
-						<input type="text" th:field="*{brandName}" class="form-control"> <br />
+						<input type="text" required th:field="*{brandName}"  class="form-control"> <br />
 						
 					<h3 class="panel-title"> Manufacturer name: </h3>
-						<input type="text" th:field="*{manufacturerName}" class="form-control"> <br />
+						<input type="text"  required  th:field="*{manufacturerName}" class="form-control"> <br />
 						
 					<h3 class="panel-title"> Supplier: </h3>
 					<div class="col-lg-7 col-md-6">

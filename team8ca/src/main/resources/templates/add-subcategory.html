@@ -53,6 +53,8 @@
 									Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
 									Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage
+									Suppliers</span></a></li>
 						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
 						</li>
 					</ul>
@@ -64,10 +66,10 @@
 		<div class="container-fluid">
 				<form action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
 					<h3 class="panel-title"> Subcategory Name: </h3>
-						<input type="text" th:field="*{subcategoryName}" class="form-control"> <br />
+						<input type="text" required th:field="*{subcategoryName}" class="form-control"> <br />
 					<h3 class="panel-title"> Subcategory Type: </h3>
 					
-						<input type="text" th:field="*{subcategoryType}" class="form-control"> <br />
+						<input type="text" required th:field="*{subcategoryType}" class="form-control"> <br />
 					<h3 class="panel-title"> Category: </h3>
 					<div class="col-lg-7 col-md-6">
 					<select th:field="*{category.categoryName}" name="category" class="form-control">
