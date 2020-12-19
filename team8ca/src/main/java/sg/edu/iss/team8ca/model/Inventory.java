@@ -87,11 +87,11 @@ public class Inventory {
 		this.subcategory = subcategory;
 		this.brand = brand;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return id + "\t" + originalPrice + "\t" + stockQty + "\t"
+				+ reorderLevel + "\t" + minimumOrder + minimumOrder + (originalPrice*minimumOrder);
+	}
 
 }

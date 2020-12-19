@@ -27,9 +27,7 @@ public class BrandController {
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
 		List<Brand> blist = plService.listBrand();
-		ArrayList<String> suplist = supService.findAllSupplierNames();
 		model.addAttribute("blist", blist);
-		model.addAttribute("supnames", suplist);
 		return "add-brand";
 	}
 	
@@ -47,12 +45,12 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "redirect:/product/addproduct"; 
+		return "redirect:/brand/add"; 
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
 	public String deleteBrand(@PathVariable Long id) {
 		plService.deleteBrand(plService.findBrandById(id));
-	return "redirect:/brand/list";
+	return "redirect:/brand/add";
 	}
 }
