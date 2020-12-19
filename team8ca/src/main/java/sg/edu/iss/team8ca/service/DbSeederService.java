@@ -135,7 +135,7 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadSubCategory() {
 		Category cat1 = new Category("Accessories");
 		catRepo.save(cat1);
-		Subcategory subcat1 = new Subcategory("loose parts", "Accessories", cat1);
+		Subcategory subcat1 = new Subcategory("Adex side mirror", "Mirror", cat1);
 		subcatRepo.save(subcat1);
 	}
 
