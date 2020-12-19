@@ -95,10 +95,10 @@
    <td th:text="${brand.brandName}">Brand Name</td>
    <td th:text="${brand.manufacturerName}">Manufacturer Name</td>
    <td th:text="${brand.supplier.companyName}">Supplier</td>
-   <td><a href="DeleteBrand.html" th:href="@{/brand/delete}+${brand.id}"
+   <td><a href="DeleteBrand.html" th:href="@{/brand/delete/}+${brand.id}"
        	class="btn btn-danger">Delete</a></td>
    </tr>
-   </table> 
+</table> 
    	</div>
 </div>
 </div>

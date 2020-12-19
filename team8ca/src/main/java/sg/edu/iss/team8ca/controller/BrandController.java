@@ -27,7 +27,9 @@ public class BrandController {
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
 		List<Brand> blist = plService.listBrand();
+		ArrayList<String> suplist = supService.findAllSupplierNames();
 		model.addAttribute("blist", blist);
+		model.addAttribute("supnames", suplist);
 		return "add-brand";
 	}
 	
