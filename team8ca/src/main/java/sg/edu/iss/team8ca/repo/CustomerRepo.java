@@ -1,0 +1,20 @@
+package sg.edu.iss.team8ca.repo;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import sg.edu.iss.team8ca.model.Customer;
+
+public interface CustomerRepo extends JpaRepository<Customer, Long> {
+	@Query("SELECT c FROM Customer c WHERE c.customerName = :name")
+	public Customer findCusByName(@Param("name") String name);
+	
+	@Query("SELECT c FROM Customer c WHERE c.customerName LIKE %?1%"
+			+ "OR c.id LIKE %?1%"
+			+ "OR c.contactNo LIKE %?1%"
+			+ "OR c.email LIKE %?1%")
+	public List<Customer> cusSearch(String keyword);		
+}

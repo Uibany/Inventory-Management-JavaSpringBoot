@@ -10,36 +10,42 @@ import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
 
 public interface ProductListingInterface {
-
+	
+	public List<Inventory> list();
 	public void saveProduct(Inventory inventory);
 	public void editProduct(Inventory inventory);
 	public void addProduct(Inventory inventory);
 	public void deleteProduct(Inventory inventory);
-	
 	public Inventory findProductById(Long id);
+	public void editProductQuantity(Long id, int newQty);
 
-	public void addBrand(Brand brand);
-	public void addSubcategory(Subcategory subcategory);
-	public void addCategory(Category category);
-	public void addSupplier(Supplier supplier);
-	
-	public List<Inventory> list();
 	public List<Brand> listBrand();
-	public List<Subcategory> listSubcategory();
+	public void addBrand(Brand brand);
+	public void deleteBrand(Brand brand);
 	public ArrayList<String> findAllBrandNames();
-	public ArrayList<String> findAllSubcatNames();
 	public Brand findBrandByName(String name);
+	public Brand findBrandById(Long id);
+	public List<Inventory> list(String keyword);
+  
+	public List<Subcategory> listSubcategory();
+	public void addSubcategory(Subcategory subcategory);
+	public void deleteSubcategory(Subcategory subcategory);
+	public ArrayList<String> findAllSubcatNames();
 	public Subcategory findSubcatByName(String name);
+	public Subcategory findSubcatById(Long id);
+	
+	public void addCategory(Category category);
+	public void deleteCategory(Category category);
 	public List<Category> listCategory();
 	public ArrayList<String> findAllCategoryNames();
 	public Category findCatByName(String name);
+
 	public List<Supplier> listSupplier();
 	public ArrayList<String> findAllSupplierNames();
 	public Supplier findSupplierByName(String name);
-	
-	public void editProductQuantity(Long id, int newQty);
 	public Inventory getProduct(long id);
 	
-	
+	public Category findCategoryById(Long id);
+
 }
 

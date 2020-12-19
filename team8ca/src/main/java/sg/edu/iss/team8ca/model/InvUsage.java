@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class InvUsage {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate usageDate;
@@ -34,7 +34,17 @@ public class InvUsage {
 	@ManyToOne
 	private User user;
 	
+	@ManyToOne
+	private Customer customer;
+	
 	private String tasks;
+	
+	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, User user) {
+		super();
+		this.usageDate = usageDate;
+		this.usageReportStatus = usageReportStatus;
+		this.user = user;
+	}
 	
 	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, User user, String tasks) {
 		super();
@@ -44,12 +54,13 @@ public class InvUsage {
 		this.tasks = tasks;
 	}
 	
-	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, User user, String tasks) {
+	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, Customer customer, User user, String tasks) {
 		super();
 		this.usageDate = usageDate;
 		this.usageDetails = usageDetails;
 		this.usageReportStatus = usageReportStatus;
 		this.user = user;
 		this.tasks = tasks;
+		this.customer=customer;
 	}
 }

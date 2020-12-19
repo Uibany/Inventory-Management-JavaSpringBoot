@@ -59,12 +59,18 @@
 				<nav>
 					<ul class="nav">
 						<li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
-						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-						<li><a th:href="@{~/inventory/addproduct}" class="active"><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
-						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
-						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
-						<li><a th:href="@{~user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View
+									Products</span></a></li>
+						<li><a th:href="@{~/inventory/addproduct}" class="active"><i
+									class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
+						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock
+									Usage Forms</span></a></li>
+						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
+									Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage
+									Suppliers</span></a></li>
+						<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage
+									Users</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -77,6 +83,8 @@
 					<div class="panel shadow">
 						<div class="panel-body">
 							<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
+							<input type="hidden" name="newBrand" id="new-brand-bool">
+							<input type="hidden" name="newSupplier" id="new-supplier-bool">
 								<div class="row">
 									<div class="col-lg-5">
 
@@ -108,38 +116,6 @@
 										<h3 class="panel-title">Stock Qty: </h3><input type="number"
 											th:field="*{stockQty}" class="form-control">
 										<br>
-									</div>
-
-									<div class="col-lg-5 col-lg-offset-1">
-										<h3 class="panel-title">Subcategory:</h3>
-										<div class="row">
-											<div class="col-lg-7 col-md-6">
-												<select th:field="*{subcategory.subcategoryName}" name="subcategory"
-													class="form-control">
-													<option th:each="sname : ${snames}" th:value="${sname}"
-														th:text="${sname}">
-													</option>
-												</select></div>
-											<div class="col-lg-5 col-md-6"></div>
-											<a href="add-subcategory.html" th:href="@{/inventory/addsubcategory/}"
-												class="btn btn-success">Add New</a>
-										</div>
-										<br>
-
-										<h3 class="panel-title">Brand:</h3>
-										<div class="row">
-											<div class="col-lg-7 col-md-6">
-												<select th:field="*{brand.brandName}" name="brand" class="form-control">
-													<option th:each="bname : ${bnames}" th:value="${bname}"
-														th:text="${bname}">
-													</option>
-												</select></div>
-											<div class="col-lg-5 col-md-6"></div>
-											<a href="add-brand.html" th:href="@{/inventory/addbrand/}"
-												class="btn btn-success">Add New</a>
-										</div>
-										<br>
-
 										<h3 class="panel-title">Reorder Level:</h3> <input type="number"
 											th:field="*{reorderLevel}" class="form-control">
 										<br>
@@ -160,6 +136,108 @@
 												Entry</button>
 										</div>
 									</div>
+
+									<div class="col-lg-5 col-lg-offset-1">
+										<h3 class="panel-title">Subcategory:</h3>
+										<div class="row">
+											<div class="col-lg-7 col-md-6">
+												<select th:field="*{subcategory.subcategoryName}" name="subcategory"
+													class="form-control">
+													<option th:each="sname : ${snames}" th:value="${sname}"
+														th:text="${sname}">
+													</option>
+												</select></div>
+
+											<a href="add-subcategory.html" th:href="@{/subcategory/add}"
+												class="btn btn-success">Add New</a>
+										</div>
+										<br>
+										<!-- existing brand -->
+										<div id="brand-list">
+											<h3 class="panel-title">Brand:</h3>
+											<div class="row">
+												<div class="col-lg-7 col-md-6">
+													<select th:field="*{brand.brandName}" name="brand"
+														class="form-control">
+														<option th:each="bname : ${bnames}" th:value="${bname}"
+															th:text="${bname}">
+														</option>
+													</select></div>
+												<div class="col-lg-5 col-md-6"></div>
+												<a class="btn btn-success" id="new-brand">Add
+													new brand</a>
+											</div>
+										</div>
+										<!-- add new brand -->
+										<div id="new-brand-div">
+										
+											<h3 class="panel-title">Brand Name:</h3>
+											<div class="row">
+												<div class="col-lg-7 col-md-6">
+													<input type="text" class="form-control" name="newBrandName">
+													<br>
+													<h3 class="panel-title">Manufacturer:</h3>
+													<input type="text" class="form-control" name ="manufacturerName">
+
+												</div>
+												<div class="col-lg-5 col-md-6">
+													<a class="btn btn-success" id="old-brand">Choose from existing
+														brands</a>
+												</div>
+											</div>
+											<br>
+
+											<div id="sup-list">
+												<h3 class="panel-title">Supplier:</h3>
+												<div class="row">
+													<div class="col-lg-7 col-md-6">
+														<select name="companyName" class="form-control" id="sup-list">
+															<option th:each="spname : ${spnames}" th:value="${spname}"
+																th:text="${spname}">
+															</option>
+														</select>
+													</div>
+													<div class="col-lg-5 col-md-6">
+														<a class="btn btn-success" id="new-sup">Add new supplier</a>
+													</div>
+												</div>
+											</div>
+
+
+											<div id="new-sup-div">
+											
+												<div class="row">
+													<div class="col-lg-7 col-md-6">
+														<h3 class="panel-title">Supplier Company Name:</h3>
+														<input type="text" name="newCompanyName"
+															class="form-control">
+														<br>
+														<h3 class="panel-title">Contact No:</h3>
+														<input type="text" name="contactNo"
+															class="form-control">
+														<br>
+														<h3 class="panel-title">Address:</h3>
+														<input type="text" name="address"
+															class="form-control">
+														<br>
+														<h3 class="panel-title">Email:</h3>
+														<input type="text" name="email"
+															class="form-control">
+														<br>
+														<h3 class="panel-title">Postal Code:</h3>
+														<input type="number" name="postalCode"
+															class="form-control">
+														<br>
+													</div>
+													<div class="col-lg-5 col-md-6">
+														<br>
+														<a class="btn btn-success" id="old-sup">Choose from existing supplier</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br>
 								</div>
 							</form>
 						</div>
@@ -168,6 +246,41 @@
 			</div>
 		</div>
 	</div>
+
 </body>
+<script>
+
+	$(function () {
+		$("#new-brand-bool").val("false");
+		$("#new-supplier-bool").val("false");
+		$("#new-brand-div").hide();
+		$("#new-sup-div").hide();
+		$("#new-brand").on("click", function () {
+			$("#new-brand-div").show();
+			$("#brand-list").hide();
+			$("#new-brand-bool").val("true");
+		
+		});
+		$("#old-brand").on("click", function () {
+			$("#new-brand-div").hide();
+			$("#brand-list").show();
+			$("#new-brand-bool").val("false");
+			
+		});
+
+		$("#new-sup").on("click", function () {
+			$("#new-sup-div").show();
+			$("#sup-list").hide();
+			$("#new-supplier-bool").val("true");
+		});
+		$("#old-sup").on("click", function () {
+			$("#new-sup-div").hide();
+			$("#sup-list").show();
+			$("#new-supplier-bool").val("false");
+		});
+	});
+
+
+</script>
 
 </html>

@@ -53,6 +53,8 @@
 									Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
 									Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage
+									Suppliers</span></a></li>
 						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
 						</li>
 					</ul>
@@ -62,36 +64,46 @@
 <div class="main">
 	<div class="main-content">
 		<div class="container-fluid">		
-				<form action="" th:action="@{/inventory/savebrand}" th:object="${brand}" method="get">
-					Brand Name: <input type="text" th:field="*{brandName}" class="form-control"> <br />
-					Manufacturer name: <input type="text" th:field="*{manufacturerName}" class="form-control"> <br />
-					Supplier: 
+				<form action="" th:action="@{/brand/save}" th:object="${brand}"  method="get">
+					<h3 class="panel-title"> Brand Name: </h3>
+						<input type="text" required th:field="*{brandName}"  class="form-control"> <br />
+						
+					<h3 class="panel-title"> Manufacturer name: </h3>
+						<input type="text"  required  th:field="*{manufacturerName}" class="form-control"> <br />
+						
+					<h3 class="panel-title"> Supplier: </h3>
+					<div class="col-lg-7 col-md-6">
 						<select th:field="*{supplier.companyName}" name="supplier" class="form-control">
 						<option th:each="supname : ${supnames}" th:value="${supname}"
 									th:text="${supname}">
 						</option>
-					</select> 					
-					<a href="add-supplier.html" th:href="@{/inventory/addSupplier/}"
-							class="btn btn-success">Add New</a><br />
-				<button type="submit" class="btn btn-primary">Save</button>
+					</select> 
+					</div>					
+					<a href="SupplierForm.html" th:href="@{/supplier/add}"
+							class="btn btn-success">Add New Supplier</a>
+				<br /><br />
+				<button type="submit" class="btn btn-primary">Save Brand</button>
 			</form>
-	</div>
-</div>
-</div>
-<!--<table>
- <tr>
-   <th>ID</th>
-   <th>Brand Name</th>
-   <th>Manufacturer Name</th>
-   <th>Supplier</th>
-
- </tr>
- <tr th:each="brand:${brands}">
-   <td th:text="${brands.id}">ID</td> 
-   <td th:text="${brands.brandName}">Brand Name</td>
-   <td th:text="${brands.manufacturerName}">Manufacturer Name</td>
-   <td th:text="${brands.supplier}">Supplier</td>
-   </tr>
-   </table> -->
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>Brand Name</th>
+							<th>Manufacturer Name</th>
+							<th>Supplier</th>
+							<th>Delete</th>
+						</tr>
+							<br />
+ 							<br />
+						<tr th:each="brand:${blist}">
+							<td th:text="${brand.id}">ID</td>
+							<td th:text="${brand.brandName}">Brand Name</td>
+							<td th:text="${brand.manufacturerName}">Manufacturer Name</td>
+							<td th:text="${brand.supplier.companyName}">Supplier</td>
+							<td><a href="DeleteBrand.html" th:href="@{/brand/delete/}+${brand.id}" class="btn btn-danger">Delete</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

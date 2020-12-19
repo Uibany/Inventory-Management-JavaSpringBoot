@@ -53,6 +53,8 @@
 									Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
 									Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage
+									Suppliers</span></a></li>
 						<li><a href="user-form.html" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a>
 						</li>
 					</ul>
@@ -62,20 +64,46 @@
 <div class="main">
 	<div class="main-content">
 		<div class="container-fluid">
-				<form action="" th:action="@{/inventory/savesubcategory}" th:object="${subcategory}" method="get">
-					Subcategory Name: <input type="text" th:field="*{subcategoryName}" class="form-control"> <br />
-					Subcategory Type: <input type="text" th:field="*{subcategoryType}" class="form-control"> <br />
-					Category: 
+				<form action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
+					<h3 class="panel-title"> Subcategory Name: </h3>
+						<input type="text" required th:field="*{subcategoryName}" class="form-control"> <br />
+					<h3 class="panel-title"> Subcategory Type: </h3>
+					
+						<input type="text" required th:field="*{subcategoryType}" class="form-control"> <br />
+					<h3 class="panel-title"> Category: </h3>
+					<div class="col-lg-7 col-md-6">
 					<select th:field="*{category.categoryName}" name="category" class="form-control">
 						<option th:each="cname : ${cnames}" th:value="${cname}"
 									th:text="${cname}">
 						</option>
-					</select> <br />
-					<a href="add-category.html" th:href="@{/inventory/addCategory/}"
-							class="btn btn-success">Add New</a>
-				<button type="submit" class="btn btn-primary">Save</button>
+					</select>
+					</div>
+					<a href="add-category.html" th:href="@{/category/add}"
+							class="btn btn-success">Add New Category</a>
+					<br /><br />
+				<button type="submit" class="btn btn-primary">Save Subcategory</button>
 			</form>
-		</div>
+ <table class="table table-striped">
+ <tr>
+   <th>ID</th>
+   <th>Subcategory Name</th>
+   <th>Subcategory Type</th>
+   <th>Category</th>
+   <th>Delete</th>
+ </tr>
+  	<br />
+ 	<br />
+ <tr th:each="subcat:${slist}">
+   <td th:text="${subcat.id}">ID</td> 
+   <td th:text="${subcat.subcategoryName}">Subcategory Name</td>
+   <td th:text="${subcat.subcategoryType}">Subcategory Type</td>
+   <td th:text="${subcat.category.categoryName}">Category</td>
+   <td><a th:href="@{/subcategory/delete/}+${subcategory.id}"
+       	class="btn btn-danger">Delete</a></td>
+   </tr>
+   </table> 
+   		</div>
+	</div>
 	</div>
 </div>
 </body>

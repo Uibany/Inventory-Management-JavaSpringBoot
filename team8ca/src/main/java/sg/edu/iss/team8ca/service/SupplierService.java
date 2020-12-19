@@ -53,5 +53,10 @@ public class SupplierService implements SupplierInterface {
 		}
 		return names;
 	}
+	
+	@Override
+	public Supplier findSupplierByName(String name) {
+		return srepo.findSupplierByName(name).get(0);
+	}
 
 }
