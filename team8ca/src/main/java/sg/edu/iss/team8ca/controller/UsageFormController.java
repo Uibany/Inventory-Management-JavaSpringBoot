@@ -63,22 +63,48 @@ public class UsageFormController {
 		return "iulisting";
 	}
 	
+////	New usage report
+//	@RequestMapping(value ="/addforms/{id}", method = RequestMethod.GET)
+//	public String addUsageReport(Model model,@PathVariable("id") Long id, @RequestParam("tasks") String tasks) {
+////		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+////		User user = uservice.findUserByUserName(currentUserName);
+////		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
+//		User user = uservice.findUserByUserName("admin");
+//		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user, tasks);
+//		iuservice.addUsage(usageform);
+//		List<Inventory> invList = iuservice.listAllInventory();
+//		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageform.getId());
+//		model.addAttribute("usageform", usageform);
+//		model.addAttribute("udList", udList);	
+//		model.addAttribute("invList", invList);
+//		return "usage-details";
+//	}
+	
 //	New usage report
-	@RequestMapping(value ="/addforms/{id}", method = RequestMethod.GET)
-	public String addUsageReport(Model model,@PathVariable("id") Long id, @RequestParam("tasks") String tasks) {
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
-		User user = uservice.findUserByUserName("admin");
-		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user, tasks);
+	@RequestMapping(value ="/addforms/addformdescription/{id}", method = RequestMethod.GET)
+	public String addUsageReport(Model model,@PathVariable("id") Long id) {
+		User user = uservice.findUserById(id);
+		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
 		iuservice.addUsage(usageform);
-		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
 		model.addAttribute("usageform", usageform);
-		model.addAttribute("udList", udList);	
-		model.addAttribute("invList", invList);
-		return "usage-details";
+		return "UsageReportDescription";
 	}
+	
+	@RequestMapping(value ="/addforms/{id}/addusagecustomer/")
+	public String addUsageCustomer (Model model,@PathVariable("id") Long id, @RequestParam("tasks") String tasks) {
+		InvUsage invUsage = iuservice.findUsageById(id);
+		invUsage.setTasks(tasks);
+		
+		return null;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 //	Update inventory details
 	@RequestMapping(value = "/usageforms/{id}", method = RequestMethod.GET)

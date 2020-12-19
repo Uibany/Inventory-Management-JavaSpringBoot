@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bookings List</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../../css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<form name="usageTask"
+		th:action="@{/invusage/addforms/}+${usageform.id}+@{/addusagecustomer/}">
+		<p>Please input the task' description:</p>
+		<input type="text" name="tasks" placeholder="Tasks description here" />&nbsp;
+		<input type="submit" value="proceed to add customer details >>" />
+	</form>
+	<!-- <a href="UsageReportReturn.html" th:href="@{/invusage/addforms/addformdescription/}+${user.id}"><button>Proceed without adding customer >></button> -->
+</body>
+</html>
