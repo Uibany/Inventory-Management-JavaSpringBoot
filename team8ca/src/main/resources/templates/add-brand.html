@@ -64,10 +64,10 @@
 		<div class="container-fluid">		
 				<form action="" th:action="@{/brand/save}" th:object="${brand}" method="get">
 					<h3 class="panel-title"> Brand Name: </h3>
-						<input type="text" th:field="*{brandName}" class="form-control"> <br />
+						<input type="text" th:field="*{brandName}" class="form-control" required> <br />
 						
 					<h3 class="panel-title"> Manufacturer name: </h3>
-						<input type="text" th:field="*{manufacturerName}" class="form-control"> <br />
+						<input type="text" th:field="*{manufacturerName}" class="form-control" required> <br />
 						
 					<h3 class="panel-title"> Supplier: </h3>
 					<div class="col-lg-7 col-md-6">

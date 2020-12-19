@@ -64,7 +64,7 @@
 		<div class="container-fluid">
 				<form action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
 					<h3 class="panel-title"> Subcategory Name: </h3>
-						<input type="text" th:field="*{subcategoryName}" class="form-control"> <br />
+						<input type="text" th:field="*{subcategoryName}" class="form-control" required> <br />
 					<h3 class="panel-title"> Subcategory Type: </h3>
 					
 						<input type="text" th:field="*{subcategoryType}" class="form-control"> <br />
@@ -81,27 +81,26 @@
 					<br /><br />
 				<button type="submit" class="btn btn-primary">Save Subcategory</button>
 			</form>
- <table class="table table-striped">
- <tr>
-   <th>ID</th>
-   <th>Subcategory Name</th>
-   <th>Subcategory Type</th>
-   <th>Category</th>
-   <th>Delete</th>
- </tr>
-  	<br />
- 	<br />
- <tr th:each="subcat:${slist}">
-   <td th:text="${subcat.id}">ID</td> 
-   <td th:text="${subcat.subcategoryName}">Subcategory Name</td>
-   <td th:text="${subcat.subcategoryType}">Subcategory Type</td>
-   <td th:text="${subcat.category.categoryName}">Category</td>
-   <td><a th:href="@{/subcategory/delete/}+${subcategory.id}"
-       	class="btn btn-danger">Delete</a></td>
-   </tr>
-   </table> 
-   		</div>
-	</div>
+ 				<table class="table table-striped">
+ 					<tr>
+   						<th>ID</th>
+   						<th>Subcategory Name</th>
+   						<th>Subcategory Type</th>
+   						<th>Category</th>
+   						<th>Delete</th>
+ 					</tr>
+  						<br /><br />
+ 					<tr th:each="subcat:${slist}">
+   						<td th:text="${subcat.id}">ID</td> 
+   						<td th:text="${subcat.subcategoryName}">Subcategory Name</td>
+   						<td th:text="${subcat.subcategoryType}">Subcategory Type</td>
+   						<td th:text="${subcat.category.categoryName}">Category</td>
+  						<td><a th:href="@{/subcategory/delete/}+${subcategory.id}"
+       							class="btn btn-danger">Delete</a></td>
+   					</tr>
+   				</table> 
+   			</div>
+		</div>
 	</div>
 </div>
 </body>
