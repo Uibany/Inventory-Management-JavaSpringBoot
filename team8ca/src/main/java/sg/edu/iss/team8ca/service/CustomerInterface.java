@@ -11,4 +11,5 @@ public interface CustomerInterface {
 	public List<Customer> findAllCustomer();
 	public Customer findCustomerById(long id);
 	public Customer findCustomerByName(String name);
+	public List<Customer> cusSearch(String keyword);
 }

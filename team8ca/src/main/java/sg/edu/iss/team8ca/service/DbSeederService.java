@@ -76,7 +76,7 @@ public class DbSeederService implements CommandLineRunner {
 		loadInv();
 		loadInvUsage();
 		loadTrans();
-		addCustomer()
+		addCustomer();
 	}
 
 	private String passwordEncoder(String password) {
