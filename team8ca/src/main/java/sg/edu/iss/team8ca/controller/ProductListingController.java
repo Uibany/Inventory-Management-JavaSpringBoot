@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
 
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
@@ -50,6 +51,7 @@ public class ProductListingController {
 	
 	@Autowired
 	private TransHistoryImpl thservice;
+	
 
 	@Autowired
 	public void setProductListing(ProductListingImpl inventory) {
@@ -70,22 +72,38 @@ public class ProductListingController {
 		Inventory inventory = new Inventory();
 		ArrayList<String> blist = plService.findAllBrandNames();
 		ArrayList<String> slist = plService.findAllSubcatNames();
+		ArrayList<String> splist = spservice.findAllSupplierNames();
 		model.addAttribute("inventory", inventory);
 		model.addAttribute("bnames", blist);
 		model.addAttribute("snames", slist);
+		model.addAttribute("spnames", splist);
 		return "entry-form";
 	}
 	
 	@RequestMapping(value = "/saveproduct")
 	public String saveProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model, WebRequest request) {
 		
 		if (bindingResult.hasErrors()) {
 			return "entry-form";
 		}
-		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+		
+		if(request.getParameter("manufacturerName").isBlank()) {
+			Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+			inventory.setBrand(brand);
+		}else 
+		{
+			String newBrandName = request.getParameter("newBrandName");
+			String newBrandManu = request.getParameter("manufacturerName");
+			Supplier supplier = spservice.findSupplierByName(request.getParameter("companyName"));
+			Brand brand = new Brand(newBrandName,newBrandManu,supplier);
+			
+			inventory.setBrand(brand);
+			plService.addBrand(brand);
+		}
+		
 		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
-		inventory.setBrand(brand);
+//		inventory.setBrand(brand);
 		inventory.setSubcategory(subcategory);
 		plService.addProduct(inventory);
 		
