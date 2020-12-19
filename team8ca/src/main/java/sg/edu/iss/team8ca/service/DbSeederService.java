@@ -260,7 +260,7 @@ public class DbSeederService implements CommandLineRunner {
 	}
 
 	private void loadTrans() {
-		User user1 = userRepo.findByUserName("admin");
+		User user1 = userRepo.findAll().get(0);
 		Inventory inv = invRepo.findInvByName("100 screws");
 		TransHistory trans = new TransHistory(TransType.Usage, 1, inv, LocalDate.of(2020, 11, 10), LocalTime.of(21, 30),
 				user1);
