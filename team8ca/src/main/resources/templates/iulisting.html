@@ -7,21 +7,10 @@
 	href="../../css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
-	<table>
-		<tr>
-			<td>
-				<p>New form</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<form name="newForm" th:action="@{/invusage/addforms/}+${user.id}">
-					Please input new task's reference/desciption: <input type="text"
-						name="tasks" value="" /> &nbsp; <input type="submit" value="Add" />
-				</form>
-			</td>
-		</tr>
-	</table>
+	<div>
+		<a href="AddReport.html" th:href="@{/invusage/addforms/addformdescription/}+${user.id}"><button>Add new report</button>
+		</a>
+	</div>
 
 	<table>
 		<tr>
@@ -39,7 +28,7 @@
 			<td th:text=${usage.usageReportStatus}>Usage Form status</td>
 			<td th:text=${usage.user.id}>Creator</td>
 			<td><a href="EditUsage.html"
-				th:href="@{/invusage/usageforms/}+${usage.id}">Edit</a></td>
+				th:href="@{/invusage/usageforms/}+${usage.id}"><button>Edit</button></a></td>
 		</tr>
 	</table>
 </body>

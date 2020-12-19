@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Inventory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
 	private String productName;
@@ -87,11 +87,11 @@ public class Inventory {
 		this.subcategory = subcategory;
 		this.brand = brand;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return id + "\t" + originalPrice + "\t" + stockQty + "\t"
+				+ reorderLevel + "\t" + minimumOrder + minimumOrder + (originalPrice*minimumOrder);
+	}
 
 }
