@@ -77,10 +77,6 @@ public class ProductListingController {
 		model.addAttribute("bnames", blist);
 		model.addAttribute("snames", slist);
 		model.addAttribute("spnames", splist);
-		model.addAttribute("new-brand", "false");
-		model.addAttribute("new-supplier", "false");
-		model.addAttribute("new-category", "false");
-		model.addAttribute("new-subcat", "false");
 		return "entry-form";
 	}
 	
@@ -92,15 +88,15 @@ public class ProductListingController {
 			return "entry-form";
 		}
 		
-		if(model.getAttribute("new-brand")=="false") {
+		if(request.getParameter("newBrand").equals("false")==true) {
 			Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
 			inventory.setBrand(brand);
-		}else 
-		{
+		}else{
+		
 			String newBrandName = request.getParameter("newBrandName");
 			String newBrandManu = request.getParameter("manufacturerName");
 
-			if(model.getAttribute("new-supplier")=="false") 
+			if(request.getParameter("newSupplier").equals("false")==true) 
 			{
 				Supplier supplier = spservice.findSupplierByName(request.getParameter("companyName"));
 				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
@@ -108,6 +104,7 @@ public class ProductListingController {
 				inventory.setBrand(brand);
 				
 			}else{
+				
 				String newCompanyName = request.getParameter("newCompanyName");
 				String contactNo = request.getParameter("contactNo");
 				String address = request.getParameter("address");
@@ -118,7 +115,6 @@ public class ProductListingController {
 				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
 				plService.addBrand(brand);
 				inventory.setBrand(brand);
-				
 			}
 			
 		}

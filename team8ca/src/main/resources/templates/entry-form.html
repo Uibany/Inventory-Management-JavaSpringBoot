@@ -83,6 +83,8 @@
 					<div class="panel shadow">
 						<div class="panel-body">
 							<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
+							<input type="hidden" name="newBrand" id="new-brand-bool">
+							<input type="hidden" name="newSupplier" id="new-supplier-bool">
 								<div class="row">
 									<div class="col-lg-5">
 
@@ -168,7 +170,7 @@
 										</div>
 										<!-- add new brand -->
 										<div id="new-brand-div">
-										<input type="hidden" th:field="${new-brand}" name="new-brand" id="new-brand-bool">
+										
 											<h3 class="panel-title">Brand Name:</h3>
 											<div class="row">
 												<div class="col-lg-7 col-md-6">
@@ -203,7 +205,7 @@
 
 
 											<div id="new-sup-div">
-											<input type="hidden" th:field="${new-supplier}" name="new-supplier" id="new-supplier-bool">
+											
 												<div class="row">
 													<div class="col-lg-7 col-md-6">
 														<h3 class="panel-title">Supplier Company Name:</h3>
@@ -223,7 +225,7 @@
 															class="form-control">
 														<br>
 														<h3 class="panel-title">Postal Code:</h3>
-														<input type="text" name="postalCode"
+														<input type="number" name="postalCode"
 															class="form-control">
 														<br>
 													</div>
@@ -249,7 +251,8 @@
 <script>
 
 	$(function () {
-		
+		$("#new-brand-bool").val("false");
+		$("#new-supplier-bool").val("false");
 		$("#new-brand-div").hide();
 		$("#new-sup-div").hide();
 		$("#new-brand").on("click", function () {
