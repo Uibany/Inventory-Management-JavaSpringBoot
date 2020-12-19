@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,10 @@ public class BrandController {
 	}
 	
 	@RequestMapping(value = "/save")
-	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
+	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "add-brand";
+		}
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
