@@ -117,10 +117,55 @@ public class DbSeederService implements CommandLineRunner {
 				"26rad", subcat2, brand2);
 		Inventory inv4 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
 				"25rad", subcat2, brand2);
+		Inventory inv5 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv6 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv7 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv8 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv9 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv10 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv11 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv12 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv13 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv14 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv15 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv16 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv17 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv18 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
+		Inventory inv19 = new Inventory("Rims", "outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 10, 20, 4, "Silver",
+				"25rad", subcat2, brand2);
 		invRepo.save(inv1);
 		invRepo.save(inv2);
 		invRepo.save(inv3);
 		invRepo.save(inv4);
+		invRepo.save(inv5);
+		invRepo.save(inv6);
+		invRepo.save(inv7);
+		invRepo.save(inv8);
+		invRepo.save(inv9);
+		invRepo.save(inv10);
+		invRepo.save(inv11);
+		invRepo.save(inv12);
+		invRepo.save(inv13);
+		invRepo.save(inv14);
+		invRepo.save(inv15);
+		invRepo.save(inv16);
+		invRepo.save(inv17);
+		invRepo.save(inv18);
+		invRepo.save(inv19);
 		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
 		udRepo.save(ud);
 		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
@@ -134,17 +179,59 @@ public class DbSeederService implements CommandLineRunner {
 	// category -> subcategory
 	private void loadSubCategory() {
 		Category cat1 = new Category("Accessories");
+		Category cat2 = new Category("Tires");
+		Category cat3 = new Category("Electrical");
+		Category cat4 = new Category("Airbags");
+		Category cat5 = new Category("Fuel Guage");
+		Category cat6 = new Category("Windshield");
+		Category cat7 = new Category("Vehicle Frame");
+		Category cat8 = new Category("Speedometer");
 		catRepo.save(cat1);
+		catRepo.save(cat2);
+		catRepo.save(cat3);
+		catRepo.save(cat4);
+		catRepo.save(cat5);
+		catRepo.save(cat6);
+		catRepo.save(cat7);
+		catRepo.save(cat8);
 		Subcategory subcat1 = new Subcategory("loose parts", "Accessories", cat1);
+		Subcategory subcat2 = new Subcategory("Hyundai seat belt", "Seat belt", cat1);
+		Subcategory subcat3 = new Subcategory("Toyota airbag", "Airbags", cat4);
+		Subcategory subcat4 = new Subcategory("BMW lights", "Head lights", cat3);
+		Subcategory subcat5 = new Subcategory("Hyundai windshield", "Windshield", cat6);
 		subcatRepo.save(subcat1);
+		subcatRepo.save(subcat2);
+		subcatRepo.save(subcat3);
+		subcatRepo.save(subcat4);
+		subcatRepo.save(subcat5);
 	}
 
 	// supplier -> brand
 	private void loadBrand() {
 		Supplier supplier = new Supplier("Tan Tiong Suppliers", "91232456", "tts@gmail.com", "Tan Tion Avenue", 312456);
+		Supplier supplier1 = new Supplier("Sin Guan Auto Parts", "88170202", "singuan@gmail.com", "67 Veerasamy road", 661712);
+		Supplier supplier2 = new Supplier("Kin Hua Motor Co", "91102034", "kinhua@yahoo.com", "77 Jalan Lembah Kalang", 014461);
+		Supplier supplier3 = new Supplier("He Xing Auto Supply", "80123412", "hexing@gmail.com", "78 Dunlop Street", 172031);
+		Supplier supplier4 = new Supplier("Unico Motor Pte Ltd", "99102233", "unico@gmail.com", "22 Upper Weld road", 660201);
+		Supplier supplier5 = new Supplier("Min Ghee Auto Pte Ltd", "98129345", "minghee@gmail.com", "123 Sin Ming road", 881023);
 		supRepo.save(supplier);
+		supRepo.save(supplier1);
+		supRepo.save(supplier2);
+		supRepo.save(supplier3);
+		supRepo.save(supplier4);
+		supRepo.save(supplier5);
 		Brand brand = new Brand("TonyHawk", "Tony Manufacturing", supplier);
+		Brand brand1 = new Brand("Robert Bosch", "Bosch Manufacturing", supplier1);
+		Brand brand2 = new Brand("Denso Corp", "Denso Manufacturing", supplier2);
+		Brand brand3 = new Brand("Magna International", "Magna Manufacturing", supplier3);
+		Brand brand4 = new Brand("Lear Corp", "Lear Manufacturing", supplier1);
+		Brand brand5 = new Brand("AC Delco", "Delco Manufacturing", supplier);
 		brandRepo.save(brand);
+		brandRepo.save(brand1);
+		brandRepo.save(brand2);
+		brandRepo.save(brand3);
+		brandRepo.save(brand4);
+		brandRepo.save(brand5);
 	}
 
 	// brand + subcategory -> inventory
