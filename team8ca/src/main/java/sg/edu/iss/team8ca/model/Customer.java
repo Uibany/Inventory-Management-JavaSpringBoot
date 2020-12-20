@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,12 @@ public class Customer {
 	
 	@NotNull
 	private String customerName;
+	@NotNull
 	private String contactNo;
 	private String email;
+	@NotNull
 	private String address;
+	@NotNull
 	private int postalCode;
 	public Customer(@NotNull String customerName, String contactNo, String email, String address, int postalCode) {
 		super();

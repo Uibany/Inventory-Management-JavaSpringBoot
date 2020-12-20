@@ -3,11 +3,13 @@ package sg.edu.iss.team8ca.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team8ca.model.Customer;
 import sg.edu.iss.team8ca.repo.CustomerRepo;
 
+@Service
 public class CustomerImpl implements CustomerInterface{
 	
 	@Autowired
@@ -26,21 +28,29 @@ public class CustomerImpl implements CustomerInterface{
 	}
 	
 	@Override
-	@Transactional
+	@Transactional (readOnly = true)
 	public List<Customer> findAllCustomer(){
 		return cusrepo.findAll();
 	}
 	
 	@Override
-	@Transactional
+	@Transactional (readOnly = true)
 	public Customer findCustomerById(long id) {
 		return cusrepo.findById(id).get();
 	}
 	
 	@Override
-	@Transactional
+	@Transactional (readOnly = true)
 	public Customer findCustomerByName(String name) {
 		return cusrepo.findCusByName(name);	
 	}
+	
+	@Override
+	@Transactional (readOnly = true)
+	public List<Customer> cusSearch(String keyword){
+		return cusrepo.cusSearch(keyword);
+	}
+
+	
 
 }

@@ -85,18 +85,20 @@
 							<form action="" th:action="@{/inventory/saveproduct}" th:object="${inventory}" method="get">
 							<input type="hidden" name="newBrand" id="new-brand-bool">
 							<input type="hidden" name="newSupplier" id="new-supplier-bool">
+							<input type="hidden" name="newSubcat" id="new-subcat-bool">
+							<input type="hidden" name="newCategory" id="new-category-bool">
 								<div class="row">
 									<div class="col-lg-5">
 
-										<h3 class="panel-title">Name:</h3> <input type="text" th:field="*{productName}"
+										<h3 class="panel-title">Name:</h3> <input type="text" required th:field="*{productName}"
 											class="form-control">
 										<br>
 
-										<h3 class="panel-title">Description:</h3> <input type="text"
+										<h3 class="panel-title">Description:</h3> <input type="text" 
 											th:field="*{description}" class="form-control">
 										<br>
 
-										<h3 class="panel-title">Original Price:</h3> <input type="text"
+										<h3 class="panel-title">Original Price:</h3> <input type="text" required
 											th:field="*{originalPrice}" name="originalPrice" class="form-control"
 											onkeyup="mult(this.value)">
 										<br>
@@ -113,14 +115,14 @@
 											th:field="*{partnerPrice}" class="form-control" id="partner" readonly>
 										<br>
 
-										<h3 class="panel-title">Stock Qty: </h3><input type="number"
+										<h3 class="panel-title">Stock Qty: </h3><input type="number" required
 											th:field="*{stockQty}" class="form-control">
 										<br>
-										<h3 class="panel-title">Reorder Level:</h3> <input type="number"
+										<h3 class="panel-title">Reorder Level:</h3> <input type="number" required
 											th:field="*{reorderLevel}" class="form-control">
 										<br>
 
-										<h3 class="panel-title">Minumum Order:</h3> <input type="number"
+										<h3 class="panel-title">Minumum Order:</h3> <input type="number" required
 											th:field="*{minimumOrder}" class="form-control">
 										<br>
 
@@ -136,8 +138,10 @@
 												Entry</button>
 										</div>
 									</div>
-
+									
+									<!-- existing subcategory -->
 									<div class="col-lg-5 col-lg-offset-1">
+									<div id="subcat-list">
 										<h3 class="panel-title">Subcategory:</h3>
 										<div class="row">
 											<div class="col-lg-7 col-md-6">
@@ -147,11 +151,64 @@
 														th:text="${sname}">
 													</option>
 												</select></div>
-
-											<a href="add-subcategory.html" th:href="@{/subcategory/add}"
-												class="btn btn-success">Add New</a>
+											<a class="btn btn-success" id="new-subcat">Add new Subcategory</a>
 										</div>
-										<br>
+										</div>
+										
+										
+										<!-- add new subcategory -->
+										<div id="new-subcat-div">
+										
+											<h3 class="panel-title">New Subcategory Name:</h3>
+											<div class="row">
+												<div class="col-lg-7 col-md-6">
+													<input type="text" class="form-control" name="newSubcatName">
+													<br>
+													<h3 class="panel-title">Subcategory Type:</h3>
+													<input type="text" class="form-control" name ="newSubcatType">
+
+												</div>
+												<div class="col-lg-5 col-md-6">
+													<a class="btn btn-success" id="old-subcat">Choose from existing
+														Subcategory</a>
+												</div>
+											</div>
+											<br>
+
+											<div id="category-list">
+												<h3 class="panel-title">Category:</h3>
+												<div class="row">
+													<div class="col-lg-7 col-md-6">
+														<select name="categoryName" class="form-control" id="category-list">
+															<option th:each="cname : ${cnames}" th:value="${cname}"
+																th:text="${cname}">
+															</option>
+														</select>
+														<br>
+													</div>
+													<div class="col-lg-5 col-md-6">
+														<a class="btn btn-success" id="new-category">Add new category</a>
+													</div>
+												</div>
+											</div>
+											</div>
+
+											<div id="new-category-div">
+											
+												<div class="row">
+													<div class="col-lg-7 col-md-6">
+														<h3 class="panel-title">New Category Name:</h3>
+														<input type="text" name="newCategoryName"
+															class="form-control">
+														<br>
+													</div>
+													<div class="col-lg-5 col-md-6">
+														<br>
+														<a class="btn btn-success" id="old-category">Choose from existing category</a>
+													</div>
+												</div>
+											</div>
+											
 										<!-- existing brand -->
 										<div id="brand-list">
 											<h3 class="panel-title">Brand:</h3>
@@ -171,7 +228,7 @@
 										<!-- add new brand -->
 										<div id="new-brand-div">
 										
-											<h3 class="panel-title">Brand Name:</h3>
+											<h3 class="panel-title">New Brand Name:</h3>
 											<div class="row">
 												<div class="col-lg-7 col-md-6">
 													<input type="text" class="form-control" name="newBrandName">
@@ -198,7 +255,7 @@
 														</select>
 													</div>
 													<div class="col-lg-5 col-md-6">
-														<a class="btn btn-success" id="new-sup">Add new supplier</a>
+														<a class="btn btn-success" id="new-sup">Add New Supplier</a>
 													</div>
 												</div>
 											</div>
@@ -208,7 +265,7 @@
 											
 												<div class="row">
 													<div class="col-lg-7 col-md-6">
-														<h3 class="panel-title">Supplier Company Name:</h3>
+														<h3 class="panel-title">New Supplier Company Name:</h3>
 														<input type="text" name="newCompanyName"
 															class="form-control">
 														<br>
@@ -232,9 +289,11 @@
 														<br>
 														<a class="btn btn-success" id="old-sup">Choose from existing supplier</a>
 													</div>
+													</div>
+													</div>
 												</div>
-											</div>
-										</div>
+											
+										
 									</div>
 									<br>
 								</div>
@@ -245,7 +304,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 <script>
 
@@ -264,7 +322,6 @@
 			$("#new-brand-div").hide();
 			$("#brand-list").show();
 			$("#new-brand-bool").val("false");
-			
 		});
 
 		$("#new-sup").on("click", function () {
@@ -277,6 +334,34 @@
 			$("#sup-list").show();
 			$("#new-supplier-bool").val("false");
 		});
+		
+		$("#new-subcat-bool").val("false");
+		$("#new-category-bool").val("false");
+		$("#new-subcat-div").hide();
+		$("#new-category-div").hide();
+		
+		$("#new-subcat").on("click", function () {
+			$("#new-subcat-div").show();
+			$("#subcat-list").hide();
+			$("#new-subcat-bool").val("true");
+		});
+		$("#old-subcat").on("click", function () {
+			$("#new-subcat-div").hide();
+			$("#subcat-list").show();
+			$("#new-subcat-bool").val("false");
+		});
+
+		$("#new-category").on("click", function () {
+			$("#new-category-div").show();
+			$("#category-list").hide();
+			$("#new-category-bool").val("true");
+		});
+		$("#old-category").on("click", function () {
+			$("#new-category-div").hide();
+			$("#category-list").show();
+			$("#new-category-bool").val("false");
+		});
+		
 	});
 
 
