@@ -7,8 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,17 +26,17 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<InvUsage> invUsage;
 	
-	
-	@NotNull
+	@NotBlank
 	private String customerName;
 	@NotNull
 	private String contactNo;
+	@NotNull	
 	private String email;
 	@NotNull
 	private String address;
 	@NotNull
 	private int postalCode;
-	public Customer(@NotNull String customerName, String contactNo, String email, String address, int postalCode) {
+	public Customer(@NotNull String customerName,@NotNull String contactNo,@NotNull String email,@NotNull String address,@NotNull int postalCode) {
 		super();
 		this.customerName = customerName;
 		this.contactNo = contactNo;
