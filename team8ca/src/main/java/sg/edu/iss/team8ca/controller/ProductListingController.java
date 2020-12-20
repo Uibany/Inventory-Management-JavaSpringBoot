@@ -9,14 +9,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
@@ -74,10 +77,12 @@ public class ProductListingController {
 		ArrayList<String> blist = plService.findAllBrandNames();
 		ArrayList<String> slist = plService.findAllSubcatNames();
 		ArrayList<String> splist = spservice.findAllSupplierNames();
+		ArrayList<String> clist = plService.findAllCategoryNames(); 
 		model.addAttribute("inventory", inventory);
 		model.addAttribute("bnames", blist);
 		model.addAttribute("snames", slist);
 		model.addAttribute("spnames", splist);
+		model.addAttribute("cnames", clist);
 		return "entry-form";
 	}
 	
@@ -117,9 +122,34 @@ public class ProductListingController {
 				plService.addBrand(brand);
 				inventory.setBrand(brand);
 			}
-			
 		}
-		
+			if(request.getParameter("newSubcat").equals("false")==true) {
+				Subcategory subcat = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
+				inventory.setSubcategory(subcat);
+				
+			}else{
+			
+				String newSubcatName = request.getParameter("newSubcatName");
+				String newSubcatType = request.getParameter("newSubcatType");
+
+				if(request.getParameter("newCategory").equals("false")==true) 
+				{
+					Category category = plService.findCatByName(request.getParameter("categoryName"));
+					Subcategory subcat = new Subcategory(newSubcatName, newSubcatType, category);
+					plService.addSubcategory(subcat);
+					inventory.setSubcategory(subcat);
+					
+				}else{
+					
+					String newCategoryName = request.getParameter("newCategoryName");
+					Category category = new Category(newCategoryName);
+					plService.addCategory(category);
+					Subcategory subcat = new Subcategory(newSubcatName, newSubcatType, category);
+					plService.addSubcategory(subcat);
+					inventory.setSubcategory(subcat);
+				}
+			}
+			
 		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
 //		inventory.setBrand(brand);
 		inventory.setSubcategory(subcategory);
@@ -133,9 +163,8 @@ public class ProductListingController {
 		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
 		thservice.saveTrans(trans);
 		return "redirect:/inventory/list";
+	
 	}
-
-
 	
 	@RequestMapping(value = "/editproduct/{id}", method = RequestMethod.GET)
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
@@ -175,49 +204,7 @@ public class ProductListingController {
 			plService.deleteProduct(plService.findProductById(id));
 		return "redirect:/inventory/list";
 	}
-	
-	@RequestMapping(value = "/addbrand")
-	public String addBrand(Model model) {
-		Brand brand = new Brand();
-		ArrayList<String> suplist = spservice.findAllSupplierNames();
-		model.addAttribute("brand", brand);
-		model.addAttribute("supnames", suplist);
-		return "add-brand";
-	}
-	
-	@RequestMapping(value = "/savebrand")
-	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model) {
-		Supplier supplier = spservice.findSupplierByName(brand.getSupplier().getCompanyName());
-		brand.setSupplier(supplier);
-		plService.addBrand(brand);
-		return "forward:/inventory/addproduct"; 
-	}
 		
-	@RequestMapping(value = "/addsubcategory")
-	public String addSubcategory(Model model) {
-		Subcategory subcategory = new Subcategory();
-		ArrayList<String> clist = plService.findAllCategoryNames();
-		model.addAttribute("subcategory", subcategory);
-		model.addAttribute("cnames", clist); 
-		return "add-subcategory";	
-	}
-	
-	@RequestMapping(value = "/savesubcat")
-	public String saveSubcat(@ModelAttribute("subcategory") Subcategory subcategory, Model model) {
-		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
-		subcategory.setCategory(category);
-		plService.addSubcategory(subcategory);
-		return "forward:/inventory/addproduct"; 
-	}
-	
-	@RequestMapping(value = "/addcategory")
-	public String addCategory(Model model) {
-		Category category = new Category();
-		model.addAttribute("category", category);
-		return "add-category";
-		
-	}
-	
 	@RequestMapping("/search")
 	public String search(Model model, @Param("keyword") String keyword) {
 		List<Inventory> plist = plService.list(keyword);
@@ -232,4 +219,5 @@ public class ProductListingController {
 		reorser.printDatFile();
 		return "redirect:/inventory/list";
 	}
+	
 }

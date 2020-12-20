@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -192,26 +196,3 @@ public class ProductListingImpl implements ProductListingInterface {
 		return irepo.findAll();
 	}
 
-	@Override
-	public Inventory getProduct(long id) {
-		return irepo.findInvById(id);
-	}
-
-	@Override
-	public List<Supplier> listSupplier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<String> findAllSupplierNames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Supplier findSupplierByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}
