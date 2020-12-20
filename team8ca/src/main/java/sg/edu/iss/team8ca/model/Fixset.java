@@ -41,10 +41,8 @@ public class Fixset {
         return this.fixsetItems.size();
     }
 
-	public Fixset(String fixsetName, @Valid List<FixsetItem> fixsetItems) {
-		super();
+	public Fixset(String fixsetName) {
 		this.fixsetName = fixsetName;
-		this.fixsetItems = fixsetItems;
 	}
 	
 	

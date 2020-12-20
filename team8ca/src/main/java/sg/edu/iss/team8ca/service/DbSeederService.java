@@ -77,6 +77,7 @@ public class DbSeederService implements CommandLineRunner {
 	@Autowired
 	FixsetItemRepo fiRepo;
 	
+	@Autowired
 	CustomerRepo cusRepo;
 
 
@@ -89,6 +90,7 @@ public class DbSeederService implements CommandLineRunner {
 		loadInvUsage();
 		loadTrans();
 		addCustomer();
+		loadFixset();
 	}
 
 	private String passwordEncoder(String password) {
@@ -288,4 +290,30 @@ public class DbSeederService implements CommandLineRunner {
 		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2", 246859);
 		cusRepo.save(customer2);
 	}
+	
+	private void loadFixset() {		
+		Inventory inv1 = invRepo.findInvById(1);
+		Inventory inv2 = invRepo.findInvById(2);
+		Inventory inv3 = invRepo.findInvById(3);
+		Inventory inv4 = invRepo.findInvById(4);
+		Inventory inv5 = invRepo.findInvById(5);
+		
+		Fixset fixset1 = new Fixset("Fixset 1");
+		fRepo.save(fixset1);
+		Fixset fixset2 = new Fixset("Fixset 2");
+		fRepo.save(fixset2);
+		
+		FixsetItem fItem1 = new FixsetItem(fixset1, inv1, 1);
+		fiRepo.save(fItem1);
+		FixsetItem fItem2 = new FixsetItem(fixset1, inv2, 1);
+		fiRepo.save(fItem2);
+		FixsetItem fItem3 = new FixsetItem(fixset1, inv3, 2);
+		fiRepo.save(fItem3);
+		FixsetItem fItem4 = new FixsetItem(fixset2, inv4, 1);
+		fiRepo.save(fItem4);
+		FixsetItem fItem5 = new FixsetItem(fixset2, inv5, 4);
+		fiRepo.save(fItem5);
+	}
+	
+	
 }

@@ -21,11 +21,11 @@ public class FixsetItemPK implements Serializable {
 	
 	@JsonBackReference
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "fixset_id")
     private Fixset fixset;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Inventory product;
+    @JoinColumn(name = "inventory_id")
+    private Inventory productName;
 
 }

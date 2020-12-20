@@ -51,25 +51,25 @@ public class FixsetController {
 	public ResponseEntity<Fixset> create(@RequestBody FixsetForm form) {
 		List<FixsetItemDto> formDtos = form.getFixsetItems();
 		validateItemsExistence(formDtos);
-		Fixset fixset = new Fixset();
-		fixset = this.fixsetService.create(fixset);
+		Fixset fixsets = new Fixset();
+		fixsets = this.fixsetService.create(fixsets);
 
 		List<FixsetItem> fixsetItems = new ArrayList<>();
 		for (FixsetItemDto dto : formDtos) {
 			fixsetItems.add(fixsetItemService.create(
-					new FixsetItem(fixset, itemService.getProduct(dto.getItem().getId()), dto.getQuantity())));
+					new FixsetItem(fixsets, itemService.getProduct(dto.getItem().getId()), dto.getQuantity())));
 		}
 
-		fixset.setFixsetItems(fixsetItems);
+		fixsets.setFixsetItems(fixsetItems);
 
-		this.fixsetService.update(fixset);
+		this.fixsetService.update(fixsets);
 
 		String uri = ServletUriComponentsBuilder.fromCurrentServletMapping().path("/fixset/{id}")
-				.buildAndExpand(fixset.getId()).toString();
+				.buildAndExpand(fixsets.getId()).toString();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", uri);
 
-		return new ResponseEntity<>(fixset, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(fixsets, headers, HttpStatus.CREATED);
 	}
 	
 	private void validateItemsExistence(List<FixsetItemDto> fixsetItems) {

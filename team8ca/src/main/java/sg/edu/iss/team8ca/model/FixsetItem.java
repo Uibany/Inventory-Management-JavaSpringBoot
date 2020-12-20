@@ -25,16 +25,16 @@ public class FixsetItem {
 		private Integer quantity;
 	
 
-    public FixsetItem(Fixset fixset, Inventory product, Integer quantity) {
+    public FixsetItem(Fixset fixset, Inventory productName, Integer quantity) {
         pk = new FixsetItemPK();
         pk.setFixset(fixset);
-        pk.setProduct(product);
+        pk.setProductName(productName);
         this.quantity = quantity;
     }
 
     @Transient
     public Inventory getProduct() {
-        return this.pk.getProduct();
+        return this.pk.getProductName();
     }
 
 }
