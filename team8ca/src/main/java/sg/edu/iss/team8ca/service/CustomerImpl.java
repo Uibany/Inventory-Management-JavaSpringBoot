@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team8ca.model.Customer;
+import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.repo.CustomerRepo;
 
 @Service
@@ -50,6 +51,12 @@ public class CustomerImpl implements CustomerInterface{
 	public List<Customer> cusSearch(String keyword){
 		return cusrepo.cusSearch(keyword);
 	}
+	
+	@Override
+	@Transactional
+	public void addCustomer (Customer customer){
+		cusrepo.save(customer);
+	};
 
 	
 

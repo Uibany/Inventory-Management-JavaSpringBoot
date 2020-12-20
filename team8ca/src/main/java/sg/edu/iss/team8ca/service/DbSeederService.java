@@ -73,10 +73,10 @@ public class DbSeederService implements CommandLineRunner {
 		loadUserData();
 		loadSubCategory();
 		loadBrand();
+		loadCustomer();
 		loadInv();
 		loadInvUsage();
 		loadTrans();
-		addCustomer();
 	}
 
 	private String passwordEncoder(String password) {
@@ -140,7 +140,8 @@ public class DbSeederService implements CommandLineRunner {
 
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
-		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1, "Fixing loose screws");
+		Customer customer = cusRepo.findAll().get(0);
+		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, customer, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
 		Subcategory Accessories = subcatRepo.findSubcatByName("loose parts").get(0);
 		Subcategory Tires = subcatRepo.findSubcatByName("loose parts").get(0);
@@ -267,7 +268,7 @@ public class DbSeederService implements CommandLineRunner {
 		thRepo.save(trans);
 	}
 
-	private void addCustomer() {
+	private void loadCustomer() {
 		Customer customer1 = new Customer("Timothy", "+659124526", "Tim@gmail.com", "Ang Mo Kio Avenue 5", 125468);
 		cusRepo.save(customer1);
 		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2", 246859);
