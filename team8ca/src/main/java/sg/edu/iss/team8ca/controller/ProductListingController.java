@@ -34,7 +34,7 @@ import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
 
-@RestController
+@Controller
 @RequestMapping("/inventory")
 public class ProductListingController {  
 	
