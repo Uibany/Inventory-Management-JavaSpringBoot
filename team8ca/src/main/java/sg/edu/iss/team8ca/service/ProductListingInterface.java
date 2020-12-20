@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
@@ -44,6 +45,9 @@ public interface ProductListingInterface {
 
 	public Category findCategoryById(Long id);
 	public Inventory getProduct(long id);
+   
+	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection);
+	
 
 }
 

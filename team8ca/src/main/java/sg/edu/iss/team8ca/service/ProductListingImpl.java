@@ -3,6 +3,7 @@ package sg.edu.iss.team8ca.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -74,14 +75,6 @@ public class ProductListingImpl implements ProductListingInterface {
 	public void editProductQuantity(Long id, int newQty) {
 
 		
-	}
-
-	@Override
-	public List<Inventory> list(String keyword) {
-		if (keyword == null) {
-			return irepo.findAll();
-		}
-		return irepo.invSearch(keyword);
 	}
 
 	@Override
@@ -202,4 +195,29 @@ public class ProductListingImpl implements ProductListingInterface {
 	public Inventory getProduct(long id) {
 		return irepo.findInvById(id);
 	}
+	
+	@Override
+	public List<Inventory> list(String keyword) {
+		if (keyword == null) {
+			return irepo.findAll();
+		}
+		return irepo.invSearch(keyword);
+	}
+	
+	
+
+	@Override
+	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection) {
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		
+		if (keyword == null) {
+			return irepo.findAll(pageable);
+		}
+		return irepo.findBykeywordContaining(keyword, pageable);
+		
+	}
+
 }
