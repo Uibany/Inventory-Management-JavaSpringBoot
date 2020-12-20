@@ -90,11 +90,9 @@ public class DbSeederService implements CommandLineRunner {
 		loadInv();
 		loadInvUsage();
 		loadTrans();
-<<<<<<< HEAD
-		addCustomer();
+		loadCustomer();
 		loadFixset();
-=======
->>>>>>> refs/heads/sean's_branch
+
 	}
 
 	private String passwordEncoder(String password) {
