@@ -92,7 +92,6 @@ public class ProductListingController {
 			Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
 			inventory.setBrand(brand);
 		}else{
-		
 			String newBrandName = request.getParameter("newBrandName");
 			String newBrandManu = request.getParameter("manufacturerName");
 
@@ -102,9 +101,7 @@ public class ProductListingController {
 				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
 				plService.addBrand(brand);
 				inventory.setBrand(brand);
-				
 			}else{
-				
 				String newCompanyName = request.getParameter("newCompanyName");
 				String contactNo = request.getParameter("contactNo");
 				String address = request.getParameter("address");
@@ -116,7 +113,6 @@ public class ProductListingController {
 				plService.addBrand(brand);
 				inventory.setBrand(brand);
 			}
-			
 		}
 		
 		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
