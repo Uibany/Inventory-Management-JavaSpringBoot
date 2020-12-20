@@ -3,6 +3,8 @@ package sg.edu.iss.team8ca.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
