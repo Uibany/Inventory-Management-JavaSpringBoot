@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/boots trap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -82,8 +82,8 @@
 									<th>Address</th>
 									<th>email id</th>
 									<th>Postal code</th>
-									<th>Edit Member</th>
-									<th>Delete Member</th>
+									<th>Edit Supplier</th>
+									<th>Delete Supplier</th>
 								</tr>
 								<tr th:each="supplier:${supplier}" class="table-row">
 									<td th:text=${supplier.id}>Id</td>
@@ -92,7 +92,7 @@
 									<td th:text=${supplier.address}>Address</td>
 									<td th:text=${supplier.email}>Email id</td>
 									<td th:text=${supplier.postalCode}>Postal code</td>
-									<td><a href="EditMember.html" th:href="@{/supplier/edit/}+${supplier.id}"
+									<td><a href="EditSupplier.html" th:href="@{/supplier/edit/}+${supplier.id}"
 											class="btn btn-success">Edit</a></td>
 									<td><a href="DeleteMember.html" th:href="@{/supplier/delete/}+${supplier.id}"
 											class="btn btn-danger">Delete</a>

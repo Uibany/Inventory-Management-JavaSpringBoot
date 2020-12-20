@@ -80,7 +80,7 @@ public class UsageFormController {
 		return "UsageReportCustTask";
 	}
 
-//	add existing customers
+//	add customers
 	@RequestMapping(value = "/addforms/addformdetails/userid/{userid}/customer/{custid}", method = RequestMethod.GET)
 	public String addUsageReportExistingCust(Model model, @PathVariable("userid") Long userid,
 			@PathVariable("custid") Long custid) {
@@ -112,7 +112,6 @@ public class UsageFormController {
 		return "UsageReportCustTask";
 	}
 
-	
 //save usage details
 	@RequestMapping(value = "/addforms/saveusageform/userid/{userid}", method = RequestMethod.GET)
 	public String addUsageFormDetails(Model model, @PathVariable("userid") Long userid, @ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, WebRequest request) {
