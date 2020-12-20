@@ -6,6 +6,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ReorderReportService;
+import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
@@ -40,6 +43,9 @@ import sg.edu.iss.team8ca.service.UserService;
 @Controller
 @RequestMapping("/inventory")
 public class ProductListingController {  
+	
+	@Autowired
+	private SupplierInterface supint;
 	
 	@Autowired
 	ReorderReportService reorser;
@@ -214,9 +220,15 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	@RequestMapping("/report")
-	public String reorderReport() {
-		reorser.printDatFile();
+	@RequestMapping("/select")
+	public String selectSupplier(Model model) {
+		model.addAttribute("supplier", supint.findAllSupplier());
+		return "reorderreport";
+	}
+	
+	@RequestMapping("/report/{id}")
+	public String reorderReport(@PathVariable("id") long id) {
+		reorser.printDatFile(id);
 		return "redirect:/inventory/list";
 	}
 	

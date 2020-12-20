@@ -27,6 +27,7 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
 	public List<Inventory> invSearch(String keyword);
 	
-	@Query("Select i from Inventory i where i.stockQty < i.reorderLevel")
-	public List<Inventory> reorderreport();
+//	@Query("Select i from Inventory i where i.stockQty < i.reorderLevel")
+	@Query(value="select * from inventory i where i.brand_id in (select b.id from brand b where b.supplier_id = :id)", nativeQuery = true)
+	public List<Inventory> reorderreport(@Param("id") long id);
 }

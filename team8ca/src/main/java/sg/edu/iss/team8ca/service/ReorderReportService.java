@@ -21,17 +21,18 @@ public class ReorderReportService implements ReorderReportInterface {
 	private InventoryRepo invrepo;
 	
 	@Transactional
-	public void printDatFile() {
+	public void printDatFile(long id) {
 		BufferedWriter bw = null;
 		{
 			try {
-				String str = "PartNo" + "Unit Price";
-				List<Inventory> invList = invrepo.reorderreport();
+				List<Inventory> invList = invrepo.reorderreport(id);
 				if(invList.size()==0) {
 					return;
 				}
-
-				File file = new File("C:\\Users\\Administrator\\git\\inventory.dat");
+				//file path
+				String filepath = System.getProperty("user.home");
+				String fileName = "report_" + id + ".dat";
+				File file = new File(filepath +"\\"+ fileName);
 				
 				if (!file.exists()) {
 					file.createNewFile();
@@ -39,14 +40,27 @@ public class ReorderReportService implements ReorderReportInterface {
 
 				FileWriter fw = new FileWriter(file);
 				bw = new BufferedWriter(fw);
-				bw.write("Inventory Report");
+				double total = 0;
+				int orderQty = 0;
+				bw.write("Inventory Reorder Report for products from Supplier " + id);
 				bw.newLine();
-				bw.write(str);
+				bw.write("---------------------------------------------------------------------------------------");
 				bw.newLine();
+				bw.write("=======================================================================================");
+				bw.write("\nPart No. Unit.Price\t Quantity\t Reorder Qty.\t Min.Ord.Qty\t Ord.Qty\t2 Price\n");
 				for(Inventory inv : invList) {
-					bw.write(inv.toString());
+					double price=inv.getStockQty()*inv.getOriginalPrice();
+					total += price;
+					if(inv.getReorderLevel() > inv.getStockQty()) {
+						orderQty = inv.getMinimumOrder();
+					}
+					bw.write(inv.getId() + "\t\t\t" + inv.getOriginalPrice() + "\t\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t" 
+					+ inv.getMinimumOrder() + "\t\t\t" +orderQty +"\t\t\t" + price);
 					bw.newLine();
 				}
+					bw.write("====================================================================================");
+					bw.newLine();
+					bw.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTotal\t" + total);
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} finally {
@@ -54,7 +68,7 @@ public class ReorderReportService implements ReorderReportInterface {
 					if (bw != null)
 						bw.close();
 				} catch (Exception ex) {
-					System.out.println("Error in closing the BufferedWriter" + ex);
+					System.out.println(ex);
 				}
 			}
 		}
