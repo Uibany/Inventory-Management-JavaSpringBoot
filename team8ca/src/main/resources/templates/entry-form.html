@@ -141,21 +141,20 @@
 									
 									<!-- existing subcategory -->
 									<div class="col-lg-5 col-lg-offset-1">
-									<div id="subcat-list">
-										<h3 class="panel-title">Subcategory:</h3>
-										<div class="row">
-											<div class="col-lg-7 col-md-6">
-												<select th:field="*{subcategory.subcategoryName}" name="subcategory"
-													class="form-control">
-													<option th:each="sname : ${snames}" th:value="${sname}"
-														th:text="${sname}">
-													</option>
-												</select></div>
-											<a class="btn btn-success" id="new-subcat">Add new Subcategory</a>
+										<div id="subcat-list">
+											<h3 class="panel-title">Subcategory:</h3>
+											<div class="row">
+												<div class="col-lg-7 col-md-6">
+													<select th:field="*{subcategory.subcategoryName}" name="subcategory"
+														class="form-control">
+														<option th:each="sname : ${snames}" th:value="${sname}"
+															th:text="${sname}">
+														</option>
+													</select></div>
+												<a class="btn btn-success" id="new-subcat">Add new Subcategory</a>
+											</div>	
 										</div>
-										</div>
-										
-										
+
 										<!-- add new subcategory -->
 										<div id="new-subcat-div">
 										
@@ -169,7 +168,7 @@
 
 												</div>
 												<div class="col-lg-5 col-md-6">
-													<a class="btn btn-success" id="old-subcat">Choose from existing
+													<a class="btn btn-primary" id="old-subcat">Choose from existing
 														Subcategory</a>
 												</div>
 											</div>
@@ -184,15 +183,15 @@
 																th:text="${cname}">
 															</option>
 														</select>
-														<br>
+														
 													</div>
 													<div class="col-lg-5 col-md-6">
 														<a class="btn btn-success" id="new-category">Add new category</a>
 													</div>
+													<br>
 												</div>
 											</div>
-											</div>
-
+											
 											<div id="new-category-div">
 											
 												<div class="row">
@@ -200,15 +199,16 @@
 														<h3 class="panel-title">New Category Name:</h3>
 														<input type="text" name="newCategoryName"
 															class="form-control">
-														<br>
 													</div>
 													<div class="col-lg-5 col-md-6">
-														<br>
-														<a class="btn btn-success" id="old-category">Choose from existing category</a>
+													    <br>
+														<a class="btn btn-primary" id="old-category">Choose from existing category</a>
 													</div>
+													<br>
 												</div>
 											</div>
-											
+										</div>	
+										<br>
 										<!-- existing brand -->
 										<div id="brand-list">
 											<h3 class="panel-title">Brand:</h3>
@@ -238,7 +238,7 @@
 
 												</div>
 												<div class="col-lg-5 col-md-6">
-													<a class="btn btn-success" id="old-brand">Choose from existing
+													<a class="btn btn-primary" id="old-brand">Choose from existing
 														brands</a>
 												</div>
 											</div>
@@ -287,7 +287,7 @@
 													</div>
 													<div class="col-lg-5 col-md-6">
 														<br>
-														<a class="btn btn-success" id="old-sup">Choose from existing supplier</a>
+														<a class="btn btn-primary" id="old-sup">Choose from existing supplier</a>
 													</div>
 													</div>
 													</div>
