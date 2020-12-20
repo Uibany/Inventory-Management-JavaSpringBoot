@@ -48,7 +48,7 @@ public class Inventory {
 	private List<TransHistory> transHistory;
 
 	public Inventory(@NotNull String productName, String description, double originalPrice, double wholesalePrice,
-			double retailPrice, double partnerPrice, int stockQty, int reorderLevel, int minimumOrder, String colour,
+			double retailPrice, double partnerPrice, int stockQty,int reorderLevel, int minimumOrder, String colour,
 			String dimension, Subcategory subcategory, Brand brand, List<UsageDetails> usageDetails,
 			List<TransHistory> transHistory) {
 		super();

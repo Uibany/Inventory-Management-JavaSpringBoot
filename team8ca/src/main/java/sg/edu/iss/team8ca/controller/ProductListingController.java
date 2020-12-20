@@ -6,6 +6,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnitUtil;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +117,7 @@ public class ProductListingController {
 		model.addAttribute("snames", slist);
 		model.addAttribute("spnames", splist);
 		model.addAttribute("cnames", clist);
+		model.addAttribute("addOrEdit", "add");
 		return "entry-form";
 	}
 	
@@ -125,12 +128,11 @@ public class ProductListingController {
 		if (bindingResult.hasErrors()) {
 			return "entry-form";
 		}
-		
+				
 		if(request.getParameter("newBrand").equals("false")==true) {
 			Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
 			inventory.setBrand(brand);
 		}else{
-		
 			String newBrandName = request.getParameter("newBrandName");
 			String newBrandManu = request.getParameter("manufacturerName");
 
@@ -140,9 +142,7 @@ public class ProductListingController {
 				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
 				plService.addBrand(brand);
 				inventory.setBrand(brand);
-				
 			}else{
-				
 				String newCompanyName = request.getParameter("newCompanyName");
 				String contactNo = request.getParameter("contactNo");
 				String address = request.getParameter("address");
@@ -183,17 +183,23 @@ public class ProductListingController {
 			}
 			
 		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
-//		inventory.setBrand(brand);
 		inventory.setSubcategory(subcategory);
-		plService.addProduct(inventory);
-		
+				
 //		//Add to transHistory	
 //		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 //		User user = uservice.findUserByUserName(currentUserName);
 //		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
 		User user1 = uservice.findUserByUserName("admin");
-		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
-		thservice.saveTrans(trans);
+		if(model.getAttribute("addOrEdit")=="add"){
+			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			plService.saveProduct(inventory);
+			thservice.saveTrans(trans);
+			
+		}else {
+			plService.saveProduct(inventory);
+			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			thservice.saveTrans(trans);	
+		}
 		return "redirect:/inventory/list";
 	
 	}
@@ -202,34 +208,39 @@ public class ProductListingController {
 	public String editProduct(@PathVariable ( value = "id") long id, Model model) {
 		ArrayList<String> blist = plService.findAllBrandNames();
 		ArrayList<String> slist = plService.findAllSubcatNames();
+		ArrayList<String> splist = spservice.findAllSupplierNames();
+		ArrayList<String> clist = plService.findAllCategoryNames(); 
 		model.addAttribute("inventory", plService.findProductById(id));
 		model.addAttribute("bnames", blist);
 		model.addAttribute("snames", slist);
-		return "edit-form";	
+		model.addAttribute("spnames", splist);
+		model.addAttribute("cnames", clist);
+		model.addAttribute("addOrEdit", "edit");
+		return "entry-form";	
 		}
 
-	@RequestMapping(value = "/saveeditproduct")
-	public String saveeditProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
-			BindingResult bindingResult, Model model) {
-		
-		if (bindingResult.hasErrors()) {
-			return "edit-form";
-		}
-		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
-		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
-		inventory.setBrand(brand);
-		inventory.setSubcategory(subcategory);
-		plService.addProduct(inventory);
-		
-//		//Add to transHistory	
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
-		User user1 = uservice.findUserByUserName("admin");
-		TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
-		thservice.saveTrans(trans);
-		return "redirect:/inventory/list";
-	}
+//	@RequestMapping(value = "/saveeditproduct")
+//	public String saveeditProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
+//			BindingResult bindingResult, Model model) {
+//		
+//		if (bindingResult.hasErrors()) {
+//			return "edit-form";
+//		}
+//		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
+//		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
+//		inventory.setBrand(brand);
+//		inventory.setSubcategory(subcategory);
+//		plService.addProduct(inventory);
+//		
+////		//Add to transHistory	
+////		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+////		User user = uservice.findUserByUserName(currentUserName);
+////		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
+//		User user1 = uservice.findUserByUserName("admin");
+//		TransHistory trans = new TransHistory(TransType.UpdateInventory, 0, inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+//		thservice.saveTrans(trans);
+//		return "redirect:/inventory/list";
+//	}
 		
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
