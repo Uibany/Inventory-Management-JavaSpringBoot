@@ -42,11 +42,6 @@ public interface ProductListingInterface {
 	public ArrayList<String> findAllCategoryNames();
 	public Category findCatByName(String name);
 
-	public List<Supplier> listSupplier();
-	public ArrayList<String> findAllSupplierNames();
-	public Supplier findSupplierByName(String name);
-	public Inventory getProduct(long id);
-	
 	public Category findCategoryById(Long id);
 
 }
