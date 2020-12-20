@@ -16,6 +16,7 @@ import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
+import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
@@ -195,4 +196,3 @@ public class ProductListingImpl implements ProductListingInterface {
 		return irepo.findAll();
 	}
 
-}

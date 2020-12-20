@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,8 @@ import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Customer;
 import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
+import sg.edu.iss.team8ca.model.Fixset;
+import sg.edu.iss.team8ca.model.FixsetItem;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.TransHistory;
@@ -22,6 +25,9 @@ import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
+import sg.edu.iss.team8ca.repo.FixsetItemRepo;
+import sg.edu.iss.team8ca.repo.FixsetRepo;
+
 import sg.edu.iss.team8ca.repo.CustomerRepo;
 import sg.edu.iss.team8ca.repo.InvUsageRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
@@ -66,7 +72,14 @@ public class DbSeederService implements CommandLineRunner {
 	UsageDetailsRepo udRepo;
 
 	@Autowired
+	FixsetRepo fRepo;
+
+	@Autowired
+	FixsetItemRepo fiRepo;
+	
+	@Autowired
 	CustomerRepo cusRepo;
+
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -77,6 +90,7 @@ public class DbSeederService implements CommandLineRunner {
 		loadInvUsage();
 		loadTrans();
 		addCustomer();
+		loadFixset();
 	}
 
 	private String passwordEncoder(String password) {
@@ -102,6 +116,7 @@ public class DbSeederService implements CommandLineRunner {
 			userRepo.save(user4);
 		}
 	}
+
 	
 	// category -> subcategory
 		private void loadSubCategory() {
@@ -138,10 +153,13 @@ public class DbSeederService implements CommandLineRunner {
 		}
 
 
+
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
 		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
+		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
+		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
 		Subcategory Accessories = subcatRepo.findSubcatByName("loose parts").get(0);
 		Subcategory Tires = subcatRepo.findSubcatByName("loose parts").get(0);
 		Subcategory Electrical = subcatRepo.findSubcatByName("BMW lights").get(0);
@@ -218,7 +236,6 @@ public class DbSeederService implements CommandLineRunner {
 		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
 		udRepo.save(ud3);
 	}
-
 	
 	// supplier -> brand
 	private void loadBrand() {
@@ -273,5 +290,30 @@ public class DbSeederService implements CommandLineRunner {
 		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2", 246859);
 		cusRepo.save(customer2);
 	}
-
+	
+	private void loadFixset() {		
+		Inventory inv1 = invRepo.findInvById(1);
+		Inventory inv2 = invRepo.findInvById(2);
+		Inventory inv3 = invRepo.findInvById(3);
+		Inventory inv4 = invRepo.findInvById(4);
+		Inventory inv5 = invRepo.findInvById(5);
+		
+		Fixset fixset1 = new Fixset("Fixset 1");
+		fRepo.save(fixset1);
+		Fixset fixset2 = new Fixset("Fixset 2");
+		fRepo.save(fixset2);
+		
+		FixsetItem fItem1 = new FixsetItem(fixset1, inv1, 1);
+		fiRepo.save(fItem1);
+		FixsetItem fItem2 = new FixsetItem(fixset1, inv2, 1);
+		fiRepo.save(fItem2);
+		FixsetItem fItem3 = new FixsetItem(fixset1, inv3, 2);
+		fiRepo.save(fItem3);
+		FixsetItem fItem4 = new FixsetItem(fixset2, inv4, 1);
+		fiRepo.save(fItem4);
+		FixsetItem fItem5 = new FixsetItem(fixset2, inv5, 4);
+		fiRepo.save(fItem5);
+	}
+	
+	
 }
