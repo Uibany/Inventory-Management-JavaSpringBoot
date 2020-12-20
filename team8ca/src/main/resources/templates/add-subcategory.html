@@ -67,12 +67,12 @@
 <div class="main">
 	<div class="main-content">
 		<div class="container-fluid">
-				<form id="newSubcategory" action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
+				<form action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
 					<h3 class="panel-title"> Subcategory Name: </h3>
-						<input type="text" th:field="*{subcategoryName}" class="form-control" required> <br />
+						<input type="text" required th:field="*{subcategoryName}" class="form-control"> <br />
 					<h3 class="panel-title"> Subcategory Type: </h3>
 					
-						<input type="text" th:field="*{subcategoryType}" class="form-control"> <br />
+						<input type="text" required th:field="*{subcategoryType}" class="form-control"> <br />
 					<h3 class="panel-title"> Category: </h3>
 					<div class="col-lg-7 col-md-6">
 					<select th:field="*{category.categoryName}" name="category" class="form-control">
