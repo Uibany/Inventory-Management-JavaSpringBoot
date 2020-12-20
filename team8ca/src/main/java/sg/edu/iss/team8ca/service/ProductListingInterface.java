@@ -43,6 +43,7 @@ public interface ProductListingInterface {
 	public Category findCatByName(String name);
 
 	public Category findCategoryById(Long id);
+	public Inventory getProduct(long id);
 
 }
 

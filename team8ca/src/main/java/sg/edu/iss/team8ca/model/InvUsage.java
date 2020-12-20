@@ -54,6 +54,15 @@ public class InvUsage {
 		this.tasks = tasks;
 	}
 	
+	public InvUsage(LocalDate usageDate, UsageReportStatus usageReportStatus, Customer customer, User user, String tasks) {
+		super();
+		this.usageDate = usageDate;
+		this.usageReportStatus = usageReportStatus;
+		this.customer=customer;
+		this.user = user;
+		this.tasks = tasks;
+	}	
+	
 	public InvUsage(LocalDate usageDate, List<UsageDetails> usageDetails, UsageReportStatus usageReportStatus, Customer customer, User user, String tasks) {
 		super();
 		this.usageDate = usageDate;
