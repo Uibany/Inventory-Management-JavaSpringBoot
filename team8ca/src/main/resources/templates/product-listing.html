@@ -14,10 +14,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>Product Listing</title>
-  </head>
+</head>
 
 <body>
-<div id="wrapper">
+  <div id="wrapper">
     <!-- navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid navbar-menu">
@@ -45,12 +45,17 @@
         <nav>
           <ul class="nav">
             <li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
-			<li><a th:href="@{~/inventory/list}" class="active"><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-			<li><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
-			<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
-			<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-			<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
-			<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+            <li><a th:href="@{~/inventory/list}" class="active"><i class="lnr lnr-car"></i> <span>View
+                  Products</span></a></li>
+            <li><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry
+                  Forms</span></a></li>
+            <li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage
+                  Forms</span></a></li>
+            <li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
+                  Report</span></a></li>
+            <li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a>
+            </li>
+            <li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
           </ul>
         </nav>
       </div>
@@ -59,33 +64,36 @@
       <!-- MAIN CONTENT -->
       <div class="main-content">
         <div class="container-fluid">
-        <div class="panel">
-        	<div class="panel-footer row">
-              <a href="entry-form.html" th:href="@{/inventory/addproduct/}" class="btn btn-success">Create new inventory</a>
+          <div class="panel">
+            <div class="panel-footer row">
+              <a href="entry-form.html" th:href="@{/inventory/addproduct/}" class="btn btn-success">Create new
+                inventory</a>
               <a href="add-category.html" th:href="@{/category/add}" class="btn btn-primary">Create new category</a>
-              <a href="add-subcategory.html" th:href="@{/subcategory/add}" class="btn btn-info">Create new subcategory</a>
+              <a href="add-subcategory.html" th:href="@{/subcategory/add}" class="btn btn-info">Create new
+                subcategory</a>
               <a href="add-brand.html" th:href="@{/brand/add}" class="btn btn-warning">Create new brand</a>
               <a href="ReorderReport.html" th:href="@{/inventory/report}" class="btn btn-primary">Reorder Report</a>
             </div>
-        </div>
-        
+          </div>
+
           <div class="panel">
             <div class="panel-heading">
               <h2>Product Listing</h2>
               <h3> Current stock on <span th:text=${today}>1 January 2020</span></h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body"style="overflow-x:auto;">
 
-			<form name="search" th:action="@{/inventory/search}">
+              <form name="search" th:action="@{/inventory/search}">
                 <div class="input-group" style="width:310px">
-					<input type="text" name="keyword" th:value="${keyword}" required class="form-control" placeholder="Search for inventory"/>
-					<span class="input-group-btn"><input type="submit" value="Search" class="btn btn-primary"/></span>
-				 </div>
-             </form>
-              </div>
+                  <input type="text" name="keyword" th:value="${keyword}" required class="form-control"
+                    placeholder="Search for inventory" />
+                  <span class="input-group-btn"><input type="submit" value="Search" class="btn btn-primary" /></span>
+                </div>
+              </form>
+
               <br>
 
-              <table class="table table-striped">
+              <table class="table table-striped" >
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
@@ -120,18 +128,19 @@
                   <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
                   <td th:text="${product.brand.brandName}">Brand</td>
                   <td><a href="edit-form.html" th:href="@{/inventory/editproduct/}+${product.id}"
-                  		class="btn btn-success">Edit</a></td>
+                      class="btn btn-success">Edit</a></td>
                   <td><a href="DeleteProduct.html" th:href="@{/inventory/deleteproduct/}+${product.id}"
                       class="btn btn-danger">Delete</a></td>
                 </tr>
               </table>
-              
             </div>
-            
+
           </div>
+
         </div>
       </div>
     </div>
+  </div>
 </body>
 
 </html>
