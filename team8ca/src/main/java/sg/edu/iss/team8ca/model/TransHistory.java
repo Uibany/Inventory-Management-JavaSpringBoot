@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class TransHistory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private TransType transType;
 
