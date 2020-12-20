@@ -195,4 +195,4 @@ public class ProductListingImpl implements ProductListingInterface {
 	public List<Inventory> list() {
 		return irepo.findAll();
 	}
-
+}
