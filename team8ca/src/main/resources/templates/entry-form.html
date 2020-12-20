@@ -13,6 +13,7 @@
 	<link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 	<script>
 		function mult(value) {
 			var w = value * 1.20;
@@ -81,7 +82,7 @@
 									<div class="col-lg-5">
 
 										<h3 class="panel-title">Name:</h3> <input type="text" th:field="*{productName}"
-											class="form-control">
+											class="form-control" required>
 										<br>
 
 										<h3 class="panel-title">Description:</h3> <input type="text"
@@ -90,7 +91,7 @@
 
 										<h3 class="panel-title">Original Price:</h3> <input type="text"
 											th:field="*{originalPrice}" name="originalPrice" class="form-control"
-											onkeyup="mult(this.value)">
+											onkeyup="mult(this.value)" required>
 										<br>
 
 										<h3 class="panel-title">Wholesale Price:</h3> <input type="text"

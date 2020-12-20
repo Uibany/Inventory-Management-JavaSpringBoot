@@ -12,6 +12,11 @@
 	<link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="./js/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/script.js"></script>
+	<script type="text/javascript" src="./js/bootstrap/bootstrap.js"></script>
+	
 <title>Add new subcategory</title>
 </head>
 <body>
@@ -62,7 +67,7 @@
 <div class="main">
 	<div class="main-content">
 		<div class="container-fluid">
-				<form action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
+				<form id="newSubcategory" action="" th:action="@{/subcategory/save}" th:object="${subcategory}" method="get">
 					<h3 class="panel-title"> Subcategory Name: </h3>
 						<input type="text" th:field="*{subcategoryName}" class="form-control" required> <br />
 					<h3 class="panel-title"> Subcategory Type: </h3>
