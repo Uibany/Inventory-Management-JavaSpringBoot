@@ -26,6 +26,8 @@ import sg.edu.iss.team8ca.repo.SupplierRepo;
 @Service
 @Transactional
 public class ProductListingImpl implements ProductListingInterface {
+	
+
 	@Autowired
 	BrandRepo brepo;
 	@Autowired
@@ -194,5 +196,10 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public List<Inventory> list() {
 		return irepo.findAll();
+	}
+	
+	@Override
+	public Inventory getProduct(long id) {
+		return irepo.findInvById(id);
 	}
 }
