@@ -116,7 +116,7 @@ footer {
   position: relative;
   left: 260px; }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 0px) {
   #wrapper .sidebar {
     /*left: -260px;*/ }
   #wrapper .main {
