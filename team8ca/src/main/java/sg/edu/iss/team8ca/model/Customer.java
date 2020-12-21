@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -26,22 +26,38 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<InvUsage> invUsage;
 	
-	@NotBlank
+	@NotEmpty(message = "*Please enter your username")
 	private String customerName;
-	@NotNull
+	@NotEmpty(message = "*Please enter your contact number")
 	private String contactNo;
-	@NotNull	
+	@NotEmpty(message = "*Please enter your email")
 	private String email;
-	@NotNull
+	@NotEmpty(message = "*Please enter your address")
 	private String address;
-	@NotNull
-	private int postalCode;
-	public Customer(@NotNull String customerName,@NotNull String contactNo,@NotNull String email,@NotNull String address,@NotNull int postalCode) {
+	
+	public Customer(List<InvUsage> invUsage, @NotEmpty(message = "*Please enter your username") String customerName,
+			@NotEmpty(message = "*Please enter your contact number") String contactNo,
+			@NotEmpty(message = "*Please enter your email") String email,
+			@NotEmpty(message = "*Please enter your address") String address) {
+		super();
+		this.invUsage = invUsage;
+		this.customerName = customerName;
+		this.contactNo = contactNo;
+		this.email = email;
+		this.address = address;
+	}
+
+	public Customer(@NotEmpty(message = "*Please enter your username") String customerName,
+			@NotEmpty(message = "*Please enter your contact number") String contactNo,
+			@NotEmpty(message = "*Please enter your email") String email,
+			@NotEmpty(message = "*Please enter your address") String address) {
 		super();
 		this.customerName = customerName;
 		this.contactNo = contactNo;
 		this.email = email;
 		this.address = address;
-		this.postalCode = postalCode;
 	}
+	
+	
+
 }

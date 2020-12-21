@@ -2,6 +2,7 @@
 package sg.edu.iss.team8ca.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,10 +30,8 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
 	public List<Inventory> invSearch(String keyword);
 	
-	@Query("Select i from Inventory i where i.stockQty < i.reorderLevel")
-	public List<Inventory> reorderreport();
-	
-	
+	@Query(value="select * from inventory i where i.brand_id in (select b.id from brand b where b.supplier_id = :id)", nativeQuery = true)
+	public List<Inventory> reorderreport(@Param("id") long id);
 	
 	@Query("SELECT i FROM Inventory i WHERE i.productName LIKE %?1%"
 			+ "OR i.description LIKE %?1%"
@@ -40,6 +39,6 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.dimension LIKE %?1%"
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
-	Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
-	
+	public Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
+
 }

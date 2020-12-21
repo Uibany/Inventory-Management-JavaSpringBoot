@@ -36,7 +36,8 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ReorderReportService;
-import sg.edu.iss.team8ca.service.SendEmailService;
+
+import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
@@ -44,6 +45,9 @@ import sg.edu.iss.team8ca.service.UserService;
 @Controller
 @RequestMapping("/inventory")
 public class ProductListingController {  
+	
+	@Autowired
+	private SupplierInterface supint;
 	
 	@Autowired
 	ReorderReportService reorser;
@@ -258,10 +262,16 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	@RequestMapping("/report")
-	public String reorderReport() {
-		reorser.printDatFile();
-		return "redirect:/inventory/list";
+	@RequestMapping("/select")
+	public String selectSupplier(Model model) {
+		model.addAttribute("supplier", supint.findAllSupplier());
+		return "reorderreport";
+	}
+	
+	@RequestMapping("/report/{id}")
+	public String reorderReport(@PathVariable("id") long id,Model model) {
+		model.addAttribute("message",reorser.printDatFile(id));
+		return "message";
 	}
 	
 	@RequestMapping(value = "/reorderlist", method = RequestMethod.GET)

@@ -38,16 +38,20 @@
 							class="img-responsive logo"></a>
 				</div>
 				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<span>Hi, Username.</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul>
-						</li>
-					</ul>
+					<div sec:authorize="isAuthenticated()">
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"> <span>Hi, <span
+										sec:authentication="name">Username</span>!
+								</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a href="#"><i class="lnr lnr-user"></i> <span>My
+												Profile</span></a></li>
+									<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+								</ul></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -112,7 +116,7 @@
 				<div class="panel shadow" id="report" th:if="${product!=null}">
 					<div class="panel-heading" id="report-heading">
 						<h3>Transaction History: &nbsp;&nbsp;<span th:text="${product.productName}"
-								class="text-primary">Product Name</span></h3>
+								class="text-primary">Product Name</span>(ID: <span th:text="${product.id}"></span>)</h3>
 						<h3 th:if="${start==null}">All transactions</h3>
 						<h3 th:if="${start!=null}">From:&nbsp;<span id="startDate" th:text="${start}"
 								class="text-primary"></span> &nbsp; &nbsp;To:&nbsp;<span id="endDate" th:text="${end}"
@@ -213,7 +217,7 @@
 			mywindow.document.write('<html><head><title>' + document.title + '</title>');
 			mywindow.document.write('</head><body >');
 			mywindow.document.write('<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>')
-			mywindow.document.write('<h1>' + document.title + '</h1>');
+			mywindow.document.write('<h1>Transaction Report</h1>');
 			mywindow.document.write(document.getElementById("report-heading").innerHTML);
 			mywindow.document.write(document.getElementById("report-body").innerHTML);
 			mywindow.document.write('</body></html>');
