@@ -178,7 +178,7 @@
 									[[${totalItems}]]</div>
 
 
-								<div style="display: inline;" align="right" th:if='${keyword!=null}'>
+								<div style="display: inline;" align="right" th:if='${keyword!=null and totalItems>0}'>
 									<ul class="pagination">
 										<li><a th:if="${currentPage > 1}"
 											th:href="@{'/customer/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
@@ -196,7 +196,7 @@
 									</ul>
 								</div>
 								
-								<div style="display: inline;" align="right" th:if='${keyword==null}'>
+								<div style="display: inline;" align="right" th:if='${keyword==null and totalItems>0}'>
 									<ul class="pagination">
 										<li><a th:if="${currentPage > 1}"
 											th:href="@{'/customer/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
