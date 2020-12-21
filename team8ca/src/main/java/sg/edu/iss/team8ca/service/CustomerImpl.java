@@ -48,6 +48,12 @@ public class CustomerImpl implements CustomerInterface{
 	
 	@Override
 	@Transactional (readOnly = true)
+	public Customer findCustomerByNameEmailContactAddress(String name, String email, String contactNo, String address) {
+		return cusrepo.findCusByNameEmailContactAddress(name, email, contactNo, address);	
+	}	
+	
+	@Override
+	@Transactional (readOnly = true)
 	public List<Customer> cusSearch(String keyword){
 		return cusrepo.cusSearch(keyword);
 	}

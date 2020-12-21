@@ -64,13 +64,6 @@
 								<p th:if="${#fields.hasErrors('address')}"
 									th:errors="*{address}"></p>
 							</fieldset>
-
-							<fieldset class="panel-title">
-								Postal Code <input class="form-control" type="text"
-									th:field="*{postalCode}" placeholder="Postal Code" required>
-								<p th:if="${#fields.hasErrors('postalCode')}"
-									th:errors="*{postalCode}"></p>
-							</fieldset>
 							<br />
 							<fieldset class="panel-title">
 								<button type="submit" class="btn btn-primary" value="Save">Save</button>
@@ -96,7 +89,6 @@
 								<th>Contact Number</th>
 								<th>Email</th>
 								<th>Address</th>
-								<th>Postal Code</th>
 								<th>Add existing customer</th>
 							</tr>
 							<tr th:each="cus:${customers}">
@@ -105,7 +97,6 @@
 								<td th:text=${cus.contactNo}>Contact Number</td>
 								<td th:text=${cus.email}>Email</td>
 								<td th:text=${cus.address}>Address</td>
-								<td th:text=${cus.postalCode}>Postal Code</td>
 								<td><a href="AddToForm.html"
 									th:href="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customer/}+${cus.id}">Add
 										to Form</a></td>

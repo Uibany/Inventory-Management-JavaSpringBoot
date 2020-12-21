@@ -90,7 +90,6 @@ public class DbSeederService implements CommandLineRunner {
 		loadInv();
 		loadInvUsage();
 		loadTrans();
-		loadCustomer();
 		loadFixset();
 
 	}
@@ -288,9 +287,9 @@ public class DbSeederService implements CommandLineRunner {
 	}
 
 	private void loadCustomer() {
-		Customer customer1 = new Customer("Timothy", "+659124526", "Tim@gmail.com", "Ang Mo Kio Avenue 5", 125468);
+		Customer customer1 = new Customer("Timothy", "+659124526", "Tim@gmail.com", "Ang Mo Kio Avenue 5");
 		cusRepo.save(customer1);
-		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2", 246859);
+		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2");
 		cusRepo.save(customer2);
 	}
 	

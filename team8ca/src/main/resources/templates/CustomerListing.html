@@ -66,7 +66,7 @@
 						<li><a th:href="@{~/user/list}" class=""><i
 								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
 						<li><a th:href="@{~/customer/list}" class="active"><i
-								class="lnr lnr-cog"></i> <span>Manage Customers</span></a></li>
+								class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -92,7 +92,6 @@
 									<th>Contact no</th>
 									<th>Customer address</th>
 									<th>Customer email</th>
-									<th>Customer postal code</th>
 									<th>Edit Customer</th>
 									<th>Delete Customer</th>
 								</tr>
@@ -102,7 +101,6 @@
 									<td th:text=${cus.contactNo}>Contact no</td>
 									<td th:text=${cus.address}>Address</td>
 									<td th:text=${cus.email}>Email id</td>
-									<td th:text=${cus.postalCode}>Postal code</td>
 									<td><a href="EditCustomer.html"
 										th:href="@{/customer/edit/}+${cus.id}"
 										class="btn btn-success">Edit</a></td>
