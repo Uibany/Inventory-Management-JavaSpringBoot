@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import sg.edu.iss.team8ca.model.Customer;
 import sg.edu.iss.team8ca.model.InvUsage;
@@ -68,75 +69,83 @@ public class UsageFormController {
 	}
 
 //	New usage report
-	@RequestMapping(value = "/addforms/addformdescription/{id}", method = RequestMethod.GET)
-	public String addUsageReport(Model model, @PathVariable("id") Long id) {
-		User user = uservice.findUserById(id);
+	@RequestMapping(value = "/addforms/addformdetails/{userid}", method = RequestMethod.GET)
+	public String addUsageReportNewCust(Model model, @PathVariable("userid") Long userid) {
+		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
-		return "UsageReportDescription";
-	}
-
-	@RequestMapping(value = "/addforms/user/{userid}/addusagecustomer", method = RequestMethod.GET)
-	public String addUsageCustomer(Model model, @PathVariable("userid") Long id, @RequestParam("tasks") String tasks) {
-		User user = uservice.findUserById(id);
-		InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
-		iuservice.addUsage(usageform);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", usageform);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", new Customer());
-		usageform.setTasks(tasks);
-		iuservice.addUsage(usageform);
-		return "UsageReportCustomer";
+		return "UsageReportCustTask";
 	}
 
-	@RequestMapping(value = "/addforms/customersearch/{usageformid}", method = RequestMethod.GET)
-	public String addUsageCustomerSearch(Model model, @PathVariable("usageformid") Long id,
-			@Param("keyword") String keyword) {
-		InvUsage usageform = iuservice.findUsageById(id);
-		List<Customer> customers = cuservice.cusSearch(keyword);
-		model.addAttribute("usageform", usageform);
-		model.addAttribute("customers", customers);
-		model.addAttribute("customer", new Customer());
-		return "UsageReportCustomer";
-	}
-
-//	new cutomer
-	@RequestMapping(value = "/addforms/usageform/{id}/savecustomer")
-	public String addNewCustomerToUsageReport(@PathVariable("id") Long id,
-			@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, Model model) {
-
-		if (bindingResult.hasErrors()) {
-			return "UsageReportCustomer";
-		}
-		InvUsage usageform = iuservice.findUsageById(id);
-		cuservice.saveCustomer(customer);
-		usageform.setCustomer(customer);
-		iuservice.addUsage(usageform);
-		return "forward:/invusage/usageforms/" + id;
-	}
-
-//	existing customer
-	@RequestMapping(value = "/addforms/usageform/{id}/addcustomer/{custid}", method = RequestMethod.GET)
-	public String addExistingCustomerToUsageReport(@PathVariable("id") Long id, @PathVariable("custid") Long custid,
-			Model model) {
-		InvUsage usageform = iuservice.findUsageById(id);
+//	add customers
+	@RequestMapping(value = "/addforms/addformdetails/userid/{userid}/customer/{custid}", method = RequestMethod.GET)
+	public String addUsageReportExistingCust(Model model, @PathVariable("userid") Long userid,
+			@PathVariable("custid") Long custid) {
+		User user = uservice.findUserById(userid);
+		model.addAttribute("user", user);
 		Customer customer = cuservice.findCustomerById(custid);
-		usageform.setCustomer(customer);
-		iuservice.addUsage(usageform);
-		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
-		model.addAttribute("usageform", usageform);
-		model.addAttribute("udList", udList);
-		model.addAttribute("invList", invList);
-		return "usage-details";
+		List<Customer> customers = cuservice.findAllCustomer();
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
+		model.addAttribute("customers", customers);
+		model.addAttribute("customer", customer);
+		return "UsageReportCustTask";
+	}
+
+//customer search
+	@RequestMapping(value = "/addforms/addformdetails/userid/{userid}/customersearch/{custid}", method = RequestMethod.GET)
+	public String addUsageCustomerSearch(Model model, @PathVariable("userid") Long userid,
+			@PathVariable("custid") Long custid, @Param("keyword") String keyword) {
+		User user = uservice.findUserById(userid);
+		model.addAttribute("user", user);
+		List<Customer> customers = cuservice.cusSearch(keyword);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
+		model.addAttribute("customers", customers);
+		if (custid==0) {
+			model.addAttribute("customer", new Customer());
+		} else {
+			model.addAttribute("customer", cuservice.findCustomerById(custid));
+		}
+
+		return "UsageReportCustTask";
+	}
+
+//save usage details
+	@RequestMapping(value = "/addforms/saveusageform/userid/{userid}", method = RequestMethod.GET)
+	public String addUsageFormDetails(Model model, @PathVariable("userid") Long userid, @ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, WebRequest request) {
+		if(bindingResult.hasErrors()) {
+			return "UsageReportCustTask";
+		}
+		else {
+
+			if(cuservice.findCustomerByName(customer.getCustomerName()) != null) {
+				Customer customer1 = cuservice.findCustomerByName(customer.getCustomerName());				
+				cuservice.saveCustomer(customer1);				
+			}
+			else {
+				Customer customer1 = new Customer(customer.getCustomerName(),customer.getContactNo(), customer.getEmail(),  customer.getAddress(), customer.getPostalCode());
+				cuservice.saveCustomer(customer1);	
+			}
+			Customer customer1 = cuservice.findCustomerByName(customer.getCustomerName());
+			User user = uservice.findUserById(userid);
+			model.addAttribute("user", user);			
+			String tasks = request.getParameter("task");
+			InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
+			usageform.setCustomer(customer1);
+			usageform.setTasks(tasks);
+			iuservice.addUsage(usageform);
+			return "forward:/invusage/usageforms/" + usageform.getId();
+		}
 	}
 
 //	Update inventory details
-	@RequestMapping(value = "/usageforms/{id}", method = RequestMethod.GET)
-	public String mapInvInvUsage(@PathVariable("id") Long id, Model model) {
+	@RequestMapping(value = "/usageforms/{usageformid}", method = RequestMethod.GET)
+	public String mapInvInvUsage(@PathVariable("usageformid") Long usageformid, Model model) {
 		List<Inventory> invList = iuservice.listAllInventory();
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
-		InvUsage iu = iuservice.findUsageById(id);
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageformid);
+		InvUsage iu = iuservice.findUsageById(usageformid);
 		model.addAttribute("usageform", iu);
 		model.addAttribute("udList", udList);
 		model.addAttribute("invList", invList);
@@ -144,11 +153,12 @@ public class UsageFormController {
 	}
 
 //	Update inventory details with search parameters
-	@RequestMapping(value = "/usageforms/search/{id}", method = RequestMethod.GET)
-	public String invSearch(@PathVariable("id") Long id, @Param("keyword") String keyword, Model model) {
+	@RequestMapping(value = "/usageforms/search/{usageformid}", method = RequestMethod.GET)
+	public String invSearch(@PathVariable("usageformid") Long usageformid, @Param("keyword") String keyword,
+			Model model) {
 		List<Inventory> invList = iuservice.invSearch(keyword);
-		List<UsageDetails> udList = iuservice.listDetailsForUdId(id);
-		InvUsage iu = iuservice.findUsageById(id);
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageformid);
+		InvUsage iu = iuservice.findUsageById(usageformid);
 		model.addAttribute("usageform", iu);
 		model.addAttribute("udList", udList);
 		model.addAttribute("invList", invList);
