@@ -20,65 +20,37 @@
 <body>
   <div id="wrapper">
     <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid navbar-menu">
-        <div class="brand">
-          <a href="index.html"><img src="../static/images/logo.png" th:src="@{/images/logo.png}" alt="Logo"
-              class="img-responsive logo"></a>
-        </div>
-        <div id="navbar-menu">
-          <div sec:authorize="isAuthenticated()">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <span>Hi, <span
-										sec:authentication="name">Username</span>!
-								</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="#"><i class="lnr lnr-user"></i> <span>My
-												Profile</span></a></li>
-									<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-								</ul></li>
-						</ul>
-					</div>
-        </div>
-      </div>
-    </nav>
+		<nav th:replace="fragments/layout.html :: navbar"></nav>
     <!-- sidebar -->
-    <div th:fragment="sidebar" id="sidebar-nav" class="sidebar">
-      <div class="sidebar-scroll">
-        <nav>
-          <ul class="nav">
-            <li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
-            <li><a th:href="@{~/inventory/list}" class="active"><i class="lnr lnr-car"></i> <span>View
-                  Products</span></a></li>
-            <li><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry
-                  Forms</span></a></li>
-            <li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage
-                  Forms</span></a></li>
-            <li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction
-                  Report</span></a></li>
-            <li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a>
-            </li>
-            <li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
+    	<div th:fragment="sidebar-viewProducts" id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">		
+						<li><a th:href="@{~/inventory/list}" class="active"><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
+						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
+						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
+						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
+						<li><a th:href="@{~/customer/list}" class=""><i class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
+						<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>			
+					</ul>
+				</nav>
+			</div>
+		</div>
+		
     <div class="main">
       <!-- MAIN CONTENT -->
       <div class="main-content">
         <div class="container-fluid">
           <div class="panel">
             <div class="panel-footer row">
-              <a href="entry-form.html" th:href="@{/inventory/addproduct/}" class="btn btn-success">Create new
+              <a sec:authorize="hasAuthority('ADMIN')" href="entry-form.html" th:href="@{/inventory/addproduct/}" class="btn btn-success">Create new
                 inventory</a>
-              <a href="add-category.html" th:href="@{/category/add}" class="btn btn-primary">Create new category</a>
-              <a href="add-subcategory.html" th:href="@{/subcategory/add}" class="btn btn-info">Create new
-                subcategory</a>
-              <a href="add-brand.html" th:href="@{/brand/add}" class="btn btn-warning">Create new brand</a>
-              <a href="ReorderReport.html" th:href="@{/inventory/report}" class="btn btn-primary">Reorder Report</a>
-              <a href="reorder-product.html" th:href="@{/inventory/reorderlist}" class="btn btn-info">Reorder products</a>
+              <a sec:authorize="hasAuthority('ADMIN')" href="add-category.html" th:href="@{/category/add}" class="btn btn-primary">Manage category</a>
+              <a sec:authorize="hasAuthority('ADMIN')" href="add-subcategory.html" th:href="@{/subcategory/add}" class="btn btn-info">Manage subcategory</a>
+              <a sec:authorize="hasAuthority('ADMIN')" href="add-brand.html" th:href="@{/brand/add}" class="btn btn-warning">Manage brand</a>
+              <a sec:authorize="hasAuthority('ADMIN')" href="reorder-product.html" th:href="@{/inventory/reorderlist}" class="btn btn-primary">Reorder products</a>
+              <a href="ReorderReport.html" th:href="@{/inventory/report}" class="btn btn-info">Reorder Report</a>
             </div>
           </div>
 
@@ -127,36 +99,38 @@
 
               <table class="table table-striped" >
                 <tr>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
                   		ID</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=productName&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=productName&sortDir=' + ${reverseSortDir}}">
                   		Name</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=description&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=description&sortDir=' + ${reverseSortDir}}">
                   		Description</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=originalPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=originalPrice&sortDir=' + ${reverseSortDir}}">
                   		Original Price</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=wholesalePrice&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=wholesalePrice&sortDir=' + ${reverseSortDir}}">
                   		Wholesale Price</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=retailPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=retailPrice&sortDir=' + ${reverseSortDir}}">
                   		Retail Price</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=partnerPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=partnerPrice&sortDir=' + ${reverseSortDir}}">
                   		Partner Price</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=stockQty&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=stockQty&sortDir=' + ${reverseSortDir}}">
                   		Stock Quantity</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=reorderLevel&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=reorderLevel&sortDir=' + ${reverseSortDir}}">
                   		Reorder Level</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=minimumOrder&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=minimumOrder&sortDir=' + ${reverseSortDir}}">
                   		Minimum Order</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=colour&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=colour&sortDir=' + ${reverseSortDir}}">
                   		Colour</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=dimension&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=dimension&sortDir=' + ${reverseSortDir}}">
                   		Dimension</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=subcategory&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=subcategory&sortDir=' + ${reverseSortDir}}">
                   		Subcategory</a></th>
-                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=brand&sortDir=' + ${reverseSortDir}}">
+                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=brand&sortDir=' + ${reverseSortDir}}">
                   		Brand</a></th>
+                  <div sec:authorize="hasAuthority('ADMIN')">
                   <th>Edit</th>
                   <th>Delete</th>
+                  </div>
                 </tr>
                 <tr th:each="product:${plist}">
                   <td th:text="${product.id}">ID</td>
@@ -173,8 +147,10 @@
                   <td th:text="${product.dimension}">Dimension</td>
                   <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
                   <td th:text="${product.brand.brandName}">Brand</td>
+                  <div sec:authorize="hasAuthority('ADMIN')">
                   <td><a href="edit-form.html" th:href="@{/inventory/editproduct/}+${product.id}" class="btn btn-success">Edit</a></td>
                   <td><a href="DeleteProduct.html" th:href="@{/inventory/deleteproduct/}+${product.id}" class="btn btn-danger">Delete</a></td>
+                  </div>
                 </tr>
               </table>
               
