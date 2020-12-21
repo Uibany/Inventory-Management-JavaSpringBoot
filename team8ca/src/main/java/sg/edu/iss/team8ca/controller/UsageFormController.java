@@ -119,13 +119,13 @@ public class UsageFormController {
 			return "UsageReportCustTask";
 		}
 		else {
-
-			if(cuservice.findCustomerByName(customer.getCustomerName()) != null) {
+			Customer findcustomer = cuservice.findCustomerByNameEmailContactAddress(customer.getCustomerName(), customer.getEmail(), customer.getContactNo(), customer.getAddress());
+			if(findcustomer != null) {
 				Customer customer1 = cuservice.findCustomerByName(customer.getCustomerName());				
 				cuservice.saveCustomer(customer1);				
 			}
 			else {
-				Customer customer1 = new Customer(customer.getCustomerName(),customer.getContactNo(), customer.getEmail(),  customer.getAddress(), customer.getPostalCode());
+				Customer customer1 = new Customer(customer.getCustomerName(),customer.getContactNo(), customer.getEmail(),  customer.getAddress());
 				cuservice.saveCustomer(customer1);	
 			}
 			Customer customer1 = cuservice.findCustomerByName(customer.getCustomerName());

@@ -10,6 +10,7 @@ public interface CustomerInterface {
 	public void deleteSupplier(Customer cus);
 	public List<Customer> findAllCustomer();
 	public Customer findCustomerById(long id);
+	public Customer findCustomerByNameEmailContactAddress(String name, String email, String contactNo, String address);
 	public Customer findCustomerByName(String name);
 	public List<Customer> cusSearch(String keyword);
 	public void addCustomer (Customer customer);
