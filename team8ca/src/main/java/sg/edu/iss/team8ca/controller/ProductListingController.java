@@ -294,6 +294,16 @@ public class ProductListingController {
 		return "reorder-product";
 	}
 	
+	@RequestMapping("/search/reorder")
+	public String searchReorder(Model model, @Param("keyword") String keyword) {
+		List<Inventory> plist = plService.list(keyword);
+		LocalDate today = LocalDate.now();
+		model.addAttribute("plist", plist);
+		model.addAttribute("today", today.toString());
+		model.addAttribute("keyword", keyword);
+		return "reorder-product";
+	}
+	
 	@RequestMapping(value = "/reorder/{id}", method = RequestMethod.GET)
 	public String reorderProduct(@PathVariable("id") Long id, 
 			@RequestParam("inv_quantity") int quantity) {
