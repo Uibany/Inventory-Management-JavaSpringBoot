@@ -117,8 +117,6 @@ public class ProductListingController {
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("keyword", keyword);
-	
-	
 
 		return "product-listing";
 	}
