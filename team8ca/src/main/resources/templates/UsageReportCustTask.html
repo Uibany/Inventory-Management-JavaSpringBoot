@@ -15,12 +15,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<style>
-		th {
-			position: sticky;
-			top: 0;
-			background-color: gainsboro;
-		}
+			.tableFixHead { overflow-y: auto; max-height: 350px; }
+			.tableFixHead thead th { position: sticky; top: 0;background:#eee; }
 	</style>
+
 </head>
 
 <body>
@@ -108,8 +106,9 @@
 									</form>
 									<br>
 							
-									<div style=" max-height: 400px; overflow-y: scroll;">
-										<table class="table table-striped" style="overflow-x: auto;">
+									<div class="tableFixHead">
+										<table class="table table-striped">
+											<thead>
 											<tr>
 												<th>Customer ID</th>
 												<th>Customer Name</th>
@@ -118,6 +117,8 @@
 												<th>Address</th>
 												<th>Add existing customer</th>
 											</tr>
+											</thead>
+											<tbody>
 										
 											<tr th:each="cus:${customers}">
 												<td th:text=${cus.id}>Customer ID</td>
@@ -129,6 +130,7 @@
 													th:href="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customer/}+${cus.id}" class="btn btn-success">Add
 														to Form</a></td>
 											</tr>
+											</tbody>
 										</table>
 									</div>	
 								</div>
