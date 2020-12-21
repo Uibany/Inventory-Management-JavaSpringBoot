@@ -1,8 +1,8 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Customer;
+import sg.edu.iss.team8ca.model.Fixset;
 import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
-import sg.edu.iss.team8ca.model.Fixset;
-import sg.edu.iss.team8ca.model.FixsetItem;
+import sg.edu.iss.team8ca.model.Product;
 import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.TransHistory;
@@ -25,12 +25,11 @@ import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
-import sg.edu.iss.team8ca.repo.FixsetItemRepo;
-import sg.edu.iss.team8ca.repo.FixsetRepo;
-
 import sg.edu.iss.team8ca.repo.CustomerRepo;
+import sg.edu.iss.team8ca.repo.FixsetRepo;
 import sg.edu.iss.team8ca.repo.InvUsageRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
+import sg.edu.iss.team8ca.repo.ProductRepo;
 import sg.edu.iss.team8ca.repo.RoleRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
 import sg.edu.iss.team8ca.repo.SupplierRepo;
@@ -70,15 +69,15 @@ public class DbSeederService implements CommandLineRunner {
 
 	@Autowired
 	UsageDetailsRepo udRepo;
-
-	@Autowired
-	FixsetRepo fRepo;
-
-	@Autowired
-	FixsetItemRepo fiRepo;
 	
 	@Autowired
 	CustomerRepo cusRepo;
+	
+	@Autowired
+	ProductRepo pRepo;
+	
+	@Autowired
+	FixsetRepo fRepo;
 
 
 	@Override
@@ -90,8 +89,8 @@ public class DbSeederService implements CommandLineRunner {
 		loadInv();
 		loadInvUsage();
 		loadTrans();
-		loadFixset();
-
+		loadProducts();
+		loadFixsets();
 	}
 
 	private String passwordEncoder(String password) {
@@ -313,28 +312,45 @@ public class DbSeederService implements CommandLineRunner {
 		cusRepo.save(customer12);
 	}
 	
-	private void loadFixset() {		
-		Inventory inv1 = invRepo.findInvById(1);
-		Inventory inv2 = invRepo.findInvById(2);
-		Inventory inv3 = invRepo.findInvById(3);
-		Inventory inv4 = invRepo.findInvById(4);
-		Inventory inv5 = invRepo.findInvById(5);
+	
+	private void loadProducts() {
+		Product product1 = new Product("Tyre", 4);
+		Product product2 = new Product("Jack", 1);
+		Product product3 = new Product("Wrench", 1);
+		Product product4 = new Product("Spanner", 2);
+		Product product5 = new Product("Headlight", 2);
+		Product product6 = new Product("Screwdriver", 1);
+		pRepo.save(product1);
+		pRepo.save(product2);
+		pRepo.save(product3);
+		pRepo.save(product4);
+		pRepo.save(product5);
+		pRepo.save(product6);
 		
-		Fixset fixset1 = new Fixset("Fixset 1");
+	}
+	
+	
+	private void loadFixsets() {
+		
+		Product product1 = pRepo.findProductByProductId(1);
+		Product product2 = pRepo.findProductByProductId(2);
+		Product product3 = pRepo.findProductByProductId(3);
+		Product product4 = pRepo.findProductByProductId(4);
+		Product product5 = pRepo.findProductByProductId(5);
+		Product product6 = pRepo.findProductByProductId(6);
+		
+		Fixset fixset1 = new Fixset("Fixset 1", LocalDate.now(), 1, product1);
+		Fixset fixset2 = new Fixset("Fixset 1", LocalDate.now(), 1, product2);
+		Fixset fixset3 = new Fixset("Fixset 1", LocalDate.now(), 1, product3);
+		Fixset fixset4 = new Fixset("Fixset 1", LocalDate.now(), 1, product4);
+		Fixset fixset5 = new Fixset("Fixset 2", LocalDate.now(), 1, product5);
+		Fixset fixset6 = new Fixset("Fixset 2", LocalDate.now(), 1, product6);
 		fRepo.save(fixset1);
-		Fixset fixset2 = new Fixset("Fixset 2");
 		fRepo.save(fixset2);
-		
-		FixsetItem fItem1 = new FixsetItem(fixset1, inv1, 1);
-		fiRepo.save(fItem1);
-		FixsetItem fItem2 = new FixsetItem(fixset1, inv2, 1);
-		fiRepo.save(fItem2);
-		FixsetItem fItem3 = new FixsetItem(fixset1, inv3, 2);
-		fiRepo.save(fItem3);
-		FixsetItem fItem4 = new FixsetItem(fixset2, inv4, 1);
-		fiRepo.save(fItem4);
-		FixsetItem fItem5 = new FixsetItem(fixset2, inv5, 4);
-		fiRepo.save(fItem5);
+		fRepo.save(fixset3);
+		fRepo.save(fixset4);
+		fRepo.save(fixset5);
+		fRepo.save(fixset6);
 	}
 	
 	
