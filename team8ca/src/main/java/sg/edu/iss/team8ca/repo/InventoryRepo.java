@@ -2,6 +2,7 @@
 package sg.edu.iss.team8ca.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,8 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.dimension LIKE %?1%"
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
-	Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
+	public Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
+
+
 	
 }

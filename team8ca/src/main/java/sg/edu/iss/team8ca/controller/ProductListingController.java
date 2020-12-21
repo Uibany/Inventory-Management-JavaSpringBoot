@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnitUtil;
@@ -69,24 +70,31 @@ public class ProductListingController {
 		int pageSize = 5;
 		int pageNo = 1;
 		String sortField = "id";
-		String sortDirection = "asc";
-		Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDirection);
+		String sortDir = "asc";
+		String keyword = "";
+		Page<Inventory> page = plService.findPaginated(keyword, pageNo, pageSize, sortField, sortDir);
 		List<Inventory> plist = page.getContent(); 
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
+		model.addAttribute("keyword", keyword);
+		
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("pageSize", pageSize);
+
 		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDirection);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 	
 		return "product-listing";
 	}
 	
 
 	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	public String searchWithPage(String keyword ,@PathVariable ( value = "pageNo") int pageNo, 
+	public String searchWithPage(@RequestParam ("keyword") String keyword,
+			@PathVariable ( value = "pageNo") int pageNo, 
 			@PathVariable ( value = "pageSize") int pageSize, 
 			@RequestParam ("sortField") String sortField,
 			@RequestParam ("sortDir")String sortDir, Model model)  {
@@ -100,8 +108,12 @@ public class ProductListingController {
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-	
-	
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+		
 		return "product-listing";
 	}
 
