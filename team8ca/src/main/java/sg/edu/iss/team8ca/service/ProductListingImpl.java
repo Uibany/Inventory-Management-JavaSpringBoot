@@ -213,11 +213,13 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
 		
-		if (keyword == null) {
-			return irepo.findAll(pageable);
+			if (keyword == null) {
+				return irepo.findAll(pageable);
 		}
 		return irepo.findBykeywordContaining(keyword, pageable);
 		
 	}
+
+
 
 }

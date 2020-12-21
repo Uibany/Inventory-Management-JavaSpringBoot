@@ -46,6 +46,7 @@ public interface ProductListingInterface {
 	public Category findCategoryById(Long id);
 	public Inventory getProduct(long id);
    
+	
 	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection);
 	
 
