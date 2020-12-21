@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Supplier Listing</title>
+<title>Customer Listing</title>
 <link type="text/css" media="all" href="../static/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link type="text/css" media="all"
@@ -61,11 +61,11 @@
 								class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i
 								class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~/supplier/list}" class="active"><i
+						<li><a th:href="@{~/supplier/list}" class=""><i
 								class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
 						<li><a th:href="@{~/user/list}" class=""><i
 								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
-						<li><a th:href="@{~/customer/list}" class=""><i
+						<li><a th:href="@{~/customer/list}" class="active"><i
 								class="lnr lnr-cog"></i> <span>Manage Customers</span></a></li>
 					</ul>
 				</nav>
@@ -78,7 +78,7 @@
 				<div class="container-fluid">
 					<div class="panel">
 						<div class="panel-heading">
-							<h2>Manage Supplier</h2>
+							<h2>Manage Customer</h2>
 						</div>
 						<div class="panel-body">
 							<a href="CustomerForm.html" th:href="@{/customer/add}"
@@ -90,9 +90,8 @@
 									<th>Customer Id</th>
 									<th>Customer Name</th>
 									<th>Contact no</th>
-									<th>Address</th>
-									<th>Customer email</th>
 									<th>Customer address</th>
+									<th>Customer email</th>
 									<th>Customer postal code</th>
 									<th>Edit Customer</th>
 									<th>Delete Customer</th>
@@ -108,7 +107,7 @@
 										th:href="@{/customer/edit/}+${cus.id}"
 										class="btn btn-success">Edit</a></td>
 									<td><a href="DeleteCustomer.html"
-										th:href="@{/cus/delete/}+${cus.id}"
+										th:href="@{/customer/delete/}+${cus.id}"
 										class="btn btn-danger">Delete</a></td>
 								</tr>
 							</table>
