@@ -37,7 +37,7 @@
 								<input type="text" class="form-control" name="task"
 									placeholder="Tasks description here" required />
 							</fieldset>
-							<h1>Customer details</h1>
+							<h1>Customer Details</h1>
 							<fieldset class="panel-title">
 								Customer Name <input class="form-control" type="text"
 									th:field="*{customerName}" placeholder="Name" required>
@@ -69,43 +69,63 @@
 								<button type="submit" class="btn btn-primary" value="Save">Save</button>
 							</fieldset>
 						</form>
-						<table>
-							<tr>
-								<td>
-									<form name="invSearch"
-										th:action="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customersearch/}+${customer.id}">
-										<h1>Add existing customer information</h1>
-										<input type="text" name="keyword" value=""
-											placeholder="Search details here" /> &nbsp; <input
-											type="submit" value="Search" />
-									</form>
-								</td>
-							</tr>
-						</table>
-						<table>
-							<tr>
-								<th>Customer ID</th>
-								<th>Customer Name</th>
-								<th>Contact Number</th>
-								<th>Email</th>
-								<th>Address</th>
-								<th>Add existing customer</th>
-							</tr>
-							<tr th:each="cus:${customers}">
-								<td th:text=${cus.id}>Customer ID</td>
-								<td th:text=${cus.customerName}>Customer Name</td>
-								<td th:text=${cus.contactNo}>Contact Number</td>
-								<td th:text=${cus.email}>Email</td>
-								<td th:text=${cus.address}>Address</td>
-								<td><a href="AddToForm.html"
-									th:href="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customer/}+${cus.id}">Add
-										to Form</a></td>
-							</tr>
-						</table>
+						
+						<div class="main">
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
+			<div class="container-fluid">
+				<div class="panel">
+					<div class="panel-body row">
+						<div class="panel">
+							<div class="panel-heading">
+								<h2>Add Existing Customer Information</h2>
+								<form name="cusSearch"
+									th:action="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customersearch/}+${customer.id}">
+									<div class="input-group">
+										<span class="input-group-btn"><input type="text"
+											name="keyword" value="" placeholder="Search details here" />
+											&nbsp; <input type="submit" value="Search" /></span>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="panel-body"
+							style="max-height: 400px; overflow-y: scroll;">
+							<table class="table table-striped" style="overflow-x: auto;">
+								<tr>
+									<th>Customer ID</th>
+									<th>Customer Name</th>
+									<th>Contact Number</th>
+									<th>Email</th>
+									<th>Address</th>
+									<th>Add existing customer</th>
+								</tr>
+								<tr th:each="cus:${customers}">
+									<td th:text=${cus.id}>Customer ID</td>
+									<td th:text=${cus.customerName}>Customer Name</td>
+									<td th:text=${cus.contactNo}>Contact Number</td>
+									<td th:text=${cus.email}>Email</td>
+									<td th:text=${cus.address}>Address</td>
+									<td><a href="AddToForm.html"
+										th:href="@{/invusage/addforms/addformdetails/userid/}+${user.id}+@{/customer/}+${cus.id}">Add
+											to Form</a></td>
+								</tr>
+							</table>
+							<br />
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
 </body>
 </html>

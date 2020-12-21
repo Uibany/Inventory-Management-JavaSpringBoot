@@ -186,9 +186,11 @@ public class UsageFormController {
 		inventory.setStockQty(inventory.getStockQty() + Math.toIntExact(ud.getQuantity()));
 		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
-		TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory,
-				LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
-		thservice.saveTrans(trans);
+		if (ud.getQuantity() >0){
+				TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory,
+				LocalDate.now(), LocalTime.now(ZoneId.of("Singapore")), user);
+				thservice.saveTrans(trans);
+		}
 		return "forward:/invusage/usageforms/" + id1;
 	}
 
@@ -216,7 +218,7 @@ public class UsageFormController {
 			pservice.saveProduct(inventory);
 
 			TransHistory trans = new TransHistory(TransType.Usage, -Math.toIntExact(quantity), inventory,
-					LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+					LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), user);
 			thservice.saveTrans(trans);
 
 			if (inventory.getStockQty() < inventory.getReorderLevel()) {
