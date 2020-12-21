@@ -13,7 +13,7 @@
   <link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
+
   <title>Product Listing</title>
 </head>
 
@@ -82,49 +82,73 @@
               <h2>Product Listing</h2>
               <h3> Current stock on <span th:text=${today}>1 January 2020</span></h3>
             </div>
-            <div class="panel-body"style="overflow-x:auto;">
-
-              <form name="searchwithPage" th:action="@{'/inventory/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
-                <div class="input-group" style="width:310px">
-                  <input type="text" name="keyword" th:value="${keyword}" required class="form-control"
-                    placeholder="Search for inventory" />
-                    <input type="hidden" name="sortField" th:value="${sortField}">
-                    <input type="hidden" name="sortDir" th:value="${sortDir}">
-                  <span class="input-group-btn"><input type="submit" value="Search" class="btn btn-primary" /></span>
+            <div class="panel-body" style="overflow-x:auto;">
+              <div class="row">
+                <div class="col-lg-8">
+                  <form name="searchwithPage"
+                    th:action="@{'/inventory/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+                    <div class="input-group" style="width:310px">
+                      <input type="text" name="keyword" th:value="${keyword}" required class="form-control"
+                        placeholder="Search for inventory" />
+                      <input type="hidden" name="sortField" th:value="${sortField}">
+                      <input type="hidden" name="sortDir" th:value="${sortDir}">
+                      <span class="input-group-btn"><input type="submit" value="Search"
+                          class="btn btn-primary" /></span>
+                    </div>
+                  </form>
                 </div>
-              </form>
-
+                <div class="col-lg-4">
+                  
+                  <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      No.of Entries Per Page</button>
+                    <li class="dropdown-menu">
+                      <ul><a
+                          th:href="@{'/inventory/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                          class="dropdown-item">5</a></ul>
+                      <ul><a
+                          th:href="@{'/inventory/search/page/1/10?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                          class="dropdown-item">10</a></ul>
+                      <ul><a
+                          th:href="@{'/inventory/search/page/1/20?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                          class="dropdown-item">20</a></ul>
+                    </li>
+                  </div>
+                  
+						    </div>
+              </div>
               <br>
 
               <table class="table table-striped" >
                 <tr>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
                   		ID</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=productName&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=productName&sortDir=' + ${reverseSortDir}}">
                   		Name</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=description&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=description&sortDir=' + ${reverseSortDir}}">
                   		Description</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=originalPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=originalPrice&sortDir=' + ${reverseSortDir}}">
                   		Original Price</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=wholesalePrice&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=wholesalePrice&sortDir=' + ${reverseSortDir}}">
                   		Wholesale Price</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=retailPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=retailPrice&sortDir=' + ${reverseSortDir}}">
                   		Retail Price</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=partnerPrice&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=partnerPrice&sortDir=' + ${reverseSortDir}}">
                   		Partner Price</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=stockQty&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=stockQty&sortDir=' + ${reverseSortDir}}">
                   		Stock Quantity</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=reorderLevel&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=reorderLevel&sortDir=' + ${reverseSortDir}}">
                   		Reorder Level</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=minimumOrder&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=minimumOrder&sortDir=' + ${reverseSortDir}}">
                   		Minimum Order</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=colour&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=colour&sortDir=' + ${reverseSortDir}}">
                   		Colour</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=dimension&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=dimension&sortDir=' + ${reverseSortDir}}">
                   		Dimension</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=subcategory&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=subcategory&sortDir=' + ${reverseSortDir}}">
                   		Subcategory</a></th>
-                  <th><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=brand&sortDir=' + ${reverseSortDir}}">
+                  <th><ul><a th:href="@{'/inventory/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=brand&sortDir=' + ${reverseSortDir}}">
                   		Brand</a></th>
                   <th>Edit</th>
                   <th>Delete</th>
@@ -144,62 +168,36 @@
                   <td th:text="${product.dimension}">Dimension</td>
                   <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
                   <td th:text="${product.brand.brandName}">Brand</td>
-                  <td><a href="edit-form.html" th:href="@{/inventory/editproduct/}+${product.id}"
-                      class="btn btn-success">Edit</a></td>
-                  <td><a href="DeleteProduct.html" th:href="@{/inventory/deleteproduct/}+${product.id}"
-                      class="btn btn-danger">Delete</a></td>
+                  <td><a href="edit-form.html" th:href="@{/inventory/editproduct/}+${product.id}" class="btn btn-success">Edit</a></td>
+                  <td><a href="DeleteProduct.html" th:href="@{/inventory/deleteproduct/}+${product.id}" class="btn btn-danger">Delete</a></td>
                 </tr>
               </table>
+              
+              
 
-            </div>
-
-				<div>
-					<div style="display: inline;"
-						class = "row col-sm-10">
-						<div class = "col-sm-2">
-						No. of Search items: [[${totalItems}]] 
-						</div>
-				
-				
-						<div style="display: inline;" align="right">
-							<ul class="pagination">
-								<li><a th:if="${currentPage > 1}" th:href="@{'/inventory/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
-									<a th:unless="${currentPage >1}">&laquo;</a>
-								</li>
-  							
-								<li th:each="i : ${#numbers.sequence(1, totalPages)}">
-		 							<a th:if="${i==currentpage}" class="active" >[[${i}]]</a>
-		 							<a th:unless="${i==currentpage}" th:href="@{'/inventory/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-                       					th:text="${i}"></a>
-								</li>
-	
-								<li><a th:if="${currentPage > totalPages}" th:href="@{'inventory/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
-									<a th:unless="${currentPage >totalPages}">&raquo;</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-					<div>
-						<div style="display: inline;"
-						class = "row col-sm-10">
-						<div class = "col-sm-2">
-						No. of Search Result Per Page
-						</div>
-						
-						<div style="display: inline;" align="left">
-						<p> <a th:href="@{'/inventory/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
-							<a th:href="@{'/inventory/search/page/1/10?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
-							<a th:href="@{'/inventory/search/page/1/20?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
-						</p>
-						</div>
-				
-				</div>
-
-
-
+            </div>   
+            <div class="panel-footer">
+              <div class = "">	
+                No. of Search items: [[${totalItems}]] 	
+              </div>
+              <ul class="pagination">
+                <li><a th:if="${currentPage > 1}"
+                    th:href="@{'/inventory/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+                  <a th:unless="${currentPage >1}">&laquo;</a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, totalPages)}">
+                  <a th:if="${i==currentpage}" class="active" >[[${i}]]</a>
+                  <a th:unless="${i==currentpage}" th:href="@{'/inventory/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                                th:text="${i}"></a>
+                </li>
+                <li><a th:if="${currentPage > totalPages}" th:href="@{'inventory/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+                  <a th:unless="${currentPage >totalPages}">&raquo;</a>
+                </li>
+              </ul>
+              </div>  
+        
+          
           </div>
-
         </div>
       </div>
     </div>
