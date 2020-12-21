@@ -32,9 +32,11 @@ import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
+import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ReorderReportService;
+import sg.edu.iss.team8ca.service.SendEmailService;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
@@ -100,8 +102,7 @@ public class ProductListingController {
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-	
-	
+
 		return "product-listing";
 	}
 
@@ -263,4 +264,32 @@ public class ProductListingController {
 		return "redirect:/inventory/list";
 	}
 	
+	@RequestMapping(value = "/reorderlist", method = RequestMethod.GET)
+	public String reorderList(Model model) {
+		List<Inventory> plist = plService.list();
+		model.addAttribute("plist", plist);
+		
+		return "reorder-product";
+	}
+	
+	@RequestMapping(value = "/reorder/{id}", method = RequestMethod.GET)
+	public String reorderProduct(@PathVariable("id") Long id, 
+			@RequestParam("inv_quantity") int quantity) {
+		
+		Inventory inv = plService.findProductById(id);
+		int minOrder = inv.getMinimumOrder();
+		int invQuantity = inv.getStockQty();
+		int newInvQuantity = invQuantity + quantity;
+
+		if (quantity >= minOrder) {
+			inv.setStockQty(newInvQuantity);
+			plService.saveProduct(inv);
+
+			return "forward:/inventory/reorderlist";
+		}
+		else {
+		
+		return "forward:/inventory/reorderlist";
+		}
+	}
 }

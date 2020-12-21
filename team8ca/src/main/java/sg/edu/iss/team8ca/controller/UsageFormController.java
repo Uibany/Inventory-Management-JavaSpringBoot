@@ -224,7 +224,7 @@ public class UsageFormController {
 				String name = inventory.getProductName();
 				sendEmailService.sendEmail("team8caproject@gmail.com",
 						"Inventory ID " + id + " quantity on hand is below the re-order level! Please restock!",
-						"NOTIFCATION: stock level below re-order level for part number " + id + " - " + name);
+						"NOTIFICATION: stock level below re-order level for part number " + id + " - " + name);
 			}
 
 			return "forward:/invusage/usageforms/" + id1;
