@@ -2,7 +2,6 @@
 package sg.edu.iss.team8ca.repo;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
 
 
@@ -40,8 +38,5 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.brandName LIKE %?1%"
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
 	public Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 }
