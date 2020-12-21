@@ -261,6 +261,7 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
+
 	@RequestMapping("/select")
 	public String selectSupplier(Model model) {
 		model.addAttribute("supplier", supint.findAllSupplier());

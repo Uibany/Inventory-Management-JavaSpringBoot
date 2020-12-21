@@ -291,6 +291,26 @@ public class DbSeederService implements CommandLineRunner {
 		cusRepo.save(customer1);
 		Customer customer2 = new Customer("James", "+6595876245", "James@gmail.com", "Bedok Avenue 2");
 		cusRepo.save(customer2);
+		Customer customer3 = new Customer("Tilly", "+6594576527", "Tilly@gmail.com", "Orchard Ln 2");
+		cusRepo.save(customer3);	
+		Customer customer4 = new Customer("Sumarah", "+6595467293", "Sumarah@gmail.com", "Grange Road Leornie Hill");
+		cusRepo.save(customer4);	
+		Customer customer5 = new Customer("Jimmy", "+6592467587", "Jimmy@gmail.com", "Toa Payoh Lorong 3");
+		cusRepo.save(customer5);
+		Customer customer6 = new Customer("Angelo", "+6595246758", "Angelo@gmail.com", "Thomson Avenue 8");
+		cusRepo.save(customer6);
+		Customer customer7 = new Customer("Shamus", "+6599642348", "Shamus@gmail.com", "Bukit Timah Avenue 2");
+		cusRepo.save(customer7);	
+		Customer customer8 = new Customer("Tricia", "+6595234678", "Tricia@gmail.com", "Ang Mo Kio Avenue 2");
+		cusRepo.save(customer8);	
+		Customer customer9 = new Customer("Ika", "+65954672549", "Ikah@gmail.com", "Tampines Avenue 8");
+		cusRepo.save(customer9);	
+		Customer customer10 = new Customer("King", "+65952346820", "King@gmail.com", "Chinese Garden View");
+		cusRepo.save(customer10);
+		Customer customer11 = new Customer("Prince", "+6596254203", "Prince@gmail.com", "Jurong Lake View");
+		cusRepo.save(customer11);
+		Customer customer12 = new Customer("Teriyaki", "+65956485965", "Teriyaki@gmail.com", "Holland Avenue 2");
+		cusRepo.save(customer12);
 	}
 	
 	private void loadFixset() {		
