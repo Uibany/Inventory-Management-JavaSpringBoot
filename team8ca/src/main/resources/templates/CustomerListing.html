@@ -55,7 +55,7 @@
 							<h2>Manage Customer</h2>
 						</div>
 						<div class="panel-body" style="overflow-x: auto;">
-							<a href="CustomerForm.html" th:href="@{/customer/add}"
+							<a sec:authorize="hasAuthority('ADMIN')" href="CustomerForm.html" th:href="@{/customer/add}"
 								class="btn btn-primary">Add Customer</a> <br> <br>
 
 							<form name="searchwithPage"
@@ -71,7 +71,7 @@
 							</form>
 							<br>
 							<div class="dropdown">
-								<button type="button" id="dropdownMenu1" data-toggle="dropdown">
+								<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-primary">
 									Items per page <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu"
@@ -190,6 +190,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 </body>
 
 </html>

@@ -55,14 +55,6 @@
             </div>
             <div class="panel-body"style="overflow-x:auto;">
 
-              <form name="search" th:action="@{/inventory/search/reorder}">
-                <div class="input-group" style="width:310px">
-                  <input type="text" name="keyword" th:value="${keyword}" required class="form-control"
-                    placeholder="Search for inventory" />
-                  <span class="input-group-btn"><input type="submit" value="Search" class="btn btn-primary" /></span>
-                </div>
-              </form>
-
 						<div th:if="${error != null}"
 							class="alert alert-danger alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert"
