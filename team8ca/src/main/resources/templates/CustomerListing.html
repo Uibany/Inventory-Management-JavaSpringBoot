@@ -80,25 +80,42 @@
 						<div class="panel-heading">
 							<h2>Manage Customer</h2>
 						</div>
-						<div class="panel-body">
+						<div class="panel-body" style="overflow-x: auto;">
 							<a href="CustomerForm.html" th:href="@{/customer/add}"
-								class="btn btn-primary">Add Customer</a> <br>
-							<h3 th:if="${not #lists.isEmpty(customer)}">Customer List</h3>
+								class="btn btn-primary">Add Customer</a> <br> <br>
 
 							<form name="searchwithPage"
 								th:action="@{'/customer/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
 								<div class="input-group" style="width: 310px">
 									<input type="text" name="keyword" th:value="${keyword}"
-										required class="form-control"
-										placeholder="Search for customer" /> <input type="hidden"
-										name="sortField" th:value="${sortField}"> <input
-										type="hidden" name="sortDir" th:value="${sortDir}"> <span
-										class="input-group-btn"><input type="submit"
+										class="form-control" placeholder="Search for customer" /> <input
+										type="hidden" name="sortField" th:value="${sortField}">
+									<input type="hidden" name="sortDir" th:value="${sortDir}">
+									<span class="input-group-btn"><input type="submit"
 										value="Search" class="btn btn-primary" /></span>
 								</div>
 							</form>
-							<table th:if="${not #lists.isEmpty(customer)}"
-								class="table table-striped">
+							<br>
+							<div class="dropdown">
+								<button type="button" id="dropdownMenu1" data-toggle="dropdown">
+									pageSize <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu"
+									aria-labelledby="dropdownMenu1">
+									<li role="presentation"><a role="menuitem" tabindex="-1"
+										th:href="@{'/page/1/5' +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+									</li>
+									<li role="presentation"><a role="menuitem" tabindex="-1"
+										th:href="@{'/page/1/10' +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+									</li>
+									<li role="presentation"><a role="menuitem" tabindex="-1"
+										th:href="@{'/page/1/20'+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+									</li>
+								</ul>
+							</div>
+							<br>
+
+							<table class="table table-striped">
 								<tr>
 									<th><a
 										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
@@ -118,7 +135,7 @@
 									<th>Edit Customer</th>
 									<th>Delete Customer</th>
 								</tr>
-								<tr th:each="cus:${customer}" class="table-row">
+								<tr th:each="cus:${cusList}" class="table-row">
 									<td th:text=${cus.id}>Id</td>
 									<td th:text=${cus.customerName}>Company Name</td>
 									<td th:text=${cus.contactNo}>Contact no</td>
