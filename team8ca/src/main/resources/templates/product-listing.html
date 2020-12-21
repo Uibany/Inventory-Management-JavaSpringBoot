@@ -93,7 +93,7 @@
                   <form name="searchwithPage"
                     th:action="@{'/inventory/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
                     <div class="input-group" style="width:310px">
-                      <input type="text" name="keyword" th:value="${keyword}" required class="form-control"
+                      <input type="text" name="keyword" th:value="${keyword}" value=" " required class="form-control"
                         placeholder="Search for inventory" />
                       <input type="hidden" name="sortField" th:value="${sortField}">
                       <input type="hidden" name="sortDir" th:value="${sortDir}">

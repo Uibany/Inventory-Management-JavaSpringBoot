@@ -82,17 +82,19 @@ public class ProductListingController {
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
 		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDirection);
+		model.addAttribute("keyword", " ");
 	
 		return "product-listing";
 	}
 	
 
 	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	public String searchWithPage(String keyword ,@PathVariable ( value = "pageNo") int pageNo, 
+	public String searchWithPage(@Param("keyword") String keyword ,@PathVariable ( value = "pageNo") int pageNo, 
 			@PathVariable ( value = "pageSize") int pageSize, 
 			@RequestParam ("sortField") String sortField,
 			@RequestParam ("sortDir")String sortDir, Model model)  {
@@ -100,12 +102,23 @@ public class ProductListingController {
 		Page<Inventory> page = plService.findPaginated(keyword, pageNo, pageSize, sortField, sortDir);
 		List<Inventory> plist = page.getContent();
 		
+		if(keyword.equals(null)) 
+		{
+			keyword = " ";
+		}
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
 		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
+
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", keyword);
+	
+	
 
 		return "product-listing";
 	}
