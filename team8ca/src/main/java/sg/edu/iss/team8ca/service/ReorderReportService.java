@@ -44,26 +44,27 @@ public class ReorderReportService implements ReorderReportInterface {
 				bw = new BufferedWriter(fw);
 				double total = 0;
 				int orderQty = 0;
-				bw.write("Inventory Reorder Report for products from Supplier " + id);
+				bw.write("\t\t\t\tInventory Reorder Report for products from Supplier " + id);
 				bw.newLine();
 				bw.write("---------------------------------------------------------------------------------------");
 				bw.newLine();
 				bw.write("=======================================================================================");
-				bw.write("\nPart No. Unit.Price\t Quantity\t Reorder Qty.\t Min.Ord.Qty\t Ord.Qty\t2 Price\n");
+				bw.write("\nPart No. Unit.Price\t Quantity\t Reorder Qty.\t Min.Ord.Qty\t Ord.Qty\t Price\n");
+				bw.write("=======================================================================================\n\n");
 				for(Inventory inv : invList) {
 					double price=inv.getStockQty()*inv.getOriginalPrice();
 					total += price;
 					if(inv.getReorderLevel() > inv.getStockQty()) {
 						orderQty = inv.getMinimumOrder();
 					}
-					bw.write(inv.getId() + "\t\t\t" + inv.getOriginalPrice() + "\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t" 
-					+ inv.getMinimumOrder() + "\t\t\t" +orderQty +"\t\t\t" + price);
+					bw.write(inv.getId() + "\t\t\t" + inv.getOriginalPrice()+ "\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t\t" 
+					+ inv.getMinimumOrder() + "\t\t\t" +orderQty +"\t\t\t\t" + price);
 					bw.newLine();
 				}
 					bw.write("====================================================================================");
 					bw.newLine();
 					bw.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTotal\t" + total);
-					bw.write("\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t---End of the Report-----");
+					bw.write("\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t---End of the Report-----");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} finally {
