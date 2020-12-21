@@ -257,10 +257,10 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	@RequestMapping("/report")
-	public String reorderReport() {
-		reorser.printDatFile();
-		return "redirect:/inventory/list";
+	@RequestMapping("/report/{id}")
+	public String reorderReport(@PathVariable("id") long id, Model model) {
+		model.addAttribute("message", reorser.printDatFile(id));
+		return "message";
 	}
 	
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.team8ca.model.Customer;
-import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.service.CustomerImpl;
 import sg.edu.iss.team8ca.service.CustomerInterface;
 
@@ -38,8 +37,8 @@ public class CustomerController {
 		int pageSize = 5;
 		int pageNo = 1;
 		String sortField = "id";
-		String sortDirection = "asc";
-		Page<Customer> page = cuservice.cusSearchPage("", pageNo, pageSize, sortField, sortDirection);
+		String sortDir = "asc";
+		Page<Customer> page = cuservice.cusSearchPage("", pageNo, pageSize, sortField, sortDir);
 		List<Customer> cusList = page.getContent();
 		model.addAttribute("cusList", cusList);
 		model.addAttribute("currentPage", pageNo);
@@ -47,19 +46,19 @@ public class CustomerController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDirection);
-		model.addAttribute("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "CustomerListing";
 	}
 
 	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	public String searchWithPage(String keyword, @PathVariable(value = "pageNo") int pageNo,
+	public String searchWithPage(@RequestParam ("keyword") String keyword, @PathVariable(value = "pageNo") int pageNo,
 			@PathVariable(value = "pageSize") int pageSize, @RequestParam("sortField") String sortField,
-			@RequestParam("sortDir") String sortDirection, Model model) {
+			@RequestParam("sortDir") String sortDir, Model model) {
 		if (keyword == null) {
-			return "forward:/customer/list";
+			return "CustomerListing";
 		} else {
-			Page<Customer> page = cuservice.cusSearchPage(keyword, pageNo, pageSize, sortField, sortDirection);
+			Page<Customer> page = cuservice.cusSearchPage(keyword, pageNo, pageSize, sortField, sortDir);
 			List<Customer> cusList = page.getContent();
 
 			model.addAttribute("cusList", cusList);
@@ -69,12 +68,35 @@ public class CustomerController {
 			model.addAttribute("totalItems", page.getTotalElements());
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("sortField", sortField);
-			model.addAttribute("sortDir", sortDirection);
-			model.addAttribute("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 			return "CustomerListing";
 		}
 	}
+	
+	@RequestMapping(value = "/search/page1")
+	public String searchWithPageDropdown(@RequestParam ("keyword") String keyword, @RequestParam("pageNo") int pageNo,
+			@RequestParam("pageSize") int pageSize, @RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir, Model model) {
+		if (keyword == null) {
+			return "forward:/customer/list";
+		} else {
+			Page<Customer> page = cuservice.cusSearchPage(keyword, pageNo, pageSize, sortField, sortDir);
+			List<Customer> cusList = page.getContent();
 
+			model.addAttribute("cusList", cusList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			return "CustomerListing";
+		}
+	}
+	
 	@RequestMapping(value = "/add")
 	public String addCustomer(Model model) {
 		model.addAttribute("customer", new Customer());
