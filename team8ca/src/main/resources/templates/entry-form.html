@@ -87,7 +87,7 @@
 							<input type="hidden" name="newSupplier" id="new-supplier-bool">
 							<input type="hidden" name="newSubcat" id="new-subcat-bool">
 							<input type="hidden" name="newCategory" id="new-category-bool">
-							<input th:if="${addOrEdit =='edit'}" type="text" th:field="*{id}" readonly>
+							<input th:if="${addOrEdit =='edit'}" type="hidden" th:field="*{id}" readonly>
 								<div class="row">
 									<div class="col-lg-5">
 
