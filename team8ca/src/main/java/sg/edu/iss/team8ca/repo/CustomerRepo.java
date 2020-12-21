@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.edu.iss.team8ca.model.Customer;
-import sg.edu.iss.team8ca.model.Inventory;
 
 public interface CustomerRepo extends JpaRepository<Customer, Long> {
 	@Query("SELECT c FROM Customer c WHERE c.customerName = :name")

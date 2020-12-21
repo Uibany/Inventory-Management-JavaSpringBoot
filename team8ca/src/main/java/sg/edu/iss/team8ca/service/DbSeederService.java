@@ -1,7 +1,6 @@
 package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +90,7 @@ public class DbSeederService implements CommandLineRunner {
 		loadTrans();
 		loadProducts();
 		loadFixsets();
+		loadInventory();
 	}
 
 	private String passwordEncoder(String password) {
