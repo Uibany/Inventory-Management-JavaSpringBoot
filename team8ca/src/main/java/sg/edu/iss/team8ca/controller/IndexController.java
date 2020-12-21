@@ -10,4 +10,10 @@ public class IndexController {
 	public String login() {
 		return "forward:/login";
 	}
+	
+	@RequestMapping("/fixset")
+	public String fixset() {
+		return "/fixset";
+	}
 }
+

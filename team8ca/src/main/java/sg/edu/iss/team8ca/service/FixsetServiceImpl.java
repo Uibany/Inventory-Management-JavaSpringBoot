@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class FixsetServiceImpl implements FixsetService {
 	@Override
 	public void update(Fixset fixset) {
 		this.fRepo.save(fixset);
+	}
+
+	@Override
+	public @NotNull Iterable<Fixset> findAll() {
+		return this.fRepo.findAllFixsets();
 	}
 
 }
