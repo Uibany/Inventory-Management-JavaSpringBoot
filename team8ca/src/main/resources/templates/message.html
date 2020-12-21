@@ -60,44 +60,24 @@
 					</ul>
 				</nav>
 			</div>
-		</div>
-
+		</div>	
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
 					<div class="panel">
 						<div class="panel-heading">
-							<h2>Reorder Report</h2>
 						</div>
 						<div class="panel-body">
 							<br>
-							<h3 th:if="${not #lists.isEmpty(supplier)}">Supplier List</h3>
-							<table th:if="${not #lists.isEmpty(supplier)}" class="table table-striped">
-								<tr>
-									<th>Supplier Id</th>
-									<th>Company Name</th>
-									<!-- <th>Contact no</th>
-									<th>Address</th>
-									<th>email id</th>
-									<th>Postal code</th> -->
-								</tr>
-								<tr th:each="supplier:${supplier}" class="table-row">
-									<td th:text=${supplier.id}>Id</td>
-									<td th:text=${supplier.companyName}>Company Name</td>
-									<td th:hidden=${supplier.contactNo}>Contact no</td>
-									<td th:hidden=${supplier.address}>Address</td>
-									<td th:hidden=${supplier.email}>Email id</td>
-									<td th:hidden=${supplier.postalCode}>Postal code</td>
-									<td><a href="EditMember.html" th:href="@{/inventory/report/}+${supplier.id}"
-											class="btn btn-success">Generate</a></td>
-								</tr>
-							</table>
+						<h4><a th:text="${message}"></a></h4>
+						<a href="reorderreport.html" th:href="@{/inventory/select}" class="btn btn-primary">Back</a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>	
+		
 	</div>
 </body>
 

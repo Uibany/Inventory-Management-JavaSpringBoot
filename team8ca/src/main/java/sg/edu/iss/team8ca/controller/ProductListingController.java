@@ -230,9 +230,9 @@ public class ProductListingController {
 	}
 	
 	@RequestMapping("/report/{id}")
-	public String reorderReport(@PathVariable("id") long id) {
-		reorser.printDatFile(id);
-		return "redirect:/inventory/list";
+	public String reorderReport(@PathVariable("id") long id,Model model) {
+		model.addAttribute("message",reorser.printDatFile(id));
+		return "message";
 	}
 	
 }

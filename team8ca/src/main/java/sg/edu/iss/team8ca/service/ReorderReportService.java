@@ -21,17 +21,19 @@ public class ReorderReportService implements ReorderReportInterface {
 	private InventoryRepo invrepo;
 	
 	@Transactional
-	public void printDatFile(long id) {
+	public String printDatFile(long id) {
+		
 		BufferedWriter bw = null;
 		{
+			//file path
+			String filepath = System.getProperty("user.home");
+			String fileName = "report_" + id + ".dat";
 			try {
 				List<Inventory> invList = invrepo.reorderreport(id);
 				if(invList.size()==0) {
-					return;
+					return "Products are in Stock!";
 				}
-				//file path
-				String filepath = System.getProperty("user.home");
-				String fileName = "report_" + id + ".dat";
+				
 				File file = new File(filepath +"\\"+ fileName);
 				
 				if (!file.exists()) {
@@ -54,13 +56,14 @@ public class ReorderReportService implements ReorderReportInterface {
 					if(inv.getReorderLevel() > inv.getStockQty()) {
 						orderQty = inv.getMinimumOrder();
 					}
-					bw.write(inv.getId() + "\t\t\t" + inv.getOriginalPrice() + "\t\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t" 
+					bw.write(inv.getId() + "\t\t\t" + inv.getOriginalPrice() + "\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t" 
 					+ inv.getMinimumOrder() + "\t\t\t" +orderQty +"\t\t\t" + price);
 					bw.newLine();
 				}
 					bw.write("====================================================================================");
 					bw.newLine();
 					bw.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTotal\t" + total);
+					bw.write("\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t---End of the Report-----");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} finally {
@@ -71,6 +74,8 @@ public class ReorderReportService implements ReorderReportInterface {
 					System.out.println(ex);
 				}
 			}
+			return "Generated in "+filepath +"\\"+ fileName;
 		}
+		
 	}
 }
