@@ -21,6 +21,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/boots trap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -90,7 +92,7 @@
 								class="btn btn-primary">Add Customer</a> <br> <br>
 
 							<form name="searchwithPage"
-								th:action="@{'/customer/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+								th:action="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
 								<div class="input-group" style="width: 310px">
 									<input type="text" name="keyword" th:value="${keyword}"
 										class="form-control" placeholder="Search for customer" /> <input
@@ -103,18 +105,33 @@
 							<br>
 							<div class="dropdown">
 								<button type="button" id="dropdownMenu1" data-toggle="dropdown">
-									pageSize <span class="caret"></span>
+									Items per page <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu"
 									aria-labelledby="dropdownMenu1">
-									<li role="presentation"><a role="menuitem" tabindex="-1"
-										th:href="@{'/page/1/5' +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
 									</li>
-									<li role="presentation"><a role="menuitem" tabindex="-1"
-										th:href="@{'/page/1/10' +'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
 									</li>
-									<li role="presentation"><a role="menuitem" tabindex="-1"
-										th:href="@{'/page/1/20'+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword!= null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword != null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword != null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/customer/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
 									</li>
 								</ul>
 							</div>
@@ -154,13 +171,14 @@
 								</tr>
 							</table>
 						</div>
+						<br />
 						<div>
 							<div style="display: inline;" class="row col-sm-10">
 								<div class="col-sm-2">No. of Search items:
 									[[${totalItems}]]</div>
 
 
-								<div style="display: inline;" align="right">
+								<div style="display: inline;" align="right" th:if='${keyword!=null}'>
 									<ul class="pagination">
 										<li><a th:if="${currentPage > 1}"
 											th:href="@{'/customer/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
@@ -177,6 +195,25 @@
 											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
 									</ul>
 								</div>
+								
+								<div style="display: inline;" align="right" th:if='${keyword==null}'>
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/customer/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
+										<li th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/customer/search/page/' +${i} + '/'+${pageSize}  + '?keyword='  +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'customer/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+								
 							</div>
 						</div>
 					</div>

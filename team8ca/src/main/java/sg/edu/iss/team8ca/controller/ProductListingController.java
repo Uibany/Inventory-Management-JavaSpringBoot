@@ -262,6 +262,11 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
+<<<<<<< HEAD
+	@RequestMapping("/report/{id}")
+	public String reorderReport(@PathVariable("id") long id, Model model) {
+		model.addAttribute("message", reorser.printDatFile(id));
+=======
 	@RequestMapping("/select")
 	public String selectSupplier(Model model) {
 		model.addAttribute("supplier", supint.findAllSupplier());
@@ -271,6 +276,7 @@ public class ProductListingController {
 	@RequestMapping("/report/{id}")
 	public String reorderReport(@PathVariable("id") long id,Model model) {
 		model.addAttribute("message",reorser.printDatFile(id));
+>>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 		return "message";
 	}
 	
