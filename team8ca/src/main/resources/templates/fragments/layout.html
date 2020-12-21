@@ -32,7 +32,7 @@
 			class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid navbar-menu">
 				<div class="brand">
-					<a href="index.html"><img src="../../static/images/logo.png"
+					<a th:href="@{~/inventory/list}"><img src="../../static/images/logo.png"
 						th:src="@{/images/logo.png}" alt="Logo"
 						class="img-responsive logo"></a>
 				</div>
@@ -47,7 +47,7 @@
 								<ul class="dropdown-menu">
 									<li><a href="#"><i class="lnr lnr-user"></i> <span>My
 												Profile</span></a></li>
-									<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+									<li><a th:href="@{~/logout}"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 								</ul></li>
 						</ul>
 					</div>

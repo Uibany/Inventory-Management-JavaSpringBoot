@@ -215,6 +215,30 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 	}
 
+	@Override
+	public List<Inventory> findProductBySubCat(long subcatId) {
+		
+		return irepo.findInvBySubcat(subcatId);
+	}
+
+	@Override
+	public List<Inventory> findProductByCat(long catId) {
+		return irepo.findInvByCat(catId);
+	}
+
+	@Override
+	public List<Inventory> findProductByBrand(long brandId) {
+		return irepo.findInvByBrand(brandId);
+	}
+
+	@Override
+	public void deleteProducts(List<Inventory> invList) {
+		for(Inventory product:invList) 
+		{
+			irepo.delete(product);
+		}
+		
+	}
 
 
 }
