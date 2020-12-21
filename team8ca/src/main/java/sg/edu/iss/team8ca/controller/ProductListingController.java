@@ -259,7 +259,7 @@ public class ProductListingController {
 	}
 	@RequestMapping("/report")
 	public String reorderReport() {
-		reorser.printDatFile();
+		//reorser.printDatFile();
 		return "redirect:/inventory/list";
 	}
 	
