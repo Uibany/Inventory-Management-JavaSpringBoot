@@ -22,7 +22,6 @@ public class UsageTransReportController {
 	@Autowired
 	private TransHistoryImpl thservice; 
 	
-	
 	@Autowired
 	public void setUsageReport(TransHistoryImpl usageReport) {
 		this.thservice = usageReport;

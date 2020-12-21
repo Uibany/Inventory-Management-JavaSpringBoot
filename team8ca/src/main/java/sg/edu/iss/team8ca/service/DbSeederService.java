@@ -138,7 +138,7 @@ public class DbSeederService implements CommandLineRunner {
 			catRepo.save(cat7);
 			catRepo.save(cat8);
 			catRepo.save(cat9);
-			Subcategory subcat1 = new Subcategory("loose parts", "Accessories", cat1);
+			Subcategory subcat1 = new Subcategory("Loose parts", "Accessories", cat1);
 			Subcategory subcat2 = new Subcategory("Hyundai seat belt", "Seat belt", cat1);
 			Subcategory subcat3 = new Subcategory("Toyota airbag", "Airbags", cat4);
 			Subcategory subcat4 = new Subcategory("BMW lights", "Head lights", cat3);
@@ -152,26 +152,20 @@ public class DbSeederService implements CommandLineRunner {
 			subcatRepo.save(subcat6);
 		}
 
-
-
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
 		Customer customer = cusRepo.findAll().get(0);
 		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, customer, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
-		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
-		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
+
 		Subcategory Accessories = subcatRepo.findSubcatByName("loose parts").get(0);
 		Subcategory Tires = subcatRepo.findSubcatByName("loose parts").get(0);
-		Subcategory Electrical = subcatRepo.findSubcatByName("BMW lights").get(0);
 		Subcategory Windshield = subcatRepo.findSubcatByName("loose parts").get(0);
 		Subcategory Body = subcatRepo.findSubcatByName("loose parts").get(0);
 		Brand Denso = brandRepo.findBrandByName("Denso Corp").get(0);
-		Brand JBL = brandRepo.findBrandByName("JBL").get(0);
 		Brand Bosch = brandRepo.findBrandByName("Robert Bosch").get(0);
-		Brand Lear = brandRepo.findBrandByName("Lear Corp").get(0);
 		Brand Magna= brandRepo.findBrandByName("Magna International").get(0);
-		Inventory inv1 = new Inventory("200 screws", "100 pieces of screws", 10.00, 11.00, 12.00, 13.00, 100, 500, 200,
+		Inventory inv1 = new Inventory("200 screws", "200 pieces of screws", 10.00, 11.00, 12.00, 13.00, 100, 500, 200,
 				"Orange", "5mm x 1mm", Accessories, Denso);
 		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 60.00, 65.00, 20, 5, 1,
 				"Blue", "200cm x 40cm", Body, Bosch);
@@ -181,6 +175,31 @@ public class DbSeederService implements CommandLineRunner {
 				"25rad", Tires, Bosch);
 		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 19.00, 21.00, 20, 8, 1, "Clear",
 				"40mx40cm", Windshield, Magna);
+		invRepo.save(inv1);
+		invRepo.save(inv2);
+		invRepo.save(inv3);
+		invRepo.save(inv4);
+		invRepo.save(inv5);
+		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud);
+		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud1);
+		UsageDetails ud2 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud2);
+		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		udRepo.save(ud3);
+	}
+	
+	private void loadInventory() {
+		Subcategory Accessories = subcatRepo.findSubcatByName("loose parts").get(0);
+		Subcategory Electrical = subcatRepo.findSubcatByName("BMW lights").get(0);
+		Subcategory Windshield = subcatRepo.findSubcatByName("loose parts").get(0);
+		Subcategory Body = subcatRepo.findSubcatByName("loose parts").get(0);
+		Brand Denso = brandRepo.findBrandByName("Denso Corp").get(0);
+		Brand JBL = brandRepo.findBrandByName("JBL").get(0);
+		Brand Bosch = brandRepo.findBrandByName("Robert Bosch").get(0);
+		Brand Lear = brandRepo.findBrandByName("Lear Corp").get(0);
+		Brand Magna= brandRepo.findBrandByName("Magna International").get(0);
 		Inventory inv6 = new Inventory("Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1, "Blue",
 				"25rad", Body, Magna);
 		Inventory inv7 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 30.00, 32.00, 100, 30, 1, "Silver",
@@ -203,17 +222,60 @@ public class DbSeederService implements CommandLineRunner {
 				"25rad", Accessories, Lear);
 		Inventory inv16 = new Inventory("Voltmeter", "Measure electric potential", 20.00, 22.00, 24.00, 26.00, 20, 10, 1, "Black",
 				"25rad", Accessories, Lear);
-		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 5.00, 6.00, 7.00, 8.00, 20, 10, 2, "Yellow",
+		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 5.00, 6.00, 7.00, 8.00, 20, 10, 10, "Yellow",
 				"5rad", Accessories, Lear);
-		Inventory inv18 = new Inventory("Headlights", "Car frontlights", 20.00, 22.00, 24.00, 26.00, 20, 10, 2, "Yellow",
+		Inventory inv18 = new Inventory("Headlights", "Car frontlights", 20.00, 22.00, 24.00, 26.00, 20, 10, 10, "Yellow",
 				"5rad", Accessories, Lear);
-		Inventory inv19 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 24.00, 26.00, 20, 10, 2, "White",
+		Inventory inv19 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 24.00, 26.00, 20, 10, 10, "White",
 				"5rad", Accessories, Lear);
-		invRepo.save(inv1);
-		invRepo.save(inv2);
-		invRepo.save(inv3);
-		invRepo.save(inv4);
-		invRepo.save(inv5);
+				Inventory inv20 = new Inventory("Windshield", "Window at the front", 100.00, 120.00, 140.00, 160.00, 20, 10, 10, "Black",
+				"1mx0.5m", Windshield, Lear);
+		Inventory inv21 = new Inventory("Rear mirror", "Inside mirror", 12.00, 14.00, 16.00, 18.00, 30, 20, 2, "Black",
+				"40cmx20cm", Accessories, Magna);
+		Inventory inv22 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 24.00, 30.00, 20, 10, 2, "Black",
+				"20cmx30cm", Accessories, Magna);
+		Inventory inv23 = new Inventory("Seatbelts", "For safety", 32.00, 34.00, 36.00, 38.00, 20, 10, 20, "Black",
+				"20cmx30cm", Accessories, Magna);
+		Inventory inv24 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 7, 5, 2, "Black",
+				"100cmx30cm", Body, Bosch);
+		Inventory inv25 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 10, 5, 2, "White",
+				"100cmx30cm", Body, Bosch);
+		Inventory inv26 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 9, 5, 2, "Red",
+				"100cmx30cm", Body, Bosch);
+		Inventory inv27 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 24.00, 26.00, 20, 10, 10, "White",
+				"5rad", Accessories, Magna);
+		Inventory inv28 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 30.00, 32.00, 100, 30, 1, "Black",
+				"10mmx10mm", Accessories, Denso);
+		Inventory inv29 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 36.00, 38.00, 27, 9, 3, "Silver",
+				"25rad", Electrical, Denso);
+		Inventory inv30 = new Inventory("Airbag", "For safety by Magna", 80.00, 82.00, 84.00, 86.00, 20, 10, 2, "Black",
+				"1unit", Accessories, Magna);
+		Inventory inv31 = new Inventory("Airbag", "For safety by Denso", 100.00, 120.00, 140.00, 160.00, 10, 10, 2, "Black",
+				"1unit", Accessories, Denso);
+		Inventory inv32 = new Inventory("Door", "Black door for car", 200.00, 220.00, 240.00, 300.00, 14, 10, 6, "Black",
+				"20cmx30cm", Body, Magna);
+		Inventory inv33 = new Inventory("Door", "White door for car", 200.00, 220.00, 240.00, 300.00, 12, 10, 6, "White",
+				"20cmx30cm", Body, Lear);
+		Inventory inv34 = new Inventory("Door", "Red door for car", 200.00, 220.00, 240.00, 300.00, 5, 10, 6, "Red",
+				"20cmx30cm", Body, Bosch);
+		Inventory inv35 = new Inventory("Door", "Silver door for car", 200.00, 220.00, 240.00, 300.00, 5, 10, 6, "Silver",
+				"20cmx30cm", Body, Bosch);
+		Inventory inv36 = new Inventory("Bosch car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10, "Black",
+				"20cmx30cm", Accessories, Bosch);
+		Inventory inv37 = new Inventory("Magna car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10, "Black",
+				"20cmx30cm", Accessories, Magna);
+		Inventory inv38 = new Inventory("Lear car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10, "Black",
+				"20cmx30cm", Accessories, Lear);
+		Inventory inv39 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 130.00, 135.00, 10, 5, 1, "Black",
+				"25rad", Electrical, JBL);
+		Inventory inv40 = new Inventory("Black decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1, "Black",
+				"25rad", Body, Magna);
+		Inventory inv41 = new Inventory("White Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1, "White",
+				"25rad", Body, Magna);
+		Inventory inv42 = new Inventory("Red Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1, "Red",
+				"25rad", Body, Magna);
+		Inventory inv43 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 24.00, 30.00, 20, 10, 2, "White",
+				"20cmx30cm", Accessories, Magna);
 		invRepo.save(inv6);
 		invRepo.save(inv7);
 		invRepo.save(inv8);
@@ -228,14 +290,30 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv17);
 		invRepo.save(inv18);
 		invRepo.save(inv19);
-		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
-		udRepo.save(ud);
-		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
-		udRepo.save(ud1);
-		UsageDetails ud2 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
-		udRepo.save(ud2);
-		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
-		udRepo.save(ud3);
+		invRepo.save(inv20);
+		invRepo.save(inv21);
+		invRepo.save(inv22);
+		invRepo.save(inv23);
+		invRepo.save(inv24);
+		invRepo.save(inv25);
+		invRepo.save(inv26);
+		invRepo.save(inv27);
+		invRepo.save(inv28);
+		invRepo.save(inv29);
+		invRepo.save(inv30);
+		invRepo.save(inv31);
+		invRepo.save(inv32);
+		invRepo.save(inv33);
+		invRepo.save(inv34);
+		invRepo.save(inv35);
+		invRepo.save(inv36);
+		invRepo.save(inv37);
+		invRepo.save(inv38);
+		invRepo.save(inv39);
+		invRepo.save(inv40);
+		invRepo.save(inv41);
+		invRepo.save(inv42);
+		invRepo.save(inv43);
 	}
 	
 	// supplier -> brand
