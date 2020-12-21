@@ -57,8 +57,6 @@ public class CustomerController {
 	public String deleteCustomer(@PathVariable("id") Long id) {
 		cuservice.deleteSupplier(cuservice.findCustomerById(id));
 		return "forward:/customer/list";
-	}
-	
-	
+	}	
 }
 	
