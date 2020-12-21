@@ -290,6 +290,7 @@ public class ProductListingController {
 	public String reorderList(Model model) {
 		List<Inventory> plist = plService.list();
 		model.addAttribute("plist", plist);
+		model.addAttribute("error", null);
 		
 		return "reorder-product";
 	}
@@ -306,9 +307,10 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/reorder/{id}", method = RequestMethod.GET)
 	public String reorderProduct(@PathVariable("id") Long id, 
-			@RequestParam("inv_quantity") int quantity) {
+			@RequestParam("inv_quantity") int quantity, Model model) {
 		
 		Inventory inv = plService.findProductById(id);
+		
 		int minOrder = inv.getMinimumOrder();
 		int invQuantity = inv.getStockQty();
 		int newInvQuantity = invQuantity + quantity;
@@ -316,12 +318,16 @@ public class ProductListingController {
 		if (quantity >= minOrder) {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
+			model.addAttribute("error", null);
 
 			return "forward:/inventory/reorderlist";
 		}
 		else {
-		
-		return "forward:/inventory/reorderlist";
+			String errormsg = "qtyerror";
+			List<Inventory> plist = plService.list();
+		model.addAttribute("error", errormsg);
+		model.addAttribute("plist", plist);
+		return "reorder-product";
 		}
 	}
 }
