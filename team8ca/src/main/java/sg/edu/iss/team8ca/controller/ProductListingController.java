@@ -6,8 +6,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnitUtil;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import sg.edu.iss.team8ca.model.Brand;
@@ -35,6 +31,7 @@ import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ReorderReportService;
+import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 import sg.edu.iss.team8ca.service.UserService;
@@ -42,6 +39,9 @@ import sg.edu.iss.team8ca.service.UserService;
 @Controller
 @RequestMapping("/inventory")
 public class ProductListingController {  
+	
+	@Autowired
+	private SupplierInterface supint;
 	
 	@Autowired
 	ReorderReportService reorser;
@@ -257,10 +257,16 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
-	@RequestMapping("/report")
-	public String reorderReport() {
-		reorser.printDatFile();
-		return "redirect:/inventory/list";
+	@RequestMapping("/select")
+	public String selectSupplier(Model model) {
+		model.addAttribute("supplier", supint.findAllSupplier());
+		return "reorderreport";
+	}
+	
+	@RequestMapping("/report/{id}")
+	public String reorderReport(@PathVariable("id") long id,Model model) {
+		model.addAttribute("message",reorser.printDatFile(id));
+		return "message";
 	}
 	
 }

@@ -21,7 +21,7 @@ public class invtest {
 	
 	@Test
 	void reorderReport() {
-		List<Inventory> invList = invrepo.reorderreport();
+		List<Inventory> invList = invrepo.reorderreport(2l);
 		for (Iterator<Inventory> iterator = invList.iterator(); iterator.hasNext();) {
 			Inventory mem = iterator.next();
 			System.out.println(mem.toString());
