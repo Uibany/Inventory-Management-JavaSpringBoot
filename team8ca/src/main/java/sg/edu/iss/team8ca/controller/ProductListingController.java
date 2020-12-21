@@ -6,8 +6,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnitUtil;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import sg.edu.iss.team8ca.model.Brand;
@@ -32,11 +28,9 @@ import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
-import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.ReorderReportService;
-
 import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
@@ -290,6 +284,7 @@ public class ProductListingController {
 	public String reorderList(Model model) {
 		List<Inventory> plist = plService.list();
 		model.addAttribute("plist", plist);
+		model.addAttribute("error", null);
 		
 		return "reorder-product";
 	}
@@ -306,9 +301,10 @@ public class ProductListingController {
 	
 	@RequestMapping(value = "/reorder/{id}", method = RequestMethod.GET)
 	public String reorderProduct(@PathVariable("id") Long id, 
-			@RequestParam("inv_quantity") int quantity) {
+			@RequestParam("inv_quantity") int quantity, Model model) {
 		
 		Inventory inv = plService.findProductById(id);
+		
 		int minOrder = inv.getMinimumOrder();
 		int invQuantity = inv.getStockQty();
 		int newInvQuantity = invQuantity + quantity;
@@ -316,12 +312,16 @@ public class ProductListingController {
 		if (quantity >= minOrder) {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
+			model.addAttribute("error", null);
 
 			return "forward:/inventory/reorderlist";
 		}
 		else {
-		
-		return "forward:/inventory/reorderlist";
+			String errormsg = "qtyerror";
+			List<Inventory> plist = plService.list();
+		model.addAttribute("error", errormsg);
+		model.addAttribute("plist", plist);
+		return "reorder-product";
 		}
 	}
 }

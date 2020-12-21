@@ -1,28 +1,28 @@
 package sg.edu.iss.team8ca.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "fixset")
+@Table(name ="fixset")
 public class Fixset {
 	
 	@Id
@@ -30,20 +30,22 @@ public class Fixset {
     private Long id;
 	
 	private String fixsetName;
-	
-	@JsonManagedReference
-    @OneToMany(mappedBy = "pk.fixset")
-    @Valid
-    private List<FixsetItem> fixsetItems = new ArrayList<>();
-	
-	@Transient
-    public int getNumberOfItems() {
-        return this.fixsetItems.size();
-    }
+ 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateCreated;
+ 
+    private Integer quantity;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId")
+    private Product product;
 
-	public Fixset(String fixsetName) {
+	public Fixset(String fixsetName, LocalDate dateCreated, Integer quantity, Product product) {
+		super();
 		this.fixsetName = fixsetName;
+		this.dateCreated = dateCreated;
+		this.quantity = quantity;
+		this.product = product;
 	}
-	
-	
+
 }

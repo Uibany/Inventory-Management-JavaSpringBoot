@@ -2,22 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="ISO-8859-1">
-  <link type="text/css" media="all" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"
-    rel="stylesheet">
-  <link type="text/css" media="all" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}"
-    rel="stylesheet">
-  <link type="text/css" media="all" href="../static/css/linearicons/style.css" th:href="@{/css/linearicons/style.css}"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-  <link type="text/css" media="all" href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
-  <title>Reorder products</title>
+<meta charset="ISO-8859-1">
+<link type="text/css" media="all" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link type="text/css" media="all"
+	href="../static/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link type="text/css" media="all"
+	href="../static/css/linearicons/style.css"
+	th:href="@{/css/linearicons/style.css}" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+	rel="stylesheet">
+<link type="text/css" media="all" href="../static/css/main.css"
+	th:href="@{/css/main.css}" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<title>Reorder products</title>
 </head>
 
 <body>
+
   <div id="wrapper">
     <!-- navbar -->
 		<nav th:replace="fragments/layout.html :: navbar"></nav>
@@ -55,56 +63,78 @@
                 </div>
               </form>
 
-              <br>
+						<div th:if="${error != null}"
+							class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">1
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<i class="lnr lnr-warning"></i> unable to add restocked quantity
+							less than minimum reorder quantity.
+						</div>
+						<div class="panel-body" style="overflow-x: auto;">
 
-              <table class="table table-striped" >
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Original Price</th>
-                  <th>Colour</th>
-                  <th>Dimension</th>
-                  <th>Subcategory</th>
-                  <th>Brand</th>
-                  <th>Stock Quantity</th>
-                  <th>Reorder Level</th>
-                  <th>Minimum Order</th>
-                  <th>Reorder Amount</th>
-                </tr>
-                <tr th:each="product:${plist}">
-                  <td th:text="${product.id}">ID</td>
-                  <td th:text="${product.productName}">Name</td>
-                  <td th:text="${product.description}">Description</td>
-                  <td th:text="${product.originalPrice}">Original Price</td>
-                  <td th:text="${product.colour}">Colour</td>
-                  <td th:text="${product.dimension}">Dimension</td>
-                  <td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
-                  <td th:text="${product.brand.brandName}">Brand</td>
-                  <td th:text="${product.stockQty}">Stock Quantity</td>
-                  <td th:text="${product.reorderLevel}">Reorder Level</td>
-                  <td th:text="${product.minimumOrder}">Minimum Order</td> 
-                  <td>
-					<form action="" th:action="@{/inventory/reorder/}+${product.id}" method="get">
-							<div class="row">
-								<div class="col-md-5">
-									<input type='text' name='inv_quantity' value="0" 
-										class="form-control"style="min-width: 30px;" />
+							<form name="search" th:action="@{/inventory/search/reorder}">
+								<div class="input-group" style="width: 310px">
+									<input type="text" name="keyword" th:value="${keyword}"
+										required class="form-control"
+										placeholder="Search for inventory" /> <span
+										class="input-group-btn"><input type="submit"
+										value="Search" class="btn btn-primary" /></span>
 								</div>
-								<div class="col-md-5">
-									<button type="submit" class="btn btn-primary">Reorder</button>
-								</div>
-							</div>
-						</form> 
-					</td>	  			
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+							</form>
+
+							<br>
+
+							<table class="table table-striped">
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Original Price</th>
+									<th>Colour</th>
+									<th>Dimension</th>
+									<th>Subcategory</th>
+									<th>Brand</th>
+									<th>Stock Quantity</th>
+									<th>Reorder Level</th>
+									<th>Minimum Order</th>
+									<th>Reorder Amount</th>
+								</tr>
+								<tr th:each="product:${plist}">
+									<td th:text="${product.id}">ID</td>
+									<td th:text="${product.productName}">Name</td>
+									<td th:text="${product.description}">Description</td>
+									<td th:text="${product.originalPrice}">Original Price</td>
+									<td th:text="${product.colour}">Colour</td>
+									<td th:text="${product.dimension}">Dimension</td>
+									<td th:text="${product.subcategory.subcategoryName}">Subcategory</td>
+									<td th:text="${product.brand.brandName}">Brand</td>
+									<td th:text="${product.stockQty}">Stock Quantity</td>
+									<td th:text="${product.reorderLevel}">Reorder Level</td>
+									<td th:text="${product.minimumOrder}">Minimum Order</td>
+									<td>
+										<form action=""
+											th:action="@{/inventory/reorder/}+${product.id}" method="get">
+											<div class="row">
+												<div class="col-md-5">
+													<input type='text' name='inv_quantity' value="0"
+														class="form-control" style="min-width: 30px;" />
+												</div>
+												<div class="col-md-5">
+													<button type="submit" class="btn btn-primary">Reorder</button>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
