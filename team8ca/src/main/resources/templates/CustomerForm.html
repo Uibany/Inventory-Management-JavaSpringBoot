@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Supplier Form</title>
+<title>Customer Form</title>
 <link type="text/css" media="all" href="../static/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link type="text/css" media="all"
@@ -60,11 +60,11 @@
 								class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i
 								class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~/supplier/list}" class="active"><i
+						<li><a th:href="@{~/supplier/list}" class=""><i
 								class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
 						<li><a th:href="@{~/user/list}" class=""><i
 								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
-						<li><a th:href="@{~/customer/list}" class=""><i
+						<li><a th:href="@{~/customer/list}" class="active"><i
 								class="lnr lnr-cog"></i> <span>Manage Customers</span></a></li>
 					</ul>
 				</nav>
@@ -80,34 +80,34 @@
 							<form action="" th:object="${customer}"
 								th:action="@{/customer/save}" method="post"
 								class="col-lg-5 col-md-5">
-								<h1>Supplier Form</h1>
+								<h1>Customer Form</h1>
 								<fieldset class="panel-title">
-									<input class="form-control" type="hidden" th:field="*{id}">
+									<input class="form-control" type="hidden" th:field="*{id}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
-									Company Name <input class="form-control" type="text"
-										th:field="*{customerName}">
+									Customer Name <input class="form-control" type="text"
+										th:field="*{customerName}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
 									Contact No <input class="form-control" type="text"
-										th:field="*{contactNo}">
+										th:field="*{contactNo}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
 									Address <input class="form-control" type="text"
-										th:field="*{address}">
+										th:field="*{address}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
 									Email <input class="form-control" type="text"
-										th:field="*{email}">
+										th:field="*{email}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
 									Postal Code <input class="form-control" type="text"
-										th:field="*{postalCode}">
+										th:field="*{postalCode}" required>
 								</fieldset>
 								<br>
 								<fieldset class="panel-title">
