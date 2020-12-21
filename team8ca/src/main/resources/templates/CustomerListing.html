@@ -84,14 +84,37 @@
 							<a href="CustomerForm.html" th:href="@{/customer/add}"
 								class="btn btn-primary">Add Customer</a> <br>
 							<h3 th:if="${not #lists.isEmpty(customer)}">Customer List</h3>
+
+							<form name="searchwithPage"
+								th:action="@{'/customer/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+								<div class="input-group" style="width: 310px">
+									<input type="text" name="keyword" th:value="${keyword}"
+										required class="form-control"
+										placeholder="Search for customer" /> <input type="hidden"
+										name="sortField" th:value="${sortField}"> <input
+										type="hidden" name="sortDir" th:value="${sortDir}"> <span
+										class="input-group-btn"><input type="submit"
+										value="Search" class="btn btn-primary" /></span>
+								</div>
+							</form>
 							<table th:if="${not #lists.isEmpty(customer)}"
 								class="table table-striped">
 								<tr>
-									<th>Customer Id</th>
-									<th>Customer Name</th>
-									<th>Contact no</th>
-									<th>Customer address</th>
-									<th>Customer email</th>
+									<th><a
+										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+											Customer Id</a></th>
+									<th><a
+										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=customerName&sortDir=' + ${reverseSortDir}}">Customer
+											Name</a></th>
+									<th><a
+										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=contactNo&sortDir=' + ${reverseSortDir}}">
+											Contact no</a></th>
+									<th><a
+										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=address&sortDir=' + ${reverseSortDir}}">Customer
+											address</a></th>
+									<th><a
+										th:href="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=email&sortDir=' + ${reverseSortDir}}">Customer
+											email</a></th>
 									<th>Edit Customer</th>
 									<th>Delete Customer</th>
 								</tr>
@@ -102,21 +125,41 @@
 									<td th:text=${cus.address}>Address</td>
 									<td th:text=${cus.email}>Email id</td>
 									<td><a href="EditCustomer.html"
-										th:href="@{/customer/edit/}+${cus.id}"
-										class="btn btn-success">Edit</a></td>
+										th:href="@{/customer/edit/}+${cus.id}" class="btn btn-success">Edit</a></td>
 									<td><a href="DeleteCustomer.html"
 										th:href="@{/customer/delete/}+${cus.id}"
 										class="btn btn-danger">Delete</a></td>
 								</tr>
 							</table>
 						</div>
+						<div>
+							<div style="display: inline;" class="row col-sm-10">
+								<div class="col-sm-2">No. of Search items:
+									[[${totalItems}]]</div>
+
+
+								<div style="display: inline;" align="right">
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/customer/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
+										<li th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/customer/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'customer/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-
-
 </body>
 
 </html>

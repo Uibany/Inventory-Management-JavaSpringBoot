@@ -203,8 +203,6 @@ public class ProductListingImpl implements ProductListingInterface {
 		}
 		return irepo.invSearch(keyword);
 	}
-	
-	
 
 	@Override
 	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection) {
