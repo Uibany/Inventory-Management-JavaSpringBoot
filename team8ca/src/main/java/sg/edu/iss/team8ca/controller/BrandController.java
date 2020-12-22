@@ -44,12 +44,12 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "redirect:/brand/add"; 
+		return "forward:/brand/add"; 
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
+	@RequestMapping(value = "/delete/{id}")		
 	public String deleteBrand(@PathVariable Long id) {
 		plService.deleteBrand(plService.findBrandById(id));
-	return "redirect:/brand/add";
+	return "forward:/brand/add";
 	}
 }

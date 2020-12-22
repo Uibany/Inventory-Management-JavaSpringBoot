@@ -42,12 +42,12 @@ public class SubcategoryController {
 		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
 		subcategory.setCategory(category);
 		plService.addSubcategory(subcategory);
-		return "redirect:/subcategory/add"; 
+		return "forward:/subcategory/add"; 
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
+	@RequestMapping(value = "/delete/{id}")		
 	public String deleteSubcategory(@PathVariable Long id) {
 		plService.deleteSubcategory(plService.findSubcatById(id));
-	return "redirect:/subcategory/add";
+	return "forward:/subcategory/add";
 	}
 }

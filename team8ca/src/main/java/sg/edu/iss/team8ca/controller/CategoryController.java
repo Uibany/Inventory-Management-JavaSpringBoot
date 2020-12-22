@@ -35,12 +35,12 @@ public class CategoryController {
 			return "add-category";
 		}
 		plService.addCategory(category);
-		return "redirect:/category/add"; 
+		return "forward:/category/add"; 
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
+	@RequestMapping(value = "/delete/{id}")		
 	public String deleteCategory(@PathVariable Long id) {
 		plService.deleteCategory(plService.findCategoryById(id));
-	return "redirect:/category/add";
+	return "forward:/category/add";
 	}
 }
