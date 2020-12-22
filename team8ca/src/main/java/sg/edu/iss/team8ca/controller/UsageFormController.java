@@ -3,6 +3,7 @@ package sg.edu.iss.team8ca.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -167,7 +168,9 @@ public class UsageFormController {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", new Customer());
 		return "UsageReportCustTask";
@@ -185,7 +188,9 @@ public class UsageFormController {
 			int newqty = inventory.getStockQty()+Math.toIntExact(ud.getQuantity());
 			inventory.setStockQty(newqty);
 			pservice.saveProduct(inventory);
-			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), LocalTime.now(), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 		}		
 		iuservice.deleteUsage(usageForm);
@@ -209,7 +214,9 @@ public class UsageFormController {
 		model.addAttribute("user", user);
 		Customer customer = cuservice.findCustomerById(custid);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", customer);
 		return "UsageReportCustTask";
@@ -222,7 +229,9 @@ public class UsageFormController {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.cusSearch(keyword);
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		if (custid==0) {
 			model.addAttribute("customer", new Customer());
@@ -253,7 +262,9 @@ public class UsageFormController {
 			User user = uservice.findUserById(userid);
 			model.addAttribute("user", user);			
 			String tasks = request.getParameter("task");
-			InvUsage usageform = new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			InvUsage usageform = new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user);
 			usageform.setCustomer(customer1);
 			usageform.setTasks(tasks);
 			iuservice.addUsage(usageform);
@@ -295,7 +306,9 @@ public class UsageFormController {
 		}
 		else {
 			Inventory inv = iuservice.findInvById(id1);
-			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), localtime, 0);
 			iuservice.addUsageDetails(ud);
 			return "forward:/invusage/usageforms/" + id2;		
 		}
@@ -311,9 +324,11 @@ public class UsageFormController {
 		inventory.setStockQty(inventory.getStockQty() + Math.toIntExact(ud.getQuantity()));
 		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
 		if (ud.getQuantity() >0){
 				TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory,
-				LocalDate.now(), LocalTime.now(ZoneId.of("Singapore")), user);
+				LocalDate.now(), localtime, user);
 				thservice.saveTrans(trans);
 		}
 		return "forward:/invusage/usageforms/" + id1;
@@ -334,15 +349,17 @@ public class UsageFormController {
 
 		if (newQuantity >= 0 && quantity >= 0) {
 			ud.setQuantity(newUdQuantity);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
 			ud.setDate(LocalDate.now());
-			ud.setTime(LocalTime.now());
+			ud.setTime(localtime);
 			iuservice.addUsageDetails(ud);
 
 			inventory.setStockQty(newQuantity);
 			pservice.saveProduct(inventory);
 
 			TransHistory trans = new TransHistory(TransType.Usage, -Math.toIntExact(quantity), inventory,
-					LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), user);
+					LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 
 			if (inventory.getStockQty() < inventory.getReorderLevel()) {

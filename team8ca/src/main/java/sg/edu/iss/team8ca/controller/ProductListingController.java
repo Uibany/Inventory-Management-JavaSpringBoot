@@ -3,6 +3,7 @@ package sg.edu.iss.team8ca.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -200,13 +201,17 @@ public class ProductListingController {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = uservice.findUserByUserName(currentUserName);
 		if(model.getAttribute("addOrEdit")=="add"){
-			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), localtime, user);
 			plService.saveProduct(inventory);
 			thservice.saveTrans(trans);
 			
 		}else {
 			plService.saveProduct(inventory);
-			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);	
 		}
 		return "redirect:/inventory/list";
@@ -292,8 +297,9 @@ public class ProductListingController {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
 			model.addAttribute("error", null);
-			
-			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 
 			return "forward:/inventory/reorderlist";
@@ -303,8 +309,9 @@ public class ProductListingController {
 			List<Inventory> plist = plService.list();			
 			model.addAttribute("error", errormsg);
 			model.addAttribute("plist", plist);
-			
-			TransHistory trans = new TransHistory(TransType.DebitBack, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.DebitBack, quantity, inv, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 		return "reorder-product";
 		}
