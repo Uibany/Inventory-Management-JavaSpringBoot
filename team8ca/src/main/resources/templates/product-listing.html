@@ -59,7 +59,7 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<div class="panel">
-						<div class="panel-footer row">
+						<div class="panel-footer row" sec:authorize="hasAuthority('ADMIN')">
 							<a sec:authorize="hasAuthority('ADMIN')" href="entry-form.html"
 								th:href="@{/inventory/addproduct/}" class="btn btn-success">Create
 								new inventory</a> <a sec:authorize="hasAuthority('ADMIN')"
