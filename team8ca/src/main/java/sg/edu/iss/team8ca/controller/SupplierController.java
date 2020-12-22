@@ -1,16 +1,22 @@
 package sg.edu.iss.team8ca.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.team8ca.model.Supplier;
+import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 
@@ -26,10 +32,53 @@ public class SupplierController {
 		this.supint = supservice;
 	}
     
+	//@RequestMapping(value = "/list")
+	//public String list(Model model) {
+	//	model.addAttribute("supplier", supint.findAllSupplier());
+	//	return "supplier";
+	//}
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
-		model.addAttribute("supplier", supint.findAllSupplier());
+		int pageSize = 5;
+		int pageNo = 1;
+		String sortField = "id";
+		String sortDir = "asc";
+		Page<Supplier> page = supint.findBykeywordContaining("", pageNo, pageSize, sortField, sortDir);
+		List<Supplier> supList = page.getContent();
+		model.addAttribute("supplier", supList);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "supplier";
+	}
+	
+	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
+	public String searchWithPage(@RequestParam ("keyword") String keyword, @PathVariable(value = "pageNo") int pageNo,
+			@PathVariable(value = "pageSize") int pageSize, @RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir, Model model) {
+		if (keyword == null) {
+		//	return "supplier";
+			keyword = "";
+		} 
+		//else {
+			Page<Supplier> page = supint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
+			List<Supplier> supList = page.getContent();
+			
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("supplier", supList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			return "supplier";
+		//}
 	}
 	
 	@RequestMapping(value = "/add")
@@ -37,13 +86,11 @@ public class SupplierController {
 		model.addAttribute("supplier", new Supplier());
 		return "SupplierForm";
 	}
-	
 	@RequestMapping(value = "/edit/{id}")
 	public String editForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("supplier", supint.findSupplierById(id));
 		return "SupplierForm";
 	}
-	
 	@RequestMapping(value = "/save")
 	public String saveSupplier(@ModelAttribute("supplier") @Valid Supplier supplier, 
 			BindingResult bindingResult,  Model model) {
@@ -53,7 +100,6 @@ public class SupplierController {
 		supint.saveSupplier(supplier);
 		return "forward:/supplier/list";
 	}
-	
 	@RequestMapping(value = "/delete/{id}")
 	public String deleteSupplier(@PathVariable("id") Long id) {
 		supint.deleteSupplier(supint.findSupplierById(id));

@@ -39,9 +39,9 @@
 						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
 						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
 						<li><a th:href="@{~/customer/list}" class=""><i class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
-						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/user/list}" class="active"><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>				
+						<li><a th:href="@{~/user/list}" class="active"><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>				
 					</ul>
 				</nav>
 			</div>
@@ -59,18 +59,79 @@
 							<div sec:authorize="hasAuthority('ADMIN')">
 								<a th:href="@{/user/add}" class="btn btn-primary">Add User</a>
 							</div>
+							
+							<div class="panel-body" style="overflow-x: auto;">
+							<div class="row">
+								<div class="col-lg-8">
+									<form name="searchwithPage"
+										th:action="@{'/user/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+										<div class="input-group" style="width: 310px">
+											<input type="text" name="keyword" th:value="${keyword}"
+												value=" " required class="form-control"
+												placeholder="Search for users" /> <input type="hidden"
+												name="sortField" th:value="${sortField}"> <input
+												type="hidden" name="sortDir" th:value="${sortDir}">
+											<span class="input-group-btn"><input type="submit"
+												value="Search" class="btn btn-primary" /></span>
+										</div>
+									</form>
+								</div>
+								<div class="col-lg-4">
+
+									<div class="btn-group pull-right" role="group">
+										<button type="button" class="btn btn-primary dropdown-toggle"
+											data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Entries Per Page<span class="caret"></span>
+										</button>
+									</div>
+										<li class="dropdown-menu">
+											<ul>
+												<a
+													th:href="@{'/user/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+													class="dropdown-item">5</a>
+											</ul>
+											<ul>
+												<a
+													th:href="@{'/user/search/page/1/10?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+													class="dropdown-item">10</a>
+											</ul>
+											<ul>
+												<a
+													th:href="@{'/user/search/page/1/20?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+													class="dropdown-item">20</a>
+											</ul>
+										</li>
+									</div>
+
+								</div>
+							
 							<h3 th:if="${not #lists.isEmpty(user)}">User List</h3>
 							<table th:if="${not #lists.isEmpty(user)}"
 								class="table table-striped">
 								<tr>
-									<th>User Id</th>
-									<th>First Name</th>
-									<th>Last Name</th>
-									<th>User Name</th>
-									<!-- 									<th>Password</th> -->
-									<th>Email</th>
-									<th>Contact no.</th>
-									<th>Address</th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+											User Id</a></th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=firstName&sortDir=' + ${reverseSortDir}}">
+											First Name</a></th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=lastName&sortDir=' + ${reverseSortDir}}">
+											Last Name</a></th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=userName&sortDir=' + ${reverseSortDir}}">
+											User Name</a></th>
+									<!-- <th>Password</th> -->
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=email&sortDir=' + ${reverseSortDir}}">
+											Email</a></th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=contactNo&sortDir=' + ${reverseSortDir}}">
+											Contact no.</a></th>
+									<th><a
+										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=address&sortDir=' + ${reverseSortDir}}">
+											Address</a></th>
 									<div sec:authorize="hasAuthority('ADMIN')">
 									<th>Edit user</th>
 									<th>Delete user</th>
@@ -94,6 +155,49 @@
 								</tr>
 							</table>
 						</div>
+						
+						<div>
+							<div style="display: inline;" class="row col-sm-10">
+								<div class="col-sm-2">No. of Search items:
+									[[${totalItems}]]</div>
+								<div style="display: inline;" align="right" th:if='${keyword!=null and totalItems>0}'>
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/user/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+										<li  th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/user/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'/user/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+								
+								<div style="display: inline;" align="right" th:if='${keyword==null and totalItems>0}'>
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/user/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
+										<li  th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/user/search/page/' +${i} + '/'+${pageSize}  + '?keyword='  +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'/user/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+									
+						
+						
 					</div>
 				</div>
 			</div>
@@ -103,3 +207,7 @@
 </body>
 
 </html>
+
+
+
+

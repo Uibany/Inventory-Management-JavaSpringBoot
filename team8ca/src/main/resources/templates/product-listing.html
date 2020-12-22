@@ -73,8 +73,8 @@
 							<a sec:authorize="hasAuthority('ADMIN')"
 								href="reorder-product.html" th:href="@{/inventory/reorderlist}"
 								class="btn btn-primary">Reorder products</a> <a
-								href="ReorderReport.html" th:href="@{/inventory/select}"
-								class="btn btn-info">Reorder Report</a>
+								sec:authorize="hasAuthority('ADMIN')" href="ReorderReport.html" 
+								th:href="@{/inventory/select}" class="btn btn-info">Reorder Report</a>
 						</div>
 					</div>
 
@@ -109,6 +109,7 @@
 											aria-expanded="false">
 											Entries Per Page<span class="caret"></span>
 										</button>
+									</div>
 										<li class="dropdown-menu">
 											<ul>
 												<a
@@ -129,7 +130,7 @@
 									</div>
 
 								</div>
-							</div>
+							
 							<br>
 
 							<table class="table table-striped">
