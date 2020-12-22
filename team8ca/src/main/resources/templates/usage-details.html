@@ -163,6 +163,7 @@
 										<form th:action="@{/report/generate}" method="POST">
 											<input type="hidden" name="productId" th:value="${inv.id}">
 											<input type="hidden" name="startDate" th:value="${null}">
+											<input type="hidden" name="transType" th:value="${'All transactions'}">
 											<button type="submit" class="btn btn-info">Transaction
 												history</button>
 										</form>
