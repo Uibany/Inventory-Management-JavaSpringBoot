@@ -285,13 +285,15 @@ public class ProductListingController {
 		int minOrder = inv.getMinimumOrder();
 		int invQuantity = inv.getStockQty();
 		int newInvQuantity = invQuantity + quantity;
+		
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 
 		if (quantity >= minOrder) {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
 			model.addAttribute("error", null);
-			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-			User user = uservice.findUserByUserName(currentUserName);
+			
 			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			thservice.saveTrans(trans);
 
@@ -302,6 +304,9 @@ public class ProductListingController {
 			List<Inventory> plist = plService.list();			
 			model.addAttribute("error", errormsg);
 			model.addAttribute("plist", plist);
+			
+			TransHistory trans = new TransHistory(TransType.DebitBack, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			thservice.saveTrans(trans);
 		return "reorder-product";
 		}
 	}
