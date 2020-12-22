@@ -102,18 +102,21 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadUserData() {
 
 		if (userRepo.count() == 0) {
-			User user1 = new User("admin", passwordEncoder("password"), "Admin", "User", "admin@gmail.com", "123456",
+			User user1 = new User("admin", passwordEncoder("password"), "Admin", "Administrator", "admin@gmail.com", "88123456",
 					"Jurong East");
 			userRepo.save(user1);
-			User user2 = new User("sankalp", passwordEncoder("sankalp"), "Sankalp", "  ", "sankalp@gmail.com", "123456",
+			User user2 = new User("sankalp", passwordEncoder("sankalp"), "Sankalp", "  ", "sankalp@gmail.com", "88654321",
 					"Jurong West");
 			userRepo.save(user2);
-			User user3 = new User("team8ca", passwordEncoder("team8ca"), "Team", "JavaCA", "team8@gmail.com", "123456",
+			User user3 = new User("team8ca", passwordEncoder("team8ca"), "Team", "JavaCA", "team8@gmail.com", "88147852",
 					"Clementi");
 			userRepo.save(user3);
-			User user4 = new User("Esther", passwordEncoder("asdfasdf"), "Esther", "Tan", "esther@gmail.com", "123456",
+			User user4 = new User("mechanic", passwordEncoder("mechanic"), "Mechanic", "Mechanic", "mechanic@gmail.com", "88258741",
 					"Bedok");
 			userRepo.save(user4);
+			User user5 = new User("admin2", passwordEncoder("password"), "Admin2", "Administrator", "admin2@gmail.com", "88159753",
+					"Jurong East");
+			userRepo.save(user5);
 		}
 	}
 
