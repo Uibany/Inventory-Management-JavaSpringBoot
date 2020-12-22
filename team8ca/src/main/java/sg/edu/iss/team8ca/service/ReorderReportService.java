@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -56,7 +57,7 @@ public class ReorderReportService implements ReorderReportInterface {
 				bw.newLine();
 				bw.write("=======================================================================================");
 				bw.write("\nPart No. Unit.Price\t Quantity\t Reorder Qty.\t Min.Ord.Qty\t Ord.Qty\t Price\n");
-				bw.write("=========================================================================================\n");
+				bw.write("=======================================================================================\n");
 				for(Inventory inv : invList) {
 					orderQty=0;
 					double price=inv.getStockQty()*inv.getOriginalPrice();
