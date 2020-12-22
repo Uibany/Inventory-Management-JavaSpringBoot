@@ -58,6 +58,9 @@
 							<a href="CustomerForm.html" th:href="@{/customer/add}"
 								class="btn btn-primary">Add Customer</a> <br> <br>
 
+								<div class="row">
+									<div class="col-lg-8">
+
 							<form name="searchwithPage"
 								th:action="@{'/customer/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
 								<div class="input-group" style="width: 310px">
@@ -69,10 +72,11 @@
 										value="Search" class="btn btn-primary" /></span>
 								</div>
 							</form>
-							<br>
-							<div class="dropdown">
+							</div>
+							<div class="col-lg-4">
+							<div class="dropdown pull-right">
 								<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-primary">
-									Items per page <span class="caret"></span>
+									Entries per page <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu"
 									aria-labelledby="dropdownMenu1">
@@ -101,6 +105,8 @@
 										th:href="@{'/customer/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
 									</li>
 								</ul>
+							</div>
+							</div>
 							</div>
 							<br>
 
@@ -143,10 +149,9 @@
 							</table>
 						</div>
 						<br />
-						<div>
-							<div style="display: inline;" class="row col-sm-10">
-								<div class="col-sm-2">No. of Search items:
-									[[${totalItems}]]</div>
+						<div class="panel-footer">
+							<div style="display: inline;">
+								<div>No. of Search items: [[${totalItems}]]</div>
 
 
 								<div style="display: inline;" align="right" th:if='${keyword!=null and totalItems>0}'>
