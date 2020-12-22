@@ -227,7 +227,11 @@ public class ProductListingController {
 		model.addAttribute("addOrEdit", "edit");
 		return "entry-form";	
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> branch 'jaxine_branch' of https://github.com/seano188/javaTeam8CA
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
 			plService.deleteProduct(plService.findProductById(id));
