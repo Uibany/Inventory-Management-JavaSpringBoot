@@ -65,6 +65,11 @@
 								aria-hidden="true">&times;</span></button>
 						<i class="lnr lnr-warning"></i> No transaction found for selected dates.
 					</div>
+					<div th:if="${error=='invalid-type'}" class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<i class="lnr lnr-warning"></i> No transaction found for selected transaction type.
+					</div>
 
 					<div class="panel shadow">
 						<div class="panel-body">
@@ -76,12 +81,22 @@
 											th:value="${product==null} ? '' : ${product.id}" required>
 									</div>
 								
-								<div class="col-lg-3 col-md-4 col-lg-offset-1 col-md-offset-1">
-									<h4 class="text-left">Please select date range: </h4>
-									<input type="text" class="form-control" name="daterange" id="daterange"
-										style="width: 200;" value="Select dates">
+									<div class="col-lg-3 col-md-3">
+										<h4 class="text-left">Please select date range: </h4>
+										<input type="text" class="form-control" name="daterange" id="daterange"
+											style="width: 200;" value="Select dates">
+									</div>
+									
+									<div class="col-lg-3 col-md-3">
+									<h4 class="text-left">Transaction Type: </h4>
+										<select name="transType"
+											class="form-control">
+											<option th:each="type : ${typeList}" th:value="${type}"
+												th:text="${type}">
+											</option>
+										</select>
+									</div>
 								</div>
-							</div>
 						
 						<input type="hidden" name="startDate" th:value="${startDate}" id="start">
 						<input type="hidden" name="endDate" th:value="${endDate}" id="end">

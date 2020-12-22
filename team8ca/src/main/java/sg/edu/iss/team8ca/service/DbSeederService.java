@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -85,11 +86,12 @@ public class DbSeederService implements CommandLineRunner {
 		loadBrand();
 		loadCustomer();
 		loadInv();
+		loadInventory();
 		loadInvUsage();
 		loadTrans();
 		loadProducts();
 		loadFixsets();
-		loadInventory();
+		
 	}
 
 	private String passwordEncoder(String password) {
@@ -353,13 +355,18 @@ public class DbSeederService implements CommandLineRunner {
 				"Orange", "5mm x 1mm", subcat2, brand2);
 		invRepo.save(inv);
 	}
-
+	
+	
+	//load new inventory into transHistory
 	private void loadTrans() {
-		User user1 = userRepo.findAll().get(0);
-		Inventory inv = invRepo.findInvByName("100 screws");
-		TransHistory trans = new TransHistory(TransType.Usage, 1, inv, LocalDate.of(2020, 11, 10), LocalTime.of(21, 30),
-				user1);
-		thRepo.save(trans);
+		User user1 = userRepo.findByUserName("admin");
+		for(long id=1;id<=invRepo.count() ;id++) 
+		{
+			Inventory inv = invRepo.findInvById(id);
+			TransHistory trans = new TransHistory(TransType.NewInventory, inv.getStockQty(), inv, LocalDate.of(2020, 11, 10), 
+					LocalTime.of(21, 30),user1);
+			thRepo.save(trans);
+		}
 	}
 
 	private void loadCustomer() {

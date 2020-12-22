@@ -198,7 +198,6 @@ public class ProductListingController {
 //		//Add to transHistory	
 //		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 //		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
 		User user1 = uservice.findUserByUserName("admin");
 		if(model.getAttribute("addOrEdit")=="add"){
 			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
@@ -290,14 +289,17 @@ public class ProductListingController {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
 			model.addAttribute("error", null);
+			User user1 = uservice.findUserByUserName("admin");
+			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			thservice.saveTrans(trans);
 
 			return "forward:/inventory/reorderlist";
 		}
 		else {
 			String errormsg = "qtyerror";
-			List<Inventory> plist = plService.list();
-		model.addAttribute("error", errormsg);
-		model.addAttribute("plist", plist);
+			List<Inventory> plist = plService.list();			
+			model.addAttribute("error", errormsg);
+			model.addAttribute("plist", plist);
 		return "reorder-product";
 		}
 	}
