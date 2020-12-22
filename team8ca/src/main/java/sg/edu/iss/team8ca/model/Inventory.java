@@ -25,6 +25,7 @@ public class Inventory {
 	@NotNull
 	private String productName;
 	private String description;
+	@NotNull
 	private double originalPrice;
 	private double wholesalePrice;
 	private double retailPrice;
