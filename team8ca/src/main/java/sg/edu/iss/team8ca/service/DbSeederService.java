@@ -87,8 +87,8 @@ public class DbSeederService implements CommandLineRunner {
 		loadCustomer();
 		loadInv();
 		loadInventory();
-		loadInvUsage();
 		loadTrans();
+		loadInvUsage();
 		loadProducts();
 		loadFixsets();
 		

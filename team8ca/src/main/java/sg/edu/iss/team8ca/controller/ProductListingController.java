@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -196,17 +197,16 @@ public class ProductListingController {
 		inventory.setSubcategory(subcategory);
 				
 //		//Add to transHistory	
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-		User user1 = uservice.findUserByUserName("admin");
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 		if(model.getAttribute("addOrEdit")=="add"){
-			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			plService.saveProduct(inventory);
 			thservice.saveTrans(trans);
 			
 		}else {
 			plService.saveProduct(inventory);
-			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			thservice.saveTrans(trans);	
 		}
 		return "redirect:/inventory/list";
@@ -290,8 +290,9 @@ public class ProductListingController {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
 			model.addAttribute("error", null);
-			User user1 = uservice.findUserByUserName("admin");
-			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+			User user = uservice.findUserByUserName(currentUserName);
+			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			thservice.saveTrans(trans);
 
 			return "forward:/inventory/reorderlist";
