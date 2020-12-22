@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -196,18 +197,16 @@ public class ProductListingController {
 		inventory.setSubcategory(subcategory);
 				
 //		//Add to transHistory	
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
-		User user1 = uservice.findUserByUserName("admin");
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 		if(model.getAttribute("addOrEdit")=="add"){
-			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			TransHistory trans = new TransHistory(TransType.NewInventory, Math.toIntExact(inventory.getStockQty()), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			plService.saveProduct(inventory);
 			thservice.saveTrans(trans);
 			
 		}else {
 			plService.saveProduct(inventory);
-			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
+			TransHistory trans = new TransHistory(TransType.UpdateInventory, Math.toIntExact(0), inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
 			thservice.saveTrans(trans);	
 		}
 		return "redirect:/inventory/list";
@@ -228,29 +227,6 @@ public class ProductListingController {
 		model.addAttribute("addOrEdit", "edit");
 		return "entry-form";	
 		}
-
-//	@RequestMapping(value = "/saveeditproduct")
-//	public String saveeditProduct(@ModelAttribute("inventory") @Valid Inventory inventory,
-//			BindingResult bindingResult, Model model) {
-//		
-//		if (bindingResult.hasErrors()) {
-//			return "edit-form";
-//		}
-//		Brand brand = plService.findBrandByName(inventory.getBrand().getBrandName());
-//		Subcategory subcategory = plService.findSubcatByName(inventory.getSubcategory().getSubcategoryName());
-//		inventory.setBrand(brand);
-//		inventory.setSubcategory(subcategory);
-//		plService.addProduct(inventory);
-//		
-////		//Add to transHistory	
-////		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-////		User user = uservice.findUserByUserName(currentUserName);
-////		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
-//		User user1 = uservice.findUserByUserName("admin");
-//		TransHistory trans = new TransHistory(TransType.UpdateInventory, 0, inventory, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user1);
-//		thservice.saveTrans(trans);
-//		return "redirect:/inventory/list";
-//	}
 		
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
@@ -308,19 +284,28 @@ public class ProductListingController {
 		int minOrder = inv.getMinimumOrder();
 		int invQuantity = inv.getStockQty();
 		int newInvQuantity = invQuantity + quantity;
+		
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 
 		if (quantity >= minOrder) {
 			inv.setStockQty(newInvQuantity);
 			plService.saveProduct(inv);
 			model.addAttribute("error", null);
+			
+			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			thservice.saveTrans(trans);
 
 			return "forward:/inventory/reorderlist";
 		}
 		else {
 			String errormsg = "qtyerror";
-			List<Inventory> plist = plService.list();
-		model.addAttribute("error", errormsg);
-		model.addAttribute("plist", plist);
+			List<Inventory> plist = plService.list();			
+			model.addAttribute("error", errormsg);
+			model.addAttribute("plist", plist);
+			
+			TransHistory trans = new TransHistory(TransType.DebitBack, quantity, inv, LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Tokyo")), user);
+			thservice.saveTrans(trans);
 		return "reorder-product";
 		}
 	}

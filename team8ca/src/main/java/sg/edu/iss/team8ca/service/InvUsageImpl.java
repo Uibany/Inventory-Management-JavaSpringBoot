@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,6 +80,20 @@ public class InvUsageImpl implements InvUsageInterface {
 		return iurepo.findAll();
 	};
 	
+	@Override
+	@Transactional (readOnly = true)
+	public Page<InvUsage> iuSearchPage(String keyword, int pageNo, int pageSize, String sortField,
+			String sortDirection){
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
+				: Sort.by(sortField).descending();
+
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		if (keyword == null) {
+			return iurepo.findAll(pageable);
+		}
+		return iurepo.iuSearchPage(keyword, pageable);
+	}
+		
 	public List<UsageDetails> listAllUsageDetails(){
 		return udrepo.findAll();
 	};	
@@ -122,15 +140,18 @@ public class InvUsageImpl implements InvUsageInterface {
 		return irepo.findById(id).get();
 	};
 	
+	@Override
+	@Transactional (readOnly = true)
+	public List<UsageDetails> listUdForInvIdUsageId(Long invid, Long iuid) {
+		return udrepo.listUdForInvIdUsageId(invid, iuid);
+	}
 	
 //	update record
-	@Transactional
-	public void updateUsageDetails(UsageDetails usageDetails) {
-		
-	};
 	
+	@Override
 	@Transactional
 	public void reduceInventory(int quantity, Inventory inventory) {
 		inventory.setStockQty(inventory.getStockQty() - quantity);
 	};
+	
 }
