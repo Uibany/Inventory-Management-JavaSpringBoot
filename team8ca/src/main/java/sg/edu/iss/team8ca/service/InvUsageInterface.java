@@ -34,9 +34,9 @@ public interface InvUsageInterface {
 	public UsageDetails findUsageDetailsById(Long id);
 	public Page<InvUsage> iuSearchPage(String keyword, int pageNo, int pageSize, String sortField,
 			String sortDirection);
+	public List<UsageDetails> listUdForInvIdUsageId(Long invid, Long iuid);
 	
 //	update record
-	public void updateUsageDetails(UsageDetails usageDetails);
 	public void reduceInventory(int quantity, Inventory inventory);
 
 }

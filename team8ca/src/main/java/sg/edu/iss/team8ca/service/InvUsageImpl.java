@@ -140,14 +140,18 @@ public class InvUsageImpl implements InvUsageInterface {
 		return irepo.findById(id).get();
 	};
 	
-//	update record
-	@Transactional
-	public void updateUsageDetails(UsageDetails usageDetails) {
-		
-	};
+	@Override
+	@Transactional (readOnly = true)
+	public List<UsageDetails> listUdForInvIdUsageId(Long invid, Long iuid) {
+		return udrepo.listUdForInvIdUsageId(invid, iuid);
+	}
 	
+//	update record
+	
+	@Override
 	@Transactional
 	public void reduceInventory(int quantity, Inventory inventory) {
 		inventory.setStockQty(inventory.getStockQty() - quantity);
 	};
+	
 }

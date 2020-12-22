@@ -86,18 +86,7 @@ public class UsageFormController {
 	@Autowired
 	public void setCustomerService(CustomerImpl customerImpl) {
 		this.cuservice = customerImpl;
-	}
-
-//	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
-//	public String showListing(Model model) {
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		model.addAttribute("user", user);
-//		List<InvUsage> usageList = iuservice.listAllUsageRecord();
-//		model.addAttribute("usageList", usageList);
-//		return "iulisting";
-//	}
-	
+	}	
 	
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
 	public String list(Model model) {
@@ -300,10 +289,16 @@ public class UsageFormController {
 //	Adding inventory items to the usage listing
 	@RequestMapping(value = "/usageforms/{id1}/addinvtoform/{id2}", method = RequestMethod.GET)
 	public String addListingInv(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
-		Inventory inv = iuservice.findInvById(id1);
-		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
-		iuservice.addUsageDetails(ud);
-		return "forward:/invusage/usageforms/" + id2;
+		List<UsageDetails> udadd = iuservice.listUdForInvIdUsageId(id1, id2);
+		if (udadd.size()>0 ) {
+			return "forward:/invusage/usageforms/" + id2;
+		}
+		else {
+			Inventory inv = iuservice.findInvById(id1);
+			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
+			iuservice.addUsageDetails(ud);
+			return "forward:/invusage/usageforms/" + id2;		
+		}
 	}
 
 //	Delete usage details
