@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.team8ca.model.Supplier;
-import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 
