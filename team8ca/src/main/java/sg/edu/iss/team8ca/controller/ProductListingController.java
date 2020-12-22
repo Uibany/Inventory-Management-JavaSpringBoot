@@ -227,11 +227,7 @@ public class ProductListingController {
 		model.addAttribute("addOrEdit", "edit");
 		return "entry-form";	
 		}
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/main
-		
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
 		public String deleteProduct(@PathVariable Long id) {
 			plService.deleteProduct(plService.findProductById(id));
