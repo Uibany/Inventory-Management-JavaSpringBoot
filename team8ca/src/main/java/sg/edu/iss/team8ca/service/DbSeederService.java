@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,7 +159,7 @@ public class DbSeederService implements CommandLineRunner {
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
 		Customer customer = cusRepo.findAll().get(0);
-		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, customer, user1, "Fixing loose screws");
+		InvUsage invUsage = new InvUsage(LocalDate.of(2020,1,10),LocalTime.of(13,10), UsageReportStatus.InProgress, customer, user1, "Fixing loose screws");
 		iuRepo.save(invUsage);
 		Subcategory subcat2 = subcatRepo.findSubcatByName("loose parts").get(0);
 		Brand brand2 = brandRepo.findBrandByName("TonyHawk").get(0);
@@ -229,13 +230,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv17);
 		invRepo.save(inv18);
 		invRepo.save(inv19);
-		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.of(2019,10,11), LocalTime.of(11, 10), 0);
 		udRepo.save(ud);
-		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud1 = new UsageDetails(inv2, invUsage, LocalDate.of(2019,11,12), LocalTime.of(15, 50), 0);
 		udRepo.save(ud1);
-		UsageDetails ud2 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud2 = new UsageDetails(inv3, invUsage, LocalDate.of(2020,3,15), LocalTime.of(9, 45), 0);
 		udRepo.save(ud2);
-		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud3 = new UsageDetails(inv4, invUsage, LocalDate.of(2020,6,15), LocalTime.of(8, 30), 0);
 		udRepo.save(ud3);
 	}
 	

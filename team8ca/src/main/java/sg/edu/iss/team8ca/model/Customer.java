@@ -26,19 +26,19 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<InvUsage> invUsage;
 	
-	@NotEmpty(message = "*Please enter your username")
+	@NotNull
 	private String customerName;
-	@NotEmpty(message = "*Please enter your contact number")
+	@NotNull
 	private String contactNo;
-	@NotEmpty(message = "*Please enter your email")
+	@NotNull
 	private String email;
-	@NotEmpty(message = "*Please enter your address")
+	@NotNull
 	private String address;
 	
-	public Customer(List<InvUsage> invUsage, @NotEmpty(message = "*Please enter your username") String customerName,
-			@NotEmpty(message = "*Please enter your contact number") String contactNo,
-			@NotEmpty(message = "*Please enter your email") String email,
-			@NotEmpty(message = "*Please enter your address") String address) {
+	public Customer(List<InvUsage> invUsage, @NotNull String customerName,
+			@NotNull String contactNo,
+			@NotNull String email,
+			@NotNull String address) {
 		super();
 		this.invUsage = invUsage;
 		this.customerName = customerName;
@@ -47,10 +47,10 @@ public class Customer {
 		this.address = address;
 	}
 
-	public Customer(@NotEmpty(message = "*Please enter your username") String customerName,
-			@NotEmpty(message = "*Please enter your contact number") String contactNo,
-			@NotEmpty(message = "*Please enter your email") String email,
-			@NotEmpty(message = "*Please enter your address") String address) {
+	public Customer(@NotNull String customerName,
+			@NotNull String contactNo,
+			@NotNull String email,
+			@NotNull String address) {
 		super();
 		this.customerName = customerName;
 		this.contactNo = contactNo;

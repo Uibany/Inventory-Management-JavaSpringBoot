@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,26 +59,52 @@ public class UsageFormController {
 
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
 	public String showListing(Model model) {
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
-		User user = uservice.findUserByUserName("admin");
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 		model.addAttribute("user", user);
 		List<InvUsage> usageList = iuservice.listAllUsageRecord();
 		model.addAttribute("usageList", usageList);
 		return "iulisting";
 	}
-
+	
 //	New usage report
 	@RequestMapping(value = "/addforms/addformdetails/{userid}", method = RequestMethod.GET)
 	public String addUsageReportNewCust(Model model, @PathVariable("userid") Long userid) {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", new Customer());
 		return "UsageReportCustTask";
+	}
+	
+//	Delete usage report
+	@RequestMapping(value = "/deleteforms/{formid}")
+	public String deleteUsageReport(Model model, @PathVariable("formid") Long formid) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
+		InvUsage usageForm = iuservice.findUsageById(formid);
+		List<UsageDetails> usageDetailsList = iuservice.listDetailsForUdId(formid);
+		for(UsageDetails ud : usageDetailsList) {
+			Inventory inventory = ud.getInventory();
+			int newqty = inventory.getStockQty()+Math.toIntExact(ud.getQuantity());
+			inventory.setStockQty(newqty);
+			pservice.saveProduct(inventory);
+			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), LocalTime.now(), user);
+			thservice.saveTrans(trans);
+		}		
+		iuservice.deleteUsage(usageForm);
+		return "forward:/invusage/showlisting";
+	}
+	
+//	Change usage form status to completed
+	@RequestMapping(value = "/changeformstatus/{formid}")
+	public String changeUsageReportStatus(Model model, @PathVariable("formid") Long formid) {
+		InvUsage usageForm = iuservice.findUsageById(formid);
+		usageForm.setUsageReportStatus(UsageReportStatus.Completed);
+		iuservice.addUsage(usageForm);
+		return "forward:/invusage/showlisting";
 	}
 
 //	add customers
@@ -88,7 +115,7 @@ public class UsageFormController {
 		model.addAttribute("user", user);
 		Customer customer = cuservice.findCustomerById(custid);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", customer);
 		return "UsageReportCustTask";
@@ -101,7 +128,7 @@ public class UsageFormController {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.cusSearch(keyword);
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user));
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		if (custid==0) {
 			model.addAttribute("customer", new Customer());
@@ -132,7 +159,7 @@ public class UsageFormController {
 			User user = uservice.findUserById(userid);
 			model.addAttribute("user", user);			
 			String tasks = request.getParameter("task");
-			InvUsage usageform = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);
+			InvUsage usageform = new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user);
 			usageform.setCustomer(customer1);
 			usageform.setTasks(tasks);
 			iuservice.addUsage(usageform);
@@ -169,7 +196,7 @@ public class UsageFormController {
 	@RequestMapping(value = "/usageforms/{id1}/addinvtoform/{id2}", method = RequestMethod.GET)
 	public String addListingInv(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
 		Inventory inv = iuservice.findInvById(id1);
-		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), 0);
+		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
 		iuservice.addUsageDetails(ud);
 		return "forward:/invusage/usageforms/" + id2;
 	}
@@ -177,10 +204,8 @@ public class UsageFormController {
 //	Delete usage details
 	@RequestMapping(value = "/delete/usageforms/{id1}/ud/{id2}", method = RequestMethod.GET)
 	public String deleteUd(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
-//		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User user = uservice.findUserByUserName(currentUserName);
-//		InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user);	
-		User user = uservice.findUserByUserName("admin");
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 		UsageDetails ud = iuservice.findUsageDetailsById(id2);
 		Inventory inventory = pservice.findProductById(ud.getInventory().getId());
 		inventory.setStockQty(inventory.getStockQty() + Math.toIntExact(ud.getQuantity()));
@@ -198,10 +223,8 @@ public class UsageFormController {
 	@RequestMapping(value = "/usage/{id1}/ud/{id2}", method = RequestMethod.GET)
 	public String usageQuantity(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,
 			@RequestParam("ud_quantity") Long quantity) {
-//			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-//			User user = uservice.findUserByUserName(currentUserName);
-//			InvUsage invUsage = new InvUsage(LocalDate.now(), UsageReportStatus.InProgress, user1);
-		User user = uservice.findUserByUserName("admin");
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
 		UsageDetails ud = iuservice.findUsageDetailsById(id2);
 		long udQuantity = ud.getQuantity();
 		long newUdQuantity = udQuantity + quantity;
@@ -212,6 +235,7 @@ public class UsageFormController {
 		if (newQuantity >= 0 && quantity >= 0) {
 			ud.setQuantity(newUdQuantity);
 			ud.setDate(LocalDate.now());
+			ud.setTime(LocalTime.now());
 			iuservice.addUsageDetails(ud);
 
 			inventory.setStockQty(newQuantity);
