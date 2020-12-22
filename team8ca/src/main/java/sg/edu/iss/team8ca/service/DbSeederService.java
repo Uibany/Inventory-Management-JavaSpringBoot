@@ -2,12 +2,6 @@ package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-<<<<<<< HEAD
-import java.time.ZoneId;
-import java.util.List;
-=======
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -185,13 +179,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);
 		invRepo.save(inv4);
 		invRepo.save(inv5);
-		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.of(2019,10,11), LocalTime.of(11, 10), 0);
 		udRepo.save(ud);
-		UsageDetails ud1 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud1 = new UsageDetails(inv2, invUsage, LocalDate.of(2019,11,12), LocalTime.of(15, 50), 0);
 		udRepo.save(ud1);
-		UsageDetails ud2 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud2 = new UsageDetails(inv3, invUsage, LocalDate.of(2020,3,15), LocalTime.of(9, 45), 0);
 		udRepo.save(ud2);
-		UsageDetails ud3 = new UsageDetails(inv1, invUsage, LocalDate.now(), 0);
+		UsageDetails ud3 = new UsageDetails(inv4, invUsage, LocalDate.of(2020,6,15), LocalTime.of(8, 30), 0);
 		udRepo.save(ud3);
 	}
 	
@@ -295,16 +289,6 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv17);
 		invRepo.save(inv18);
 		invRepo.save(inv19);
-<<<<<<< HEAD
-		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.of(2019,10,11), LocalTime.of(11, 10), 0);
-		udRepo.save(ud);
-		UsageDetails ud1 = new UsageDetails(inv2, invUsage, LocalDate.of(2019,11,12), LocalTime.of(15, 50), 0);
-		udRepo.save(ud1);
-		UsageDetails ud2 = new UsageDetails(inv3, invUsage, LocalDate.of(2020,3,15), LocalTime.of(9, 45), 0);
-		udRepo.save(ud2);
-		UsageDetails ud3 = new UsageDetails(inv4, invUsage, LocalDate.of(2020,6,15), LocalTime.of(8, 30), 0);
-		udRepo.save(ud3);
-=======
 		invRepo.save(inv20);
 		invRepo.save(inv21);
 		invRepo.save(inv22);
@@ -329,7 +313,6 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv41);
 		invRepo.save(inv42);
 		invRepo.save(inv43);
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 	}
 	
 	// supplier -> brand
