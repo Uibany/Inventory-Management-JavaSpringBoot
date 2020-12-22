@@ -1,6 +1,7 @@
  package sg.edu.iss.team8ca.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,16 @@ public class UsageTransReportController {
 	@RequestMapping(value ="/form", method = RequestMethod.GET)
 	public ModelAndView reportform(){
         ModelAndView modelAndView = new ModelAndView();
+        ArrayList<String>typeList = new ArrayList<String>();
+        typeList.add("All transactions");
+        typeList.add("NewInventory");
+        typeList.add("Usage");
+        typeList.add("ReStock");
+        typeList.add("DebitBack");
+        typeList.add("UpdateInventory");
+
+        modelAndView.addObject("transType", "All transactions");
+        modelAndView.addObject("typeList", typeList);
         modelAndView.setViewName("usage-trans-form");
         return modelAndView;
     }
@@ -39,6 +50,17 @@ public class UsageTransReportController {
 		String id= request.getParameter("productId");
 		long productId = Long.parseLong(id);
 		Inventory product = thservice.findInvById(productId);
+		
+		ArrayList<String>typeList = new ArrayList<String>();
+	        typeList.add("All transactions");
+	        typeList.add("NewInventory");
+	        typeList.add("Usage");
+	        typeList.add("ReStock");
+	        typeList.add("DebitBack");
+	        typeList.add("UpdateInventory");
+	
+	    modelAndView.addObject("typeList", typeList);
+	    modelAndView.addObject("transType", request.getParameter("transType"));
 		//if product not found
 		if(product == null) 
 		{
@@ -49,38 +71,78 @@ public class UsageTransReportController {
 		//if no date range provided
 		if(request.getParameter("startDate").isBlank()) 
 		{
-			List<TransHistory> alltransHistory = thservice.listTransHisForId(productId);
-			if(alltransHistory.size()== 0) 
+			if(request.getParameter("transType").equals("All transactions")) 
 			{
-				modelAndView.addObject("error", "invalid-date");
+				List<TransHistory> alltransHistory = thservice.listTransHisForId(productId);
+				
+				if(alltransHistory.size()== 0) 
+				{
+					modelAndView.addObject("error", "invalid-date");
+					modelAndView.setViewName("usage-trans-form");
+			        return modelAndView;
+				}
+				modelAndView.addObject("transHistory", alltransHistory);
 				modelAndView.setViewName("usage-trans-form");
+				modelAndView.addObject("product", product);
+		        return modelAndView;		
+			}else 
+			{
+				List<TransHistory> transHistoryByType = thservice.listTransHisForIdType(productId,request.getParameter("transType"));
+				if(transHistoryByType.size()== 0) 
+				{
+					modelAndView.addObject("error", "invalid-type");
+					modelAndView.setViewName("usage-trans-form");
+			        return modelAndView;
+				}
+				modelAndView.addObject("transHistory", transHistoryByType);
+				modelAndView.setViewName("usage-trans-form");
+				modelAndView.addObject("product", product);
 		        return modelAndView;
 			}
-			modelAndView.addObject("transHistory", alltransHistory);
-			modelAndView.setViewName("usage-trans-form");
-			modelAndView.addObject("product", product);
-	        return modelAndView;	
+				
 		}
 		
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		LocalDate start = LocalDate.parse(startDate); 
 		LocalDate end = LocalDate.parse(endDate); 
-		List<TransHistory> transHistory = thservice.listTransHisForDate(productId, start, end);
-		//if no inventory found for selected dates
-		if(transHistory.size()== 0) 
+		
+		if(request.getParameter("transType").equals("All transactions")) 
 		{
-			modelAndView.addObject("error", "invalid-date");
+		
+			List<TransHistory> transHistory = thservice.listTransHisForDate(productId, start, end);
+			//if no inventory found for selected dates
+			if(transHistory.size()== 0) 
+			{
+				modelAndView.addObject("error", "invalid-date");
+				modelAndView.setViewName("usage-trans-form");
+		        return modelAndView;
+			}
+			
+			modelAndView.addObject("transHistory", transHistory);
+			modelAndView.addObject("product", product);
+			modelAndView.addObject("start", start);
+			modelAndView.addObject("end", end);	
 			modelAndView.setViewName("usage-trans-form");
 	        return modelAndView;
+		}else{
+			List<TransHistory> transHistoryByType = thservice.listTransHisForDateType(productId, start, end,request.getParameter("transType"));
+			//if no inventory found for selected dates and type
+			if(transHistoryByType.size()== 0) 
+			{
+				modelAndView.addObject("error", "invalid-type");
+				modelAndView.setViewName("usage-trans-form");
+		        return modelAndView;
+			}
+			
+			modelAndView.addObject("transHistory", transHistoryByType);
+			modelAndView.addObject("product", product);
+			modelAndView.addObject("start", start);
+			modelAndView.addObject("end", end);	
+			modelAndView.setViewName("usage-trans-form");
+	        return modelAndView;
+			
 		}
-		
-		modelAndView.addObject("transHistory", transHistory);
-		modelAndView.addObject("product", product);
-		modelAndView.addObject("start", start);
-		modelAndView.addObject("end", end);	
-		modelAndView.setViewName("usage-trans-form");
-        return modelAndView;
     }
 	
 	

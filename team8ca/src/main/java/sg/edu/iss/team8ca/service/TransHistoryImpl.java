@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.TransHistory;
+import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.TransHistoryRepo;
 
@@ -32,7 +33,7 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	}
 
 	@Override
-  @Transactional (readOnly = true)
+	@Transactional (readOnly = true)
 	public List<TransHistory> listTransHisForId(long id) {
 		return threpo.listTransHis(id);
 	}
@@ -46,6 +47,19 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	@Override
 	public void saveTrans(TransHistory transHistory) {
 		threpo.save(transHistory);
+	}
+
+	@Override
+	public List<TransHistory> listTransHisForIdType(long id, String transType) {
+		TransType transTypeIndex = TransType.valueOf(transType);
+		return threpo.listTransHisForIdType(id,transTypeIndex);
+	}
+
+	@Override
+	public List<TransHistory> listTransHisForDateType(long id, LocalDate startDate, LocalDate endDate,
+			String transType) {
+		TransType transTypeIndex = TransType.valueOf(transType);
+		return threpo.listTransHisForDateType(id, startDate, endDate, transTypeIndex);
 	}
 	
 	
