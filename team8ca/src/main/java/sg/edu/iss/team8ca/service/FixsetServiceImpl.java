@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.team8ca.model.Fixset;
+import sg.edu.iss.team8ca.model.Product;
 import sg.edu.iss.team8ca.repo.FixsetRepo;
 import sg.edu.iss.team8ca.repo.ProductRepo;
 
@@ -48,6 +49,16 @@ public class FixsetServiceImpl implements FixsetService {
 	@Override
 	public @NotNull Iterable<Fixset> findAll() {
 		return this.fRepo.findAllFixsets();
+	}
+	@Override
+	public Fixset deleteById(long id) {
+		Fixset fixset = new Fixset();
+		try {
+			fRepo.deleteFixsetById(id);
+		}catch(Exception e){
+			return null;
+		}
+		return fixset;
 	}
 
 }

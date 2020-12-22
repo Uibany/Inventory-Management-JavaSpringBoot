@@ -9,13 +9,16 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.iss.team8ca.model.Fixset;
+import sg.edu.iss.team8ca.model.Product;
 import sg.edu.iss.team8ca.service.FixsetService;
 import sg.edu.iss.team8ca.service.ResourceNotFoundException;
 
@@ -44,6 +47,15 @@ public class FixsetController {
 			}
 		}
 		return new ResponseEntity<Object>(listOfFixsetIds, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deleteUser(@PathVariable long id) {
+		
+		//delete individual product
+		Fixset fixset = fixsetService.deleteById(id);
+		if (fixset == null)
+			throw new ResourceNotFoundException("id: "+id);
 	}
 
 }

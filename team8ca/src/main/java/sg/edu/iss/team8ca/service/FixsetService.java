@@ -14,4 +14,6 @@ public interface FixsetService {
 
 	@NotNull
 	Iterable<Fixset> findAll();
+
+	Fixset deleteById(long id);
 }

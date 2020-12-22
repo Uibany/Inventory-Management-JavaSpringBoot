@@ -27,7 +27,7 @@ public class Fixset {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long fixsetId;
 	
 	private String fixsetName;
  

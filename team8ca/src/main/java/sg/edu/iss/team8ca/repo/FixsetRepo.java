@@ -17,4 +17,9 @@ public interface FixsetRepo extends JpaRepository<Fixset, Long>{
     @Transactional
     @Query("SELECT id, dateCreated, fixsetName, quantity FROM Fixset")
 	Iterable<Fixset> findAllFixsets();
+
+	@Modifying
+    @Transactional
+    @Query("delete from Fixset f where f.fixsetId = ?1")
+	void deleteFixsetById(long id);
 }
