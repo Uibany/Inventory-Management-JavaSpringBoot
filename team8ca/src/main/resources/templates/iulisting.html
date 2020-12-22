@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Usage Forms</title>
+<title>Customer Listing</title>
 <link type="text/css" media="all" href="../static/css/bootstrap.min.css"
 	th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link type="text/css" media="all"
@@ -20,25 +20,35 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/boots trap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 	<div id="wrapper">
 		<!-- navbar -->
 		<nav th:replace="fragments/layout.html :: navbar"></nav>
-		<!-- sidebar -->
-		<div th:fragment="sidebar-invUsage" id="sidebar-nav" class="sidebar">
+
+		<div th:fragment="sidebar-customer" id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
-					<ul class="nav">		
-						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
-						<li><a th:href="@{~/invusage/showlisting}" class="active"><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
-						<li><a th:href="@{~/report/form}" class=""><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
-						<li><a th:href="@{~/customer/list}" class=""><i class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
-						<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>				
+					<ul class="nav">
+						<li><a th:href="@{~/inventory/list}" class=""><i
+								class="lnr lnr-car"></i> <span>View Products</span></a></li>
+						<li sec:authorize="hasAuthority('ADMIN')"><a
+							th:href="@{~/inventory/addproduct}" class=""><i
+								class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
+						<li><a th:href="@{~/invusage/showlisting}" class=""><i
+								class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
+						<li><a th:href="@{~/report/form}" class=""><i
+								class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
+						<li><a th:href="@{~/supplier/list}" class=""><i
+								class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
+						<li><a th:href="@{~/customer/list}" class="active"><i
+								class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
+						<li><a th:href="@{~/user/list}" class=""><i
+								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -49,63 +59,157 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<div class="panel">
-						<div class="panel-body">
-							<h3>Stock Usage Forms</h3>
+						<div class="panel-heading">
+							<h2>Manage Customer</h2>
 						</div>
-						<div class="panel-body">
-							<div>
-								<a href="AddReport.html"
-									th:href="@{/invusage/addforms/addformdetails/}+${user.id}">
-									<button class="btn btn-success">Add new form</button>
-								</a>
-								<div>
-									<div class="panel-body"
-										style="max-height: 400px; overflow-y: scroll;">
-
-										<table class="table table-striped table-responsive"
-											style="overflow-x: auto;">
-											<tr>
-												<th>Usage Form ID</th>
-												<th>Task Reference</th>
-												<th>Usage Form Creation Date</th>
-												<th>Usage Form Creation Time</th>
-												<th>Usage Form Status</th>
-												<th>Creator User</th>
-												<th>Link to edit</th>
-												<th>Delete usage</th>
-												<th>Change status</th>
-											</tr>
-											<tr th:each="usage:${usageList}">
-												<td th:text=${usage.id}>id</td>
-												<td th:text=${usage.tasks}>id</td>
-												<td th:text=${usage.usageDate}>Usage Date</td>
-												<td th:text=${usage.usageTime}>Usage Time</td>
-												<td th:text=${usage.usageReportStatus}>Usage Form
-													status</td>
-												<td th:text=${usage.user.id}>Creator</td>
-												<td><a href="
-														EditUsage.html"
-													th:href="@{/invusage/usageforms/}+${usage.id}"
-													th:if="${usage.usageReportStatus.toString()=='InProgress'}">
-														<button class="btn btn-primary">Edit</button>
-												</a></td>
-												<td><a href="DeleteUsage.html"
-													th:href="@{/invusage/deleteforms/}+${usage.id}"><button
-															class="btn btn-danger">Delete</button></a></td>
-												<td><a href="MarkCompleted.html"
-													th:href="@{/invusage/changeformstatus/}+${usage.id}"><button
-															class="btn btn-warning">Mark Completed</button></a></td>
-												<td>
-											</tr>
-										</table>
-									</div>
+						<div class="panel-body" style="overflow-x: auto;">
+							<a href="AddReport.html"
+								th:href="@{/invusage/addforms/addformdetails/}+${user.id}"
+								class="btn btn-primary">Add New Form</a> <br> <br>
+							<form name="searchwithPage"
+								th:action="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+								<div class="input-group" style="width: 310px">
+									<input type="text" name="keyword" th:value="${keyword}"
+										class="form-control" placeholder="Search for usage report" />
+									<input type="hidden" name="sortField" th:value="${sortField}">
+									<input type="hidden" name="sortDir" th:value="${sortDir}">
+									<span class="input-group-btn"><input type="submit"
+										value="Search" class="btn btn-primary" /></span>
 								</div>
+							</form>
+							<br>
+							<div class="dropdown">
+								<button type="button" id="dropdownMenu1" data-toggle="dropdown"
+									class="btn btn-primary">
+									Items per page <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu"
+									aria-labelledby="dropdownMenu1">
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword == null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword!= null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword != null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+									</li>
+									<li role="presentation"><a th:if="${keyword != null}"
+										role="menuitem" tabindex="-1"
+										th:href="@{'/invusage/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+									</li>
+								</ul>
+							</div>
+							<br>
+
+							<table class="table table-striped">
+								<tr>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+											Usage Form Id</a></th>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=tasks&sortDir=' + ${reverseSortDir}}">Tasks
+											Reference</a></th>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageDate&sortDir=' + ${reverseSortDir}}">
+											Form Creation Date</a></th>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageTime&sortDir=' + ${reverseSortDir}}">Form
+											Creation Time</a></th>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageReportStatus&sortDir=' + ${reverseSortDir}}">Usage
+											Form Status</a></th>
+									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=user.id&sortDir=' + ${reverseSortDir}}">Creator
+											user</a></th>
+									<th>Link to Edit</th>
+									<th>Delete Usage</th>
+									<th>Change Status</th>
+								</tr>
+								<tr th:each="usage:${iuList}" class="table-row">
+									<td th:text=${usage.id}>Id</td>
+									<td th:text=${usage.tasks}>Tasks</td>
+									<td th:text=${usage.usageDate}>Usage Date</td>
+									<td th:text=${usage.usageTime}>Usage Time</td>
+									<td th:text=${usage.usageReportStatus}>Usage Form Status</td>
+									<td th:text=${usage.user.id}>Creator</td>
+									<td><a href="EditUsage.html"
+										th:href="@{/invusage/usageforms/}+${usage.id}"
+										th:if="${usage.usageReportStatus.toString()=='InProgress'}">
+											<button class="btn btn-primary">Edit</button>
+									</a></td>
+									<td><a href="DeleteUsage.html"
+										th:href="@{/invusage/deleteforms/}+${usage.id}"><button
+												class="btn btn-danger">Delete</button></a></td>
+									<td><a href="MarkCompleted.html"
+										th:href="@{/invusage/changeformstatus/}+${usage.id}"><button
+												class="btn btn-warning">Mark Completed</button></a></td>
+								</tr>
+							</table>
+						</div>
+						<br />
+						<div>
+							<div style="display: inline;" class="row col-sm-10">
+								<div class="col-sm-2">No. of Search items:
+									[[${totalItems}]]</div>
+
+
+								<div style="display: inline;" align="right"
+									th:if='${keyword!=null and totalItems>0}'>
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/invusage/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
+										<li th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/invusage/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'invusage/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+
+								<div style="display: inline;" align="right"
+									th:if='${keyword==null and totalItems>0}'>
+									<ul class="pagination">
+										<li><a th:if="${currentPage > 1}"
+											th:href="@{'/invusage/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
+											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
+										<li th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
+											th:unless="${i==currentpage}"
+											th:href="@{'/invusage/search/page/' +${i} + '/'+${pageSize}  + '?keyword='  +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+											th:text="${i}"></a></li>
+
+										<li><a th:if="${currentPage > totalPages}"
+											th:href="@{'invusage/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
+									</ul>
+								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 
 </html>
