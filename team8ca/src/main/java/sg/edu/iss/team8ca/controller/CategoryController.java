@@ -40,6 +40,7 @@ public class CategoryController {
 	
 	@RequestMapping(value = "/delete/{id}")		
 	public String deleteCategory(@PathVariable Long id) {
+		plService.deleteProducts(plService.findProductByCat(id));
 		plService.deleteCategory(plService.findCategoryById(id));
 	return "forward:/category/add";
 	}

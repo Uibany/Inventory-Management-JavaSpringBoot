@@ -47,6 +47,7 @@ public class SubcategoryController {
 	
 	@RequestMapping(value = "/delete/{id}")		
 	public String deleteSubcategory(@PathVariable Long id) {
+		plService.deleteProducts(plService.findProductBySubCat(id));
 		plService.deleteSubcategory(plService.findSubcatById(id));
 	return "forward:/subcategory/add";
 	}

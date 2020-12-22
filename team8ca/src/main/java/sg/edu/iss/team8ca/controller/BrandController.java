@@ -49,6 +49,7 @@ public class BrandController {
 	
 	@RequestMapping(value = "/delete/{id}")		
 	public String deleteBrand(@PathVariable Long id) {
+		plService.deleteProducts(plService.findProductByBrand(id));
 		plService.deleteBrand(plService.findBrandById(id));
 	return "forward:/brand/add";
 	}

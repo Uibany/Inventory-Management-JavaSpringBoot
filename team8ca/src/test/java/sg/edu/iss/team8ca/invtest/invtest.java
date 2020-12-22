@@ -4,13 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
-import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 
 @SpringBootTest
