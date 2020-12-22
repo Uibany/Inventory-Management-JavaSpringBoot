@@ -197,7 +197,7 @@ public class DbSeederService implements CommandLineRunner {
 				"Orange", "5mm x 1mm", Accessories, Denso);
 		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 60.00, 65.00, 20, 5, 1,
 				"Blue", "200cm x 40cm", Body, Bosch);
-		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 5.00, 5.50, 6.00, 6.50, 20, 8, 4, "Black",
+		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 10.00, 5.50, 6.00, 6.50, 20, 8, 4, "Black",
 				"26rad", Tires, Bosch);
 		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 20, 8, 4, "Silver",
 				"25rad", Tires, Bosch);
@@ -217,15 +217,15 @@ public class DbSeederService implements CommandLineRunner {
 				"25rad", Electrical, JBL);
 		Inventory inv12 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 36.00, 38.00, 27, 9, 3, "Black",
 				"25rad", Electrical, JBL);
-		Inventory inv13 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 130.00, 135.00, 10, 5, 1,
-				"Silver", "25rad", Electrical, JBL);
-		Inventory inv14 = new Inventory("Car Battery", "Used to start a vehicle", 25.00, 28.00, 31.00, 33.00, 20, 10, 1,
-				"Green", "25rad", Electrical, Magna);
-		Inventory inv15 = new Inventory("Tachometer", "Measure rotation speed", 20.00, 22.00, 24.00, 26.00, 20, 10, 1,
-				"Black", "25rad", Accessories, Lear);
-		Inventory inv16 = new Inventory("Voltmeter", "Measure electric potential", 20.00, 22.00, 24.00, 26.00, 20, 10,
-				1, "Black", "25rad", Accessories, Lear);
-		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 5.00, 6.00, 7.00, 8.00, 20, 10, 10, "Yellow",
+		Inventory inv13 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 130.00, 135.00, 10, 5, 1, "Silver",
+				"25rad", Electrical, JBL);
+		Inventory inv14 = new Inventory("Car Battery", "Used to start a vehicle", 25.00, 28.00, 31.00, 33.00, 20, 10, 1, "Green",
+				"25rad", Electrical, Magna);
+		Inventory inv15 = new Inventory("Tachometer", "Measure rotation speed", 20.00, 22.00, 24.00, 26.00, 20, 10, 1, "Black",
+				"25rad", Accessories, Lear);
+		Inventory inv16 = new Inventory("Voltmeter", "Measure electric potential", 20.00, 22.00, 24.00, 26.00, 20, 10, 1, "Black",
+				"25rad", Accessories, Lear);
+		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 10.00, 6.00, 7.00, 8.00, 20, 10, 10, "Yellow",
 				"5rad", Accessories, Lear);
 		Inventory inv18 = new Inventory("Headlights", "Car frontlights", 20.00, 22.00, 24.00, 26.00, 20, 10, 10,
 				"Yellow", "5rad", Accessories, Lear);
