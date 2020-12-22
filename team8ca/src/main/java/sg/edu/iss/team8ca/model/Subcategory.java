@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Subcategory {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotNull
 	private long id;
 	private String subcategoryName;
 	private String subcategoryType;

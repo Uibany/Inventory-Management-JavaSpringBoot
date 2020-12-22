@@ -39,6 +39,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
+        		.cors()
+        		.and()
         		.requestMatchers()
         		.and()
                 .authorizeRequests()

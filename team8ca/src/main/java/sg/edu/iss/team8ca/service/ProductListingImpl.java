@@ -3,7 +3,6 @@ package sg.edu.iss.team8ca.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,12 +16,10 @@ import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Subcategory;
-import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.CategoryRepo;
 import sg.edu.iss.team8ca.repo.InventoryRepo;
 import sg.edu.iss.team8ca.repo.SubcategoryRepo;
-import sg.edu.iss.team8ca.repo.SupplierRepo;
 
 @Service
 @Transactional
@@ -203,8 +200,6 @@ public class ProductListingImpl implements ProductListingInterface {
 		}
 		return irepo.invSearch(keyword);
 	}
-	
-	
 
 	@Override
 	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection) {
@@ -220,6 +215,30 @@ public class ProductListingImpl implements ProductListingInterface {
 		
 	}
 
+	@Override
+	public List<Inventory> findProductBySubCat(long subcatId) {
+		
+		return irepo.findInvBySubcat(subcatId);
+	}
+
+	@Override
+	public List<Inventory> findProductByCat(long catId) {
+		return irepo.findInvByCat(catId);
+	}
+
+	@Override
+	public List<Inventory> findProductByBrand(long brandId) {
+		return irepo.findInvByBrand(brandId);
+	}
+
+	@Override
+	public void deleteProducts(List<Inventory> invList) {
+		for(Inventory product:invList) 
+		{
+			irepo.delete(product);
+		}
+		
+	}
 
 
 }

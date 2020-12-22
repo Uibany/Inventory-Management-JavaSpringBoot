@@ -31,37 +31,20 @@
 <body>
 	<!-- 	<nav th:replace="fragments/layout.html :: header"></nav> -->
 	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid navbar-menu">
-				<div class="brand">
-					<a href="index.html"><img src="../static/images/logo.png" th:src="@{/images/logo.png}" alt="Logo"
-							class="img-responsive logo"></a>
-				</div>
-				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<span>Hi, Username.</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div th:fragment="sidebar" id="sidebar-nav" class="sidebar">
+		<!-- navbar -->
+		<nav th:replace="fragments/layout.html :: navbar"></nav>
+		<!-- sidebar -->
+		<div th:fragment="sidebar-transReport" id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
-					<ul class="nav">
-						<li><a th:href="@{~/}" class=""><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
+					<ul class="nav">		
 						<li><a th:href="@{~/inventory/list}" class=""><i class="lnr lnr-car"></i> <span>View Products</span></a></li>
-						<li><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
+						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/inventory/addproduct}" class=""><i class="lnr lnr-file-add"></i><span>Stock Entry Forms</span></a></li>
 						<li><a th:href="@{~/invusage/showlisting}" class=""><i class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class="active"><i class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
 						<li><a th:href="@{~/supplier/list}" class=""><i class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
-						<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+						<li><a th:href="@{~/customer/list}" class=""><i class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
+						<li><a th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>				
 					</ul>
 				</nav>
 			</div>
@@ -112,7 +95,7 @@
 				<div class="panel shadow" id="report" th:if="${product!=null}">
 					<div class="panel-heading" id="report-heading">
 						<h3>Transaction History: &nbsp;&nbsp;<span th:text="${product.productName}"
-								class="text-primary">Product Name</span></h3>
+								class="text-primary">Product Name</span>(ID: <span th:text="${product.id}"></span>)</h3>
 						<h3 th:if="${start==null}">All transactions</h3>
 						<h3 th:if="${start!=null}">From:&nbsp;<span id="startDate" th:text="${start}"
 								class="text-primary"></span> &nbsp; &nbsp;To:&nbsp;<span id="endDate" th:text="${end}"
@@ -213,7 +196,7 @@
 			mywindow.document.write('<html><head><title>' + document.title + '</title>');
 			mywindow.document.write('</head><body >');
 			mywindow.document.write('<style>table, th, td {border: 1px solid black;border-collapse: collapse;}</style>')
-			mywindow.document.write('<h1>' + document.title + '</h1>');
+			mywindow.document.write('<h1>Transaction Report</h1>');
 			mywindow.document.write(document.getElementById("report-heading").innerHTML);
 			mywindow.document.write(document.getElementById("report-body").innerHTML);
 			mywindow.document.write('</body></html>');

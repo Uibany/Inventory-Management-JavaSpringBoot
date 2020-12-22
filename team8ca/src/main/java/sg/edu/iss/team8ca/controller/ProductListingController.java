@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -70,31 +69,26 @@ public class ProductListingController {
 		int pageSize = 5;
 		int pageNo = 1;
 		String sortField = "id";
-		String sortDir = "asc";
-		String keyword = "";
-		Page<Inventory> page = plService.findPaginated(keyword, pageNo, pageSize, sortField, sortDir);
+		String sortDirection = "asc";
+		Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDirection);
 		List<Inventory> plist = page.getContent(); 
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
-		model.addAttribute("keyword", keyword);
-		
 		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("pageSize", pageSize);
-
 		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDir);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+		model.addAttribute("sortDir", sortDirection);
+		model.addAttribute("keyword", " ");
 	
 		return "product-listing";
 	}
 	
 
 	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	public String searchWithPage(@RequestParam ("keyword") String keyword,
-			@PathVariable ( value = "pageNo") int pageNo, 
+	public String searchWithPage(@Param("keyword") String keyword ,@PathVariable ( value = "pageNo") int pageNo, 
 			@PathVariable ( value = "pageSize") int pageSize, 
 			@RequestParam ("sortField") String sortField,
 			@RequestParam ("sortDir")String sortDir, Model model)  {
@@ -102,18 +96,22 @@ public class ProductListingController {
 		Page<Inventory> page = plService.findPaginated(keyword, pageNo, pageSize, sortField, sortDir);
 		List<Inventory> plist = page.getContent();
 		
+		if(keyword.equals(null)) 
+		{
+			keyword = " ";
+		}
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
 		model.addAttribute("today", today.toString());
 		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("pageSize", pageSize);
+
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-		
+
 		return "product-listing";
 	}
 
@@ -269,6 +267,7 @@ public class ProductListingController {
 		model.addAttribute("keyword", keyword);
 		return "product-listing";
 	}
+	
 	@RequestMapping("/select")
 	public String selectSupplier(Model model) {
 		model.addAttribute("supplier", supint.findAllSupplier());
@@ -281,4 +280,48 @@ public class ProductListingController {
 		return "message";
 	}
 	
+	@RequestMapping(value = "/reorderlist", method = RequestMethod.GET)
+	public String reorderList(Model model) {
+		List<Inventory> plist = plService.list();
+		model.addAttribute("plist", plist);
+		model.addAttribute("error", null);
+		
+		return "reorder-product";
+	}
+	
+	@RequestMapping("/search/reorder")
+	public String searchReorder(Model model, @Param("keyword") String keyword) {
+		List<Inventory> plist = plService.list(keyword);
+		LocalDate today = LocalDate.now();
+		model.addAttribute("plist", plist);
+		model.addAttribute("today", today.toString());
+		model.addAttribute("keyword", keyword);
+		return "reorder-product";
+	}
+	
+	@RequestMapping(value = "/reorder/{id}", method = RequestMethod.GET)
+	public String reorderProduct(@PathVariable("id") Long id, 
+			@RequestParam("inv_quantity") int quantity, Model model) {
+		
+		Inventory inv = plService.findProductById(id);
+		
+		int minOrder = inv.getMinimumOrder();
+		int invQuantity = inv.getStockQty();
+		int newInvQuantity = invQuantity + quantity;
+
+		if (quantity >= minOrder) {
+			inv.setStockQty(newInvQuantity);
+			plService.saveProduct(inv);
+			model.addAttribute("error", null);
+
+			return "forward:/inventory/reorderlist";
+		}
+		else {
+			String errormsg = "qtyerror";
+			List<Inventory> plist = plService.list();
+		model.addAttribute("error", errormsg);
+		model.addAttribute("plist", plist);
+		return "reorder-product";
+		}
+	}
 }

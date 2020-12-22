@@ -2,7 +2,6 @@
 package sg.edu.iss.team8ca.repo;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Inventory;
 
 
@@ -41,4 +39,13 @@ public interface InventoryRepo extends JpaRepository<Inventory, Long> {
 			+ "OR i.brand.manufacturerName LIKE %?1%")	
 	public Page<Inventory> findBykeywordContaining(String keyword, Pageable pageable);
 	
+	@Query("SELECT inv FROM Inventory inv WHERE inv.subcategory.id = :id")
+	public List<Inventory> findInvBySubcat(@Param("id")long id);
+	
+	@Query("SELECT inv FROM Inventory inv WHERE inv.subcategory.category.id = :id")
+	public List<Inventory> findInvByCat(@Param("id")long id);
+	
+	@Query("SELECT inv FROM Inventory inv WHERE inv.brand.id = :id")
+	public List<Inventory> findInvByBrand(@Param("id")long id);
+
 }
