@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.TransHistory;
+import sg.edu.iss.team8ca.model.TransType;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
 
 @Controller
@@ -29,13 +30,12 @@ public class UsageTransReportController {
 	@RequestMapping(value ="/form", method = RequestMethod.GET)
 	public ModelAndView reportform(){
         ModelAndView modelAndView = new ModelAndView();
+        
         ArrayList<String>typeList = new ArrayList<String>();
         typeList.add("All transactions");
-        typeList.add("NewInventory");
-        typeList.add("Usage");
-        typeList.add("ReStock");
-        typeList.add("DebitBack");
-        typeList.add("UpdateInventory");
+        for (TransType type : TransType.values()) { 
+            typeList.add(type.name()); 
+        }
 
         modelAndView.addObject("transType", "All transactions");
         modelAndView.addObject("typeList", typeList);
@@ -53,11 +53,9 @@ public class UsageTransReportController {
 		
 		ArrayList<String>typeList = new ArrayList<String>();
 	        typeList.add("All transactions");
-	        typeList.add("NewInventory");
-	        typeList.add("Usage");
-	        typeList.add("ReStock");
-	        typeList.add("DebitBack");
-	        typeList.add("UpdateInventory");
+	        for (TransType type : TransType.values()) { 
+	            typeList.add(type.name()); 
+	        }
 	
 	    modelAndView.addObject("typeList", typeList);
 	    modelAndView.addObject("transType", request.getParameter("transType"));
@@ -101,7 +99,7 @@ public class UsageTransReportController {
 			}
 				
 		}
-		
+		//if date range provided
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		LocalDate start = LocalDate.parse(startDate); 
