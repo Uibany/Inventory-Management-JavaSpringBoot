@@ -29,10 +29,15 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.CustomerImpl;
+import sg.edu.iss.team8ca.service.CustomerInterface;
 import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.InvUsageInterface;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.ProductListingInterface;
 import sg.edu.iss.team8ca.service.SendEmailService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.TransHistoryInterface;
+import sg.edu.iss.team8ca.service.UserInterface;
 import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
@@ -40,22 +45,47 @@ import sg.edu.iss.team8ca.service.UserService;
 public class UsageFormController {
 
 	@Autowired
-	private InvUsageImpl iuservice;
+	private InvUsageInterface iuservice;
+	
+	@Autowired
+	private void setInvUsageService(InvUsageImpl invUsageImpl) {
+		this.iuservice = invUsageImpl;
+	};
 
 	@Autowired
-	private UserService uservice;
+	private UserInterface uservice;
+	
+	@Autowired
+	private void setUserService(UserService userService) {
+		this.uservice = userService;
+	};
 
 	@Autowired
-	private ProductListingImpl pservice;
+	private ProductListingInterface pservice;
+	
+	@Autowired
+	private void setProductService(ProductListingImpl productListingImpl) {
+		this.pservice = productListingImpl;
+	}
 
 	@Autowired
 	private SendEmailService sendEmailService;
 
 	@Autowired
-	private TransHistoryImpl thservice;
+	private TransHistoryInterface thservice;
+	
+	@Autowired
+	private void setTransHistoryService(TransHistoryImpl transHistoryImpl) {
+		this.thservice = transHistoryImpl;
+	}
 
 	@Autowired
-	private CustomerImpl cuservice;
+	private CustomerInterface cuservice;
+
+	@Autowired
+	public void setCustomerService(CustomerImpl customerImpl) {
+		this.cuservice = customerImpl;
+	}
 
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
 	public String showListing(Model model) {
