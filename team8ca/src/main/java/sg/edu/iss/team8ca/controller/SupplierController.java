@@ -31,16 +31,19 @@ public class SupplierController {
 		model.addAttribute("supplier", supint.findAllSupplier());
 		return "supplier";
 	}
+	
 	@RequestMapping(value = "/add")
 	public String addForm(Model model) {
 		model.addAttribute("supplier", new Supplier());
 		return "SupplierForm";
 	}
+	
 	@RequestMapping(value = "/edit/{id}")
 	public String editForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("supplier", supint.findSupplierById(id));
 		return "SupplierForm";
 	}
+	
 	@RequestMapping(value = "/save")
 	public String saveSupplier(@ModelAttribute("supplier") @Valid Supplier supplier, 
 			BindingResult bindingResult,  Model model) {
@@ -50,6 +53,7 @@ public class SupplierController {
 		supint.saveSupplier(supplier);
 		return "forward:/supplier/list";
 	}
+	
 	@RequestMapping(value = "/delete/{id}")
 	public String deleteSupplier(@PathVariable("id") Long id) {
 		supint.deleteSupplier(supint.findSupplierById(id));

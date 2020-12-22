@@ -21,6 +21,7 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NotNull
 	private long id;
+	@NotNull
 	private String categoryName;
 	
 	@OneToMany(mappedBy="category",cascade = CascadeType.REMOVE)

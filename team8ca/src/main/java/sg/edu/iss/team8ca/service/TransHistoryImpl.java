@@ -32,7 +32,7 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	}
 
 	@Override
-  @Transactional (readOnly = true)
+	@Transactional (readOnly = true)
 	public List<TransHistory> listTransHisForId(long id) {
 		return threpo.listTransHis(id);
 	}
