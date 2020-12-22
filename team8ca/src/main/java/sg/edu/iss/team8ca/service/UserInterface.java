@@ -10,6 +10,7 @@ public interface UserInterface {
 	public List<User> findAllUser();
 	public User findUserById(Long id);
 	public User saveUser(User user);
+	public User findUserByUserName(String userName);
 	
 }
 

@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Supplier;
@@ -44,13 +43,13 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "redirect:/brand/add"; 
+		return "forward:/brand/add"; 
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
+	@RequestMapping(value = "/delete/{id}")		
 	public String deleteBrand(@PathVariable Long id) {
 		plService.deleteProducts(plService.findProductByBrand(id));
 		plService.deleteBrand(plService.findBrandById(id));
-	return "redirect:/brand/add";
+	return "forward:/brand/add";
 	}
 }

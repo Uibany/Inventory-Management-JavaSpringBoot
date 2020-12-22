@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.iss.team8ca.model.Category;
 import sg.edu.iss.team8ca.model.Subcategory;
@@ -42,13 +41,13 @@ public class SubcategoryController {
 		Category category = plService.findCatByName(subcategory.getCategory().getCategoryName());
 		subcategory.setCategory(category);
 		plService.addSubcategory(subcategory);
-		return "redirect:/subcategory/add"; 
+		return "forward:/subcategory/add"; 
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)		
+	@RequestMapping(value = "/delete/{id}")		
 	public String deleteSubcategory(@PathVariable Long id) {
 		plService.deleteProducts(plService.findProductBySubCat(id));
 		plService.deleteSubcategory(plService.findSubcatById(id));
-	return "redirect:/subcategory/add";
+	return "forward:/subcategory/add";
 	}
 }
