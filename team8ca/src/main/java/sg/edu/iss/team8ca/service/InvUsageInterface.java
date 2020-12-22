@@ -4,6 +4,8 @@ package sg.edu.iss.team8ca.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.TransHistory;
@@ -30,9 +32,11 @@ public interface InvUsageInterface {
 	public Inventory findInvById(Long id);
 	public InvUsage findUsageById(Long id);
 	public UsageDetails findUsageDetailsById(Long id);
+	public Page<InvUsage> iuSearchPage(String keyword, int pageNo, int pageSize, String sortField,
+			String sortDirection);
+	public List<UsageDetails> listUdForInvIdUsageId(Long invid, Long iuid);
 	
 //	update record
-	public void updateUsageDetails(UsageDetails usageDetails);
 	public void reduceInventory(int quantity, Inventory inventory);
 
 }

@@ -43,11 +43,11 @@
 								class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i
 								class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li><a th:href="@{~/supplier/list}" class=""><i
+						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/supplier/list}" class=""><i
 								class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
 						<li><a th:href="@{~/customer/list}" class=""><i
 								class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
-						<li><a th:href="@{~/user/list}" class=""><i
+						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/user/list}" class=""><i
 								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
 					</ul>
 				</nav>
@@ -109,6 +109,7 @@
 											aria-expanded="false">
 											Entries Per Page<span class="caret"></span>
 										</button>
+									</div>
 										<li class="dropdown-menu">
 											<ul>
 												<a
@@ -129,7 +130,7 @@
 									</div>
 
 								</div>
-							</div>
+							
 							<br>
 
 							<table class="table table-striped">

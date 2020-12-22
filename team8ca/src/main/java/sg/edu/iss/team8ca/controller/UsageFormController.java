@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,10 +30,15 @@ import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.UsageReportStatus;
 import sg.edu.iss.team8ca.model.User;
 import sg.edu.iss.team8ca.service.CustomerImpl;
+import sg.edu.iss.team8ca.service.CustomerInterface;
 import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.InvUsageInterface;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.ProductListingInterface;
 import sg.edu.iss.team8ca.service.SendEmailService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.TransHistoryInterface;
+import sg.edu.iss.team8ca.service.UserInterface;
 import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
@@ -40,32 +46,120 @@ import sg.edu.iss.team8ca.service.UserService;
 public class UsageFormController {
 
 	@Autowired
-	private InvUsageImpl iuservice;
+	private InvUsageInterface iuservice;
+	
+	@Autowired
+	private void setInvUsageService(InvUsageImpl invUsageImpl) {
+		this.iuservice = invUsageImpl;
+	};
 
 	@Autowired
-	private UserService uservice;
+	private UserInterface uservice;
+	
+	@Autowired
+	private void setUserService(UserService userService) {
+		this.uservice = userService;
+	};
 
 	@Autowired
-	private ProductListingImpl pservice;
+	private ProductListingInterface pservice;
+	
+	@Autowired
+	private void setProductService(ProductListingImpl productListingImpl) {
+		this.pservice = productListingImpl;
+	}
 
 	@Autowired
 	private SendEmailService sendEmailService;
 
 	@Autowired
-	private TransHistoryImpl thservice;
+	private TransHistoryInterface thservice;
+	
+	@Autowired
+	private void setTransHistoryService(TransHistoryImpl transHistoryImpl) {
+		this.thservice = transHistoryImpl;
+	}
 
 	@Autowired
-	private CustomerImpl cuservice;
+	private CustomerInterface cuservice;
 
+	@Autowired
+	public void setCustomerService(CustomerImpl customerImpl) {
+		this.cuservice = customerImpl;
+	}	
+	
 	@RequestMapping(value = "/showlisting", method = RequestMethod.GET)
-	public String showListing(Model model) {
+	public String list(Model model) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = uservice.findUserByUserName(currentUserName);
 		model.addAttribute("user", user);
-		List<InvUsage> usageList = iuservice.listAllUsageRecord();
-		model.addAttribute("usageList", usageList);
+		int pageSize = 5;
+		int pageNo = 1;
+		String sortField = "id";
+		String sortDir = "asc";
+		Page<InvUsage> page = iuservice.iuSearchPage("", pageNo, pageSize, sortField, sortDir);
+		List<InvUsage> iuList = page.getContent();
+		model.addAttribute("iuList", iuList);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("totalPages", page.getTotalPages());
+		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "iulisting";
 	}
+
+	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
+	public String searchWithPage(@RequestParam ("keyword") String keyword, @PathVariable(value = "pageNo") int pageNo,
+			@PathVariable(value = "pageSize") int pageSize, @RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir, Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
+		model.addAttribute("user", user);
+		if (keyword == null) {
+			return "iulisting";
+		} else {
+			Page<InvUsage> page = iuservice.iuSearchPage(keyword, pageNo, pageSize, sortField, sortDir);
+			List<InvUsage> iuList = page.getContent();
+
+			model.addAttribute("iuList", iuList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			return "iulisting";
+		}
+	}
+	
+	@RequestMapping(value = "/search/page1")
+	public String searchWithPageDropdown(@RequestParam ("keyword") String keyword, @RequestParam("pageNo") int pageNo,
+			@RequestParam("pageSize") int pageSize, @RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir, Model model) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = uservice.findUserByUserName(currentUserName);
+		model.addAttribute("user", user);
+		if (keyword == null) {
+			return "forward:/invusage/showlisting";
+		} else {
+			Page<InvUsage> page = iuservice.iuSearchPage(keyword, pageNo, pageSize, sortField, sortDir);
+			List<InvUsage> iuList = page.getContent();
+			model.addAttribute("iuList", iuList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			return "iulisting";
+		}
+	}	
 	
 //	New usage report
 	@RequestMapping(value = "/addforms/addformdetails/{userid}", method = RequestMethod.GET)
@@ -195,10 +289,16 @@ public class UsageFormController {
 //	Adding inventory items to the usage listing
 	@RequestMapping(value = "/usageforms/{id1}/addinvtoform/{id2}", method = RequestMethod.GET)
 	public String addListingInv(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
-		Inventory inv = iuservice.findInvById(id1);
-		UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
-		iuservice.addUsageDetails(ud);
-		return "forward:/invusage/usageforms/" + id2;
+		List<UsageDetails> udadd = iuservice.listUdForInvIdUsageId(id1, id2);
+		if (udadd.size()>0 ) {
+			return "forward:/invusage/usageforms/" + id2;
+		}
+		else {
+			Inventory inv = iuservice.findInvById(id1);
+			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
+			iuservice.addUsageDetails(ud);
+			return "forward:/invusage/usageforms/" + id2;		
+		}
 	}
 
 //	Delete usage details
