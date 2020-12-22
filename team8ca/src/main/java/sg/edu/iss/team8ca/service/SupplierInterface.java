@@ -3,6 +3,8 @@ package sg.edu.iss.team8ca.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import sg.edu.iss.team8ca.model.Supplier;
 
 public interface SupplierInterface {
@@ -13,4 +15,6 @@ public interface SupplierInterface {
 	public Supplier findSupplierById(long id);
 	public ArrayList<String> findAllSupplierNames();
 	public Supplier findSupplierByName(String name);
+	public Page<Supplier> findBykeywordContaining(String string, int pageNo, int pageSize, String sortField,
+			String sortDir);
 }
