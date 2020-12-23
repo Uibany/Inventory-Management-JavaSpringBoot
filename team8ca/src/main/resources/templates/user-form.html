@@ -51,16 +51,16 @@
 									<input type="hidden" th:field="*{id}">
 								</fieldset> <br>
 								<fieldset class="panel-title">
-									First Name <input class="form-control" type="text" th:field="*{firstName}">
+									First Name <input class="form-control" type="text" th:field="*{firstName}" required>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Last Name <input class="form-control" type="text" th:field="*{lastName}">
 								</fieldset> <br>
 								<fieldset class="panel-title">
-									User Name <input class="form-control" type="text" th:field="*{userName}">
+									User Name <input class="form-control" type="text" th:field="*{userName}"required>
 								</fieldset> <br>
 								<fieldset class="panel-title">
-									Password <input class="form-control" type="password" th:field="*{password}">
+									Password <input class="form-control" type="password" th:field="*{password}"required>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Email <input class="form-control" type="text" th:field="*{email}">
@@ -69,7 +69,7 @@
 									Contact No. <input class="form-control" type="text" th:field="*{contactNo}">
 								</fieldset> <br>
 								<fieldset class="panel-title">
-									Address <input class="form-control" type="text" th:field="*{address}">
+									Address <input class="form-control" type="text" th:field="*{address}"required>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									<button type="submit" class="btn btn-primary">Save</button>
