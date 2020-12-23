@@ -84,6 +84,7 @@ public class ProductListingController {
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDirection);
 		model.addAttribute("keyword", "");
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 	
 		return "product-listing";
 	}
@@ -113,6 +114,7 @@ public class ProductListingController {
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
 		return "product-listing";
 	}
