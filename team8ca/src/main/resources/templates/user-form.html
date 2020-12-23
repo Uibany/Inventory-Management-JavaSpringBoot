@@ -57,20 +57,12 @@
 									Last Name <input class="form-control" type="text" th:field="*{lastName}">
 								</fieldset> <br>
 								<fieldset class="panel-title">
-<<<<<<< HEAD
-									User Name <input class="form-control" type="text" th:field="*{userName}">
+									User Name <input class="form-control" type="text" th:field="*{userName}" required>
 									<p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
-=======
-									User Name <input class="form-control" type="text" th:field="*{userName}"required>
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 								</fieldset> <br>
 								<fieldset class="panel-title">
-<<<<<<< HEAD
-									Password <input class="form-control" type="password" th:field="*{password}">
+									Password <input class="form-control" type="password" th:field="*{password}" required>
 									<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-=======
-									Password <input class="form-control" type="password" th:field="*{password}"required>
->>>>>>> branch 'main' of https://github.com/seano188/javaTeam8CA.git
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Email <input class="form-control" type="text" th:field="*{email}">

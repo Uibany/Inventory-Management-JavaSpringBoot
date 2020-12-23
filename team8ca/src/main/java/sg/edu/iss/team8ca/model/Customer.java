@@ -33,8 +33,7 @@ public class Customer {
 	@NotNull
 	private String contactNo;
 	
-	@NotBlank
-	@Email
+	@Email(message = "*Please input a valid email")
 	private String email;
 	@NotNull
 	private String address;

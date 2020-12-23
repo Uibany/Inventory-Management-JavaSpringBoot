@@ -23,7 +23,7 @@ public class Supplier {
 	private long id;
 	private String companyName;
 	private String contactNo;
-	@Email
+	@Email(message = "*Please input a valid email")
 	private String email;
 	private String address;
 	private int postalCode;

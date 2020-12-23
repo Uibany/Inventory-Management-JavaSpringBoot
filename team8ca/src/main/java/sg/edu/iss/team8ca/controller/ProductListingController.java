@@ -83,7 +83,7 @@ public class ProductListingController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDirection);
-		model.addAttribute("keyword", " ");
+		model.addAttribute("keyword", "");
 	
 		return "product-listing";
 	}
