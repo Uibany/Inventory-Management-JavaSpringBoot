@@ -143,34 +143,142 @@ public class DbSeederService implements CommandLineRunner {
 
 	private void loadInvUsage() {
 		User user1 = userRepo.findByUserName("admin");
-		Customer customer = cusRepo.findAll().get(0);
-		InvUsage invUsage = new InvUsage(LocalDate.of(2020, 11, 20), LocalTime.of(13, 10), UsageReportStatus.InProgress,
-				customer, user1, "Fixing loose screws");
-		iuRepo.save(invUsage);
 		Inventory inv1 = invRepo.findInvById(1);
 		Inventory inv2 = invRepo.findInvById(2);
 		Inventory inv3 = invRepo.findInvById(3);
 		Inventory inv4 = invRepo.findInvById(4);
-		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.of(2020, 11, 20), LocalTime.of(11, 10), 2);
+		User user2 = userRepo.findByUserName("mechanic");		
+		Customer customer1 = cusRepo.findAll().get(0);
+		Customer customer2 = cusRepo.findAll().get(1);
+		Customer customer3 = cusRepo.findAll().get(2);
+		Customer customer4 = cusRepo.findAll().get(3);		
+		InvUsage invUsage = new InvUsage(LocalDate.of(2019, 11, 20), LocalTime.of(13, 10), UsageReportStatus.InProgress,
+				customer1, user1, "Fixing loose screws");
+		iuRepo.save(invUsage);
+		UsageDetails ud = new UsageDetails(inv1, invUsage, LocalDate.of(2019, 11, 20), LocalTime.of(11, 10), 2);
 		udRepo.save(ud);
-		UsageDetails ud1 = new UsageDetails(inv2, invUsage, LocalDate.of(2020, 11, 21), LocalTime.of(15, 50), 3);
+		UsageDetails ud1 = new UsageDetails(inv2, invUsage, LocalDate.of(2019, 11, 21), LocalTime.of(15, 50), 3);
 		udRepo.save(ud1);
-		UsageDetails ud2 = new UsageDetails(inv3, invUsage, LocalDate.of(2020, 11, 22), LocalTime.of(9, 45), 4);
+		UsageDetails ud2 = new UsageDetails(inv3, invUsage, LocalDate.of(2019, 11, 22), LocalTime.of(9, 45), 4);
 		udRepo.save(ud2);
-		UsageDetails ud3 = new UsageDetails(inv4, invUsage, LocalDate.of(2020, 11, 23), LocalTime.of(8, 30), 5);
+		UsageDetails ud3 = new UsageDetails(inv4, invUsage, LocalDate.of(2019, 11, 23), LocalTime.of(8, 30), 5);
 		udRepo.save(ud3);
-		TransHistory trans1 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2020, 11, 20),
+		inv1.setStockQty(inv1.getStockQty()-2);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-3);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-4);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-5);
+		invRepo.save(inv4);		
+		TransHistory trans1 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 11, 20),
 				LocalTime.of(11, 10), user1);
-		TransHistory trans2 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2020, 11, 21),
+		TransHistory trans2 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 11, 21),
 				LocalTime.of(15, 50), user1);
-		TransHistory trans3 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2020, 11, 22),
+		TransHistory trans3 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 11, 22),
 				LocalTime.of(9, 45), user1);
-		TransHistory trans4 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2020, 11, 23),
+		TransHistory trans4 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 11, 23),
 				LocalTime.of(8, 30), user1);
 		thRepo.save(trans1);
 		thRepo.save(trans2);
 		thRepo.save(trans3);
-		thRepo.save(trans4);
+		thRepo.save(trans4);	
+		
+		InvUsage invUsage1 = new InvUsage(LocalDate.of(2019, 11, 25), LocalTime.of(15, 10), UsageReportStatus.InProgress,
+				customer2, user2, "Fixing Hyundai tires");
+		iuRepo.save(invUsage1);
+		UsageDetails ud4 = new UsageDetails(inv1, invUsage1, LocalDate.of(2019, 11, 25), LocalTime.of(15, 10), 3);
+		udRepo.save(ud4);
+		UsageDetails ud5 = new UsageDetails(inv2, invUsage1, LocalDate.of(2019, 11, 25), LocalTime.of(15, 10), 4);
+		udRepo.save(ud5);
+		UsageDetails ud6 = new UsageDetails(inv3, invUsage1, LocalDate.of(2019, 11, 25), LocalTime.of(15, 10), 3);
+		udRepo.save(ud6);
+		UsageDetails ud7 = new UsageDetails(inv4, invUsage1, LocalDate.of(2019, 11, 25), LocalTime.of(15, 10), 7);
+		udRepo.save(ud7);
+		inv1.setStockQty(inv1.getStockQty()-3);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-4);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-3);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-7);
+		invRepo.save(inv4);
+		TransHistory trans5 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 11, 25),
+				LocalTime.of(15, 10), user2);
+		TransHistory trans6 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 11, 25),
+				LocalTime.of(15, 10), user2);
+		TransHistory trans7 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 11, 25),
+				LocalTime.of(15, 10), user2);
+		TransHistory trans8 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 11, 26),
+				LocalTime.of(15, 10), user2);
+		thRepo.save(trans5);
+		thRepo.save(trans6);
+		thRepo.save(trans7);
+		thRepo.save(trans8);
+		
+		InvUsage invUsage2 = new InvUsage(LocalDate.of(2019, 12, 02), LocalTime.of(18, 10), UsageReportStatus.InProgress,
+				customer3, user2, "Fixing Honda steering");
+		iuRepo.save(invUsage2);
+		UsageDetails ud8 = new UsageDetails(inv1, invUsage2, LocalDate.of(2019, 12, 02), LocalTime.of(18, 10), 5);
+		udRepo.save(ud8);
+		UsageDetails ud9 = new UsageDetails(inv2, invUsage2, LocalDate.of(2019, 12, 02), LocalTime.of(18, 10), 4);
+		udRepo.save(ud9);
+		UsageDetails ud10 = new UsageDetails(inv3, invUsage2, LocalDate.of(2019, 12, 02), LocalTime.of(18, 10), 5);
+		udRepo.save(ud10);
+		UsageDetails ud11 = new UsageDetails(inv4, invUsage2, LocalDate.of(2019, 12, 02), LocalTime.of(18, 10), 7);
+		udRepo.save(ud11);
+		inv1.setStockQty(inv1.getStockQty()-5);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-4);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-5);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-7);
+		invRepo.save(inv4);
+		TransHistory trans9 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 02),
+				LocalTime.of(18, 10), user2);
+		TransHistory trans10 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 02),
+				LocalTime.of(18, 10), user2);
+		TransHistory trans11 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 02),
+				LocalTime.of(18, 10), user2);
+		TransHistory trans12 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 02),
+				LocalTime.of(18, 10), user2);
+		thRepo.save(trans9);
+		thRepo.save(trans10);
+		thRepo.save(trans11);
+		thRepo.save(trans12);
+				
+		InvUsage invUsage3 = new InvUsage(LocalDate.of(2019, 12, 15), LocalTime.of(10, 5), UsageReportStatus.InProgress,
+				customer4, user1, "Fixing engine loose parts");
+		iuRepo.save(invUsage3);		
+		UsageDetails ud12 = new UsageDetails(inv1, invUsage3, LocalDate.of(2019, 12, 15), LocalTime.of(10, 5), 5);
+		udRepo.save(ud12);
+		UsageDetails ud13 = new UsageDetails(inv2, invUsage3, LocalDate.of(2019, 12, 15), LocalTime.of(10, 5), 8);
+		udRepo.save(ud13);
+		UsageDetails ud14 = new UsageDetails(inv3, invUsage3, LocalDate.of(2019, 12, 15), LocalTime.of(10, 5), 5);
+		udRepo.save(ud14);
+		UsageDetails ud15 = new UsageDetails(inv4, invUsage3, LocalDate.of(2019, 12, 15), LocalTime.of(10, 5), 9);
+		udRepo.save(ud15);
+		inv1.setStockQty(inv1.getStockQty()-5);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-8);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-5);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-9);
+		invRepo.save(inv4);
+		TransHistory trans13 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 15),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans14 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 15),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans15 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 15),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans16 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 15),
+				LocalTime.of(10, 5), user1);
+		thRepo.save(trans13);
+		thRepo.save(trans14);
+		thRepo.save(trans15);
+		thRepo.save(trans16);		
 	}
 
 	private void loadInventory() {
@@ -186,11 +294,11 @@ public class DbSeederService implements CommandLineRunner {
 		Brand Magna = brandRepo.findBrandByName("Magna International").get(0);
 		Inventory inv1 = new Inventory("200 screws", "200 pieces of screws", 10.00, 11.00, 12.00, 13.00, 100, 500, 200,
 				"Orange", "5mm x 1mm", Accessories, Denso);
-		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 60.00, 65.00, 20, 5, 1,
+		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 60.00, 65.00, 100, 5, 1,
 				"Blue", "200cm x 40cm", Body, Bosch);
-		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 10.00, 5.50, 6.00, 6.50, 20, 8, 4, "Black",
+		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 10.00, 5.50, 6.00, 6.50, 100, 8, 4, "Black",
 				"26rad", Tires, Bosch);
-		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 20, 8, 4, "Silver",
+		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 100, 8, 4, "Silver",
 				"25rad", Tires, Bosch);
 		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 19.00, 21.00, 20, 8, 1, "Clear",
 				"40mx40cm", Windshield, Magna);
@@ -365,7 +473,7 @@ public class DbSeederService implements CommandLineRunner {
 		for (long id = 1; id <= invRepo.count(); id++) {
 			Inventory inv = invRepo.findInvById(id);
 			TransHistory trans = new TransHistory(TransType.NewInventory, inv.getStockQty(), inv,
-					LocalDate.of(2020, 11, 10), LocalTime.of(21, 30), user1);
+					LocalDate.of(2019, 11, 10), LocalTime.of(21, 30), user1);
 			thRepo.save(trans);
 		}
 	}

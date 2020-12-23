@@ -305,9 +305,8 @@ public class ProductListingController {
 			return "forward:/inventory/reorderlist";
 		}
 		else {
-			String errormsg = "qtyerror";
 			List<Inventory> plist = plService.list();			
-			model.addAttribute("error", errormsg);
+			model.addAttribute("error", "qtyerror");
 			model.addAttribute("plist", plist);
 			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
 			LocalTime localtime = LocalTime.parse(s);

@@ -55,10 +55,10 @@
             </div>
             <div class="panel-body"style="overflow-x:auto;">
 
-						<div th:if="${error != null}"
+						<div th:if="${error == 'qtyerror'}"
 							class="alert alert-danger alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">1
+								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							<i class="lnr lnr-warning"></i> unable to add restocked quantity

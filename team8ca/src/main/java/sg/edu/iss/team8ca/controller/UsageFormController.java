@@ -284,6 +284,20 @@ public class UsageFormController {
 		return "usage-details";
 	}
 
+//	Update inventory details with error
+	@RequestMapping(value = "/usageforms/error/{usageformid}", method = RequestMethod.GET)
+	public String mapInvInvUsageError(@PathVariable("usageformid") Long usageformid, Model model) {
+		List<Inventory> invList = iuservice.listAllInventory();
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageformid);
+		InvUsage iu = iuservice.findUsageById(usageformid);
+		model.addAttribute("usageform", iu);
+		model.addAttribute("udList", udList);
+		model.addAttribute("invList", invList);
+		model.addAttribute("error", "qtyfail");
+		return "usage-details";
+	}
+	
+
 //	Update inventory details with search parameters
 	@RequestMapping(value = "/usageforms/search/{usageformid}", method = RequestMethod.GET)
 	public String invSearch(@PathVariable("usageformid") Long usageformid, @Param("keyword") String keyword,
@@ -302,7 +316,14 @@ public class UsageFormController {
 	public String addListingInv(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
 		List<UsageDetails> udadd = iuservice.listUdForInvIdUsageId(id1, id2);
 		if (udadd.size()>0 ) {
-			return "forward:/invusage/usageforms/" + id2;
+			List<Inventory> invList = iuservice.listAllInventory();
+			List<UsageDetails> udList = iuservice.listDetailsForUdId(id2);
+			InvUsage iu = iuservice.findUsageById(id2);
+			model.addAttribute("usageform", iu);
+			model.addAttribute("udList", udList);
+			model.addAttribute("invList", invList);
+			model.addAttribute("error", "addfail");
+			return "usage-details";
 		}
 		else {
 			Inventory inv = iuservice.findInvById(id1);
@@ -336,7 +357,7 @@ public class UsageFormController {
 
 //	update usage quantity
 	@RequestMapping(value = "/usage/{id1}/ud/{id2}", method = RequestMethod.GET)
-	public String usageQuantity(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,
+	public String usageQuantity(Model model, @PathVariable("id1") Long id1, @PathVariable("id2") Long id2,
 			@RequestParam("ud_quantity") Long quantity) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = uservice.findUserByUserName(currentUserName);
@@ -372,7 +393,7 @@ public class UsageFormController {
 
 			return "forward:/invusage/usageforms/" + id1;
 		} else {
-			return "forward:/invusage/usageforms/" + id1;
+			return "forward:/invusage/usageforms/error/" + id1;
 		}
 	}
 
