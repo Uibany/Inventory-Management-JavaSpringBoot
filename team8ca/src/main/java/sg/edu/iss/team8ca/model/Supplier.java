@@ -23,7 +23,6 @@ public class Supplier {
 	private long id;
 	private String companyName;
 	private String contactNo;
-	@NotNull
 	@Email
 	private String email;
 	private String address;

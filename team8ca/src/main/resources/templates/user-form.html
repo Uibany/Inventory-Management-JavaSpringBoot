@@ -58,12 +58,15 @@
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									User Name <input class="form-control" type="text" th:field="*{userName}">
+									<p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Password <input class="form-control" type="password" th:field="*{password}">
+									<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Email <input class="form-control" type="text" th:field="*{email}">
+									<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 								</fieldset> <br>
 								<fieldset class="panel-title">
 									Contact No. <input class="form-control" type="text" th:field="*{contactNo}">
