@@ -246,6 +246,14 @@ public class UsageFormController {
 	@RequestMapping(value = "/addforms/saveusageform/userid/{userid}", method = RequestMethod.GET)
 	public String addUsageFormDetails(Model model, @PathVariable("userid") Long userid, @ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, WebRequest request) {
 		if(bindingResult.hasErrors()) {
+			User user = uservice.findUserById(userid);
+			model.addAttribute("user", user);
+			List<Customer> customers = cuservice.findAllCustomer();
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			model.addAttribute("usageform", new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user));
+			model.addAttribute("customers", customers);
+			model.addAttribute("customer", customer);
 			return "UsageReportCustTask";
 		}
 		else {

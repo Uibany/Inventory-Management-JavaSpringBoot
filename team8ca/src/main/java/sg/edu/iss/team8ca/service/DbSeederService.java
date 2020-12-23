@@ -279,6 +279,70 @@ public class DbSeederService implements CommandLineRunner {
 		thRepo.save(trans14);
 		thRepo.save(trans15);
 		thRepo.save(trans16);		
+		
+		InvUsage invUsage4 = new InvUsage(LocalDate.of(2019, 12, 24), LocalTime.of(10, 5), UsageReportStatus.InProgress,
+				customer3, user1, "Fixing exhaust pipes");
+		iuRepo.save(invUsage4);		
+		UsageDetails ud16 = new UsageDetails(inv1, invUsage4, LocalDate.of(2019, 12, 24), LocalTime.of(10, 5), 10);
+		udRepo.save(ud16);
+		UsageDetails ud17 = new UsageDetails(inv2, invUsage4, LocalDate.of(2019, 12, 24), LocalTime.of(10, 5), 8);
+		udRepo.save(ud17);
+		UsageDetails ud18 = new UsageDetails(inv3, invUsage4, LocalDate.of(2019, 12, 24), LocalTime.of(10, 5), 8);
+		udRepo.save(ud18);
+		UsageDetails ud19 = new UsageDetails(inv4, invUsage4, LocalDate.of(2019, 12, 24), LocalTime.of(10, 5), 9);
+		udRepo.save(ud19);
+		inv1.setStockQty(inv1.getStockQty()-10);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-8);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-8);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-9);
+		invRepo.save(inv4);
+		TransHistory trans17 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 24),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans18 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 24),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans19 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 24),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans20 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 24),
+				LocalTime.of(10, 5), user1);
+		thRepo.save(trans17);
+		thRepo.save(trans18);
+		thRepo.save(trans19);
+		thRepo.save(trans20);	
+		
+		InvUsage invUsage5 = new InvUsage(LocalDate.of(2019, 12, 30), LocalTime.of(10, 5), UsageReportStatus.InProgress,
+				customer3, user1, "Fixing car seat mechanism");
+		iuRepo.save(invUsage5);		
+		UsageDetails ud20 = new UsageDetails(inv1, invUsage5, LocalDate.of(2019, 12, 30), LocalTime.of(10, 5), 15);
+		udRepo.save(ud20);
+		UsageDetails ud21 = new UsageDetails(inv2, invUsage5, LocalDate.of(2019, 12, 30), LocalTime.of(10, 5), 18);
+		udRepo.save(ud21);
+		UsageDetails ud22 = new UsageDetails(inv3, invUsage5, LocalDate.of(2019, 12, 30), LocalTime.of(10, 5), 15);
+		udRepo.save(ud22);
+		UsageDetails ud23 = new UsageDetails(inv4, invUsage5, LocalDate.of(2019, 12, 30), LocalTime.of(10, 5), 19);
+		udRepo.save(ud23);
+		inv1.setStockQty(inv1.getStockQty()-15);
+		invRepo.save(inv1);
+		inv2.setStockQty(inv2.getStockQty()-18);
+		invRepo.save(inv2);		
+		inv3.setStockQty(inv3.getStockQty()-15);
+		invRepo.save(inv3);			
+		inv4.setStockQty(inv4.getStockQty()-19);
+		invRepo.save(inv4);
+		TransHistory trans21 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 30),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans22 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 30),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans23 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 30),
+				LocalTime.of(10, 5), user1);
+		TransHistory trans24 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 30),
+				LocalTime.of(10, 5), user1);
+		thRepo.save(trans21);
+		thRepo.save(trans22);
+		thRepo.save(trans23);
+		thRepo.save(trans24);	
 	}
 
 	private void loadInventory() {
