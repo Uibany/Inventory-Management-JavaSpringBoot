@@ -185,7 +185,7 @@ public class UsageFormController {
 		List<UsageDetails> usageDetailsList = iuservice.listDetailsForUdId(formid);
 		for(UsageDetails ud : usageDetailsList) {
 			Inventory inventory = ud.getInventory();
-			int newqty = inventory.getStockQty()+Math.toIntExact(ud.getQuantity());
+			int newqty = (inventory.getStockQty()+Math.toIntExact(ud.getQuantity()));
 			inventory.setStockQty(newqty);
 			pservice.saveProduct(inventory);
 			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
