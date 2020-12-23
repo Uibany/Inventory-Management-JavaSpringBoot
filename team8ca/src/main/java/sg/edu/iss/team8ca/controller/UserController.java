@@ -94,9 +94,9 @@ public class UserController {
 	@RequestMapping(value = "/save")
 	public String saveUser(@ModelAttribute("user") @Valid User user, 
 			BindingResult bindingResult,  Model model) {
-//		if (bindingResult.hasErrors()) {
-//			return "user-form";
-//		}
+		if (bindingResult.hasErrors()) {
+			return "user-form";
+		}
 		crudint.saveUser(user);
 		return "forward:/user/list";
 	}
