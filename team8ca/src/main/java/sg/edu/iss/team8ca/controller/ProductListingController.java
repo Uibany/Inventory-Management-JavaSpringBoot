@@ -303,17 +303,12 @@ public class ProductListingController {
 			LocalTime localtime = LocalTime.parse(s);
 			TransHistory trans = new TransHistory(TransType.ReStock, quantity, inv, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
-
 			return "forward:/inventory/reorderlist";
 		}
 		else {
 			List<Inventory> plist = plService.list();			
 			model.addAttribute("error", "qtyerror");
 			model.addAttribute("plist", plist);
-			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
-			LocalTime localtime = LocalTime.parse(s);
-			TransHistory trans = new TransHistory(TransType.DebitBack, quantity, inv, LocalDate.now(), localtime, user);
-			thservice.saveTrans(trans);
 		return "reorder-product";
 		}
 	}
