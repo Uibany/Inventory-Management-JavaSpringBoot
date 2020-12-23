@@ -25,15 +25,15 @@ public class LoginController {
         return modelAndView;
     }
 
-//    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-//    public ModelAndView home(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByUserName(auth.getName());
-//        modelAndView.addObject("userName", "Welcome " + user.getUserName());
-//        modelAndView.addObject("adminMessage","This page is restricted to adminstrators ONLY! This infraction has been reported.");
-//        modelAndView.setViewName("index");
-//        //modelAndView.setViewName("admin/home");
-//        return modelAndView;
-//    }
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getUserName());
+        modelAndView.addObject("adminMessage","This page is restricted to adminstrators ONLY! This infraction has been reported.");
+        modelAndView.setViewName("index");
+        //modelAndView.setViewName("admin/home");
+        return modelAndView;
+    }
 }
