@@ -356,91 +356,91 @@ public class DbSeederService implements CommandLineRunner {
 		Brand Bosch = brandRepo.findBrandByName("Robert Bosch").get(0);
 		Brand Lear = brandRepo.findBrandByName("Lear Corp").get(0);
 		Brand Magna = brandRepo.findBrandByName("Magna International").get(0);
-		Inventory inv1 = new Inventory("200 screws", "200 pieces of screws", 10.00, 11.00, 12.00, 13.00, 100, 500, 200,
+		Inventory inv1 = new Inventory("200 screws", "200 pieces of screws", 10.00, 11.00, 13.00, 12.00, 100, 500, 200,
 				"Orange", "5mm x 1mm", Accessories, Denso);
-		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 60.00, 65.00, 100, 5, 1,
+		Inventory inv2 = new Inventory("Bumper", "Attached at front/rear end", 50.00, 15.00, 65.00, 60.00, 100, 5, 1,
 				"Blue", "200cm x 40cm", Body, Bosch);
-		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 10.00, 5.50, 6.00, 6.50, 100, 8, 4, "Black",
+		Inventory inv3 = new Inventory("Tires", "Rubber parts of wheel", 10.00, 5.50, 6.50, 6.00, 100, 8, 4, "Black",
 				"26rad", Tires, Bosch);
-		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 24.00, 26.00, 100, 8, 4, "Silver",
+		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 26.00, 24.00, 100, 8, 4, "Silver",
 				"25rad", Tires, Bosch);
-		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 19.00, 21.00, 20, 8, 1, "Clear",
+		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 21.00, 19.00, 20, 8, 1, "Clear",
 				"40mx40cm", Windshield, Magna);
-		Inventory inv6 = new Inventory("Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1, "Blue",
+		Inventory inv6 = new Inventory("Decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 10, 5, 1, "Blue",
 				"25rad", Body, Magna);
-		Inventory inv7 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 30.00, 32.00, 100, 30, 1, "Silver",
+		Inventory inv7 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 32.00, 30.00, 100, 30, 1, "Silver",
 				"10mmx10mm", Windshield, Denso);
-		Inventory inv8 = new Inventory("Sunroof", "Foldable roof", 180.00, 200.00, 220.00, 240.00, 8, 3, 1,
+		Inventory inv8 = new Inventory("Sunroof", "Foldable roof", 180.00, 200.00, 240.00, 220.00, 8, 3, 1,
 				"Matt Black", "25rad", Body, Magna);
-		Inventory inv9 = new Inventory("Fuel tank", "Container for fuel", 105.00, 110.00, 105.00, 110.00, 20, 10, 1,
+		Inventory inv9 = new Inventory("Fuel tank", "Container for fuel", 105.00, 110.00, 130.00, 120.00, 20, 10, 1,
 				"Silver", "25rad", Body, Magna);
-		Inventory inv10 = new Inventory("Video Player", "Plays videos", 80.00, 90.00, 100.00, 110.00, 5, 2, 1, "Black",
+		Inventory inv10 = new Inventory("Video Player", "Plays videos", 80.00, 90.00, 110.00, 100.00, 5, 2, 1, "Black",
 				"25rad", Electrical, JBL);
-		Inventory inv11 = new Inventory("Subwoofer", "Sounds base", 45.00, 50.00, 53.00, 56.00, 5, 2, 1, "Black",
+		Inventory inv11 = new Inventory("Subwoofer", "Sounds base", 45.00, 50.00, 56.00, 53.00, 5, 2, 1, "Black",
 				"25rad", Electrical, JBL);
-		Inventory inv12 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 36.00, 38.00, 27, 9, 3, "Black",
+		Inventory inv12 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 38.00, 36.00, 27, 9, 3, "Black",
 				"25rad", Electrical, JBL);
-		Inventory inv13 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 130.00, 135.00, 10, 5, 1, "Silver",
+		Inventory inv13 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 135.00, 130.00, 10, 5, 1, "Silver",
 				"25rad", Electrical, JBL);
-		Inventory inv14 = new Inventory("Car Battery", "Used to start a vehicle", 25.00, 28.00, 31.00, 33.00, 20, 10, 1, "Green",
+		Inventory inv14 = new Inventory("Car Battery", "Used to start a vehicle", 25.00, 28.00, 33.00, 30.00, 20, 10, 1, "Green",
 				"25rad", Electrical, Magna);
-		Inventory inv15 = new Inventory("Tachometer", "Measure rotation speed", 20.00, 22.00, 24.00, 26.00, 20, 10, 1, "Black",
+		Inventory inv15 = new Inventory("Tachometer", "Measure rotation speed", 20.00, 22.00, 26.00, 24.00, 20, 10, 1, "Black",
 				"25rad", Accessories, Lear);
-		Inventory inv16 = new Inventory("Voltmeter", "Measure electric potential", 20.00, 22.00, 24.00, 26.00, 20, 10, 1, "Black",
+		Inventory inv16 = new Inventory("Voltmeter", "Measure electric potential", 20.00, 22.00, 26.00, 24.00, 20, 10, 1, "Black",
 				"25rad", Accessories, Lear);
-		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 10.00, 6.00, 7.00, 8.00, 20, 10, 10, "Yellow",
+		Inventory inv17 = new Inventory("Tail Lights", "Car backlights", 10.00, 6.00, 8.00, 7.00, 20, 10, 10, "Yellow",
 				"5rad", Accessories, Lear);
-		Inventory inv18 = new Inventory("Headlights", "Car frontlights", 20.00, 22.00, 24.00, 26.00, 20, 10, 10,
+		Inventory inv18 = new Inventory("Headlights", "Car frontlights", 20.00, 22.00, 26.00, 24.00, 20, 10, 10,
 				"Yellow", "5rad", Accessories, Lear);
-		Inventory inv19 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 24.00, 26.00, 20, 10, 10,
+		Inventory inv19 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 26.00, 24.00, 20, 10, 10,
 				"White", "5rad", Accessories, Lear);
-		Inventory inv20 = new Inventory("Windshield", "Window at the front", 100.00, 120.00, 140.00, 160.00, 20, 10, 10,
+		Inventory inv20 = new Inventory("Windshield", "Window at the front", 100.00, 120.00, 160.00, 140.00, 20, 10, 10,
 				"Black", "1mx0.5m", Windshield, Lear);
-		Inventory inv21 = new Inventory("Rear mirror", "Inside mirror", 12.00, 14.00, 16.00, 18.00, 30, 20, 2, "Black",
+		Inventory inv21 = new Inventory("Rear mirror", "Inside mirror", 12.00, 14.00, 18.00, 16.00, 30, 20, 2, "Black",
 				"40cmx20cm", Accessories, Magna);
-		Inventory inv22 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 24.00, 30.00, 20, 10, 2,
+		Inventory inv22 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 28.00, 24.00, 20, 10, 2,
 				"Black", "20cmx30cm", Accessories, Magna);
-		Inventory inv23 = new Inventory("Seatbelts", "For safety", 32.00, 34.00, 36.00, 38.00, 20, 10, 20, "Black",
+		Inventory inv23 = new Inventory("Seatbelts", "For safety", 32.00, 34.00, 38.00, 36.00, 20, 10, 20, "Black",
 				"20cmx30cm", Accessories, Magna);
-		Inventory inv24 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 7, 5, 2,
+		Inventory inv24 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 180.00, 160.00, 7, 5, 2,
 				"Black", "100cmx30cm", Body, Bosch);
-		Inventory inv25 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 10, 5,
+		Inventory inv25 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 180.00, 160.00, 10, 5,
 				2, "White", "100cmx30cm", Body, Bosch);
-		Inventory inv26 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 160.00, 180.00, 9, 5, 2,
+		Inventory inv26 = new Inventory("Engine cover", "Cover for the engine", 120.00, 140.00, 180.00, 160.00, 9, 5, 2,
 				"Red", "100cmx30cm", Body, Bosch);
-		Inventory inv27 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 24.00, 26.00, 20, 10, 10,
+		Inventory inv27 = new Inventory("Spotlight", "Bright beam of light", 20.00, 22.00, 26.00, 24.00, 20, 10, 10,
 				"White", "5rad", Accessories, Magna);
-		Inventory inv28 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 30.00, 32.00, 100, 30, 1, "Black",
+		Inventory inv28 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 32.00, 30.00, 100, 30, 1, "Black",
 				"10mmx10mm", Accessories, Denso);
-		Inventory inv29 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 36.00, 38.00, 27, 9, 3, "Silver",
+		Inventory inv29 = new Inventory("Speaker", "Plays sounds", 30.00, 33.00, 38.00, 36.00, 27, 9, 3, "Silver",
 				"25rad", Electrical, Denso);
-		Inventory inv30 = new Inventory("Airbag", "For safety by Magna", 80.00, 82.00, 84.00, 86.00, 20, 10, 2, "Black",
+		Inventory inv30 = new Inventory("Airbag", "For safety by Magna", 80.00, 82.00, 86.00, 84.00, 20, 10, 2, "Black",
 				"1unit", Accessories, Magna);
-		Inventory inv31 = new Inventory("Airbag", "For safety by Denso", 100.00, 120.00, 140.00, 160.00, 10, 10, 2,
+		Inventory inv31 = new Inventory("Airbag", "For safety by Denso", 100.00, 120.00, 160.00, 140.00, 10, 10, 2,
 				"Black", "1unit", Accessories, Denso);
-		Inventory inv32 = new Inventory("Door", "Black door for car", 200.00, 220.00, 240.00, 300.00, 14, 10, 6,
+		Inventory inv32 = new Inventory("Door", "Black door for car", 200.00, 220.00, 280.00, 240.00, 14, 10, 6,
 				"Black", "20cmx30cm", Body, Magna);
-		Inventory inv33 = new Inventory("Door", "White door for car", 200.00, 220.00, 240.00, 300.00, 12, 10, 6,
+		Inventory inv33 = new Inventory("Door", "White door for car", 200.00, 220.00, 280.00, 240.00, 12, 10, 6,
 				"White", "20cmx30cm", Body, Lear);
-		Inventory inv34 = new Inventory("Door", "Red door for car", 200.00, 220.00, 240.00, 300.00, 5, 10, 6, "Red",
+		Inventory inv34 = new Inventory("Door", "Red door for car", 200.00, 220.00, 280.00, 240.00, 5, 10, 6, "Red",
 				"20cmx30cm", Body, Bosch);
-		Inventory inv35 = new Inventory("Door", "Silver door for car", 200.00, 220.00, 240.00, 300.00, 5, 10, 6,
+		Inventory inv35 = new Inventory("Door", "Silver door for car", 200.00, 220.00, 280.00, 240.00, 5, 10, 6,
 				"Silver", "20cmx30cm", Body, Bosch);
-		Inventory inv36 = new Inventory("Bosch car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10,
+		Inventory inv36 = new Inventory("Bosch car key", "Window at the front", 20.00, 22.00, 30.00, 24.00, 15, 10, 10,
 				"Black", "20cmx30cm", Accessories, Bosch);
-		Inventory inv37 = new Inventory("Magna car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10,
+		Inventory inv37 = new Inventory("Magna car key", "Window at the front", 20.00, 22.00, 30.00, 24.00, 15, 10, 10,
 				"Black", "20cmx30cm", Accessories, Magna);
-		Inventory inv38 = new Inventory("Lear car key", "Window at the front", 20.00, 22.00, 24.00, 30.00, 15, 10, 10,
+		Inventory inv38 = new Inventory("Lear car key", "Window at the front", 20.00, 22.00, 30.00, 24.00, 15, 10, 10,
 				"Black", "20cmx30cm", Accessories, Lear);
-		Inventory inv39 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 130.00, 135.00, 10, 5, 1,
+		Inventory inv39 = new Inventory("Car Camera", "Records Video", 115.00, 120.00, 135.00, 130.00, 10, 5, 1,
 				"Black", "25rad", Electrical, JBL);
-		Inventory inv40 = new Inventory("Black decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1,
+		Inventory inv40 = new Inventory("Black decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 10, 5, 1,
 				"Black", "25rad", Body, Magna);
-		Inventory inv41 = new Inventory("White Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1,
+		Inventory inv41 = new Inventory("White Decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 10, 5, 1,
 				"White", "25rad", Body, Magna);
-		Inventory inv42 = new Inventory("Red Decklid", "Cover of the trunk", 50.00, 55.00, 60.00, 65.00, 10, 5, 1,
+		Inventory inv42 = new Inventory("Red Decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 10, 5, 1,
 				"Red", "25rad", Body, Magna);
-		Inventory inv43 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 24.00, 30.00, 20, 10, 2,
+		Inventory inv43 = new Inventory("Side mirror", "Mirror for the sides", 20.00, 22.00, 28.00, 24.00, 20, 10, 2,
 				"White", "20cmx30cm", Accessories, Magna);
 		invRepo.save(inv1);
 		invRepo.save(inv2);
