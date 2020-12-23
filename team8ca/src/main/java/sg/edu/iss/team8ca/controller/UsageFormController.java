@@ -3,6 +3,7 @@ package sg.edu.iss.team8ca.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -167,7 +168,9 @@ public class UsageFormController {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(), localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", new Customer());
 		return "UsageReportCustTask";
@@ -185,7 +188,9 @@ public class UsageFormController {
 			int newqty = inventory.getStockQty()+Math.toIntExact(ud.getQuantity());
 			inventory.setStockQty(newqty);
 			pservice.saveProduct(inventory);
-			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), LocalTime.now(), user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 		}		
 		iuservice.deleteUsage(usageForm);
@@ -209,7 +214,9 @@ public class UsageFormController {
 		model.addAttribute("user", user);
 		Customer customer = cuservice.findCustomerById(custid);
 		List<Customer> customers = cuservice.findAllCustomer();
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		model.addAttribute("customer", customer);
 		return "UsageReportCustTask";
@@ -222,7 +229,9 @@ public class UsageFormController {
 		User user = uservice.findUserById(userid);
 		model.addAttribute("user", user);
 		List<Customer> customers = cuservice.cusSearch(keyword);
-		model.addAttribute("usageform", new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user));
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
+		model.addAttribute("usageform", new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user));
 		model.addAttribute("customers", customers);
 		if (custid==0) {
 			model.addAttribute("customer", new Customer());
@@ -253,7 +262,9 @@ public class UsageFormController {
 			User user = uservice.findUserById(userid);
 			model.addAttribute("user", user);			
 			String tasks = request.getParameter("task");
-			InvUsage usageform = new InvUsage(LocalDate.now(),LocalTime.now(ZoneId.of("Asia/Singapore")), UsageReportStatus.InProgress, user);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			InvUsage usageform = new InvUsage(LocalDate.now(),localtime, UsageReportStatus.InProgress, user);
 			usageform.setCustomer(customer1);
 			usageform.setTasks(tasks);
 			iuservice.addUsage(usageform);
@@ -273,6 +284,20 @@ public class UsageFormController {
 		return "usage-details";
 	}
 
+//	Update inventory details with error
+	@RequestMapping(value = "/usageforms/error/{usageformid}", method = RequestMethod.GET)
+	public String mapInvInvUsageError(@PathVariable("usageformid") Long usageformid, Model model) {
+		List<Inventory> invList = iuservice.listAllInventory();
+		List<UsageDetails> udList = iuservice.listDetailsForUdId(usageformid);
+		InvUsage iu = iuservice.findUsageById(usageformid);
+		model.addAttribute("usageform", iu);
+		model.addAttribute("udList", udList);
+		model.addAttribute("invList", invList);
+		model.addAttribute("error", "qtyfail");
+		return "usage-details";
+	}
+	
+
 //	Update inventory details with search parameters
 	@RequestMapping(value = "/usageforms/search/{usageformid}", method = RequestMethod.GET)
 	public String invSearch(@PathVariable("usageformid") Long usageformid, @Param("keyword") String keyword,
@@ -291,11 +316,20 @@ public class UsageFormController {
 	public String addListingInv(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, Model model) {
 		List<UsageDetails> udadd = iuservice.listUdForInvIdUsageId(id1, id2);
 		if (udadd.size()>0 ) {
-			return "forward:/invusage/usageforms/" + id2;
+			List<Inventory> invList = iuservice.listAllInventory();
+			List<UsageDetails> udList = iuservice.listDetailsForUdId(id2);
+			InvUsage iu = iuservice.findUsageById(id2);
+			model.addAttribute("usageform", iu);
+			model.addAttribute("udList", udList);
+			model.addAttribute("invList", invList);
+			model.addAttribute("error", "addfail");
+			return "usage-details";
 		}
 		else {
 			Inventory inv = iuservice.findInvById(id1);
-			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), LocalTime.now(), 0);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
+			UsageDetails ud = new UsageDetails(inv, iuservice.findUsageById(id2), LocalDate.now(), localtime, 0);
 			iuservice.addUsageDetails(ud);
 			return "forward:/invusage/usageforms/" + id2;		
 		}
@@ -311,9 +345,11 @@ public class UsageFormController {
 		inventory.setStockQty(inventory.getStockQty() + Math.toIntExact(ud.getQuantity()));
 		pservice.saveProduct(inventory);
 		iuservice.deleteUsageDetails(ud);
+		String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime localtime = LocalTime.parse(s);
 		if (ud.getQuantity() >0){
 				TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory,
-				LocalDate.now(), LocalTime.now(ZoneId.of("Singapore")), user);
+				LocalDate.now(), localtime, user);
 				thservice.saveTrans(trans);
 		}
 		return "forward:/invusage/usageforms/" + id1;
@@ -321,7 +357,7 @@ public class UsageFormController {
 
 //	update usage quantity
 	@RequestMapping(value = "/usage/{id1}/ud/{id2}", method = RequestMethod.GET)
-	public String usageQuantity(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2,
+	public String usageQuantity(Model model, @PathVariable("id1") Long id1, @PathVariable("id2") Long id2,
 			@RequestParam("ud_quantity") Long quantity) {
 		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = uservice.findUserByUserName(currentUserName);
@@ -334,15 +370,17 @@ public class UsageFormController {
 
 		if (newQuantity >= 0 && quantity >= 0) {
 			ud.setQuantity(newUdQuantity);
+			String s = LocalTime.now(ZoneId.of("Asia/Singapore")).format(DateTimeFormatter.ofPattern("HH:mm"));
+			LocalTime localtime = LocalTime.parse(s);
 			ud.setDate(LocalDate.now());
-			ud.setTime(LocalTime.now());
+			ud.setTime(localtime);
 			iuservice.addUsageDetails(ud);
 
 			inventory.setStockQty(newQuantity);
 			pservice.saveProduct(inventory);
 
 			TransHistory trans = new TransHistory(TransType.Usage, -Math.toIntExact(quantity), inventory,
-					LocalDate.now(), LocalTime.now(ZoneId.of("Asia/Singapore")), user);
+					LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
 
 			if (inventory.getStockQty() < inventory.getReorderLevel()) {
@@ -355,7 +393,7 @@ public class UsageFormController {
 
 			return "forward:/invusage/usageforms/" + id1;
 		} else {
-			return "forward:/invusage/usageforms/" + id1;
+			return "forward:/invusage/usageforms/error/" + id1;
 		}
 	}
 

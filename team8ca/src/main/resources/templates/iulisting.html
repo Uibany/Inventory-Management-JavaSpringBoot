@@ -53,7 +53,7 @@
 				<div class="container-fluid">
 					<div class="panel">
 						<div class="panel-heading">
-							<h2>Manage Customer</h2>
+							<h2>Usage Listing</h2>
 						</div>
 						<div class="panel-body" style="overflow-x: auto;">
 							<a href="AddReport.html"
@@ -63,7 +63,7 @@
 								th:action="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
 								<div class="input-group" style="width: 310px">
 									<input type="text" name="keyword" th:value="${keyword}"
-										class="form-control" placeholder="Search for usage report" />
+										class="form-control" placeholder="Search for usage form" />
 									<input type="hidden" name="sortField" th:value="${sortField}">
 									<input type="hidden" name="sortDir" th:value="${sortDir}">
 									<span class="input-group-btn"><input type="submit"
@@ -152,10 +152,9 @@
 							</table>
 						</div>
 						<br />
-						<div>
-							<div style="display: inline;" class="row col-sm-10">
-								<div class="col-sm-2">No. of Search items:
-									[[${totalItems}]]</div>
+						<div class="panel-footer">
+							<div style="display: inline;">
+								<div >No. of Search items: [[${totalItems}]]</div>
 
 
 								<div style="display: inline;" align="right"
