@@ -71,8 +71,8 @@ public class ProductListingController {
 		int pageSize = 5;
 		int pageNo = 1;
 		String sortField = "id";
-		String sortDirection = "asc";
-		Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDirection);
+		String sortDir = "asc";
+		Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDir);
 		List<Inventory> plist = page.getContent(); 
 		LocalDate today = LocalDate.now();
 		model.addAttribute("plist", plist);
@@ -82,7 +82,7 @@ public class ProductListingController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
-		model.addAttribute("sortDir", sortDirection);
+		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("keyword", "");
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 	
