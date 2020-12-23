@@ -364,15 +364,15 @@ public class DbSeederService implements CommandLineRunner {
 				"26rad", Tires, Bosch);
 		Inventory inv4 = new Inventory("Rims", "Outer edge of wheel", 20.00, 22.00, 26.00, 24.00, 100, 8, 4, "Silver",
 				"25rad", Tires, Bosch);
-		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 21.00, 19.00, 20, 8, 1, "Clear",
+		Inventory inv5 = new Inventory("Glass", "For windows", 15.00, 17.00, 21.00, 19.00, 6, 8, 1, "Clear",
 				"40mx40cm", Windshield, Magna);
-		Inventory inv6 = new Inventory("Decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 10, 5, 1, "Blue",
+		Inventory inv6 = new Inventory("Decklid", "Cover of the trunk", 50.00, 55.00, 65.00, 60.00, 3, 5, 1, "Blue",
 				"25rad", Body, Magna);
-		Inventory inv7 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 32.00, 30.00, 100, 30, 1, "Silver",
+		Inventory inv7 = new Inventory("Locks", "Cardoor locks", 25.00, 28.00, 32.00, 30.00, 20, 30, 1, "Silver",
 				"10mmx10mm", Windshield, Denso);
-		Inventory inv8 = new Inventory("Sunroof", "Foldable roof", 180.00, 200.00, 240.00, 220.00, 8, 3, 1,
+		Inventory inv8 = new Inventory("Sunroof", "Foldable roof", 180.00, 200.00, 240.00, 220.00, 1, 3, 1,
 				"Matt Black", "25rad", Body, Magna);
-		Inventory inv9 = new Inventory("Fuel tank", "Container for fuel", 105.00, 110.00, 130.00, 120.00, 20, 10, 1,
+		Inventory inv9 = new Inventory("Fuel tank", "Container for fuel", 105.00, 110.00, 130.00, 120.00, 5, 10, 1,
 				"Silver", "25rad", Body, Magna);
 		Inventory inv10 = new Inventory("Video Player", "Plays videos", 80.00, 90.00, 110.00, 100.00, 5, 2, 1, "Black",
 				"25rad", Electrical, JBL);
