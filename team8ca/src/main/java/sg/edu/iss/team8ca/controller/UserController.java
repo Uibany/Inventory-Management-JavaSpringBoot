@@ -79,8 +79,6 @@ public class UserController {
 		}
 	}
 	
-	
-	
 	@RequestMapping(value = "/add")
 	public String addForm(Model model) {
 		model.addAttribute("user", new User());
@@ -100,6 +98,7 @@ public class UserController {
 		crudint.saveUser(user);
 		return "forward:/user/list";
 	}
+	
 	@RequestMapping(value = "/delete/{id}")
 	public String deleteUser(@PathVariable("id") Long id) {
 		crudint.deleteUser(crudint.findUserById(id));

@@ -49,21 +49,20 @@
 								<input class="form-control" type="hidden" th:field="*{id}">
 							</fieldset> <br>
 							<fieldset class="panel-title">
-								Company Name <input class="form-control" required type="text" th:field="*{companyName}">
+								Company Name <input class="form-control" type="text" th:field="*{companyName}" required>
 							</fieldset> <br>
 							<fieldset class="panel-title">
-								Contact No <input class="form-control" type="text" th:field="*{contactNo}">
+								Contact No <input class="form-control" type="text" th:field="*{contactNo}" required>
 							</fieldset> <br>
 							<fieldset class="panel-title">
-								Address <input class="form-control" required type="text" th:field="*{address}">
+								Address <input class="form-control" type="text" th:field="*{address}" required>
 							</fieldset> <br>
 							<fieldset class="panel-title">
-								Email <input class="form-control" type="text" th:field="*{email}">
+								Email <input class="form-control" type="text" th:field="*{email}" required>
 								<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 							</fieldset> <br>
 							<fieldset class="panel-title">
-								Postal Code <input class="form-control" type="text" th:field="*{postalCode}">
-								<p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></p>
+								Postal Code <input class="form-control" type="number" th:field="*{postalCode}"  required>
 							</fieldset> <br>
 							<fieldset class="panel-title">
 								<button type="submit" class="btn btn-primary">Save</button>
