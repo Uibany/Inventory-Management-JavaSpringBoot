@@ -2,6 +2,7 @@ package sg.edu.iss.team8ca.service;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,21 +46,30 @@ public class TransHistoryImpl implements TransHistoryInterface {
 	}
 	
 	@Override
+	@Transactional
 	public void saveTrans(TransHistory transHistory) {
 		threpo.save(transHistory);
 	}
 
 	@Override
+	@Transactional
 	public List<TransHistory> listTransHisForIdType(long id, String transType) {
 		TransType transTypeIndex = TransType.valueOf(transType);
 		return threpo.listTransHisForIdType(id,transTypeIndex);
 	}
 
 	@Override
+	@Transactional
 	public List<TransHistory> listTransHisForDateType(long id, LocalDate startDate, LocalDate endDate,
 			String transType) {
 		TransType transTypeIndex = TransType.valueOf(transType);
 		return threpo.listTransHisForDateType(id, startDate, endDate, transTypeIndex);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<TransHistory> listTransForUser(long id) {
+		return threpo.listTransForUser(id);
 	}
 	
 	

@@ -64,6 +64,16 @@
 						<div class="panel-heading">
 							<h2>Manage User</h2>
 						</div>
+
+						<div th:if="${error == 'thiu-exist'}"
+							class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<i class="lnr lnr-warning"></i> User cannot be deleted as he/she is associated with existing transaction history and inventory usage records.
+						</div>
+
 						<div class="panel-body" style="overflow-x: auto;">
 							<div sec:authorize="hasAuthority('ADMIN')">
 								<a th:href="@{/user/add}" class="btn btn-primary">Add User</a>

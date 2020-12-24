@@ -17,4 +17,6 @@ public interface TransHistoryInterface {
 	public Inventory findInvById(long id);
 	public void saveTrans(TransHistory transHistory);
 	
+	public List<TransHistory> listTransForUser(long id);
+	
 }

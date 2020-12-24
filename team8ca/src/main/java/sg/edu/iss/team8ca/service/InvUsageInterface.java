@@ -37,6 +37,7 @@ public interface InvUsageInterface {
 	public List<UsageDetails> listUdForInvIdUsageId(Long invid, Long iuid);
 	public List<UsageDetails> listUsageForInv(Long id);
 	public List<InvUsage> findUsageByCus(Long id);
+	public List<InvUsage> findUsageByUser(Long id);
 	
 //	update record
 	public void reduceInventory(int quantity, Inventory inventory);

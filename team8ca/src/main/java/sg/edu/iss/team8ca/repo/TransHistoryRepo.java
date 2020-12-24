@@ -12,17 +12,20 @@ import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
 
 public interface TransHistoryRepo extends JpaRepository<TransHistory, Long> {
-	@Query("Select th from TransHistory th where th.inventory.id = :id AND (th.transDate BETWEEN :startDate AND :endDate) ORDER BY th.transDate ASC")
+	@Query("SELECT th FROM TransHistory th WHERE th.inventory.id = :id AND (th.transDate BETWEEN :startDate AND :endDate) ORDER BY th.transDate ASC")
 	public List<TransHistory> listTransHisForInvId(@Param("id")long id, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 	
-	@Query("Select th from TransHistory th where th.inventory.id = :id")
+	@Query("SELECT th FROM TransHistory th WHERE th.inventory.id = :id")
 	public List<TransHistory> listTransHis(@Param("id")long id);
 	
-	@Query("Select th from TransHistory th where th.inventory.id = :id AND th.transType = :type")
+	@Query("SELECT th FROM TransHistory th WHERE th.inventory.id = :id AND th.transType = :type")
 	public List<TransHistory> listTransHisForIdType(@Param("id")long id, @Param("type")TransType type);
 	
-	@Query("Select th from TransHistory th where th.inventory.id = :id AND th.transType = :type "
+	@Query("SELECT th FROM TransHistory th WHERE th.inventory.id = :id AND th.transType = :type "
 			+ "AND (th.transDate BETWEEN :startDate AND :endDate) ORDER BY th.transDate ASC")
 	public List<TransHistory> listTransHisForDateType(@Param("id")long id, @Param("startDate") LocalDate startDate, 
 			@Param("endDate") LocalDate endDate, @Param("type")TransType type);
+	
+	@Query("SELECT th FROM TransHistory th WHERE th.user.id =:id")
+	public List<TransHistory> listTransForUser(@Param("id") long id);
 }

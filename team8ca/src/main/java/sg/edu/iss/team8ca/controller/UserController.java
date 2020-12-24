@@ -15,7 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.team8ca.model.InvUsage;
+import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.User;
+import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.InvUsageInterface;
+import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.TransHistoryInterface;
 import sg.edu.iss.team8ca.service.UserInterface;
 import sg.edu.iss.team8ca.service.UserService;
 
@@ -29,6 +35,22 @@ public class UserController {
 	@Autowired
 	public void setUserService(UserService crudservice) {
 		this.crudint = crudservice;
+	}
+	
+	@Autowired
+	private TransHistoryInterface transint;
+	
+	@Autowired
+	public void setTransService (TransHistoryImpl transservice) {
+		this.transint = transservice;
+	}
+	
+	@Autowired
+	private InvUsageInterface iuservice;
+	
+	@Autowired
+	private void setInvUsageService(InvUsageImpl invUsageImpl) {
+		this.iuservice = invUsageImpl;
 	}
 	
 	@RequestMapping(value = "/list")
@@ -119,7 +141,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/delete/{id}")
-	public String deleteUser(@PathVariable("id") Long id) {
+	public String deleteUser(@PathVariable("id") Long id, Model model) {
+		List<TransHistory> thList = transint.listTransForUser(id);
+		List<InvUsage> iuList = iuservice.findUsageByUser(id);
+		if(iuList.size()>0 && thList.size()>0) {
+			model.addAttribute("error", "thiu-exist");
+			return list(model);
+		}
 		crudint.deleteUser(crudint.findUserById(id));
 		return "forward:/user/list";
 	}

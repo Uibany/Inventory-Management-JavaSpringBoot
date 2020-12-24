@@ -19,5 +19,6 @@ public interface InvUsageRepo extends JpaRepository<InvUsage, Long> {
 	@Query("SELECT iu FROM InvUsage iu WHERE iu.customer.id =:id")
 	public List<InvUsage> findUsageByCus(@Param("id")long id);
 	
-	
+	@Query("SELECT iu FROM InvUsage iu WHERE iu.user.id =:id")
+	public List<InvUsage> findUsageByUser(@Param("id") long id);	
 }
