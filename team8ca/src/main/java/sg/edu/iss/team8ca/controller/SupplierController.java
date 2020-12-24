@@ -52,6 +52,7 @@ public class SupplierController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", "");
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "supplier";
 	}
@@ -61,10 +62,9 @@ public class SupplierController {
 			@PathVariable(value = "pageSize") int pageSize, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {
 		if (keyword == null) {
-		//	return "supplier";
 			keyword = "";
 		} 
-		//else {
+
 			Page<Supplier> page = supint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
 			List<Supplier> supList = page.getContent();
 			
@@ -104,22 +104,9 @@ public class SupplierController {
 	public String deleteSupplier(@PathVariable("id") Long id, Model model) {
 		List<Brand> brands = supint.findBrandBySupplier(id);
 		if (brands.size()>0) {
-			int pageSize = 5;
-			int pageNo = 1;
-			String sortField = "id";
-			String sortDir = "asc";
-			Page<Supplier> page = supint.findBykeywordContaining("", pageNo, pageSize, sortField, sortDir);
-			List<Supplier> supList = page.getContent();
-			model.addAttribute("supplier", supList);
-			model.addAttribute("currentPage", pageNo);
-			model.addAttribute("pageSize", pageSize);
-			model.addAttribute("totalPages", page.getTotalPages());
-			model.addAttribute("totalItems", page.getTotalElements());
-			model.addAttribute("sortField", sortField);
-			model.addAttribute("sortDir", sortDir);
-			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			
 			model.addAttribute("error", "brand-exist");
-			return "supplier";
+			return list(model);
 		}
 		
 		supint.deleteSupplier(supint.findSupplierById(id));
