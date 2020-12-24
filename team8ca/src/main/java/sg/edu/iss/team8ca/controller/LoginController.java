@@ -33,7 +33,6 @@ public class LoginController {
         modelAndView.addObject("userName", "Welcome " + user.getUserName());
         modelAndView.addObject("adminMessage","This page is restricted to adminstrators ONLY! This infraction has been reported.");
         modelAndView.setViewName("index");
-        //modelAndView.setViewName("admin/home");
         return modelAndView;
     }
 }
