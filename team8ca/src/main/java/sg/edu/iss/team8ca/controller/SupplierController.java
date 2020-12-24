@@ -47,6 +47,7 @@ public class SupplierController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", "");
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "supplier";
 	}
@@ -58,6 +59,7 @@ public class SupplierController {
 		if (keyword == null) {
 			return "supplier";
 		} else {
+
 			Page<Supplier> page = supint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
 			List<Supplier> supList = page.getContent();
 
@@ -74,7 +76,8 @@ public class SupplierController {
 		}
 	}
 
-	@RequestMapping(value = "/search/page1")
+	@RequestMapping(value="/search/page1")
+
 	public String searchWithPageDropdown(@RequestParam("keyword") String keyword, @RequestParam("pageNo") int pageNo,
 			@RequestParam("pageSize") int pageSize, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {

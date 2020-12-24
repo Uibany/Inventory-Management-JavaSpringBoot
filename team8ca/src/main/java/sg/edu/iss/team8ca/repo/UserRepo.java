@@ -17,7 +17,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 			+ "OR i.email LIKE %?1%"
 			+ "OR i.contactNo LIKE %?1%"
 			+ "OR i.address LIKE %?1%")	
-
 	public Page<User> findBykeywordContaining(String keyword, Pageable pageable);
 
 }

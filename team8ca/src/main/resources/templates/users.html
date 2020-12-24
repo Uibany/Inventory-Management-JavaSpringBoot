@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -86,38 +87,43 @@
 								</div>
 								<div class="col-lg-4">
 
-									<div class="btn-group pull-right" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle"
-											data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false">
+									<div class="dropdown pull-right">
+										<button type="button" id="dropdownMenu1"
+											data-toggle="dropdown" class="btn btn-primary">
 											Entries Per Page<span class="caret"></span>
 										</button>
-
-										<li class="dropdown-menu">
-											<ul>
-												<a
-													th:href="@{'/user/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">5</a>
-											</ul>
-											<ul>
-												<a
-													th:href="@{'/user/search/page/1/10?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">10</a>
-											</ul>
-											<ul>
-												<a
-													th:href="@{'/user/search/page/1/20?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">20</a>
-											</ul>
-										</li>
+										<ul class="dropdown-menu" role="menu"
+											aria-labelledby="dropdownMenu1">
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword!= null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword != null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword != null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/user/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+											</li>
+										</ul>
 									</div>
 								</div>
-
 							</div>
-
-							<h3 th:if="${not #lists.isEmpty(user)}">User List</h3>
-							<table th:if="${not #lists.isEmpty(user)}"
-								class="table table-striped">
+							<br>
+							<table class="table table-striped">
 								<tr>
 									<th th:if="${keyword != null}"><a
 										th:href="@{'/user/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">

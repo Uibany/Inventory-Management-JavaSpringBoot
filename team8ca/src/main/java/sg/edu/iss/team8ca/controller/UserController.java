@@ -30,12 +30,6 @@ public class UserController {
 	public void setUserService(UserService crudservice) {
 		this.crudint = crudservice;
 	}
-    
-	//@RequestMapping(value = "/list")
-	//public String list(Model model) {
-	//	model.addAttribute("user", crudint.findAllUser());
-	//	return "users";
-	//}
 	
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
@@ -52,6 +46,7 @@ public class UserController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("keyword", "");
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "users";
 	}
@@ -72,6 +67,30 @@ public class UserController {
 			model.addAttribute("pageSize", pageSize);
 			model.addAttribute("totalPages", page.getTotalPages());
 			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			return "users";
+		}
+	}
+	
+	@RequestMapping(value = "/search/page1")
+	public String searchWithPageDropdown(@RequestParam ("keyword") String keyword, @RequestParam("pageNo") int pageNo,
+			@RequestParam("pageSize") int pageSize, @RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir, Model model) {
+		if (keyword == null) {
+			return "forward:/user/list";
+		} else {
+			Page<User> page = crudint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
+			List<User> userList = page.getContent();
+			
+
+			model.addAttribute("user", userList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("keyword", keyword);
 			model.addAttribute("sortField", sortField);
 			model.addAttribute("sortDir", sortDir);
 			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");

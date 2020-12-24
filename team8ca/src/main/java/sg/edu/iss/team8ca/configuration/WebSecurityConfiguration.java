@@ -39,12 +39,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-        		.cors()
-        		.and()
         		.requestMatchers()
         		.and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll() //no authorisation required for ALL pages
+                .antMatchers("/**").permitAll() //no authorization required for ALL pages
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated()
                 .and()
