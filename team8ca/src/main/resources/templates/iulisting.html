@@ -128,7 +128,7 @@
 									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=tasks&sortDir=' + ${reverseSortDir}}">Tasks
 											Reference</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=customer.customerName&sortDir=' + ${reverseSortDir}}">Customer
 											Name</a></th>
 									<th th:if="${keyword != null}"><a
