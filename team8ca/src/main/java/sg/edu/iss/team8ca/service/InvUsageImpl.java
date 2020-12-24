@@ -152,6 +152,12 @@ public class InvUsageImpl implements InvUsageInterface {
 		return udrepo.listUdForInvIdUsageId(invid, iuid);
 	}
 	
+	@Override
+	@Transactional (readOnly = true)
+	public List<InvUsage> findUsageByCus(Long id){
+		return iurepo.findUsageByCus(id);
+	}
+	
 //	update record
 	
 	@Override

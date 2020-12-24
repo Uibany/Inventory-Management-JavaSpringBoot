@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.team8ca.model.Customer;
+import sg.edu.iss.team8ca.model.InvUsage;
 import sg.edu.iss.team8ca.service.CustomerImpl;
 import sg.edu.iss.team8ca.service.CustomerInterface;
+import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.InvUsageInterface;
 
 @Controller
 @RequestMapping("/customer")
@@ -29,6 +32,14 @@ public class CustomerController {
 	@Autowired
 	public void setCustomerService(CustomerImpl customerImpl) {
 		this.cuservice = customerImpl;
+	}
+	
+	@Autowired
+	private InvUsageInterface iuservice;
+	
+	@Autowired
+	private void setInvUsageService(InvUsageImpl invUsageImpl) {
+		this.iuservice = invUsageImpl;
 	}
 
 	@RequestMapping(value = "/list")
@@ -119,8 +130,14 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/delete/{id}")
-	public String deleteCustomer(@PathVariable("id") Long id) {
-		cuservice.deleteSupplier(cuservice.findCustomerById(id));
-		return "forward:/customer/list";
+	public String deleteCustomer(@PathVariable("id") Long id, Model model) {
+		List<InvUsage> iuList = iuservice.findUsageByCus(id);
+		if(iuList.size()>0) {
+			model.addAttribute("error", "IU-exist");
+			return list(model);
+		}
+			cuservice.deleteCustomer(cuservice.findCustomerById(id));
+			return "forward:/customer/list";
+		
 	}
 }

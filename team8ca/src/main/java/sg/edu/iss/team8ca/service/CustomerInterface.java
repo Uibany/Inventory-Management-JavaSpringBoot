@@ -10,7 +10,7 @@ public interface CustomerInterface {
 
 	public void saveCustomer(Customer cus);
 
-	public void deleteSupplier(Customer cus);
+	public void deleteCustomer(Customer cus);
 
 	public List<Customer> findAllCustomer();
 

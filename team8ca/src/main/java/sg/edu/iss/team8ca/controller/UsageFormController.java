@@ -52,7 +52,7 @@ public class UsageFormController {
 	@Autowired
 	private void setInvUsageService(InvUsageImpl invUsageImpl) {
 		this.iuservice = invUsageImpl;
-	};
+	}
 
 	@Autowired
 	private UserInterface uservice;

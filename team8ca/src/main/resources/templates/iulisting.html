@@ -122,26 +122,50 @@
 
 							<table class="table table-striped">
 								<tr>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
 											Usage Form Id</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=tasks&sortDir=' + ${reverseSortDir}}">Tasks
 											Reference</a></th>
-																				<th><a
-										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=customer.customerName&sortDir=' + ${reverseSortDir}}">Customer Name</a></th>
 									<th><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=customer.customerName&sortDir=' + ${reverseSortDir}}">Customer
+											Name</a></th>
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageDate&sortDir=' + ${reverseSortDir}}">
 											Form Creation Date</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageTime&sortDir=' + ${reverseSortDir}}">Form
 											Creation Time</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=usageReportStatus&sortDir=' + ${reverseSortDir}}">Usage
 											Form Status</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=user.id&sortDir=' + ${reverseSortDir}}">Creator
 											user</a></th>
+
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+											Usage Form Id</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=tasks&sortDir=' + ${reverseSortDir}}">Tasks
+											Reference</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=customer.customerName&sortDir=' + ${reverseSortDir}}">Customer
+											Name</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=usageDate&sortDir=' + ${reverseSortDir}}">
+											Form Creation Date</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=usageTime&sortDir=' + ${reverseSortDir}}">Form
+											Creation Time</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=usageReportStatus&sortDir=' + ${reverseSortDir}}">Usage
+											Form Status</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/invusage/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=user.id&sortDir=' + ${reverseSortDir}}">Creator
+											user</a></th>
+
 									<th>Link to Edit</th>
 									<th>Delete Usage</th>
 									<th>Change Status</th>

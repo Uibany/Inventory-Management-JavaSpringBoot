@@ -42,12 +42,12 @@ public class CategoryController {
 	public String deleteCategory(@PathVariable Long id, Model model) {
 		List<Subcategory> subcategories = plService.findSubcatByCatId(id);
 		if (subcategories.size()>0) {
-			Category category = new Category();
-			List<Category> clist = plService.listCategory();
-			model.addAttribute("category", category);
-			model.addAttribute("clist", clist);
+//			Category category = new Category();
+//			List<Category> clist = plService.listCategory();
+//			model.addAttribute("category", category);
+//			model.addAttribute("clist", clist);
 			model.addAttribute("error","subcategory-exist");
-			return "add-category";
+			return addCategory(model);
 		}
 		else {
 			plService.deleteCategory(plService.findCategoryById(id));	

@@ -21,16 +21,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/boots trap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-
 	<div id="wrapper">
 		<!-- navbar -->
 		<nav th:replace="fragments/layout.html :: navbar"></nav>
 
-		<!-- sidebar -->
-		<div th:fragment="sidebar-supplier" id="sidebar-nav" class="sidebar">
+		<div th:fragment="sidebar-customer" id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
@@ -56,7 +56,6 @@
 			</div>
 		</div>
 
-
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
@@ -71,90 +70,113 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<i class="lnr lnr-warning"></i> Supplier cannot be deleted as there
-							is still existing brand record for the supplier.
+							<i class="lnr lnr-warning"></i> Supplier cannot be deleted as
+							there is still existing brand record for the supplier.
 						</div>
-						<div class="panel-body">
-							<div sec:authorize="hasAuthority('ADMIN')">
-								<a href="SupplierForm.html" th:href="@{/supplier/add}"
-									class="btn btn-primary">Add Supplier</a>
-							</div>
-							<br>
+
+						<div class="panel-body" style="overflow-x: auto;">
+							<a href="SupplierForm.html" th:href="@{/supplier/add}"
+								class="btn btn-primary">Add Supplier</a> <br> <br>
 
 							<div class="row">
 								<div class="col-lg-8">
+
 									<form name="searchwithPage"
-										th:action="@{'/supplier/search/page/1/5' + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+										th:action="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} + '&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
 										<div class="input-group" style="width: 310px">
 											<input type="text" name="keyword" th:value="${keyword}"
-												value=" " required class="form-control"
-												placeholder="Search for supplier" /> <input type="hidden"
-												name="sortField" th:value="${sortField}"> <input
-												type="hidden" name="sortDir" th:value="${sortDir}">
+												class="form-control" placeholder="Search for supplier" /> <input
+												type="hidden" name="sortField" th:value="${sortField}">
+											<input type="hidden" name="sortDir" th:value="${sortDir}">
 											<span class="input-group-btn"><input type="submit"
 												value="Search" class="btn btn-primary" /></span>
 										</div>
 									</form>
 								</div>
 								<div class="col-lg-4">
-
-									<div class="btn-group pull-right" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle"
-											data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false">
-											Entries Per Page<span class="caret"></span>
+									<div class="dropdown pull-right">
+										<button type="button" id="dropdownMenu1"
+											data-toggle="dropdown" class="btn btn-primary">
+											Entries per page <span class="caret"></span>
 										</button>
-
-										<li class="dropdown-menu">
-											<ul>
-												<a
-													th:href="@{'/supplier/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">5</a>
-											</ul>
-											<ul>
-												<a
-													th:href="@{'/supplier/search/page/1/10?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">10</a>
-											</ul>
-											<ul>
-												<a
-													th:href="@{'/supplier/search/page/1/20?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-													class="dropdown-item">20</a>
-											</ul>
-										</li>
+										<ul class="dropdown-menu" role="menu"
+											aria-labelledby="dropdownMenu1">
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword == null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword!= null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=' + ${1} + '&pageSize=' + ${5} +'&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword != null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=1' + '&pageSize=10' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+											</li>
+											<li role="presentation"><a th:if="${keyword != null}"
+												role="menuitem" tabindex="-1"
+												th:href="@{'/supplier/search/page1'+'?pageNo=1' + '&pageSize=20' + '&keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">20</a>
+											</li>
+										</ul>
 									</div>
 								</div>
-
 							</div>
+							<br>
 
-							<h3 th:if="${not #lists.isEmpty(supplier)}">Supplier List</h3>
-
-							<table th:if="${not #lists.isEmpty(supplier)}"
-								class="table table-striped">
+							<table class="table table-striped">
 								<tr>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=id&sortDir=' + ${reverseSortDir}}">
 											Supplier Id</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=companyName&sortDir=' + ${reverseSortDir}}">
 											Company Name</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=contactNo&sortDir=' + ${reverseSortDir}}">
 											Contact no</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=address&sortDir=' + ${reverseSortDir}}">
 											Address</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=email&sortDir=' + ${reverseSortDir}}">
 											Email</a></th>
-									<th><a
+									<th th:if="${keyword != null}"><a
 										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=postalCode&sortDir=' + ${reverseSortDir}}">
 											Postal code</a></th>
+
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=id&sortDir=' + ${reverseSortDir}}">
+											Supplier Id</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=companyName&sortDir=' + ${reverseSortDir}}">
+											Company Name</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=contactNo&sortDir=' + ${reverseSortDir}}">
+											Contact no</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=address&sortDir=' + ${reverseSortDir}}">
+											Address</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword=' +'&sortField=email&sortDir=' + ${reverseSortDir}}">
+											Email</a></th>
+									<th th:if="${keyword == null}"><a
+										th:href="@{'/supplier/search/page/' + ${currentPage} + '/'+ ${pageSize} + '?keyword='+'&sortField=postalCode&sortDir=' + ${reverseSortDir}}">
+											Postal code</a></th>
+
 									<div sec:authorize="hasAuthority('ADMIN')">
 										<th>Edit Supplier</th>
 										<th>Delete Supplier</th>
 									</div>
 								</tr>
+
 								<tr th:each="supplier:${supplier}" class="table-row">
 									<td th:text=${supplier.id}>Id</td>
 									<td th:text=${supplier.companyName}>Company Name</td>
@@ -173,23 +195,27 @@
 								</tr>
 							</table>
 						</div>
-
+						<br />
 						<div class="panel-footer">
 							<div style="display: inline;">
 								<div>No. of Search items: [[${totalItems}]]</div>
+
+
 								<div style="display: inline;" align="right"
 									th:if='${keyword!=null and totalItems>0}'>
 									<ul class="pagination">
 										<li><a th:if="${currentPage > 1}"
 											th:href="@{'/supplier/search/page/' + ${currentPage - 1}+ '/'+ ${pageSize} + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a>
 											<a th:unless="${currentPage >1}">&laquo;</a></li>
+
 										<li th:each="i : ${#numbers.sequence(1, totalPages)}"><a
 											th:if="${i==currentpage}" class="active">[[${i}]]</a> <a
 											th:unless="${i==currentpage}"
 											th:href="@{'/supplier/search/page/' +${i} + '/'+${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
 											th:text="${i}"></a></li>
+
 										<li><a th:if="${currentPage > totalPages}"
-											th:href="@{'/supplier/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											th:href="@{'supplier/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
 											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
 									</ul>
 								</div>
@@ -208,20 +234,18 @@
 											th:text="${i}"></a></li>
 
 										<li><a th:if="${currentPage > totalPages}"
-											th:href="@{'/supplier/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+											th:href="@{'supplier/search/page/' + ${currentPage + 1}+ '/'+ ${pageSize}  + '?keyword=' +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
 											<a th:unless="${currentPage >totalPages}">&raquo;</a></li>
 									</ul>
 								</div>
+
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 </body>
 
 </html>

@@ -51,14 +51,14 @@ public class BrandController {
 	public String deleteBrand(@PathVariable Long id, Model model) {
 		List<Inventory> inventories = plService.findProductByBrand(id);
 		if (inventories.size() > 0) {
-			Brand brand = new Brand();
-			List<Brand> blist = plService.listBrand();
-			ArrayList<String> suplist = supService.findAllSupplierNames();
-			model.addAttribute("brand", brand);
-			model.addAttribute("blist", blist);
-			model.addAttribute("supnames", suplist);
+//			Brand brand = new Brand();
+//			List<Brand> blist = plService.listBrand();
+//			ArrayList<String> suplist = supService.findAllSupplierNames();
+//			model.addAttribute("brand", brand);
+//			model.addAttribute("blist", blist);
+//			model.addAttribute("supnames", suplist);
 			model.addAttribute("error", "inv-exist");
-			return "add-brand";
+			return addBrand(model);
 		} else {
 			plService.deleteBrand(plService.findBrandById(id));
 			return "forward:/brand/add";

@@ -50,14 +50,14 @@ public class SubcategoryController {
 	public String deleteSubcategory(@PathVariable Long id, Model model) {
 		List<Inventory> inventories = plService.findProductBySubCat(id);
 		if (inventories.size() > 0) {
-			Subcategory subcategory = new Subcategory();
-			List<Subcategory> slist = plService.listSubcategory();
-			ArrayList<String> clist = plService.findAllCategoryNames();
-			model.addAttribute("subcategory", subcategory);
-			model.addAttribute("cnames", clist);
-			model.addAttribute("slist", slist);
+//			Subcategory subcategory = new Subcategory();
+//			List<Subcategory> slist = plService.listSubcategory();
+//			ArrayList<String> clist = plService.findAllCategoryNames();
+//			model.addAttribute("subcategory", subcategory);
+//			model.addAttribute("cnames", clist);
+//			model.addAttribute("slist", slist);
 			model.addAttribute("error", "inv-exist");
-			return "add-subcategory";
+			return addSubcategory(model);
 		} else {
 			plService.deleteSubcategory(plService.findSubcatById(id));
 			return "forward:/subcategory/add";

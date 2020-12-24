@@ -27,7 +27,7 @@ public class CustomerImpl implements CustomerInterface {
 
 	@Override
 	@Transactional
-	public void deleteSupplier(Customer cus) {
+	public void deleteCustomer(Customer cus) {
 		cusrepo.delete(cus);
 	}
 
