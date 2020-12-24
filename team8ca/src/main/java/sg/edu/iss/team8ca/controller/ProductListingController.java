@@ -264,23 +264,6 @@ public class ProductListingController {
 		public String deleteProduct(@PathVariable (value="id") Long id, Model model) {
 			List<UsageDetails> udList = iuservice.listUsageForInv(id);
 			if(udList.size()>0) {
-				//int pageSize = 5;
-				//int pageNo = 1;
-				//String sortField = "id";
-				//String sortDir = "asc";
-				//Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDir);
-				//List<Inventory> plist = page.getContent(); 
-				//LocalDate today = LocalDate.now();
-				//model.addAttribute("plist", plist);
-				//model.addAttribute("today", today.toString());
-				//model.addAttribute("currentPage", pageNo);
-				//model.addAttribute("pageSize", pageSize);
-				//model.addAttribute("totalPages", page.getTotalPages());
-				//model.addAttribute("totalItems", page.getTotalElements());
-				//model.addAttribute("sortField", sortField);
-				//model.addAttribute("sortDir", sortDir);
-				//model.addAttribute("keyword", "");
-				//model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("error", "usage-exist");
 				return list(model);
 			}
