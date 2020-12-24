@@ -24,7 +24,6 @@ import sg.edu.iss.team8ca.repo.SubcategoryRepo;
 @Service
 @Transactional
 public class ProductListingImpl implements ProductListingInterface {
-	
 
 	@Autowired
 	BrandRepo brepo;
@@ -50,16 +49,19 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 	
 	@Override
+	@Transactional
 	public void addProduct(Inventory inventory) {
 		irepo.save(inventory);
 	}
 	
 	@Override
+	@Transactional
 	public void deleteProduct(Inventory inventory) {
 		irepo.delete(inventory);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Inventory findProductById(Long id) {
 		return irepo.findById(id).get();
 	}
@@ -71,26 +73,29 @@ public class ProductListingImpl implements ProductListingInterface {
 	@Override
 	public void editProductQuantity(Long id, int newQty) {
 
-		
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Brand> listBrand() {
 		return brepo.findAll();
 	}
 	
 	@Override
+	@Transactional
 	public void addBrand(Brand brand) {
 		brepo.save(brand);
 	}
 
 	@Override
+	@Transactional
 	public void deleteBrand(Brand brand) {
 		brepo.delete(brand);
 		
 	}
 	
 	@Override
+	@Transactional
 	public ArrayList<String> findAllBrandNames() {
 		List<Brand> brands = brepo.findAll();
 		ArrayList<String> names = new ArrayList<String>();
@@ -102,26 +107,31 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Brand findBrandByName(String name) {
 		return brepo.findBrandByName(name).get(0);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Subcategory> listSubcategory() {
 		return srepo.findAll();
 	}
 	
 	@Override
+	@Transactional
 	public void addSubcategory(Subcategory subcategory) {
 		srepo.save(subcategory);	
 	}
 	
 	@Override
+	@Transactional
 	public void deleteSubcategory(Subcategory subcategory) {
 		srepo.delete(subcategory);
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<String> findAllSubcatNames() {
 		List<Subcategory> subcats = srepo.findAll();
 		ArrayList<String> names = new ArrayList<String>();
@@ -133,16 +143,19 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Subcategory findSubcatByName(String name) {
 		return srepo.findSubcatByName(name).get(0);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Category> listCategory() {
 		return crepo.findAll();
 	}
 
 	@Override
+	@Transactional
 	public ArrayList<String> findAllCategoryNames() {
 		List<Category> categories = crepo.findAll();
 		ArrayList<String> names = new ArrayList<String>();
@@ -154,46 +167,55 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Category findCatByName(String name) {
 		return crepo.findCatByName(name).get(0);
 	}
 
 	@Override
+	@Transactional
 	public void addCategory(Category category) {
 		crepo.save(category);
 	}
 	
 	@Override
+	@Transactional
 	public void deleteCategory(Category category) {
 		crepo.delete(category);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Brand findBrandById(Long id) {
 		return brepo.findById(id).get();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Subcategory findSubcatById(Long id) {
 		return srepo.findById(id).get();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Category findCategoryById(Long id) {
 		return crepo.findById(id).get();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Inventory> list() {
 		return irepo.findAll();
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Inventory getProduct(long id) {
 		return irepo.findInvById(id);
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public List<Inventory> list(String keyword) {
 		if (keyword == null) {
 			return irepo.findAll();
@@ -202,6 +224,7 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Inventory> findPaginated(String keyword, int pageNo, int pageSize, String sortField, String sortDirection) {
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
 			Sort.by(sortField).descending();
@@ -216,28 +239,37 @@ public class ProductListingImpl implements ProductListingInterface {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Inventory> findProductBySubCat(long subcatId) {
 		
 		return irepo.findInvBySubcat(subcatId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Inventory> findProductByCat(long catId) {
 		return irepo.findInvByCat(catId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Inventory> findProductByBrand(long brandId) {
 		return irepo.findInvByBrand(brandId);
 	}
 
 	@Override
+	@Transactional
 	public void deleteProducts(List<Inventory> invList) {
 		for(Inventory product:invList) 
 		{
 			irepo.delete(product);
 		}
-		
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Subcategory> findSubcatByCatId(Long id) {
+		return srepo.findSubcatByCatId(id);
 	}
 
 

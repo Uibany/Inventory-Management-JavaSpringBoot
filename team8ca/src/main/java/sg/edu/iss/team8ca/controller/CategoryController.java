@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.team8ca.model.Category;
+import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 
 @Controller
@@ -38,9 +39,19 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/delete/{id}")		
-	public String deleteCategory(@PathVariable Long id) {
-		plService.deleteProducts(plService.findProductByCat(id));
-		plService.deleteCategory(plService.findCategoryById(id));
-	return "forward:/category/add";
+	public String deleteCategory(@PathVariable Long id, Model model) {
+		List<Subcategory> subcategories = plService.findSubcatByCatId(id);
+		if (subcategories.size()>0) {
+			Category category = new Category();
+			List<Category> clist = plService.listCategory();
+			model.addAttribute("category", category);
+			model.addAttribute("clist", clist);
+			model.addAttribute("error","subcategory-exist");
+			return "add-category";
+		}
+		else {
+			plService.deleteCategory(plService.findCategoryById(id));	
+			return "forward:/category/add";
+		}
 	}
 }

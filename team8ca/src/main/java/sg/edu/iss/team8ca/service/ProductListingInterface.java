@@ -46,6 +46,7 @@ public interface ProductListingInterface {
 
 	public Category findCategoryById(Long id);
 	public Inventory getProduct(long id);
+	public List<Subcategory> findSubcatByCatId(Long id);
 	
 	public void deleteProducts(List<Inventory> invList);
    

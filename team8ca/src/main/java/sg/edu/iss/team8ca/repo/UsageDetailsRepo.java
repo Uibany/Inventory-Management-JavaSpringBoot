@@ -19,4 +19,7 @@ public interface UsageDetailsRepo extends JpaRepository<UsageDetails, Long> {
 	
 	@Query("SELECT ud FROM UsageDetails ud WHERE ud.inventory.id = :id AND ud.invUsage.id = :id1")
 	public List<UsageDetails> listUdForInvIdUsageId(@Param("id") Long id, @Param("id1") Long id1);
+	
+	@Query("SELECT ud FROM UsageDetails ud WHERE ud.inventory.id = :id")
+	public List<UsageDetails> listUsageForInv(@Param("id")Long id);	
 }

@@ -192,6 +192,7 @@ public class UsageFormController {
 			LocalTime localtime = LocalTime.parse(s);
 			TransHistory trans = new TransHistory(TransType.DebitBack, Math.toIntExact(ud.getQuantity()), inventory, LocalDate.now(), localtime, user);
 			thservice.saveTrans(trans);
+			iuservice.deleteUsageDetails(ud);
 		}		
 		iuservice.deleteUsage(usageForm);
 		return "forward:/invusage/showlisting";
@@ -238,7 +239,6 @@ public class UsageFormController {
 		} else {
 			model.addAttribute("customer", cuservice.findCustomerById(custid));
 		}
-
 		return "UsageReportCustTask";
 	}
 

@@ -60,7 +60,6 @@ public class BrandController {
 			model.addAttribute("error", "inv-exist");
 			return "add-brand";
 		} else {
-			plService.deleteProducts(inventories);
 			plService.deleteBrand(plService.findBrandById(id));
 			return "forward:/brand/add";
 		}

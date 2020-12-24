@@ -53,10 +53,7 @@
 								<tr>
 									<th>Supplier Id</th>
 									<th>Company Name</th>
-									<!-- <th>Contact no</th>
-									<th>Address</th>
-									<th>email id</th>
-									<th>Postal code</th> -->
+									<th>Generate Report</th>
 								</tr>
 								<tr th:each="supplier:${supplier}" class="table-row">
 									<td th:text=${supplier.id}>Id</td>
@@ -65,7 +62,7 @@
 									<td th:hidden=${supplier.address}>Address</td>
 									<td th:hidden=${supplier.email}>Email id</td>
 									<td th:hidden=${supplier.postalCode}>Postal code</td>
-									<td><a href="EditMember.html" th:href="@{/inventory/report/}+${supplier.id}"
+									<td><a href="Generate.html" th:href="@{/inventory/report/}+${supplier.id}"
 											class="btn btn-success">Generate</a></td>
 								</tr>
 							</table>

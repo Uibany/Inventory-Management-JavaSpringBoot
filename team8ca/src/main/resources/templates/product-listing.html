@@ -43,12 +43,14 @@
 								class="lnr lnr-list"></i> <span>Stock Usage Forms</span></a></li>
 						<li><a th:href="@{~/report/form}" class=""><i
 								class="lnr lnr-chart-bars"></i> <span>Transaction Report</span></a></li>
-						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/supplier/list}" class=""><i
+						<li sec:authorize="hasAuthority('ADMIN')"><a
+							th:href="@{~/supplier/list}" class=""><i
 								class="lnr lnr-store"></i> <span>Manage Suppliers</span></a></li>
 						<li><a th:href="@{~/customer/list}" class=""><i
 								class="lnr lnr-users"></i> <span>Manage Customers</span></a></li>
-						<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{~/user/list}" class=""><i
-								class="lnr lnr-cog"></i> <span>Manage Users</span></a></li>
+						<li sec:authorize="hasAuthority('ADMIN')"><a
+							th:href="@{~/user/list}" class=""><i class="lnr lnr-cog"></i>
+								<span>Manage Users</span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -59,7 +61,17 @@
 			<div class="main-content">
 				<div class="container-fluid">
 					<div class="panel">
-						<div class="panel-footer row" sec:authorize="hasAuthority('ADMIN')">
+						<div th:if="${error == 'usage-exist'}"
+							class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<i class="lnr lnr-warning"></i> Inventory cannot be deleted as there
+							is still existing transaction records with the inventory item in the system.
+						</div>
+						<div class="panel-footer row"
+							sec:authorize="hasAuthority('ADMIN')">
 							<a sec:authorize="hasAuthority('ADMIN')" href="entry-form.html"
 								th:href="@{/inventory/addproduct/}" class="btn btn-success">Create
 								new inventory</a> <a sec:authorize="hasAuthority('ADMIN')"
@@ -73,8 +85,9 @@
 							<a sec:authorize="hasAuthority('ADMIN')"
 								href="reorder-product.html" th:href="@{/inventory/reorderlist}"
 								class="btn btn-primary">Reorder products</a> <a
-								sec:authorize="hasAuthority('ADMIN')" href="ReorderReport.html" 
-								th:href="@{/inventory/select}" class="btn btn-info">Reorder Report</a>
+								sec:authorize="hasAuthority('ADMIN')" href="ReorderReport.html"
+								th:href="@{/inventory/select}" class="btn btn-info">Reorder
+								Report</a>
 						</div>
 					</div>
 
@@ -111,7 +124,8 @@
 										</button>
 										<li class="dropdown-menu">
 											<ul>
-												<a	th:href="@{'/inventory/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+												<a
+													th:href="@{'/inventory/search/page/1/5?keyword=' + ${keyword} +'&sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
 													class="dropdown-item">5</a>
 											</ul>
 											<ul>
@@ -125,11 +139,11 @@
 													class="dropdown-item">20</a>
 											</ul>
 										</li>
-										</div>
 									</div>
-
 								</div>
-							
+
+							</div>
+
 							<br>
 
 							<table class="table table-striped">

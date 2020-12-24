@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -31,12 +30,18 @@ import sg.edu.iss.team8ca.model.Subcategory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.model.TransHistory;
 import sg.edu.iss.team8ca.model.TransType;
+import sg.edu.iss.team8ca.model.UsageDetails;
 import sg.edu.iss.team8ca.model.User;
+import sg.edu.iss.team8ca.service.InvUsageImpl;
+import sg.edu.iss.team8ca.service.InvUsageInterface;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
+import sg.edu.iss.team8ca.service.ProductListingInterface;
 import sg.edu.iss.team8ca.service.ReorderReportService;
 import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
 import sg.edu.iss.team8ca.service.TransHistoryImpl;
+import sg.edu.iss.team8ca.service.TransHistoryInterface;
+import sg.edu.iss.team8ca.service.UserInterface;
 import sg.edu.iss.team8ca.service.UserService;
 
 @Controller
@@ -44,27 +49,46 @@ import sg.edu.iss.team8ca.service.UserService;
 public class ProductListingController {  
 	
 	@Autowired
-	private SupplierInterface supint;
+	private SupplierInterface spservice;
 	
 	@Autowired
-	ReorderReportService reorser;
+	private void setSupplierService(SupplierService supplierImpl) {
+		this.spservice = supplierImpl;
+	}
+	
+	@Autowired
+	private ReorderReportService reorser;
+	
+	@Autowired
+	private ProductListingInterface plService;
+	
+	@Autowired
+	private void setProductListingService(ProductListingImpl plImpl) {
+		this.plService = plImpl;
+	};
+	
+	@Autowired
+	private UserInterface uservice;
 
 	@Autowired
-	private SupplierService spservice;
+	private void setUserService(UserService userImpl) {
+		this.uservice = userImpl;
+	}
 	
 	@Autowired
-	private ProductListingImpl plService;
+	private TransHistoryInterface thservice;
 	
 	@Autowired
-	private UserService uservice;
+	private void setTransHistoryService(TransHistoryImpl thImpl) {
+		this.thservice=thImpl;
+	}
 	
 	@Autowired
-	private TransHistoryImpl thservice;
+	private InvUsageInterface iuservice;
 	
-
 	@Autowired
-	public void setProductListing(ProductListingImpl inventory) {
-		this.plService = inventory;
+	private void setInvUsageService (InvUsageImpl iuImpl) {
+		this.iuservice = iuImpl;
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -163,7 +187,7 @@ public class ProductListingController {
 				String address = request.getParameter("address");
 				String email = request.getParameter("email");
 				int postalCode = Integer.parseInt(request.getParameter("postalCode"));
-				Supplier supplier = new Supplier(newCompanyName,contactNo,address,email,postalCode);
+				Supplier supplier = new Supplier(newCompanyName,contactNo,email,address,postalCode);
 				spservice.saveSupplier(supplier);
 				Brand brand = new Brand(newBrandName,newBrandManu,supplier);
 				plService.addBrand(brand);
@@ -237,9 +261,33 @@ public class ProductListingController {
 		}
 
 	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.GET)		
-		public String deleteProduct(@PathVariable Long id) {
-			plService.deleteProduct(plService.findProductById(id));
-		return "redirect:/inventory/list";
+		public String deleteProduct(@PathVariable (value="id") Long id, Model model) {
+			List<UsageDetails> udList = iuservice.listUsageForInv(id);
+			if(udList.size()>0) {
+				int pageSize = 5;
+				int pageNo = 1;
+				String sortField = "id";
+				String sortDir = "asc";
+				Page<Inventory> page = plService.findPaginated("", pageNo, pageSize, sortField, sortDir);
+				List<Inventory> plist = page.getContent(); 
+				LocalDate today = LocalDate.now();
+				model.addAttribute("plist", plist);
+				model.addAttribute("today", today.toString());
+				model.addAttribute("currentPage", pageNo);
+				model.addAttribute("pageSize", pageSize);
+				model.addAttribute("totalPages", page.getTotalPages());
+				model.addAttribute("totalItems", page.getTotalElements());
+				model.addAttribute("sortField", sortField);
+				model.addAttribute("sortDir", sortDir);
+				model.addAttribute("keyword", "");
+				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+				model.addAttribute("error", "usage-exist");
+				return "product-listing";
+			}
+			else {
+				plService.deleteProduct(plService.findProductById(id));
+				return "redirect:/inventory/list";	
+			}
 	}
 		
 	@RequestMapping("/search")
@@ -254,7 +302,7 @@ public class ProductListingController {
 	
 	@RequestMapping("/select")
 	public String selectSupplier(Model model) {
-		model.addAttribute("supplier", supint.findAllSupplier());
+		model.addAttribute("supplier", spservice.findAllSupplier());
 		return "reorderreport";
 	}
 	

@@ -82,6 +82,12 @@ public class InvUsageImpl implements InvUsageInterface {
 	
 	@Override
 	@Transactional (readOnly = true)
+	public List<UsageDetails> listUsageForInv(Long id){
+		return udrepo.listUsageForInv(id);
+	}
+	
+	@Override
+	@Transactional (readOnly = true)
 	public Page<InvUsage> iuSearchPage(String keyword, int pageNo, int pageSize, String sortField,
 			String sortDirection){
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()

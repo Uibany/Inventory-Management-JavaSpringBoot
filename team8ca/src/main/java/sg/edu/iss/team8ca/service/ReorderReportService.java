@@ -60,8 +60,14 @@ public class ReorderReportService implements ReorderReportInterface {
 				for(Inventory inv : invList) {
 					orderQty=0;
 					if(inv.getReorderLevel() >= inv.getStockQty()) {
-						orderQty = inv.getMinimumOrder();
+						if((inv.getReorderLevel()-inv.getStockQty())<=inv.getMinimumOrder()) {
+							orderQty = inv.getMinimumOrder();					
+						}
+						else{
+							orderQty = (inv.getReorderLevel()-inv.getStockQty());
+						}
 					}
+					
 					double price=orderQty*inv.getOriginalPrice();
 					total += price;
 					bw.write(String.format("%03d", inv.getId()) + "\t\t\t" + inv.getOriginalPrice()+ "\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t\t" 
@@ -70,7 +76,7 @@ public class ReorderReportService implements ReorderReportInterface {
 				}
 					bw.write("====================================================================================");
 					bw.newLine();
-					bw.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTotal\t" +String.format("%,.2f", total));
+					bw.write("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tTotal\t " +String.format("%,.2f", total));
 					bw.write("\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t---End of the Report-----");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
