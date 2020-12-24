@@ -14,4 +14,7 @@ public interface BrandRepo extends JpaRepository<Brand, Long> {
 	
 	@Query("Select b from Brand b where b.id = :id")
 	 List<Brand> findBrandById(@Param("id") Long id);
+	
+	@Query("SELECT b from Brand b where b.supplier.id =:id")
+	List<Brand> findBrandBySupplier(@Param("id") Long id);
 }

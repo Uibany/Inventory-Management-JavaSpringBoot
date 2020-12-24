@@ -12,7 +12,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Supplier;
+import sg.edu.iss.team8ca.repo.BrandRepo;
 import sg.edu.iss.team8ca.repo.SupplierRepo;
 
 @Service
@@ -20,28 +22,33 @@ public class SupplierService implements SupplierInterface {
 
 	@Autowired
 	SupplierRepo srepo;
+	
+	@Autowired
+	BrandRepo brepo;
 
+	@Override
 	@Transactional
-
 	public boolean saveSupplier(Supplier sup) {
 		if (srepo.save(sup) != null)
 			return true;
 		else
 			return false;
-
 	}
 
+	@Override
 	@Transactional
 	public void deleteSupplier(Supplier sup) {
 		srepo.delete(sup);
 
 	}
 
-	@Transactional
+	@Override
+	@Transactional (readOnly = true)
 	public List<Supplier> findAllSupplier() {
 		return srepo.findAll();
 	}
 
+	@Override
 	@Transactional
 	public Supplier findSupplierById(long id) {
 		return srepo.findById(id).get();
@@ -59,12 +66,14 @@ public class SupplierService implements SupplierInterface {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public Supplier findSupplierByName(String name) {
 		return srepo.findSupplierByName(name).get(0);
 	}
+	
 
 	@Override
-	@Transactional
+	@Transactional (readOnly = true)
 	public Page<Supplier> findBykeywordContaining(String keyword, int pageNo, int pageSize, String sortField,
 			String sortDir) {
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
@@ -77,5 +86,11 @@ public class SupplierService implements SupplierInterface {
 		return srepo.findBykeywordContaining(keyword, pageable);
 	}
 	
+	@Override
+	@Transactional (readOnly = true)
+	public List<Brand> findBrandBySupplier(Long id){
+		return brepo.findBrandBySupplier(id);
+	}
 	
+
 }

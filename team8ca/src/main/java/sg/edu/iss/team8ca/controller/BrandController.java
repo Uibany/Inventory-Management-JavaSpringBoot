@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.team8ca.model.Brand;
+import sg.edu.iss.team8ca.model.Inventory;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.service.ProductListingImpl;
 import sg.edu.iss.team8ca.service.SupplierService;
@@ -23,7 +24,7 @@ public class BrandController {
 	private ProductListingImpl plService;
 	@Autowired
 	private SupplierService supService;
-	
+
 	@RequestMapping(value = "/add")
 	public String addBrand(Model model) {
 		Brand brand = new Brand();
@@ -34,7 +35,7 @@ public class BrandController {
 		model.addAttribute("supnames", suplist);
 		return "add-brand";
 	}
-	
+
 	@RequestMapping(value = "/save")
 	public String saveBrand(@ModelAttribute("brand") Brand brand, Model model, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -43,13 +44,25 @@ public class BrandController {
 		Supplier supplier = supService.findSupplierByName(brand.getSupplier().getCompanyName());
 		brand.setSupplier(supplier);
 		plService.addBrand(brand);
-		return "forward:/brand/add"; 
+		return "forward:/brand/add";
 	}
-	
-	@RequestMapping(value = "/delete/{id}")		
-	public String deleteBrand(@PathVariable Long id) {
-		plService.deleteProducts(plService.findProductByBrand(id));
-		plService.deleteBrand(plService.findBrandById(id));
-	return "forward:/brand/add";
+
+	@RequestMapping(value = "/delete/{id}")
+	public String deleteBrand(@PathVariable Long id, Model model) {
+		List<Inventory> inventories = plService.findProductByBrand(id);
+		if (inventories.size() > 0) {
+			Brand brand = new Brand();
+			List<Brand> blist = plService.listBrand();
+			ArrayList<String> suplist = supService.findAllSupplierNames();
+			model.addAttribute("brand", brand);
+			model.addAttribute("blist", blist);
+			model.addAttribute("supnames", suplist);
+			model.addAttribute("error", "inv-exist");
+			return "add-brand";
+		} else {
+			plService.deleteProducts(inventories);
+			plService.deleteBrand(plService.findBrandById(id));
+			return "forward:/brand/add";
+		}
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.team8ca.model.Brand;
 import sg.edu.iss.team8ca.model.Supplier;
 import sg.edu.iss.team8ca.service.SupplierInterface;
 import sg.edu.iss.team8ca.service.SupplierService;
@@ -100,7 +101,27 @@ public class SupplierController {
 		return "forward:/supplier/list";
 	}
 	@RequestMapping(value = "/delete/{id}")
-	public String deleteSupplier(@PathVariable("id") Long id) {
+	public String deleteSupplier(@PathVariable("id") Long id, Model model) {
+		List<Brand> brands = supint.findBrandBySupplier(id);
+		if (brands.size()>0) {
+			int pageSize = 5;
+			int pageNo = 1;
+			String sortField = "id";
+			String sortDir = "asc";
+			Page<Supplier> page = supint.findBykeywordContaining("", pageNo, pageSize, sortField, sortDir);
+			List<Supplier> supList = page.getContent();
+			model.addAttribute("supplier", supList);
+			model.addAttribute("currentPage", pageNo);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("totalPages", page.getTotalPages());
+			model.addAttribute("totalItems", page.getTotalElements());
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
+			model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+			model.addAttribute("error", "brand-exist");
+			return "supplier";
+		}
+		
 		supint.deleteSupplier(supint.findSupplierById(id));
 		return "forward:/supplier/list";
 	}
