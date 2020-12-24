@@ -62,7 +62,7 @@ public class ReorderReportService implements ReorderReportInterface {
 					if(inv.getReorderLevel() >= inv.getStockQty()) {
 						orderQty = inv.getMinimumOrder();
 					}
-					double price=inv.getStockQty()*inv.getOriginalPrice();
+					double price=orderQty*inv.getOriginalPrice();
 					total += price;
 					bw.write(String.format("%03d", inv.getId()) + "\t\t\t" + inv.getOriginalPrice()+ "\t\t" + inv.getStockQty()+"\t\t\t" + inv.getReorderLevel() +"\t\t\t\t" 
 					+ inv.getMinimumOrder() + "\t\t\t\t" +orderQty +"\t\t " + String.format("%,.2f", price));
