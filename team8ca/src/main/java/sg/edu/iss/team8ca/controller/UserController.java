@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,31 +29,31 @@ import sg.edu.iss.team8ca.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired
 	private UserInterface crudint;
-	
+
 	@Autowired
 	public void setUserService(UserService crudservice) {
 		this.crudint = crudservice;
 	}
-	
+
 	@Autowired
 	private TransHistoryInterface transint;
-	
+
 	@Autowired
-	public void setTransService (TransHistoryImpl transservice) {
+	public void setTransService(TransHistoryImpl transservice) {
 		this.transint = transservice;
 	}
-	
+
 	@Autowired
 	private InvUsageInterface iuservice;
-	
+
 	@Autowired
 	private void setInvUsageService(InvUsageImpl invUsageImpl) {
 		this.iuservice = invUsageImpl;
 	}
-	
+
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
 		int pageSize = 5;
@@ -72,9 +73,9 @@ public class UserController {
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		return "users";
 	}
-	
+
 	@RequestMapping(value = "/search/page/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	public String searchWithPage(@RequestParam ("keyword") String keyword, @PathVariable(value = "pageNo") int pageNo,
+	public String searchWithPage(@RequestParam("keyword") String keyword, @PathVariable(value = "pageNo") int pageNo,
 			@PathVariable(value = "pageSize") int pageSize, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {
 		if (keyword == null) {
@@ -82,7 +83,7 @@ public class UserController {
 		} else {
 			Page<User> page = crudint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
 			List<User> userList = page.getContent();
-			
+
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("user", userList);
 			model.addAttribute("currentPage", pageNo);
@@ -95,9 +96,9 @@ public class UserController {
 			return "users";
 		}
 	}
-	
+
 	@RequestMapping(value = "/search/page1")
-	public String searchWithPageDropdown(@RequestParam ("keyword") String keyword, @RequestParam("pageNo") int pageNo,
+	public String searchWithPageDropdown(@RequestParam("keyword") String keyword, @RequestParam("pageNo") int pageNo,
 			@RequestParam("pageSize") int pageSize, @RequestParam("sortField") String sortField,
 			@RequestParam("sortDir") String sortDir, Model model) {
 		if (keyword == null) {
@@ -105,7 +106,6 @@ public class UserController {
 		} else {
 			Page<User> page = crudint.findBykeywordContaining(keyword, pageNo, pageSize, sortField, sortDir);
 			List<User> userList = page.getContent();
-			
 
 			model.addAttribute("user", userList);
 			model.addAttribute("currentPage", pageNo);
@@ -119,35 +119,42 @@ public class UserController {
 			return "users";
 		}
 	}
-	
+
 	@RequestMapping(value = "/add")
 	public String addForm(Model model) {
 		model.addAttribute("user", new User());
 		return "user-form";
 	}
+
 	@RequestMapping(value = "/edit/{id}")
 	public String editForm(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("user", crudint.findUserById(id));
 		return "user-form";
 	}
+
 	@RequestMapping(value = "/save")
-	public String saveUser(@ModelAttribute("user") @Valid User user, 
-			BindingResult bindingResult,  Model model) {
+	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "user-form";
 		}
 		crudint.saveUser(user);
 		return "forward:/user/list";
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}")
 	public String deleteUser(@PathVariable("id") Long id, Model model) {
 		List<TransHistory> thList = transint.listTransForUser(id);
 		List<InvUsage> iuList = iuservice.findUsageByUser(id);
-		if(iuList.size()>0 && thList.size()>0) {
+		String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = crudint.findUserByUserName(currentUserName);
+		if (iuList.size() > 0 && thList.size() > 0) {
 			model.addAttribute("error", "thiu-exist");
 			return list(model);
+		} else if (user.getId() == id) {
+			model.addAttribute("error", "user-exist");
+			return list(model);
 		}
+
 		crudint.deleteUser(crudint.findUserById(id));
 		return "forward:/user/list";
 	}

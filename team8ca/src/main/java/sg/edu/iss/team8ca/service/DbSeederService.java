@@ -171,13 +171,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-5);
 		invRepo.save(inv4);		
-		TransHistory trans1 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 11, 20),
+		TransHistory trans1 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 11, 20),
 				LocalTime.of(11, 10), user1);
-		TransHistory trans2 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 11, 21),
+		TransHistory trans2 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 11, 21),
 				LocalTime.of(15, 50), user1);
-		TransHistory trans3 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 11, 22),
+		TransHistory trans3 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 11, 22),
 				LocalTime.of(9, 45), user1);
-		TransHistory trans4 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 11, 23),
+		TransHistory trans4 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 11, 23),
 				LocalTime.of(8, 30), user1);
 		thRepo.save(trans1);
 		thRepo.save(trans2);
@@ -203,13 +203,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-7);
 		invRepo.save(inv4);
-		TransHistory trans5 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 11, 25),
+		TransHistory trans5 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 11, 25),
 				LocalTime.of(15, 10), user2);
-		TransHistory trans6 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 11, 25),
+		TransHistory trans6 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 11, 25),
 				LocalTime.of(15, 10), user2);
-		TransHistory trans7 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 11, 25),
+		TransHistory trans7 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 11, 25),
 				LocalTime.of(15, 10), user2);
-		TransHistory trans8 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 11, 26),
+		TransHistory trans8 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 11, 26),
 				LocalTime.of(15, 10), user2);
 		thRepo.save(trans5);
 		thRepo.save(trans6);
@@ -235,13 +235,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-7);
 		invRepo.save(inv4);
-		TransHistory trans9 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 02),
+		TransHistory trans9 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 12, 02),
 				LocalTime.of(18, 10), user2);
-		TransHistory trans10 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 02),
+		TransHistory trans10 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 12, 02),
 				LocalTime.of(18, 10), user2);
-		TransHistory trans11 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 02),
+		TransHistory trans11 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 12, 02),
 				LocalTime.of(18, 10), user2);
-		TransHistory trans12 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 02),
+		TransHistory trans12 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 12, 02),
 				LocalTime.of(18, 10), user2);
 		thRepo.save(trans9);
 		thRepo.save(trans10);
@@ -267,13 +267,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-9);
 		invRepo.save(inv4);
-		TransHistory trans13 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 15),
+		TransHistory trans13 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 12, 15),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans14 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 15),
+		TransHistory trans14 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 12, 15),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans15 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 15),
+		TransHistory trans15 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 12, 15),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans16 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 15),
+		TransHistory trans16 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 12, 15),
 				LocalTime.of(10, 5), user1);
 		thRepo.save(trans13);
 		thRepo.save(trans14);
@@ -299,13 +299,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-9);
 		invRepo.save(inv4);
-		TransHistory trans17 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 24),
+		TransHistory trans17 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 12, 24),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans18 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 24),
+		TransHistory trans18 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 12, 24),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans19 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 24),
+		TransHistory trans19 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 12, 24),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans20 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 24),
+		TransHistory trans20 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 12, 24),
 				LocalTime.of(10, 5), user1);
 		thRepo.save(trans17);
 		thRepo.save(trans18);
@@ -331,13 +331,13 @@ public class DbSeederService implements CommandLineRunner {
 		invRepo.save(inv3);			
 		inv4.setStockQty(inv4.getStockQty()-19);
 		invRepo.save(inv4);
-		TransHistory trans21 = new TransHistory(TransType.Usage, 2, inv1, LocalDate.of(2019, 12, 30),
+		TransHistory trans21 = new TransHistory(TransType.Usage, -2, inv1, LocalDate.of(2019, 12, 30),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans22 = new TransHistory(TransType.Usage, 3, inv2, LocalDate.of(2019, 12, 30),
+		TransHistory trans22 = new TransHistory(TransType.Usage, -3, inv2, LocalDate.of(2019, 12, 30),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans23 = new TransHistory(TransType.Usage, 4, inv3, LocalDate.of(2019, 12, 30),
+		TransHistory trans23 = new TransHistory(TransType.Usage, -4, inv3, LocalDate.of(2019, 12, 30),
 				LocalTime.of(10, 5), user1);
-		TransHistory trans24 = new TransHistory(TransType.Usage, 5, inv4, LocalDate.of(2019, 12, 30),
+		TransHistory trans24 = new TransHistory(TransType.Usage, -5, inv4, LocalDate.of(2019, 12, 30),
 				LocalTime.of(10, 5), user1);
 		thRepo.save(trans21);
 		thRepo.save(trans22);
